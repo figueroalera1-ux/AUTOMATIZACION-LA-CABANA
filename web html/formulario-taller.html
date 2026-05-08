@@ -201,7 +201,7 @@ textarea{min-height:112px;resize:vertical}
       <p class="form-note">Llena tus datos y te contactamos para confirmar tu interes. Los campos con <strong>*</strong> son obligatorios.</p>
 
 <form id="frm" class="form"
-      action="https://ferris-amendment-reliably.ngrok-free.dev/webhook/lacabana-lead"
+      action="https://n8n.lacabanaeventos.com/webhook/lacabana-lead"
       method="POST"
       target="make_sink"
       onsubmit="return prepararEnvioTaller();">
@@ -351,7 +351,7 @@ document.getElementById('frm').addEventListener('submit', function(e) {
   });
   */
 
-fetch('https://ferris-amendment-reliably.ngrok-free.dev/webhook/lacabana-lead', {
+fetch('https://n8n.lacabanaeventos.com/webhook/lacabana-lead', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify(payload)

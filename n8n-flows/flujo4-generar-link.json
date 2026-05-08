@@ -55,6 +55,27 @@
     },
     {
       "parameters": {
+        "method": "POST",
+        "url": "https://sheets.googleapis.com/v4/spreadsheets/1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendBody": true,
+        "contentType": "json",
+        "body": "{\"requests\":[{\"addSheet\":{\"properties\":{\"title\":\"Selecciones\"}}}]}",
+        "options": {}
+      },
+      "id": "crear-hoja-selecciones",
+      "name": "Crear hoja Selecciones",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [680, 300],
+      "continueOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": { "id": "google-sheets-cred", "name": "Google Sheets account" }
+      }
+    },
+    {
+      "parameters": {
         "operation": "append",
         "documentId": { "__rl": true, "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk", "mode": "id" },
         "sheetName": { "__rl": true, "value": "Selecciones", "mode": "name" },
@@ -111,6 +132,9 @@
       "main": [[{ "node": "Generar token único", "type": "main", "index": 0 }]]
     },
     "Generar token único": {
+      "main": [[{ "node": "Crear hoja Selecciones", "type": "main", "index": 0 }]]
+    },
+    "Crear hoja Selecciones": {
       "main": [[{ "node": "Sheets — Guardar token", "type": "main", "index": 0 }]]
     },
     "Sheets — Guardar token": {

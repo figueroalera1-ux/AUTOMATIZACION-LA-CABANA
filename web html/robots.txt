@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /gracias.html
+Disallow: /*?*
+
+Sitemap: https://lacabanaeventos.com/sitemap.xml
+LLMs: https://lacabanaeventos.com/llms.txt

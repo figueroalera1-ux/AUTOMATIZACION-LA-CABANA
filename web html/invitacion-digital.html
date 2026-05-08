@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invitación Digital | Salón La Cabaña — Personaliza y Descarga</title>
+<meta name="description" content="Crea tu invitación digital personalizada en La Cabaña. Sube tu foto, elige el tema de tu evento, personaliza los detalles y descarga tu tarjeta de invitación en segundos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root{
+  --vino:#5F0020;--vino-osc:#3d0015;--gold:#DAA520;--gold-osc:#B8860B;
+  --crema:#faf8f4;--blanco:#fff;--texto:#222;--muted:#666;--borde:rgba(95,0,32,.12);
+  --serif:'Playfair Display',Georgia,serif;--sans:'Quicksand',Arial,sans-serif;
+  --script:'Dancing Script',cursive;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--crema);color:var(--texto)}
+a{text-decoration:none;color:inherit}
+
+/* ---- TOPBAR ---- */
+.topbar{background:var(--vino);padding:12px 5%;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
+.topbar-logo{height:38px}
+.topbar-title{color:rgba(255,255,255,.8);font-size:13px;font-weight:700;letter-spacing:.5px}
+.topbar-back{color:rgba(255,255,255,.7);font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px;transition:.2s}
+.topbar-back:hover{color:var(--gold)}
+
+/* ---- HERO INTRO ---- */
+.intro-bar{background:linear-gradient(135deg,var(--vino-osc),var(--vino));padding:48px 5%;text-align:center;color:#fff}
+.intro-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(218,165,32,.15);border:1px solid rgba(218,165,32,.4);color:var(--gold);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:16px}
+.intro-bar h1{font-family:var(--serif);font-size:clamp(28px,4vw,48px);margin-bottom:10px}
+.intro-bar p{font-size:15px;opacity:.8;max-width:550px;margin:0 auto;line-height:1.8}
+
+/* ---- CREATOR LAYOUT ---- */
+.creator{display:grid;grid-template-columns:380px 1fr;min-height:calc(100vh - 180px);align-items:start}
+.editor-panel{background:var(--blanco);border-right:1px solid var(--borde);padding:28px 24px;position:sticky;top:62px;max-height:calc(100vh - 62px);overflow-y:auto;scrollbar-width:thin}
+.editor-panel::-webkit-scrollbar{width:4px}
+.editor-panel::-webkit-scrollbar-thumb{background:rgba(95,0,32,.2);border-radius:4px}
+
+/* Form elements */
+.e-section{margin-bottom:24px;border-bottom:1px solid var(--borde);padding-bottom:20px}
+.e-section:last-child{border-bottom:none}
+.e-section-title{font-family:var(--serif);font-size:14px;color:var(--vino-osc);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.e-section-title i{color:var(--gold);font-size:12px}
+.fg{display:grid;gap:6px;margin-bottom:12px}
+.fg label{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(42,13,23,.5)}
+.fg input,.fg select,.fg textarea{width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid rgba(95,0,32,.12);background:#fffdfa;color:var(--texto);font-family:var(--sans);font-size:.9rem;outline:none;transition:.2s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--vino)}
+.fg textarea{min-height:70px;resize:vertical}
+.theme-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.theme-btn{padding:8px 6px;border-radius:10px;border:2px solid var(--borde);background:var(--crema);font-size:.7rem;font-weight:700;cursor:pointer;text-align:center;transition:.2s;font-family:var(--sans);color:var(--muted)}
+.theme-btn:hover{border-color:var(--gold);color:var(--vino-osc)}
+.theme-btn.active{border-color:var(--gold);background:rgba(218,165,32,.12);color:var(--vino-osc)}
+.theme-btn .theme-dot{display:block;width:20px;height:20px;border-radius:50%;margin:0 auto 5px}
+
+/* UPLOAD */
+.upload-area{border:2px dashed rgba(95,0,32,.25);border-radius:14px;padding:24px 16px;text-align:center;cursor:pointer;transition:.2s;position:relative;background:#fffdfa}
+.upload-area:hover,.upload-area.dragover{border-color:var(--gold);background:rgba(218,165,32,.05)}
+.upload-area i{font-size:28px;color:var(--gold);margin-bottom:8px;display:block}
+.upload-area p{font-size:.82rem;color:var(--muted);line-height:1.5}
+.upload-area strong{color:var(--vino-osc)}
+#foto-input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.foto-preview-wrap{position:relative;margin-bottom:10px}
+.foto-preview-wrap img{width:100%;height:140px;object-fit:cover;border-radius:12px;display:block}
+.foto-change-btn{position:absolute;bottom:8px;right:8px;background:var(--vino);color:#fff;border:none;padding:6px 12px;border-radius:8px;font-size:.72rem;font-weight:700;cursor:pointer;font-family:var(--sans);display:flex;align-items:center;gap:5px}
+
+/* DOWNLOAD BTN */
+.btn-download{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px;border-radius:999px;background:linear-gradient(135deg,var(--gold) 0%,var(--gold-osc) 100%);color:#000;font-weight:800;font-size:.95rem;cursor:pointer;border:none;font-family:var(--sans);transition:.2s;margin-top:6px;box-shadow:0 6px 20px rgba(218,165,32,.4)}
+.btn-download:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(218,165,32,.5)}
+.btn-download:disabled{opacity:.7;cursor:not-allowed;transform:none}
+.btn-wapp-share{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;border-radius:999px;background:#25D366;color:#fff;font-weight:700;font-size:.88rem;cursor:pointer;border:none;font-family:var(--sans);transition:.2s;margin-top:8px}
+.btn-wapp-share:hover{background:#1da851}
+
+/* ============================================================
+   INVITATION PREVIEW — La Landing Page
+   ============================================================ */
+.inv-preview{background:var(--blanco)}
+
+/* Sección 1: Portada/Hero */
+.inv-portada{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.inv-portada-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:.5s}
+.inv-portada-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.4) 0%,rgba(0,0,0,.6) 60%,rgba(0,0,0,.8) 100%)}
+.inv-portada-content{position:relative;z-index:2;text-align:center;color:#fff;padding:40px 20px;max-width:700px}
+.inv-venue-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(218,165,32,.2);border:1px solid rgba(218,165,32,.5);color:var(--gold);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:7px 18px;border-radius:20px;margin-bottom:24px}
+.inv-event-tipo{font-size:13px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:8px;display:block}
+.inv-nombres{font-family:var(--script);font-size:clamp(52px,8vw,96px);line-height:1.05;color:#fff;margin-bottom:12px;text-shadow:0 2px 20px rgba(0,0,0,.4)}
+.inv-nombres-div{font-family:var(--serif);font-size:24px;color:var(--gold);margin:0 14px}
+.inv-fecha-hero{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:28px;flex-wrap:wrap}
+.inv-fecha-item{text-align:center}
+.inv-fecha-num{font-family:var(--serif);font-size:36px;font-weight:700;color:var(--gold);display:block;line-height:1}
+.inv-fecha-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.6)}
+.inv-fecha-sep{font-family:var(--serif);font-size:28px;color:rgba(218,165,32,.4)}
+.inv-scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);animation:bounce 2s infinite;color:rgba(255,255,255,.5);font-size:22px;z-index:2}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+
+/* Sección 2: Cuenta Regresiva */
+.inv-countdown{padding:60px 5%;text-align:center;background:#06060f;color:#fff}
+.inv-countdown-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(218,165,32,.7);margin-bottom:20px}
+.inv-countdown-grid{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+.inv-countdown-item{text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(218,165,32,.2);border-radius:16px;padding:20px 24px;min-width:80px}
+.inv-countdown-num{font-family:var(--serif);font-size:48px;font-weight:700;color:var(--gold);display:block;line-height:1}
+.inv-countdown-unit{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.45);margin-top:4px;display:block}
+
+/* Sección 3: Detalles */
+.inv-detalles{padding:80px 5%;background:var(--crema)}
+.inv-detalles-inner{max-width:700px;margin:0 auto;text-align:center}
+.inv-ornament{font-size:28px;color:var(--gold);margin-bottom:20px;display:block;opacity:.6}
+.inv-detalles h2{font-family:var(--serif);font-size:clamp(28px,4vw,42px);color:var(--vino-osc);margin-bottom:10px}
+.inv-detalles-sub{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:40px}
+.inv-det-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.inv-det-card{background:var(--blanco);border-radius:16px;padding:28px 20px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.06);border:1px solid var(--borde)}
+.inv-det-card-ic{width:52px;height:52px;border-radius:50%;background:rgba(218,165,32,.1);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--gold);margin:0 auto 14px}
+.inv-det-card h4{font-family:var(--serif);font-size:16px;color:var(--vino-osc);margin-bottom:8px}
+.inv-det-card p{font-size:14px;color:var(--muted);line-height:1.6}
+.inv-det-card strong{color:var(--texto)}
+
+/* Sección 4: Mensaje especial */
+.inv-mensaje-section{padding:80px 5%;background:linear-gradient(135deg,var(--vino-osc),var(--vino));color:#fff;text-align:center}
+.inv-mensaje-inner{max-width:620px;margin:0 auto}
+.inv-comillas{font-family:var(--serif);font-size:72px;color:rgba(218,165,32,.3);line-height:.6;display:block;margin-bottom:10px}
+.inv-mensaje-text{font-family:var(--serif);font-size:clamp(18px,2.5vw,26px);line-height:1.7;color:rgba(255,255,255,.9);font-style:italic;margin-bottom:20px}
+.inv-firmantes{font-size:13px;color:rgba(255,255,255,.6);letter-spacing:2px;text-transform:uppercase}
+
+/* Sección 5: Galería */
+.inv-galeria-section{padding:80px 5%;background:var(--blanco)}
+.inv-galeria-title{text-align:center;font-family:var(--serif);font-size:clamp(26px,3.5vw,40px);color:var(--vino-osc);margin-bottom:10px}
+.inv-galeria-sub{text-align:center;font-size:14px;color:var(--muted);margin-bottom:36px}
+.inv-galeria-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:700px;margin:0 auto}
+.inv-gal-slot{aspect-ratio:1;border-radius:12px;overflow:hidden;background:var(--crema);border:2px dashed rgba(95,0,32,.15);cursor:pointer;position:relative;transition:.2s}
+.inv-gal-slot:hover{border-color:var(--gold)}
+.inv-gal-slot img{width:100%;height:100%;object-fit:cover;display:block}
+.inv-gal-slot-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--muted);font-size:.75rem;pointer-events:none}
+.inv-gal-slot-label i{font-size:22px;color:rgba(95,0,32,.3)}
+.inv-gal-slot input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+
+/* Sección 6: Ubicación */
+.inv-ubicacion{padding:80px 5%;background:var(--crema);text-align:center}
+.inv-ubic-title{font-family:var(--serif);font-size:clamp(26px,3.5vw,40px);color:var(--vino-osc);margin-bottom:8px}
+.inv-ubic-sub{font-size:14px;color:var(--muted);margin-bottom:32px}
+.inv-ubic-card{max-width:600px;margin:0 auto;background:var(--blanco);border-radius:20px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.1);border:1px solid var(--borde)}
+.inv-ubic-card iframe{width:100%;height:300px;border:0;display:block}
+.inv-ubic-body{padding:20px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.inv-ubic-info{display:flex;align-items:flex-start;gap:10px}
+.inv-ubic-info i{color:var(--gold);font-size:18px;margin-top:2px;flex-shrink:0}
+.inv-ubic-info div strong{display:block;color:var(--vino-osc);font-size:.95rem}
+.inv-ubic-info div span{font-size:.82rem;color:var(--muted)}
+.inv-ubic-btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:999px;background:var(--gold);color:#000;font-size:.82rem;font-weight:700;white-space:nowrap;transition:.2s}
+.inv-ubic-btn:hover{background:var(--gold-osc);color:#fff}
+
+/* Sección 7: RSVP */
+.inv-rsvp{padding:80px 5%;background:linear-gradient(160deg,#06060f 0%,#0c0c1a 100%);text-align:center;color:#fff}
+.inv-rsvp-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(218,165,32,.15);border:1px solid rgba(218,165,32,.4);color:var(--gold);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:20px}
+.inv-rsvp h2{font-family:var(--serif);font-size:clamp(28px,4vw,48px);margin-bottom:12px}
+.inv-rsvp p{font-size:15px;color:rgba(255,255,255,.65);margin-bottom:30px;line-height:1.8}
+.rsvp-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.rsvp-btn-wapp{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;border-radius:999px;background:#25D366;color:#fff;font-weight:800;font-size:1rem;transition:.2s}
+.rsvp-btn-wapp:hover{background:#1da851;transform:translateY(-2px)}
+.rsvp-btn-call{display:inline-flex;align-items:center;gap:8px;padding:16px 28px;border-radius:999px;border:2px solid rgba(218,165,32,.4);color:var(--gold);font-weight:700;font-size:.95rem;transition:.2s}
+.rsvp-btn-call:hover{background:rgba(218,165,32,.1)}
+
+/* Branding footer de la invitación */
+.inv-branding{background:var(--vino-osc);padding:24px;text-align:center;color:rgba(255,255,255,.5);font-size:.78rem}
+.inv-branding img{height:32px;margin:0 auto 8px;display:block;opacity:.7}
+
+/* ============================================================
+   TARJETA DESCARGABLE (oculta, solo para html2canvas)
+   ============================================================ */
+#inv-card{
+  width:1080px;
+  position:fixed;
+  left:-9999px;top:0;
+  z-index:-1;
+  font-family:'Quicksand',Arial,sans-serif;
+  overflow:hidden;
+}
+.card-wrap{
+  width:1080px;
+  background:#09090f;
+  position:relative;
+  overflow:hidden;
+}
+.card-foto-section{
+  width:100%;height:620px;position:relative;overflow:hidden;
+}
+.card-foto-section img{width:100%;height:100%;object-fit:cover;display:block}
+.card-foto-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.7) 100%);
+}
+.card-venue-tag{
+  position:absolute;top:28px;left:50%;transform:translateX(-50%);
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(218,165,32,.25);border:2px solid rgba(218,165,32,.6);
+  color:#DAA520;font-size:18px;font-weight:800;letter-spacing:4px;text-transform:uppercase;
+  padding:10px 28px;border-radius:999px;white-space:nowrap;
+}
+.card-body{
+  padding:50px 80px 60px;text-align:center;position:relative;
+}
+.card-ornament-top{
+  display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:30px;
+}
+.card-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(218,165,32,.4),transparent)}
+.card-ornament-top i{color:rgba(218,165,32,.5);font-size:16px}
+.card-event-type{
+  font-size:20px;font-weight:800;letter-spacing:6px;text-transform:uppercase;
+  color:rgba(255,255,255,.5);margin-bottom:8px;
+}
+.card-nombres{
+  font-family:'Dancing Script',cursive;font-size:100px;line-height:1.05;
+  color:#fff;margin-bottom:18px;
+  text-shadow:0 4px 30px rgba(0,0,0,.5);
+}
+.card-nombres-div{
+  font-family:'Playfair Display',Georgia,serif;font-size:36px;
+  color:#DAA520;margin:0 16px;vertical-align:middle;
+}
+.card-details-row{
+  display:flex;align-items:center;justify-content:center;gap:40px;
+  margin-top:28px;flex-wrap:wrap;
+}
+.card-detail-item{text-align:center}
+.card-detail-num{
+  font-family:'Playfair Display',Georgia,serif;font-size:52px;font-weight:700;
+  color:#DAA520;display:block;line-height:1;
+}
+.card-detail-label{font-size:16px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.card-detail-sep{font-family:'Playfair Display',Georgia,serif;font-size:42px;color:rgba(218,165,32,.3)}
+.card-footer-bar{
+  background:linear-gradient(90deg,rgba(218,165,32,.15),rgba(218,165,32,.08),rgba(218,165,32,.15));
+  border-top:1px solid rgba(218,165,32,.2);
+  padding:24px 60px;display:flex;align-items:center;justify-content:space-between;
+}
+.card-footer-info{font-size:18px;color:rgba(255,255,255,.45);display:flex;align-items:center;gap:10px}
+.card-footer-info i{color:#DAA520}
+.card-footer-brand{font-family:'Playfair Display',Georgia,serif;font-size:20px;color:#DAA520;opacity:.6}
+
+/* ============================================================
+   MODAL PREVISUALIZACIÓN
+   ============================================================ */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:1000;
+  align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal-box{background:#09090f;border-radius:20px;max-width:560px;width:100%;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.modal-header{padding:20px 24px;border-bottom:1px solid rgba(218,165,32,.2);display:flex;align-items:center;justify-content:space-between}
+.modal-header h3{font-family:'Playfair Display',Georgia,serif;color:#fff;font-size:1.1rem}
+.modal-close{background:transparent;border:none;color:rgba(255,255,255,.6);font-size:20px;cursor:pointer;transition:.2s}
+.modal-close:hover{color:#fff}
+.modal-preview{padding:24px;background:#111}
+.modal-preview-img{width:100%;border-radius:12px;display:block}
+.modal-actions{padding:20px 24px;display:flex;gap:10px;flex-direction:column}
+.modal-dl-btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;border-radius:999px;background:linear-gradient(135deg,var(--gold),var(--gold-osc));color:#000;font-weight:800;font-size:.95rem;cursor:pointer;border:none;font-family:var(--sans);transition:.2s}
+.modal-dl-btn:hover{transform:translateY(-2px)}
+.modal-wapp-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;border-radius:999px;background:#25D366;color:#fff;font-weight:700;font-size:.88rem;cursor:pointer;border:none;font-family:var(--sans);transition:.2s}
+.modal-wapp-btn:hover{background:#1da851}
+.modal-note{text-align:center;font-size:.75rem;color:rgba(255,255,255,.35);padding:0 0 16px}
+
+/* WAPP FLOAT */
+.wapp-float{position:fixed;bottom:28px;right:28px;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;font-size:26px;color:#fff;box-shadow:0 8px 24px rgba(37,211,102,.5);z-index:500;transition:.2s}
+.wapp-float:hover{background:#1da851;transform:scale(1.08)}
+
+@media(max-width:900px){.creator{grid-template-columns:1fr}.editor-panel{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--borde)}.inv-det-cards{grid-template-columns:1fr}.inv-galeria-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.inv-fecha-hero{gap:10px}.inv-countdown-grid{gap:12px}.inv-nombres{font-size:clamp(42px,10vw,72px)}.rsvp-btns{flex-direction:column;align-items:center}}
+</style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src='https://connect.facebook.net/en_US/fbevents.js';
+s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script');
+fbq('init', '4510279802585543');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=4510279802585543&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <a href="index.html"><img src="../../CAMBIOS/blanco.png" alt="La Cabaña" class="topbar-logo"></a>
+  <span class="topbar-title"><i class="fas fa-magic" style="color:var(--gold)"></i> Creador de Invitación Digital</span>
+  <a href="index.html" class="topbar-back"><i class="fas fa-arrow-left"></i> Inicio</a>
+</header>
+
+<!-- INTRO -->
+<div class="intro-bar">
+  <span class="intro-badge"><i class="fas fa-mobile-alt"></i> Gratis con tu paquete La Cabaña</span>
+  <h1>Tu Invitación Digital,<br><span style="color:var(--gold)">Única y Espectacular</span></h1>
+  <p>Personaliza tu invitación, sube tu foto y descárgala lista para compartir por WhatsApp y redes sociales.</p>
+</div>
+
+<!-- CREATOR -->
+<div class="creator">
+
+  <!-- PANEL EDITOR -->
+  <aside class="editor-panel">
+    <div class="e-section">
+      <div class="e-section-title"><i class="fas fa-palette"></i> Tema del Evento</div>
+      <div class="theme-grid" id="theme-grid">
+        <button class="theme-btn active" onclick="setTheme('boda',this)">
+          <span class="theme-dot" style="background:linear-gradient(135deg,#1a0510,#5F0020)"></span>💍 Boda
+        </button>
+        <button class="theme-btn" onclick="setTheme('xv',this)">
+          <span class="theme-dot" style="background:linear-gradient(135deg,#2d0040,#8a006a)"></span>👑 XV Años
+        </button>
+        <button class="theme-btn" onclick="setTheme('graduacion',this)">
+          <span class="theme-dot" style="background:linear-gradient(135deg,#0a0a28,#1a1a6e)"></span>🎓 Graduación
+        </button>
+        <button class="theme-btn" onclick="setTheme('cumpleanos',this)">
+          <span class="theme-dot" style="background:linear-gradient(135deg,#1a0030,#4a0080)"></span>🎂 Cumpleaños
+        </button>
+        <button class="theme-btn" onclick="setTheme('bautizo',this)">
+          <span class="theme-dot" style="background:linear-gradient(135deg,#001a2e,#003d6e)"></span>✝ Bautizo
+        </button>
+        <button class="theme-btn" onclick="setTheme('corporativo',this)">
+          <span class="theme-dot" style="background:linear-gradient(135deg,#0a0a0a,#1a1a1a)"></span>💼 Corporativo
+        </button>
+      </div>
+    </div>
+
+    <div class="e-section">
+      <div class="e-section-title"><i class="fas fa-image"></i> Foto Principal</div>
+      <div id="foto-wrap">
+        <div class="upload-area" id="upload-area">
+          <input type="file" id="foto-input" accept="image/*">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <p><strong>Sube tu foto aquí</strong><br>JPG, PNG o WEBP · Se ajusta automáticamente</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="e-section">
+      <div class="e-section-title"><i class="fas fa-user"></i> Nombres</div>
+      <div class="fg">
+        <label>Nombre(s) principal(es) *</label>
+        <input type="text" id="inv-nombre1" placeholder="María" oninput="updateCard()">
+      </div>
+      <div class="fg">
+        <label>Segundo nombre (bodas / pareja)</label>
+        <input type="text" id="inv-nombre2" placeholder="Carlos (dejar vacío si no aplica)" oninput="updateCard()">
+      </div>
+      <div class="fg">
+        <label>Tipo de evento</label>
+        <input type="text" id="inv-tipo" placeholder="Boda · XV Años · Graduación…" oninput="updateCard()">
+      </div>
+    </div>
+
+    <div class="e-section">
+      <div class="e-section-title"><i class="fas fa-calendar-alt"></i> Fecha y Hora</div>
+      <div class="fg">
+        <label>Fecha del evento</label>
+        <input type="date" id="inv-fecha" oninput="updateCard();updateCountdown();updateDetalles()">
+      </div>
+      <div class="fg">
+        <label>Hora</label>
+        <input type="time" id="inv-hora" value="19:00" oninput="updateDetalles()">
+      </div>
+    </div>
+
+    <div class="e-section">
+      <div class="e-section-title"><i class="fas fa-map-marker-alt"></i> Lugar y Detalles</div>
+      <div class="fg">
+        <label>Nombre del salón / lugar</label>
+        <input type="text" id="inv-lugar" placeholder="Salón La Cabaña" value="Salón La Cabaña" oninput="updateDetalles()">
+      </div>
+      <div class="fg">
+        <label>Dirección</label>
+        <input type="text" id="inv-direccion" placeholder="Nicolás Bravo 72, Zapotlán, Hgo." value="Nicolás Bravo No. 72, Zapotlán de Juárez, Hgo." oninput="updateDetalles()">
+      </div>
+      <div class="fg">
+        <label>Código de vestimenta</label>
+        <input type="text" id="inv-vestimenta" placeholder="Formal · Semi-formal · Casual" oninput="updateDetalles()">
+      </div>
+      <div class="fg">
+        <label>Teléfono RSVP (WhatsApp)</label>
+        <input type="tel" id="inv-rsvp-tel" value="7711341559" oninput="updateRsvp()">
+      </div>
+    </div>
+
+    <div class="e-section">
+      <div class="e-section-title"><i class="fas fa-quote-left"></i> Mensaje Especial</div>
+      <div class="fg">
+        <label>Mensaje para los invitados</label>
+        <textarea id="inv-mensaje" placeholder="Con mucha ilusión los invitamos a compartir este momento especial en nuestras vidas..." oninput="updateMensaje()">Con mucha ilusión los invitamos a compartir este momento tan especial. Su presencia hará de esta celebración un recuerdo que guardaremos por siempre en nuestros corazones.</textarea>
+      </div>
+    </div>
+
+    <div class="e-section">
+      <div class="e-section-title"><i class="fas fa-images"></i> Galería (hasta 6 fotos)</div>
+      <p style="font-size:.75rem;color:var(--muted);margin-bottom:12px">Haz clic en los cuadros de abajo para agregar más fotos a tu galería</p>
+    </div>
+
+    <div style="border-top:1px solid var(--borde);padding-top:20px">
+      <button class="btn-download" id="btn-generar" onclick="generarTarjeta()">
+        <i class="fas fa-download"></i> Generar y Descargar Tarjeta
+      </button>
+      <button class="btn-wapp-share" onclick="compartirWapp()">
+        <i class="fab fa-whatsapp"></i> Compartir Invitación por WhatsApp
+      </button>
+      <p style="font-size:.72rem;color:var(--muted);text-align:center;margin-top:8px">La tarjeta se genera como imagen PNG lista para compartir</p>
+    </div>
+  </aside>
+
+  <!-- INVITATION PREVIEW -->
+  <main class="inv-preview">
+
+    <!-- PORTADA -->
+    <section class="inv-portada" id="inv-portada">
+      <div class="inv-portada-bg" id="portada-bg" style="background-image:url('../../fotos%20ok/header_2.png')"></div>
+      <div class="inv-portada-overlay" id="portada-overlay" style="background:linear-gradient(180deg,rgba(20,0,8,.4) 0%,rgba(20,0,8,.65) 60%,rgba(20,0,8,.85) 100%)"></div>
+      <div class="inv-portada-content">
+        <div class="inv-venue-badge"><i class="fas fa-star"></i> Salón La Cabaña</div>
+        <span class="inv-event-tipo" id="live-tipo">BODA</span>
+        <div class="inv-nombres">
+          <span id="live-nombre1">María</span>
+          <span class="inv-nombres-div" id="live-div">&amp;</span>
+          <span id="live-nombre2">Carlos</span>
+        </div>
+        <p style="font-size:16px;opacity:.6;letter-spacing:2px;margin-bottom:18px">LOS INVITAN A CELEBRAR</p>
+        <div class="inv-fecha-hero" id="live-fecha-hero">
+          <div class="inv-fecha-item"><span class="inv-fecha-num" id="live-dia">—</span><span class="inv-fecha-label">Día</span></div>
+          <span class="inv-fecha-sep">·</span>
+          <div class="inv-fecha-item"><span class="inv-fecha-num" id="live-mes">—</span><span class="inv-fecha-label">Mes</span></div>
+          <span class="inv-fecha-sep">·</span>
+          <div class="inv-fecha-item"><span class="inv-fecha-num" id="live-anio">2026</span><span class="inv-fecha-label">Año</span></div>
+        </div>
+      </div>
+      <div class="inv-scroll-hint"><i class="fas fa-chevron-down"></i></div>
+    </section>
+
+    <!-- CUENTA REGRESIVA -->
+    <section class="inv-countdown">
+      <p class="inv-countdown-label">Faltan para el gran día</p>
+      <div class="inv-countdown-grid">
+        <div class="inv-countdown-item"><span class="inv-countdown-num" id="cd-dias">—</span><span class="inv-countdown-unit">Días</span></div>
+        <div class="inv-countdown-item"><span class="inv-countdown-num" id="cd-horas">—</span><span class="inv-countdown-unit">Horas</span></div>
+        <div class="inv-countdown-item"><span class="inv-countdown-num" id="cd-min">—</span><span class="inv-countdown-unit">Min</span></div>
+        <div class="inv-countdown-item"><span class="inv-countdown-num" id="cd-seg">—</span><span class="inv-countdown-unit">Seg</span></div>
+      </div>
+    </section>
+
+    <!-- DETALLES -->
+    <section class="inv-detalles">
+      <div class="inv-detalles-inner">
+        <span class="inv-ornament">✦ ✦ ✦</span>
+        <h2>Detalles del Evento</h2>
+        <p class="inv-detalles-sub" id="live-detalles-sub">Todos los detalles que necesitas saber para acompañarnos en este día especial.</p>
+        <div class="inv-det-cards">
+          <div class="inv-det-card">
+            <div class="inv-det-card-ic"><i class="fas fa-calendar-alt"></i></div>
+            <h4>Fecha y Hora</h4>
+            <p id="live-det-fecha"><strong>—</strong></p>
+          </div>
+          <div class="inv-det-card">
+            <div class="inv-det-card-ic"><i class="fas fa-map-marker-alt"></i></div>
+            <h4>Lugar</h4>
+            <p><strong id="live-det-lugar">Salón La Cabaña</strong><br><span id="live-det-dir">Nicolás Bravo No. 72, Zapotlán de Juárez, Hgo.</span></p>
+          </div>
+          <div class="inv-det-card">
+            <div class="inv-det-card-ic"><i class="fas fa-tshirt"></i></div>
+            <h4>Vestimenta</h4>
+            <p><strong id="live-det-vest">Formal</strong></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENSAJE ESPECIAL -->
+    <section class="inv-mensaje-section">
+      <div class="inv-mensaje-inner">
+        <span class="inv-comillas">&ldquo;</span>
+        <p class="inv-mensaje-text" id="live-mensaje">Con mucha ilusión los invitamos a compartir este momento tan especial. Su presencia hará de esta celebración un recuerdo que guardaremos por siempre en nuestros corazones.</p>
+        <p class="inv-firmantes" id="live-firmantes">— María &amp; Carlos</p>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="inv-galeria-section">
+      <h2 class="inv-galeria-title">Nuestra Galería</h2>
+      <p class="inv-galeria-sub">Haz clic para agregar tus fotos</p>
+      <div class="inv-galeria-grid" id="galeria-grid">
+        <!-- generada por JS -->
+      </div>
+    </section>
+
+    <!-- UBICACIÓN -->
+    <section class="inv-ubicacion">
+      <h2 class="inv-ubic-title">¿Cómo llegar?</h2>
+      <p class="inv-ubic-sub">Te esperamos en este lugar especial</p>
+      <div class="inv-ubic-card">
+        <iframe src="https://maps.google.com/maps?q=Nicolas+Bravo+72+San+Pedro+Huaquilpan+Zapotlan+de+Juarez+Hidalgo&output=embed&z=15" loading="lazy" title="Ubicación del evento"></iframe>
+        <div class="inv-ubic-body">
+          <div class="inv-ubic-info">
+            <i class="fas fa-map-marker-alt"></i>
+            <div><strong id="live-ubic-lugar">Salón La Cabaña</strong><span id="live-ubic-dir">Nicolás Bravo No. 72, Zapotlán de Juárez, Hgo.</span></div>
+          </div>
+          <a href="https://maps.google.com/?q=Nicolas+Bravo+72+San+Pedro+Huaquilpan+Zapotlan+de+Juarez+Hidalgo" target="_blank" class="inv-ubic-btn"><i class="fas fa-directions"></i> Cómo llegar</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- RSVP -->
+    <section class="inv-rsvp">
+      <span class="inv-rsvp-badge"><i class="fas fa-heart"></i> Confirmar Asistencia</span>
+      <h2>¡Esperamos verte ahí!</h2>
+      <p>Confirma tu asistencia antes de la fecha del evento. Nos ayuda a preparar todo con anticipación para ti.</p>
+      <div class="rsvp-btns">
+        <a id="rsvp-wapp-btn" href="https://wa.me/527711341559?text=Hola%2C%20confirmo%20mi%20asistencia%20al%20evento" target="_blank" class="rsvp-btn-wapp">
+          <i class="fab fa-whatsapp"></i> Confirmar asistencia
+        </a>
+        <a id="rsvp-call-btn" href="tel:+527711341559" class="rsvp-btn-call">
+          <i class="fas fa-phone"></i> Llamar
+        </a>
+      </div>
+    </section>
+
+    <!-- BRANDING -->
+    <div class="inv-branding">
+      <img src="../../CAMBIOS/blanco.png" alt="La Cabaña">
+      <p>Invitación Digital creada en · <strong style="color:rgba(218,165,32,.6)">Salón La Cabaña</strong> · lacabanaeventos.com</p>
+    </div>
+
+  </main>
+</div>
+
+<!-- TARJETA DESCARGABLE (oculta) -->
+<div id="inv-card">
+  <div class="card-wrap">
+    <div class="card-foto-section">
+      <img id="card-foto" src="../../fotos%20ok/header_2.png" alt="Foto del evento" crossorigin="anonymous">
+      <div class="card-foto-overlay"></div>
+      <div class="card-venue-tag"><i class="fas fa-star" style="color:#DAA520"></i> &nbsp;Salón La Cabaña &nbsp;<i class="fas fa-star" style="color:#DAA520"></i></div>
+    </div>
+    <div class="card-body">
+      <div class="card-ornament-top">
+        <div class="card-line"></div>
+        <i class="fas fa-star" style="color:rgba(218,165,32,.4);font-size:14px"></i>
+        <div class="card-line"></div>
+      </div>
+      <div class="card-event-type" id="card-tipo">BODA</div>
+      <div class="card-nombres">
+        <span id="card-nombre1" style="color:#fff">María</span>
+        <span class="card-nombres-div" id="card-div">&amp;</span>
+        <span id="card-nombre2" style="color:#fff">Carlos</span>
+      </div>
+      <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(218,165,32,.3),transparent);margin:0 auto 28px;max-width:600px"></div>
+      <div class="card-details-row" id="card-fecha-row">
+        <div class="card-detail-item"><span class="card-detail-num" id="card-dia">—</span><span class="card-detail-label">Día</span></div>
+        <span class="card-detail-sep">·</span>
+        <div class="card-detail-item"><span class="card-detail-num" id="card-mes">—</span><span class="card-detail-label">Mes</span></div>
+        <span class="card-detail-sep">·</span>
+        <div class="card-detail-item"><span class="card-detail-num" id="card-anio">2026</span><span class="card-detail-label">Año</span></div>
+      </div>
+    </div>
+    <div class="card-footer-bar">
+      <div class="card-footer-info"><i class="fas fa-map-marker-alt"></i> <span id="card-direccion">Nicolás Bravo No. 72, Zapotlán de Juárez, Hgo.</span></div>
+      <div class="card-footer-brand">lacabanaeventos.com</div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DESCARGA -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3><i class="fas fa-image" style="color:var(--gold)"></i> Tu tarjeta está lista</h3>
+      <button class="modal-close" onclick="cerrarModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-preview">
+      <img id="modal-img" class="modal-preview-img" src="" alt="Tarjeta de invitación">
+    </div>
+    <div class="modal-actions">
+      <button class="modal-dl-btn" id="modal-dl-btn"><i class="fas fa-download"></i> Descargar PNG (para compartir)</button>
+      <button class="modal-wapp-btn" onclick="compartirWapp()"><i class="fab fa-whatsapp"></i> Compartir por WhatsApp</button>
+    </div>
+    <p class="modal-note">Imagen lista para WhatsApp, Instagram Stories y Facebook</p>
+  </div>
+</div>
+
+<a href="https://wa.me/527711341559?text=Hola%2C%20quiero%20cotizar%20mi%20invitaci%C3%B3n%20digital%20en%20La%20Caba%C3%B1a" class="wapp-float" target="_blank" aria-label="WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<script>
+// ============================================================
+// TEMAS
+// ============================================================
+const themes = {
+  boda:       { overlay:'linear-gradient(180deg,rgba(20,0,8,.4) 0%,rgba(20,0,8,.65) 60%,rgba(20,0,8,.85) 100%)', tipo:'BODA', div:'&amp;' },
+  xv:         { overlay:'linear-gradient(180deg,rgba(30,0,40,.4) 0%,rgba(30,0,40,.65) 60%,rgba(30,0,40,.85) 100%)', tipo:'XV AÑOS', div:'✦' },
+  graduacion: { overlay:'linear-gradient(180deg,rgba(5,5,25,.4) 0%,rgba(5,5,25,.65) 60%,rgba(5,5,25,.85) 100%)', tipo:'GRADUACIÓN', div:'✦' },
+  cumpleanos: { overlay:'linear-gradient(180deg,rgba(15,0,30,.4) 0%,rgba(15,0,30,.65) 60%,rgba(15,0,30,.85) 100%)', tipo:'CUMPLEAÑOS', div:'🎂' },
+  bautizo:    { overlay:'linear-gradient(180deg,rgba(0,10,25,.4) 0%,rgba(0,10,25,.65) 60%,rgba(0,10,25,.85) 100%)', tipo:'BAUTIZO', div:'✝' },
+  corporativo:{ overlay:'linear-gradient(180deg,rgba(5,5,5,.4) 0%,rgba(5,5,5,.65) 60%,rgba(5,5,5,.85) 100%)', tipo:'EVENTO CORPORATIVO', div:'|' },
+};
+let currentTheme = 'boda';
+let cardDataUrl = null;
+
+function setTheme(t, btn) {
+  currentTheme = t;
+  document.querySelectorAll('.theme-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const th = themes[t];
+  document.getElementById('portada-overlay').style.background = th.overlay;
+  if(!document.getElementById('inv-tipo').value){
+    document.getElementById('live-tipo').textContent = th.tipo;
+    document.getElementById('card-tipo').textContent = th.tipo;
+  }
+  const divEl = th.div;
+  document.getElementById('live-div').innerHTML = divEl;
+  document.getElementById('card-div').innerHTML = divEl;
+  // Si no hay nombre2, ocultarlo
+  const n2 = document.getElementById('inv-nombre2').value.trim();
+  toggleNombre2(n2);
+}
+
+// ============================================================
+// FOTO UPLOAD
+// ============================================================
+document.getElementById('foto-input').addEventListener('change', function(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev){
+    const src = ev.target.result;
+    // Actualizar portada bg
+    document.getElementById('portada-bg').style.backgroundImage = `url('${src}')`;
+    // Actualizar card foto
+    document.getElementById('card-foto').src = src;
+    // Reemplazar upload area con preview
+    const wrap = document.getElementById('foto-wrap');
+    wrap.innerHTML = `
+      <div class="foto-preview-wrap">
+        <img src="${src}" alt="Foto subida">
+        <button class="foto-change-btn" onclick="cambiarFoto()"><i class="fas fa-sync"></i> Cambiar</button>
+      </div>`;
+  };
+  reader.readAsDataURL(file);
+});
+
+function cambiarFoto(){
+  document.getElementById('foto-wrap').innerHTML = `
+    <div class="upload-area" id="upload-area">
+      <input type="file" id="foto-input" accept="image/*">
+      <i class="fas fa-cloud-upload-alt"></i>
+      <p><strong>Sube tu foto aquí</strong><br>JPG, PNG o WEBP</p>
+    </div>`;
+  document.getElementById('foto-input').addEventListener('change', arguments.callee);
+  // Re-attach event
+  document.getElementById('foto-input').addEventListener('change', function(e){
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev){
+      const src = ev.target.result;
+      document.getElementById('portada-bg').style.backgroundImage = `url('${src}')`;
+      document.getElementById('card-foto').src = src;
+      const wrap = document.getElementById('foto-wrap');
+      wrap.innerHTML = `<div class="foto-preview-wrap"><img src="${src}" alt="Foto"><button class="foto-change-btn" onclick="cambiarFoto()"><i class="fas fa-sync"></i> Cambiar</button></div>`;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+// Drag & drop
+['dragover','dragleave','drop'].forEach(evt => {
+  document.addEventListener(evt, function(e){
+    e.preventDefault();
+    const ua = document.getElementById('upload-area');
+    if(!ua) return;
+    if(evt==='dragover') ua.classList.add('dragover');
+    else if(evt==='dragleave') ua.classList.remove('dragover');
+    else if(evt==='drop'){
+      ua.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      if(file && file.type.startsWith('image/')){
+        const reader = new FileReader();
+        reader.onload = function(ev){
+          const src = ev.target.result;
+          document.getElementById('portada-bg').style.backgroundImage = `url('${src}')`;
+          document.getElementById('card-foto').src = src;
+          document.getElementById('foto-wrap').innerHTML = `<div class="foto-preview-wrap"><img src="${src}" alt="Foto"><button class="foto-change-btn" onclick="cambiarFoto()"><i class="fas fa-sync"></i> Cambiar</button></div>`;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  });
+});
+
+// ============================================================
+// UPDATE LIVE PREVIEW
+// ============================================================
+function toggleNombre2(val){
+  const div = document.getElementById('live-div');
+  const n2el = document.getElementById('live-nombre2');
+  const cdiv = document.getElementById('card-div');
+  const cn2 = document.getElementById('card-nombre2');
+  if(!val){
+    div.style.display='none'; n2el.style.display='none';
+    cdiv.style.display='none'; cn2.style.display='none';
+  } else {
+    div.style.display=''; n2el.style.display='';
+    cdiv.style.display=''; cn2.style.display='';
+  }
+}
+
+function updateCard(){
+  const n1 = document.getElementById('inv-nombre1').value || 'María';
+  const n2 = document.getElementById('inv-nombre2').value.trim();
+  const tipo = document.getElementById('inv-tipo').value.trim();
+
+  document.getElementById('live-nombre1').textContent = n1 || '—';
+  document.getElementById('live-nombre2').textContent = n2 || '';
+  document.getElementById('card-nombre1').textContent = n1 || '—';
+  document.getElementById('card-nombre2').textContent = n2 || '';
+
+  const tipoDisplay = tipo || themes[currentTheme].tipo;
+  document.getElementById('live-tipo').textContent = tipoDisplay.toUpperCase();
+  document.getElementById('card-tipo').textContent = tipoDisplay.toUpperCase();
+
+  // Firmantes en mensaje
+  const firm = n2 ? `— ${n1} &amp; ${n2}` : `— ${n1}`;
+  document.getElementById('live-firmantes').innerHTML = firm;
+
+  toggleNombre2(n2);
+}
+
+function updateCountdown(){
+  const fechaVal = document.getElementById('inv-fecha').value;
+  if(!fechaVal){ ['cd-dias','cd-horas','cd-min','cd-seg'].forEach(id=>document.getElementById(id).textContent='—'); return; }
+
+  const target = new Date(fechaVal+'T00:00:00');
+  function tick(){
+    const now = new Date();
+    const diff = target - now;
+    if(diff <= 0){
+      document.getElementById('cd-dias').textContent='0';
+      document.getElementById('cd-horas').textContent='0';
+      document.getElementById('cd-min').textContent='0';
+      document.getElementById('cd-seg').textContent='0';
+      return;
+    }
+    document.getElementById('cd-dias').textContent = Math.floor(diff/86400000);
+    document.getElementById('cd-horas').textContent = Math.floor((diff%86400000)/3600000);
+    document.getElementById('cd-min').textContent = Math.floor((diff%3600000)/60000);
+    document.getElementById('cd-seg').textContent = Math.floor((diff%60000)/1000);
+  }
+  tick();
+  clearInterval(window._cdInterval);
+  window._cdInterval = setInterval(tick, 1000);
+
+  // Actualizar portada
+  const d = target.getDate();
+  const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  const m = meses[target.getMonth()];
+  const y = target.getFullYear();
+  document.getElementById('live-dia').textContent = d;
+  document.getElementById('live-mes').textContent = m;
+  document.getElementById('live-anio').textContent = y;
+  document.getElementById('card-dia').textContent = d;
+  document.getElementById('card-mes').textContent = m;
+  document.getElementById('card-anio').textContent = y;
+}
+
+function updateDetalles(){
+  const fechaVal = document.getElementById('inv-fecha').value;
+  const hora = document.getElementById('inv-hora').value;
+  const lugar = document.getElementById('inv-lugar').value || 'Salón La Cabaña';
+  const dir = document.getElementById('inv-direccion').value || 'Nicolás Bravo No. 72, Zapotlán de Juárez, Hgo.';
+  const vest = document.getElementById('inv-vestimenta').value || 'Formal';
+
+  if(fechaVal){
+    const d = new Date(fechaVal+'T00:00:00');
+    const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+    const dias = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+    const fechaStr = `${dias[d.getDay()]}, ${d.getDate()} de ${meses[d.getMonth()]} de ${d.getFullYear()}`;
+    const horaStr = hora ? ` — ${hora} hrs` : '';
+    document.getElementById('live-det-fecha').innerHTML = `<strong>${fechaStr}</strong>${horaStr}`;
+  }
+  document.getElementById('live-det-lugar').textContent = lugar;
+  document.getElementById('live-det-dir').textContent = dir;
+  document.getElementById('live-det-vest').textContent = vest;
+  document.getElementById('live-ubic-lugar').textContent = lugar;
+  document.getElementById('live-ubic-dir').textContent = dir;
+  document.getElementById('card-direccion').textContent = dir;
+}
+
+function updateMensaje(){
+  const msg = document.getElementById('inv-mensaje').value;
+  document.getElementById('live-mensaje').textContent = msg;
+}
+
+function updateRsvp(){
+  const tel = document.getElementById('inv-rsvp-tel').value.replace(/\D/g,'');
+  const n1 = document.getElementById('live-nombre1').textContent;
+  const tipo = document.getElementById('live-tipo').textContent;
+  const msg = encodeURIComponent(`Hola! Confirmo mi asistencia al ${tipo} de ${n1} 🎉`);
+  document.getElementById('rsvp-wapp-btn').href = `https://wa.me/52${tel}?text=${msg}`;
+  document.getElementById('rsvp-call-btn').href = `tel:+52${tel}`;
+}
+
+// ============================================================
+// GALERÍA
+// ============================================================
+const galeríaFotos = [null,null,null,null,null,null];
+function initGaleria(){
+  const grid = document.getElementById('galeria-grid');
+  grid.innerHTML = '';
+  for(let i=0;i<6;i++){
+    const slot = document.createElement('div');
+    slot.className = 'inv-gal-slot';
+    slot.id = `gal-slot-${i}`;
+    if(galeríaFotos[i]){
+      slot.innerHTML = `<img src="${galeríaFotos[i]}" alt="Foto ${i+1}"><input type="file" accept="image/*" onchange="subirGaleria(${i},this)">`;
+    } else {
+      slot.innerHTML = `<div class="inv-gal-slot-label"><i class="fas fa-plus-circle"></i><span>Foto ${i+1}</span></div><input type="file" accept="image/*" onchange="subirGaleria(${i},this)">`;
+    }
+    grid.appendChild(slot);
+  }
+}
+function subirGaleria(idx, input){
+  const file = input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev){
+    galeríaFotos[idx] = ev.target.result;
+    initGaleria();
+  };
+  reader.readAsDataURL(file);
+}
+initGaleria();
+
+// ============================================================
+// GENERAR Y DESCARGAR TARJETA
+// ============================================================
+function generarTarjeta(){
+  const btn = document.getElementById('btn-generar');
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generando tarjeta...';
+  btn.disabled = true;
+
+  const card = document.getElementById('inv-card');
+  card.style.left = '0';
+  card.style.top = '0';
+  card.style.position = 'fixed';
+  card.style.zIndex = '-1';
+  card.style.visibility = 'hidden';
+
+  // Esperar render
+  setTimeout(() => {
+    html2canvas(document.querySelector('#inv-card .card-wrap'), {
+      scale: 1,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: '#09090f',
+      logging: false,
+    }).then(canvas => {
+      cardDataUrl = canvas.toDataURL('image/png');
+      document.getElementById('modal-img').src = cardDataUrl;
+
+      // Setup download button
+      document.getElementById('modal-dl-btn').onclick = function(){
+        const link = document.createElement('a');
+        link.download = `invitacion-${document.getElementById('inv-nombre1').value || 'evento'}.png`;
+        link.href = cardDataUrl;
+        link.click();
+      };
+
+      // Mostrar modal
+      document.getElementById('modal').classList.add('open');
+
+      // Ocultar card
+      card.style.left = '-9999px';
+      card.style.visibility = '';
+      btn.innerHTML = '<i class="fas fa-download"></i> Generar y Descargar Tarjeta';
+      btn.disabled = false;
+    }).catch(err => {
+      console.error('Error html2canvas:', err);
+      btn.innerHTML = '<i class="fas fa-download"></i> Generar y Descargar Tarjeta';
+      btn.disabled = false;
+      // Fallback: abrir html2canvas no disponible
+      alert('Para mejores resultados, abre esta página desde un servidor web o la versión en línea de lacabanaeventos.com');
+      card.style.left = '-9999px';
+    });
+  }, 300);
+}
+
+function cerrarModal(){
+  document.getElementById('modal').classList.remove('open');
+}
+document.getElementById('modal').addEventListener('click', function(e){
+  if(e.target === this) cerrarModal();
+});
+
+function compartirWapp(){
+  const n1 = document.getElementById('inv-nombre1').value || 'el festejado';
+  const tipo = document.getElementById('inv-tipo').value || document.getElementById('live-tipo').textContent;
+  const fecha = document.getElementById('live-det-fecha').textContent || '';
+  const msg = encodeURIComponent(`🎉 Estás invitado al ${tipo} de *${n1}*!\n\n📅 ${fecha}\n📍 Salón La Cabaña, Zapotlán de Juárez\n\nVe todos los detalles en la invitación digital 👆`);
+  const tel = (document.getElementById('inv-rsvp-tel').value||'7711341559').replace(/\D/g,'');
+  window.open(`https://wa.me/?text=${msg}`, '_blank');
+}
+
+// ============================================================
+// INIT
+// ============================================================
+updateCard();
+updateDetalles();
+
+// Forzar recarga de countdown cuando se establece la fecha
+document.getElementById('inv-fecha').addEventListener('change', function(){
+  updateCountdown();
+  updateDetalles();
+});
+</script>
+</body>
+</html>

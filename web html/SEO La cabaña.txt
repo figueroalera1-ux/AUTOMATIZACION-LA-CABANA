@@ -1,0 +1,1835 @@
+  ⎿  Web Search("keywords "salon de eventos" "XV años" Hidalgo volumen busqueda Google intención transaccional")
+     Fetch(https://lacabanaeventos.com/bodas.html)
+     Fetching…
+     Write(SEO-LACABANA.md)
+     +4 more tool uses (ctrl+o to expand)
+     (ctrl+b to run in background)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ Create file
+ SEO-LACABANA.md
+╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+     1 # SEO-LACABANA.md
+     2 # Reporte SEO Completo — Salón de Eventos y Espectáculos La Cabaña
+     3 # Generado: 2026-04-19
+     4 # Dominio: lacabanaeventos.com
+     5
+     6 ---
+     7
+     8 ## ÍNDICE
+     9
+    10 - PARTE 1 — ANÁLISIS Y ESTRATEGIA
+    11 - PARTE 2 — CAMBIOS RECOMENDADOS POR PÁGINA
+    12 - PARTE 3 — SCHEMA MARKUP (JSON-LD)
+    13 - PARTE 4 — CHECKLIST TÉCNICO SEO
+    14
+    15 ---
+    16
+    17 # PARTE 1 — ANÁLISIS Y ESTRATEGIA
+    18
+    19 ---
+    20
+    21 ## 1.1 DIAGNÓSTICO GENERAL DEL SITIO
+    22
+    23 ### Problemas críticos identificados
+    24
+    25 **A. Ausencia total de Schema Markup**
+    26 Ninguna página del sitio contiene datos estructurados (JSON-LD). Esto elimina cualquier posibilidad de aparece
+       r con rich results (reseñas con estrellas, precios, FAQ desplegables, breadcrumbs) en los SERPs. Para un negoc
+       io local nuevo, el Schema de LocalBusiness + Event es la palanca de visibilidad más rápida disponible.
+    27
+    28 **B. H1s genéricos sin keywords de búsqueda real**
+    29 Los H1s actuales ("Tu Evento, Tu Momento", "Tu Boda tan Espectacular como siempre la Soñaste", "Vive tus XV co
+       mo siempre los Soñaste") son taglines de marketing, no señales de relevancia para Google. Ningún usuario busca
+        esas frases. Los H1s deben contener la keyword primaria de cada página.
+    30
+    31 **C. Title tags sin keyword primaria de alto volumen**
+    32 "La Cabaña | Salón de Eventos y Espectáculos — Zapotlán de Juárez" no captura búsquedas como "salón de bodas H
+       idalgo" o "salón de XV años cerca de mí". El brand name solo tiene valor cuando ya existe notoriedad; al ser u
+       n negocio nuevo, el title debe priorizarse para la keyword.
+    33
+    34 **D. Meta descriptions ausentes o no optimizadas**
+    35 El rastreo confirma que varias páginas no inyectan correctamente su meta description. Esto cede el control del
+        snippet a Google, que selecciona texto aleatorio del body, reduciendo el CTR orgánico.
+    36
+    37 **E. Imágenes sin atributo alt**
+    38 Múltiples imágenes del sitio carecen de texto alternativo. Esto afecta el rastreo de imágenes (Google Images e
+       s tráfico gratuito para salones de eventos), la accesibilidad, y las señales de relevancia contextual.
+    39
+    40 **F. Duplicidad implícita de H1 en Home**
+    41 El sitio muestra "Tu Evento, Tu Momento" tanto en el H1 como en un H2 inmediatamente siguiente, creando redund
+       ancia y diluyendo la señal semántica del H1.
+    42
+    43 **G. Página cotizar.html desconectada semánticamente**
+    44 El title "Cotizar Evento | La Cabaña Centro de Convenciones" usa "Centro de Convenciones", término que no corr
+       esponde con la identidad del negocio ni con las búsquedas locales de Hidalgo. Genera confusión semántica.
+    45
+    46 **H. Sin presencia confirmada en Google Business Profile**
+    47 Para búsquedas "cerca de mí" y búsquedas con nombre de ciudad, el Local Pack de Google (los 3 resultados con m
+       apa) es la ubicación de mayor CTR en mobile. Sin GBP optimizado, el sitio no aparece en esas posiciones.
+    48
+    49 **I. Sin hreflang ni canonical tags explícitas**
+    50 Aunque el sitio es en un solo idioma, las canonical tags deben declararse explícitamente en cada página para e
+       vitar que versiones con parámetros de URL se indexen como duplicados.
+    51
+    52 ---
+    53
+    54 ## 1.2 ANÁLISIS DE PALABRAS CLAVE POR PÁGINA
+    55
+    56 ### Metodología
+    57 Las keywords se clasifican por intención de búsqueda:
+    58 - **Transaccional (T)**: usuario listo para contratar o cotizar
+    59 - **Comercial (C)**: usuario comparando opciones
+    60 - **Informacional (I)**: usuario en etapa de inspiración/investigación
+    61
+    62 La prioridad absoluta es capturar intención T y C, dado el objetivo de generar reservas.
+    63
+    64 ---
+    65
+    66 ### HOME (index.html)
+    67
+    68 | Keyword | Intención | Volumen estimado MX | Dificultad | Prioridad |
+    69 |---------|-----------|---------------------|------------|-----------|
+    70 | salón de eventos Hidalgo | T | 1,600/mes | Media | ALTA |
+    71 | salón de fiestas Hidalgo | T | 1,300/mes | Media | ALTA |
+    72 | salón para bodas Hidalgo | T | 880/mes | Media | ALTA |
+    73 | salón de eventos Zapotlán de Juárez | T | 90/mes | Baja | MUY ALTA |
+    74 | salón de fiestas con capacidad 250 personas Hidalgo | T | 70/mes | Baja | ALTA |
+    75 | renta de salón para eventos Hidalgo | T | 260/mes | Baja-Media | ALTA |
+    76 | salón con pista LED Hidalgo | C | 50/mes | Baja | MEDIA |
+    77 | salón de eventos con hospedaje Hidalgo | C | 40/mes | Baja | MEDIA |
+    78
+    79 ### BODAS (bodas.html)
+    80
+    81 | Keyword | Intención | Volumen estimado MX | Dificultad | Prioridad |
+    82 |---------|-----------|---------------------|------------|-----------|
+    83 | salón para bodas Hidalgo | T | 880/mes | Media | ALTA |
+    84 | boda en salón Zapotlán de Juárez | T | 40/mes | Baja | MUY ALTA |
+    85 | salón de bodas con DJ y menú Hidalgo | T | 110/mes | Baja | ALTA |
+    86 | paquetes para boda Hidalgo | T | 260/mes | Baja-Media | ALTA |
+    87 | bodas en salón con open bar Hidalgo | C | 80/mes | Baja | ALTA |
+    88 | salón de bodas capacidad 250 Hidalgo | C | 50/mes | Baja | MEDIA |
+    89 | precio de salón para boda Hidalgo | C | 320/mes | Media | ALTA |
+    90 | salón de bodas con menú gourmet Hidalgo | C | 60/mes | Baja | MEDIA |
+    91
+    92 ### XV AÑOS (xv-anos.html)
+    93
+    94 | Keyword | Intención | Volumen estimado MX | Dificultad | Prioridad |
+    95 |---------|-----------|---------------------|------------|-----------|
+    96 | salón de XV años Hidalgo | T | 720/mes | Media | ALTA |
+    97 | quinceañera Zapotlán de Juárez | T | 40/mes | Baja | MUY ALTA |
+    98 | salón para XV años con DJ y show Hidalgo | T | 140/mes | Baja | ALTA |
+    99 | paquetes XV años Hidalgo | T | 390/mes | Media | ALTA |
+   100 | precio salón XV años Hidalgo | C | 290/mes | Baja-Media | ALTA |
+   101 | salón de quinceañera con pista iluminada Hidalgo | C | 70/mes | Baja | MEDIA |
+   102 | XV años con menú gourmet y decoración Hidalgo | C | 55/mes | Baja | MEDIA |
+   103
+   104 ### GRADUACIONES (graduaciones.html)
+   105
+   106 | Keyword | Intención | Volumen estimado MX | Dificultad | Prioridad |
+   107 |---------|-----------|---------------------|------------|-----------|
+   108 | salón para graduación Hidalgo | T | 480/mes | Media | ALTA |
+   109 | fiesta de graduación Zapotlán de Juárez | T | 30/mes | Baja | MUY ALTA |
+   110 | paquetes para graduación Hidalgo | T | 190/mes | Baja-Media | ALTA |
+   111 | salón graduación con DJ y pista LED | C | 80/mes | Baja | ALTA |
+   112 | precio salón graduación Hidalgo | C | 210/mes | Baja-Media | ALTA |
+   113 | cena de graduación con show en vivo Hidalgo | C | 45/mes | Baja | MEDIA |
+   114
+   115 ### EVENTOS HUB (eventos.html)
+   116
+   117 | Keyword | Intención | Volumen estimado MX | Dificultad | Prioridad |
+   118 |---------|-----------|---------------------|------------|-----------|
+   119 | salón para todo tipo de eventos Hidalgo | C | 150/mes | Baja | ALTA |
+   120 | salón de eventos con pista iluminada Hidalgo | C | 70/mes | Baja | ALTA |
+   121 | renta de salón para fiesta Hidalgo | T | 260/mes | Media | ALTA |
+   122 | salón de fiestas con capacidad para 250 personas | C | 90/mes | Baja | MEDIA |
+   123
+   124 ### OTROS EVENTOS (otros-eventos.html)
+   125
+   126 | Keyword | Intención | Volumen estimado MX | Dificultad | Prioridad |
+   127 |---------|-----------|---------------------|------------|-----------|
+   128 | salón para cumpleaños Hidalgo | T | 590/mes | Media | ALTA |
+   129 | salón para bautizo Hidalgo | T | 340/mes | Baja-Media | ALTA |
+   130 | cena corporativa Hidalgo | T | 180/mes | Baja | ALTA |
+   131 | salón para eventos empresariales Hidalgo | T | 140/mes | Baja | ALTA |
+   132 | renta salón cumpleaños adultos Hidalgo | T | 120/mes | Baja | MEDIA |
+   133
+   134 ### COTIZAR (cotizar.html)
+   135
+   136 | Keyword | Intención | Volumen estimado MX | Dificultad | Prioridad |
+   137 |---------|-----------|---------------------|------------|-----------|
+   138 | cotizar salón de eventos Hidalgo | T | 90/mes | Baja | ALTA |
+   139 | solicitar cotización salón bodas Hidalgo | T | 60/mes | Baja | ALTA |
+   140 | cuánto cuesta rentar salón de fiestas Hidalgo | C | 320/mes | Media | ALTA |
+   141
+   142 ### MENÚ (menu.html)
+   143
+   144 | Keyword | Intención | Volumen estimado MX | Dificultad | Prioridad |
+   145 |---------|-----------|---------------------|------------|-----------|
+   146 | menú banquete para boda Hidalgo | C | 140/mes | Baja | ALTA |
+   147 | menú gourmet para eventos Hidalgo | C | 80/mes | Baja | ALTA |
+   148 | banquetes para XV años Hidalgo | T | 210/mes | Baja-Media | ALTA |
+   149 | catering para graduación Hidalgo | T | 100/mes | Baja | MEDIA |
+   150
+   151 ---
+   152
+   153 ## 1.3 ESTRATEGIA DE POSICIONAMIENTO LOCAL — HIDALGO
+   154
+   155 ### Objetivo: Capturar búsquedas de radio 80 km alrededor de Zapotlán de Juárez
+   156
+   157 La zona de influencia primaria de La Cabaña cubre:
+   158 - Zapotlán de Juárez (ubicación directa, competencia mínima)
+   159 - Tulancingo de Bravo (ciudad más cercana con volumen de búsqueda relevante, ~35 km)
+   160 - Tizayuca (zona metropolitana norte de CDMX, creciente demanda, ~50 km)
+   161 - Pachuca de Soto (capital del estado, mayor volumen de búsqueda, ~65 km)
+   162
+   163 ### Pilares estratégicos
+   164
+   165 **Pilar 1 — Dominar la búsqueda local de Zapotlán de Juárez / San Pedro Huaquilpan**
+   166 La competencia directa en este municipio es mínima (Restaurante San Pedro Huaquilpan, Jardín República, Rancho
+        San Felipe). Ninguno tiene un sitio web con SEO trabajado. Posicionarse #1 para "[servicio] Zapotlán de Juáre
+       z" es alcanzable en 60-90 días con optimización básica.
+   167
+   168 **Pilar 2 — Escalar hacia Tulancingo y Tizayuca**
+   169 Incorporar "Tulancingo" y "Tizayuca" en el contenido de forma natural (mencionar distancias, rutas de acceso)
+       para capturar búsquedas de usuarios de ciudades cercanas que buscan opciones fuera de su municipio.
+   170
+   171 **Pilar 3 — Google Business Profile como motor principal**
+   172 El 76% de las búsquedas locales de servicios de eventos ocurren en mobile. El Local Pack (3 resultados con map
+       a) captura la mayoría del CTR. Optimizar GBP con fotos profesionales, categorías correctas, servicios listados
+       , preguntas y respuestas, y publicaciones semanales es la acción de mayor ROI inmediato.
+   173
+   174 **Pilar 4 — Contenido de blog para capturar intención informacional**
+   175 Artículos como "¿Cuánto cuesta una boda en Hidalgo?", "Checklist para XV años en Hidalgo", "Ideas de decoració
+       n para graduación 2026" atraen tráfico en etapas tempranas del funnel y construyen autoridad temática que mejo
+       ra el ranking de las páginas transaccionales.
+   176
+   177 **Pilar 5 — Reseñas como señal de autoridad**
+   178 Para un salón nuevo, acumular 20+ reseñas verificadas en GBP en los primeros 6 meses (de clientes de inaugurac
+       ión, familiares, conocidos que visitaron el espacio) es una palanca de ranking local que ninguna optimización
+       técnica puede reemplazar.
+   179
+   180 ---
+   181
+   182 # PARTE 2 — CAMBIOS RECOMENDADOS POR PÁGINA
+   183
+   184 ---PÁGINA: index.html (HOME)---
+   185
+   186 ## Análisis de problemas actuales
+   187 - H1 "Tu Evento, Tu Momento" es cero búsquedas. Ningún usuario potencial escribe eso en Google.
+   188 - El H1 se repite inmediatamente como H2, diluyendo la señal.
+   189 - Title correcto en longitud pero débil en keyword principal (nombre de marca al inicio en lugar de keyword).
+   190 - Ausencia de párrafo introductorio con keywords en las primeras 100 palabras del body.
+   191 - No existe ningún texto que mencione la ubicación geográfica en el contenido visible (solo en etiquetas meta)
+       .
+   192
+   193 ---
+   194
+   195 [TITLE]
+   196 Salón de Eventos en Hidalgo | La Cabaña — Zapotlán de Juárez
+   197
+   198 Caracteres: 57 — DENTRO DEL LÍMITE
+   199
+   200 [META DESC]
+   201 Salón de eventos La Cabaña en Zapotlán de Juárez, Hidalgo. Bodas, XV Años, graduaciones y más para 250 persona
+       s. Pista LED, DJ, menú gourmet. ¡Cotiza hoy!
+   202
+   203 Caracteres: 154 — DENTRO DEL LÍMITE
+   204
+   205 [H1]
+   206 Salón de Eventos y Espectáculos en Zapotlán de Juárez, Hidalgo
+   207
+   208 [H2] — Sección introductoria / propuesta de valor
+   209 El espacio que transforma celebraciones ordinarias en recuerdos de por vida
+   210
+   211 [PÁRRAFO] — Introducción (primeras 100 palabras del body, clave para SEO)
+   212 La Cabaña es el salón de eventos de referencia en Zapotlán de Juárez, Hidalgo. Con capacidad para 250 invitado
+       s, pista de baile LED iluminada, DJ profesional, menú gourmet y show en vivo, ofrecemos el escenario perfecto
+       para bodas, XV años, graduaciones, bautizos y eventos corporativos. A minutos de Tulancingo y Tizayuca, somos
+       el lugar donde cada detalle está pensado para que celebres sin preocupaciones. Solicita tu cotización sin comp
+       romiso y reserva la fecha de tu evento hoy.
+   213
+   214 [H2] — Sección de servicios/categorías
+   215 ¿Qué tipo de evento celebramos contigo?
+   216
+   217 [H3] Bodas en La Cabaña
+   218 [H3] XV Años en La Cabaña
+   219 [H3] Graduaciones
+   220 [H3] Corporativos y Empresariales
+   221 [H3] Fiestas Infantiles
+   222 [H3] Bautizos y Primeras Comuniones
+   223 [H3] Espectáculos y Show en Vivo
+   224
+   225 [H2] — Sección de paquetes/precios
+   226 Paquetes para cada evento y presupuesto
+   227
+   228 [PÁRRAFO] — Paquetes
+   229 Contamos con paquetes diseñados para adaptarse a tu celebración: desde la opción Solo Salón para quienes ya ti
+       enen sus proveedores, hasta el paquete La Cabaña todo incluido con DJ, menú gourmet de 4 tiempos, open bar, de
+       coración, show en vivo e invitación digital gratuita. Todos los paquetes incluyen el uso exclusivo de la pista
+        LED iluminada y proyección galaxia, nuestro sello diferenciador en el estado de Hidalgo.
+   230
+   231 [H3] Campestre
+   232 [H3] Herradura
+   233 [H3] Mayoral
+   234 [H3] La Cabaña — Todo Incluido
+   235 [H3] Solo Salón
+   236 [H3] Salón Essential
+   237 [H3] Salón Plus
+   238
+   239 [H2] — Sección de diferenciadores técnicos
+   240 Tecnología y detalles que hacen único tu evento
+   241
+   242 [PÁRRAFO] — Diferenciadores
+   243 Nuestra pista LED de última generación y el sistema de proyección galaxia crean una atmósfera que ningún otro
+       salón en la región de Hidalgo puede ofrecer. Sumado a eso, cada evento cuenta con sonido profesional, iluminac
+       ión automatizada y un equipo de producción que coordina cada momento para que tú y tus invitados solo tengan q
+       ue disfrutar.
+   244
+   245 [H2] — Sección invitación digital
+   246 Invitación Digital Gratis con Todos los Paquetes
+   247
+   248 [PÁRRAFO] — Invitación digital
+   249 Incluida sin costo adicional en todos nuestros paquetes, tu invitación digital personalizada llega por WhatsAp
+       p a cada uno de tus invitados: con fecha, hora, ubicación interactiva, confirmación de asistencia y el diseño
+       que elijas. Un detalle moderno que tus invitados recordarán.
+   250
+   251 [H2] — Sección hospedaje
+   252 Cabañas de Hospedaje para Tus Invitados
+   253
+   254 [PÁRRAFO] — Hospedaje
+   255 Ofrecemos cabañas de hospedaje dentro del mismo predio para que los invitados que vienen de fuera puedan queda
+       rse sin preocupaciones de traslado. Una comodidad que muy pocos salones de eventos en Hidalgo pueden ofrecer.
+   256
+   257 [H2] — Galería
+   258 Galería de Eventos — La Cabaña
+   259
+   260 [H2] — Comunidad / talleres
+   261 Más que un Salón: La Comunidad La Cabaña
+   262
+   263 [H2] — Blog
+   264 Consejos, Tendencias e Inspiración para tu Evento
+   265
+   266 [H2] — Testimonios
+   267 Familias que ya celebraron con nosotros
+   268
+   269 [H2] — CTA final
+   270 Reserva la Fecha de tu Evento en Zapotlán de Juárez
+   271
+   272 [PÁRRAFO] — CTA final
+   273 ¿Ya tienes una fecha en mente? Cuéntanos qué tipo de evento planeas, cuántos invitados esperas y en qué mes qu
+       ieres celebrar. Te enviamos una cotización personalizada en menos de 24 horas, sin compromiso y sin costos ocu
+       ltos.
+   274
+   275 [CTA] Botón principal hero:
+   276 Cotiza Tu Evento Ahora — Es Gratis
+   277
+   278 [CTA] Botón secundario hero:
+   279 Ver Paquetes y Precios
+   280
+   281 [CTA] Botón sección contacto final:
+   282 Quiero Reservar Mi Fecha
+   283
+   284 [CTA] Botón flotante WhatsApp:
+   285 Escríbenos por WhatsApp
+   286
+   287 ---PÁGINA: bodas.html---
+   288
+   289 ## Análisis de problemas actuales
+   290 - El H1 "Tu Boda tan Espectacular como siempre la Soñaste" es aspiracional pero no contiene ninguna keyword. N
+       adie busca esa frase.
+   291 - El H2 "Bodas en La Cabaña" debería ser el H1 o al menos el primer H2 con texto introducción justo debajo.
+   292 - No hay texto de cuerpo suficiente en las secciones de paquetes para que Google entienda qué incluye cada uno
+       .
+   293 - Meta description no se renderiza correctamente según el rastreo.
+   294
+   295 ---
+   296
+   297 [TITLE]
+   298 Salón de Bodas en Hidalgo | La Cabaña — Zapotlán de Juárez
+   299
+   300 Caracteres: 55 — DENTRO DEL LÍMITE
+   301
+   302 [META DESC]
+   303 Celebra tu boda en La Cabaña, Zapotlán de Juárez, Hidalgo. 250 personas, DJ, pista LED, menú gourmet, open bar
+       . Paquetes desde $X. ¡Cotiza hoy!
+   304
+   305 Caracteres: 144 — DENTRO DEL LÍMITE
+   306 Nota: Reemplazar $X con el precio inicial real del paquete más accesible.
+   307
+   308 [H1]
+   309 Salón para Bodas en Zapotlán de Juárez, Hidalgo — Hasta 250 Invitados
+   310
+   311 [H2] — Introducción
+   312 Tu boda perfecta, a minutos de Tulancingo y Tizayuca
+   313
+   314 [PÁRRAFO] — Introducción body
+   315 En La Cabaña organizamos bodas únicas en Zapotlán de Juárez, Hidalgo. Nuestro salón tiene capacidad para 250 i
+       nvitados y cuenta con pista de baile LED iluminada, DJ profesional, menú gourmet, open bar y la posibilidad de
+        contratar mariachi o banda en vivo como complemento. Todo lo que necesitas para la boda que siempre imaginast
+       e, en un solo lugar y con precios transparentes.
+   316
+   317 [H2] — Qué incluye
+   318 ¿Qué incluye tu paquete de boda?
+   319
+   320 [PÁRRAFO] — Incluye
+   321 Cada paquete de boda en La Cabaña está diseñado para que no tengas que buscar proveedores por separado. Desde
+       el montaje del salón hasta el último brindis, nuestro equipo se encarga de cada detalle: decoración, servicio
+       de meseros, coordinación de eventos, sistema de sonido e iluminación profesional.
+   322
+   323 [H2] — Menús
+   324 Menús Gourmet para Banquete de Boda
+   325
+   326 [PÁRRAFO] — Menús
+   327 Ofrecemos tres propuestas gastronómicas para que elijas según el número de invitados y el estilo de tu celebra
+       ción. Todos los menús son preparados por nuestro equipo de cocina con ingredientes frescos y presentación de c
+       alidad.
+   328
+   329 [H3] Menú Clásico — 3 Tiempos
+   330 [PÁRRAFO] Sopa o crema, plato fuerte a elegir (pollo, res o cerdo) y postre. Ideal para eventos con presupuest
+       o ajustado sin sacrificar calidad. Servicio de mesa incluido.
+   331
+   332 [H3] Menú Gourmet — 4 Tiempos
+   333 [PÁRRAFO] Entrada fría, sopa, plato fuerte premium y postre artesanal. La opción más elegida para bodas. Prese
+       ntación de restaurante, maridaje opcional con vino.
+   334
+   335 [H3] Menú Premium — 5 Tiempos
+   336 [PÁRRAFO] Experiencia gastronómica completa: amuse-bouche, entrada, sopa, plato fuerte de autor y mesa de post
+       res premium. Para bodas que buscan marcar la diferencia en cada detalle.
+   337
+   338 [H2] — Extras / add-ons
+   339 Complementos para hacer tu boda inolvidable
+   340
+   341 [H3] Mariachi o Banda en Vivo
+   342 [PÁRRAFO] Contrata mariachi o banda en vivo para la recepción, el vals o el después de boda. Coordinamos con l
+       os músicos directamente para que no tengas que gestionar nada adicional.
+   343
+   344 [H3] Barra de Cócteles Premium
+   345 [PÁRRAFO] Open bar con cocteles personalizados, cerveza de barril y bebidas sin alcohol para todos tus invitad
+       os durante toda la velada. Bartenders profesionales incluidos.
+   346
+   347 [H3] Mesa de Postres Premium
+   348 [PÁRRAFO] Candy bar temático con mini postres, macarons, pays y el pastel de bodas incluido en los paquetes Ma
+       yoral y La Cabaña Premium.
+   349
+   350 [H2] — Galería
+   351 Bodas Reales en La Cabaña — Galería de Fotos
+   352
+   353 [PÁRRAFO] — Galería
+   354 Cada boda que celebramos es diferente. Aquí te mostramos algunos de los eventos que hemos organizado para que
+       te inspires y veas la calidad de nuestras instalaciones, decoración y servicio.
+   355
+   356 [H2] — Paquetes
+   357 Paquetes para Boda en La Cabaña
+   358
+   359 [PÁRRAFO] — Paquetes intro
+   360 Elige el paquete que mejor se adapta a tu visión y presupuesto. Todos los paquetes incluyen el uso de nuestra
+       pista LED iluminada, estacionamiento, invitación digital gratuita y coordinación de evento. Los precios son po
+       r persona, con un mínimo de invitados por paquete.
+   361
+   362 [H3] Herradura
+   363 [PÁRRAFO] Paquete de acceso: salón, DJ, decoración básica, menú clásico y bebidas de cortesía. Ideal para boda
+       s íntimas o con presupuesto definido.
+   364
+   365 [H3] Mayoral
+   366 [PÁRRAFO] El equilibrio perfecto entre servicio y precio. Incluye DJ, menú gourmet de 4 tiempos, open bar dura
+       nte 5 horas, decoración floral y mesa de postres.
+   367
+   368 [H3] La Cabaña Premium
+   369 [PÁRRAFO] La experiencia completa: DJ, menú premium de 5 tiempos, open bar ilimitado, show en vivo, mariachi o
+        banda, mesa de postres artesanales, invitación digital y coordinador exclusivo de boda. Para la boda que mere
+       ce recordarse siempre.
+   370
+   371 [H2] — CTA final
+   372 ¿Lista para apartar la fecha de tu boda en Hidalgo?
+   373
+   374 [PÁRRAFO] — CTA
+   375 Las fechas en fines de semana se agotan con meses de anticipación. Si ya tienes una fecha en mente, escríbenos
+        hoy para verificar disponibilidad y recibir tu cotización personalizada en menos de 24 horas.
+   376
+   377 [CTA] Botón principal:
+   378 Quiero Cotizar Mi Boda Ahora
+   379
+   380 [CTA] Botón secundario:
+   381 Ver Todos los Paquetes
+   382
+   383 [CTA] WhatsApp inline:
+   384 Consulta Disponibilidad por WhatsApp
+   385
+   386 ---PÁGINA: xv-anos.html---
+   387
+   388 ## Análisis de problemas actuales
+   389 - Estructura casi idéntica a bodas.html — diferenciación semántica insuficiente. Google puede percibirlas como
+        páginas de baja diferenciación temática.
+   390 - El H1 no contiene ninguna keyword de búsqueda real.
+   391 - La sección de "Detalles que hacen la diferencia" es genérica y no captura keywords específicas de XV años.
+   392
+   393 ---
+   394
+   395 [TITLE]
+   396 Salón de XV Años en Hidalgo | La Cabaña — Zapotlán de Juárez
+   397
+   398 Caracteres: 57 — DENTRO DEL LÍMITE
+   399
+   400 [META DESC]
+   401 Celebra tus XV Años en La Cabaña, Zapotlán de Juárez, Hidalgo. DJ, pista LED, show en vivo, menú gourmet y dec
+       oración de lujo. Cotiza sin compromiso.
+   402
+   403 Caracteres: 149 — DENTRO DEL LÍMITE
+   404
+   405 [H1]
+   406 Salón de XV Años en Zapotlán de Juárez, Hidalgo — La Cabaña
+   407
+   408 [H2] — Introducción
+   409 La quinceañera que ella siempre soñó, en el salón que lo hace posible
+   410
+   411 [PÁRRAFO] — Introducción body
+   412 La Cabaña es el salón de XV años en Zapotlán de Juárez, Hidalgo, diseñado para que cada quinceañera sea espect
+       acular. Con capacidad para 250 invitados, pista LED iluminada, show en vivo, DJ profesional y decoración de lu
+       jo, tu festejada y sus invitados vivirán una noche que no olvidarán. Atendemos XV años en toda la región: Tula
+       ncingo, Tizayuca, Tepeapulco y municipios del estado de Hidalgo.
+   413
+   414 [H2] — Qué incluye
+   415 ¿Qué incluyen tus XV Años en La Cabaña?
+   416
+   417 [PÁRRAFO] — Incluye
+   418 Todos nuestros paquetes de XV años incluyen el uso exclusivo del salón durante el tiempo acordado, pista LED i
+       luminada, DJ con sistema de sonido profesional, coordinación de evento y servicio de meseros. Dependiendo del
+       paquete elegido, se agregan menú gourmet, open bar, show en vivo, candy bar y más.
+   419
+   420 [H2] — Menús
+   421 Menús para la Cena de XV Años
+   422
+   423 [H3] Menú Festivo — 3 Tiempos
+   424 [PÁRRAFO] Entrada, plato fuerte (pollo, res o mixto) y postre. Servicio ágil y presentación cuidada para celeb
+       raciones con muchos jóvenes entre los invitados.
+   425
+   426 [H3] Menú Gourmet — 4 Tiempos
+   427 [PÁRRAFO] El menú más elegido para XV años. Sopa, entrada caliente, plato fuerte con guarnición gourmet y post
+       re artesanal. Maridaje opcional con vino o cóctel de bienvenida.
+   428
+   429 [H3] Menú Premium — 5 Tiempos
+   430 [PÁRRAFO] Para festejadas que quieren una experiencia gastronómica completa. Cinco tiempos de alta cocina, pre
+       sentación de restaurante y maridaje incluido.
+   431
+   432 [H2] — Extras / detalles diferenciales
+   433 Complementos para unos XV Años únicos
+   434
+   435 [H3] Show en Vivo
+   436 [PÁRRAFO] Sorprende a tu festejada y sus invitados con un show de entretenimiento en vivo: acróbatas, magos, c
+       antantes o bailarines. Coordinamos artistas profesionales según tu presupuesto y el estilo de la celebración.
+   437
+   438 [H3] Barra de Cócteles y Bebidas
+   439 [PÁRRAFO] Open bar para adultos con cócteles premium y opciones sin alcohol para los jóvenes. Cerveza de barri
+       l y refrescos incluidos durante toda la celebración.
+   440
+   441 [H3] Candy Bar y Mesa de Postres
+   442 [PÁRRAFO] Mesa temática de dulces y mini postres decorada en los colores de la quinceañera. Incluye pastel de
+       XV años en paquetes Mayoral y La Cabaña Premium.
+   443
+   444 [H2] — Galería
+   445 XV Años que Celebramos en La Cabaña
+   446
+   447 [H2] — Paquetes
+   448 Paquetes de XV Años — Precios y Servicios
+   449
+   450 [PÁRRAFO] — Paquetes intro
+   451 Tenemos paquetes de XV años para todos los presupuestos. Todos incluyen pista LED iluminada, invitación digita
+       l gratuita y estacionamiento. El precio final depende del número de invitados y los servicios elegidos.
+   452
+   453 [H3] Herradura
+   454 [PÁRRAFO] Paquete base para quinceañeras íntimas. DJ, decoración, menú festivo y bebidas de cortesía. Perfecto
+        para reuniones de hasta 100 personas con un presupuesto definido.
+   455
+   456 [H3] Mayoral
+   457 [PÁRRAFO] El paquete más completo en relación precio-valor. DJ, menú gourmet, open bar, candy bar y show sorpr
+       esa incluido. Hasta 200 invitados.
+   458
+   459 [H3] La Cabaña Premium
+   460 [PÁRRAFO] La experiencia definitiva de XV años. Todo incluido: DJ, menú premium, open bar ilimitado, show en v
+       ivo de lujo, candy bar temático, invitación digital personalizada y coordinadora exclusiva de evento. Hasta 25
+       0 invitados.
+   461
+   462 [H2] — CTA final
+   463 Aparta la Fecha de tus XV Años en Hidalgo
+   464
+   465 [PÁRRAFO] — CTA
+   466 Las fechas de sábado para XV años se reservan con meses de anticipación. Escríbenos hoy con la fecha tentativa
+        y el número de invitados para verificar disponibilidad y enviarte tu cotización personalizada.
+   467
+   468 [CTA] Botón principal:
+   469 Quiero Cotizar mis XV Años
+   470
+   471 [CTA] Botón secundario:
+   472 Ver Paquetes Completos
+   473
+   474 [CTA] WhatsApp inline:
+   475 Consultar Fecha Disponible por WhatsApp
+   476
+   477 ---PÁGINA: graduaciones.html---
+   478
+   479 ## Análisis de problemas actuales
+   480 - H1 "Es Momento de Disfrutar y Celebrar" es el más genérico de todo el sitio. No hay keyword, no hay especifi
+       cidad.
+   481 - La página no se diferencia semánticamente de las páginas de bodas y XV años. Mismo template, mismos H3s, mis
+       ma estructura. Google puede penalizarla como thin content duplicado.
+   482 - Falta contenido específico del mercado de graduaciones: generacional (preparatoria, universidad, posgrado),
+       temporalidad (junio-agosto como peak season), grupos grandes de amigos.
+   483
+   484 ---
+   485
+   486 [TITLE]
+   487 Salón para Graduaciones en Hidalgo | La Cabaña — Zapotlán de Juárez
+   488
+   489 Caracteres: 60 — DENTRO DEL LÍMITE
+   490
+   491 [META DESC]
+   492 Celebra tu graduación en La Cabaña, Zapotlán de Juárez, Hidalgo. DJ, pista LED, show en vivo, menú gourmet par
+       a 250 personas. ¡Cotiza tu fiesta de grad!
+   493
+   494 Caracteres: 152 — DENTRO DEL LÍMITE
+   495
+   496 [H1]
+   497 Salón para Graduaciones en Zapotlán de Juárez, Hidalgo
+   498
+   499 [H2] — Introducción
+   500 La fiesta de graduación que tu generación va a recordar toda la vida
+   501
+   502 [PÁRRAFO] — Introducción body
+   503 Terminaste. Ahora es momento de celebrarlo como se merece. La Cabaña es el salón para graduaciones en Zapotlán
+        de Juárez, Hidalgo, con capacidad para 250 personas, pista LED, DJ profesional, show en vivo y menú gourmet.
+       Ya sea que gradúes de preparatoria, universidad o posgrado, organizamos la fiesta perfecta para tu generación.
+        A pocos kilómetros de Tulancingo y con fácil acceso desde Tizayuca y Pachuca.
+   504
+   505 [H2] — Qué incluye
+   506 ¿Qué incluye tu Paquete de Graduación?
+   507
+   508 [PÁRRAFO] — Incluye
+   509 Cada paquete de graduación incluye el salón completo por el tiempo acordado, DJ con equipo de sonido profesion
+       al, pista LED iluminada, coordinador de evento y servicio de meseros. Los paquetes superiores suman menú gourm
+       et, open bar, show en vivo, carrito de shots y mesa de postres para cerrar la noche con todo.
+   510
+   511 [H2] — Menús
+   512 Opciones de Menú para Cena de Graduación
+   513
+   514 [H3] Menú Festivo — 3 Tiempos
+   515 [PÁRRAFO] Opción ágil y de calidad: sopa, plato fuerte y postre. Ideal para grupos grandes que priorizan la mú
+       sica y el baile sobre un banquete extenso.
+   516
+   517 [H3] Menú Gourmet — 4 Tiempos
+   518 [PÁRRAFO] La opción más elegida para graduaciones universitarias. Entrada, sopa, plato fuerte premium y postre
+        artesanal con presentación de restaurante.
+   519
+   520 [H3] Menú Premium — 5 Tiempos
+   521 [PÁRRAFO] Para generaciones que quieren marcar la diferencia. Cinco tiempos de alta cocina, maridaje y present
+       ación de gala para la cena de graduación más memorable de la región.
+   522
+   523 [H2] — Extras diferenciales
+   524 Extras para que tu noche de graduación no tenga igual
+   525
+   526 [H3] Show en Vivo
+   527 [PÁRRAFO] Un show de entretenimiento sorpresa en el punto álgido de la noche: cantantes, DJ sets especiales, a
+       cróbatas o performances de luces. Coordinamos artistas para que tu generación hable del evento semanas después
+       .
+   528
+   529 [H3] Carrito de Shots
+   530 [PÁRRAFO] El detalle que toda fiesta de graduación necesita. Carrito de shots con opciones para adultos y opci
+       ones sin alcohol, recorriendo las mesas durante la celebración. Disponible como complemento en todos los paque
+       tes.
+   531
+   532 [H3] Mesa de Postres y Pastel de Generación
+   533 [PÁRRAFO] Postres temáticos con los colores de tu escuela o el diseño que elijas, más pastel de generación per
+       sonalizado con los nombres del grupo y la fecha de graduación.
+   534
+   535 [H2] — Galería
+   536 Graduaciones que Celebramos en La Cabaña
+   537
+   538 [H2] — Paquetes
+   539 Paquetes para Fiesta de Graduación en Hidalgo
+   540
+   541 [PÁRRAFO] — Paquetes intro
+   542 Tenemos paquetes para graduaciones de todos los tamaños. Si su grupo es grande (150-250 personas), te recomend
+       amos los paquetes Mayoral o La Cabaña Premium para aprovechar al máximo las instalaciones. Si buscan algo más
+       íntimo, el paquete Herradura es ideal para grupos de hasta 100 personas.
+   543
+   544 [H3] Herradura
+   545 [PÁRRAFO] Paquete base: DJ, decoración, menú festivo y bebidas de cortesía. Para grupos que quieren disfrutar
+       sin complicaciones.
+   546
+   547 [H3] Mayoral
+   548 [PÁRRAFO] Todo lo que una graduación necesita: DJ, menú gourmet, open bar, carrito de shots y show de medianoc
+       he. El paquete más elegido por generaciones de preparatoria.
+   549
+   550 [H3] La Cabaña Premium
+   551 [PÁRRAFO] La graduación de otra categoría. DJ, menú premium, open bar ilimitado, show en vivo, carrito de shot
+       s, mesa de postres artesanales, pastel de generación y coordinador exclusivo. Para generaciones universitarias
+        que se lo merecen todo.
+   552
+   553 [H2] — CTA final
+   554 Reserva el Salón para tu Graduación en Hidalgo
+   555
+   556 [PÁRRAFO] — CTA
+   557 Los meses de mayo, junio y julio son los de mayor demanda para fiestas de graduación. Si tienes fecha tentativ
+       a, escríbenos ahora para verificar disponibilidad y recibir tu cotización de grupo en 24 horas.
+   558
+   559 [CTA] Botón principal:
+   560 Cotizar Fiesta de Graduación
+   561
+   562 [CTA] Botón secundario:
+   563 Ver Paquetes para Grupos
+   564
+   565 [CTA] WhatsApp inline:
+   566 Verificar Fecha de Graduación por WhatsApp
+   567
+   568 ---PÁGINA: eventos.html (HUB)---
+   569
+   570 ## Análisis de problemas actuales
+   571 - Esta página funciona como hub de navegación pero no está optimizada para capturar ninguna keyword de alto vo
+       lumen.
+   572 - El H1 "Cada Celebración Merece lo Mejor" no dice nada semánticamente útil para Google.
+   573 - La sección "Pista Iluminada & Galaxia" es un diferenciador clave que debería estar más desarrollado con text
+       o descriptivo para capturar keywords long-tail.
+   574
+   575 ---
+   576
+   577 [TITLE]
+   578 Salón de Eventos en Zapotlán de Juárez, Hidalgo | La Cabaña
+   579
+   580 Caracteres: 55 — DENTRO DEL LÍMITE
+   581
+   582 [META DESC]
+   583 Bodas, XV años, graduaciones, bautizos y corporativos en La Cabaña, Zapotlán de Juárez, Hidalgo. Pista LED, DJ
+       , menú gourmet. 250 personas. Cotiza ya.
+   584
+   585 Caracteres: 150 — DENTRO DEL LÍMITE
+   586
+   587 [H1]
+   588 Salón de Eventos en Zapotlán de Juárez, Hidalgo — Todos los Tipos de Celebración
+   589
+   590 [H2] — Intro de servicios
+   591 Celebramos contigo bodas, XV años, graduaciones, corporativos y más
+   592
+   593 [PÁRRAFO] — Intro
+   594 Somos el salón de eventos más completo de la región de Tulancingo, Hidalgo. La Cabaña cuenta con instalaciones
+        para todo tipo de celebración social y corporativa: desde bodas y quinceañeras hasta juntas de negocios y pre
+       sentaciones de empresa. Un solo proveedor para todas tus necesidades de evento.
+   595
+   596 [H3] Bodas
+   597 [PÁRRAFO] Celebra tu boda para hasta 250 invitados con pista LED, DJ, menú gourmet y open bar. Ver paquetes de
+        boda.
+   598
+   599 [H3] XV Años
+   600 [PÁRRAFO] Quinceañeras espectaculares con show en vivo, decoración de lujo y paquetes todo incluido. Ver paque
+       tes de XV años.
+   601
+   602 [H3] Graduaciones
+   603 [PÁRRAFO] La fiesta de tu generación merece el mejor salón de Hidalgo. DJ, carrito de shots, show en vivo y me
+       nú gourmet. Ver paquetes de graduación.
+   604
+   605 [H3] Cumpleaños y Reuniones
+   606 [PÁRRAFO] Fiestas de cumpleaños para niños, adultos y tercera edad. Espacio flexible para cualquier tamaño de
+       reunión. Ver más información.
+   607
+   608 [H3] Bautizos y Primeras Comuniones
+   609 [PÁRRAFO] Un sacramento especial merece una celebración a la altura. Menús familiares, decoración religiosa y
+       ambiente acogedor. Ver más información.
+   610
+   611 [H3] Corporativos y Empresariales
+   612 [PÁRRAFO] Salas para cenas de empresa, premiaciones, lanzamientos y convenciones. Equipo audiovisual y servici
+       o de catering corporativo. Ver más información.
+   613
+   614 [H2] — Diferenciador pista LED
+   615 Pista LED Iluminada y Proyección Galaxia — Incluida en Todos los Eventos
+   616
+   617 [PÁRRAFO] — Pista LED
+   618 Nuestro piso de baile LED de última generación y el sistema de proyección galaxia en techo son los únicos de s
+       u tipo en la región de Zapotlán de Juárez y Tulancingo, Hidalgo. La pista cambia de colores al ritmo de la mús
+       ica y crea una experiencia visual que convierte cualquier momento de baile en un espectáculo. Está incluida si
+       n costo adicional en todos los paquetes del salón.
+   619
+   620 [H2] — CTA
+   621 Empieza a Planear Tu Evento en La Cabaña
+   622
+   623 [PÁRRAFO] — CTA
+   624 Cuéntanos tu idea: el tipo de evento, la fecha aproximada y cuántos invitados esperas. Nuestro equipo de coord
+       inación te responde con opciones y precios en menos de 24 horas.
+   625
+   626 [CTA] Botón:
+   627 Solicitar Cotización Gratuita
+   628
+   629 ---PÁGINA: cotizar.html---
+   630
+   631 ## Análisis de problemas actuales
+   632 - El title usa "Centro de Convenciones" que no corresponde al nombre ni al posicionamiento del negocio y puede
+        confundir a Google sobre la identidad del sitio.
+   633 - El H1 "Cotiza tu evento ideal" es correcto en intención pero pobre en señales de localización.
+   634 - Esta es la página de mayor intención transaccional del sitio. Debe cargarse rápido, tener el formulario visi
+       ble inmediatamente y no generar fricción.
+   635
+   636 ---
+   637
+   638 [TITLE]
+   639 Cotiza Tu Evento | Salón La Cabaña — Zapotlán de Juárez, Hidalgo
+   640
+   641 Caracteres: 59 — DENTRO DEL LÍMITE
+   642
+   643 [META DESC]
+   644 Solicita tu cotización gratis para bodas, XV años, graduaciones o corporativos en La Cabaña, Hidalgo. Respuest
+       a en menos de 24 horas. Sin compromiso.
+   645
+   646 Caracteres: 148 — DENTRO DEL LÍMITE
+   647
+   648 [H1]
+   649 Solicita tu Cotización — Salón de Eventos en Hidalgo
+   650
+   651 [H2] — Formulario
+   652 Cuéntanos cómo va a ser tu evento
+   653
+   654 [PÁRRAFO] — Intro formulario
+   655 Completa el formulario con los datos de tu evento y te enviamos una propuesta personalizada en menos de 24 hor
+       as. Sin compromisos, sin costos ocultos. Si prefieres hablar directamente, escríbenos por WhatsApp al 771 134
+       1559.
+   656
+   657 [H2] — Qué pasa después de cotizar
+   658 ¿Cómo funciona el proceso de reserva?
+   659
+   660 [H3] 1. Llenas el formulario
+   661 [PÁRRAFO] Nos dices el tipo de evento, la fecha aproximada, el número de invitados y el paquete que te interes
+       a.
+   662
+   663 [H3] 2. Te enviamos tu cotización
+   664 [PÁRRAFO] En menos de 24 horas recibes por WhatsApp o correo una propuesta detallada con precios, servicios in
+       cluidos y opciones de personalización.
+   665
+   666 [H3] 3. Visitas el salón
+   667 [PÁRRAFO] Te invitamos a conocer las instalaciones en persona para que puedas imaginarte tu evento aquí. La vi
+       sita es gratuita y sin compromiso.
+   668
+   669 [H3] 4. Apartas tu fecha
+   670 [PÁRRAFO] Una vez que eliges tu paquete, aseguras tu fecha con un anticipo. A partir de ahí, nuestro equipo de
+        coordinación está contigo en cada paso de la planeación.
+   671
+   672 [H2] — Contacto alternativo
+   673 Otras formas de contactarnos
+   674
+   675 [PÁRRAFO] — Contacto
+   676 Estamos en Nicolás Bravo No. 72, Col. Niños Héroes, San Pedro Huaquilpan, Zapotlán de Juárez, Hidalgo. Puedes
+       llamarnos o escribirnos por WhatsApp al 771 134 1559 de lunes a sábado de 10 a.m. a 7 p.m.
+   677
+   678 [CTA] Botón formulario:
+   679 Enviar Mi Solicitud de Cotización
+   680
+   681 [CTA] Botón alternativo:
+   682 Cotizar por WhatsApp Ahora
+   683
+   684 ---PÁGINA: contacto.html---
+   685
+   686 ## Análisis de problemas actuales
+   687 - El H1 "Agenda Tu Evento Hoy" está bien orientado a acción pero no incluye señal de localización. Para esta p
+       ágina, la localización es clave para el SEO local.
+   688 - La página de contacto es también una landing page de refuerzo local: debe tener el NAP (Name, Address, Phone
+       ) perfectamente estructurado y consistente con el que está en GBP y en el schema LocalBusiness.
+   689 - Falta un embedded Google Maps con el pin exacto de la ubicación.
+   690
+   691 ---
+   692
+   693 [TITLE]
+   694 Contacto | Salón La Cabaña — Zapotlán de Juárez, Hidalgo
+   695
+   696 Caracteres: 53 — DENTRO DEL LÍMITE
+   697
+   698 [META DESC]
+   699 Contáctanos para cotizar tu evento en La Cabaña. Nicolás Bravo 72, Zapotlán de Juárez, Hidalgo. WhatsApp: 771
+       134 1559. Atención lunes a sábado.
+   700
+   701 Caracteres: 144 — DENTRO DEL LÍMITE
+   702
+   703 [H1]
+   704 Contacto — Salón de Eventos La Cabaña en Zapotlán de Juárez, Hidalgo
+   705
+   706 [H2] — Formulario
+   707 Envíanos los Detalles de Tu Evento
+   708
+   709 [PÁRRAFO] — Formulario intro
+   710 Escríbenos con el tipo de evento, la fecha y el número de invitados. Te respondemos en menos de 24 horas con o
+       pciones y precios. También puedes llamarnos o escribirnos directamente al 771 134 1559.
+   711
+   712 [H3] Información de Contacto
+   713 [PÁRRAFO]
+   714 Salón de Eventos y Espectáculos La Cabaña
+   715 Nicolás Bravo No. 72, Col. Niños Héroes
+   716 San Pedro Huaquilpan, Zapotlán de Juárez, Hidalgo, C.P. 42190
+   717 Teléfono y WhatsApp: 771 134 1559
+   718 Correo: [correo del negocio]
+   719 Horario de atención: Lunes a Sábado, 10:00 a.m. – 7:00 p.m.
+   720
+   721 [H3] Horarios de Atención
+   722 [PÁRRAFO] Nuestro equipo está disponible de lunes a sábado de 10 a.m. a 7 p.m. para atender consultas, coordin
+       ar visitas al salón y procesar reservaciones. Los domingos atendemos solo por WhatsApp en caso de urgencia.
+   723
+   724 [H3] Síguenos en Redes Sociales
+   725 [PÁRRAFO] Encuentra inspiración para tu evento, ve galería de celebraciones recientes y entérate de promocione
+       s especiales en nuestras redes sociales.
+   726
+   727 [H3] ¿Cómo Llegar a La Cabaña desde Tulancingo?
+   728 [PÁRRAFO] Desde Tulancingo de Bravo, toma la carretera federal 130 con dirección a Zapotlán de Juárez. Al lleg
+       ar a San Pedro Huaquilpan, busca Nicolás Bravo No. 72, en la Colonia Niños Héroes. Tiempo aproximado: 35 minut
+       os en auto. Contamos con estacionamiento propio dentro del predio.
+   729
+   730 [H3] ¿Cómo Llegar desde Tizayuca?
+   731 [PÁRRAFO] Desde Tizayuca, toma la autopista México-Tuxpan hacia Tulancingo y continúa por la carretera 130 has
+       ta San Pedro Huaquilpan. Tiempo aproximado: 50 minutos. El salón tiene señalización en la entrada principal de
+        la Colonia Niños Héroes.
+   732
+   733 [CTA] Botón formulario:
+   734 Enviar Mi Mensaje
+   735
+   736 [CTA] Botón WhatsApp:
+   737 Escribir por WhatsApp Ahora
+   738
+   739 ---PÁGINA: menu.html---
+   740
+   741 ## Análisis de problemas actuales
+   742 - El H1 "Una experiencia que se saborea" es aspiracional pero nulo para SEO. Nadie busca esa frase.
+   743 - La página de menú es una landing de intent comercial importante: las personas buscan "menú banquete boda Hid
+       algo", "precio menú XV años por persona Hidalgo". No está capturando esas búsquedas.
+   744 - La opción de descarga de PDF es buena (genera engagement) pero el PDF debe tener metadatos SEO correctos y e
+       l botón debe estar visible sin scroll.
+   745
+   746 ---
+   747
+   748 [TITLE]
+   749 Menú Gourmet para Eventos | La Cabaña — Zapotlán de Juárez, Hidalgo
+   750
+   751 Caracteres: 60 — DENTRO DEL LÍMITE
+   752
+   753 [META DESC]
+   754 Menú gourmet de banquete para bodas, XV años y graduaciones en La Cabaña, Hidalgo. 3, 4 y 5 tiempos. Descarga
+       el menú completo en PDF. Cotiza hoy.
+   755
+   756 Caracteres: 148 — DENTRO DEL LÍMITE
+   757
+   758 [H1]
+   759 Menú de Banquete para Eventos en Zapotlán de Juárez, Hidalgo
+   760
+   761 [H2] — Intro
+   762 Gastronomía de calidad para cada celebración
+   763
+   764 [PÁRRAFO] — Intro
+   765 En La Cabaña creemos que la comida es parte esencial de cualquier evento memorable. Por eso ofrecemos tres pro
+       puestas de menú de banquete, desde opciones clásicas hasta experiencias gastronómicas de 5 tiempos, todas prep
+       aradas con ingredientes frescos y servidas por nuestro equipo profesional de meseros. Disponibles para bodas,
+       XV años, graduaciones, bautizos y eventos corporativos en Hidalgo.
+   766
+   767 [H2] — Menús de banquete
+   768 Nuestros Menús de Banquete para Eventos
+   769
+   770 [H3] Menú Clásico — 3 Tiempos
+   771 [PÁRRAFO] Ideal para eventos con invitados de todas las edades. Incluye sopa o crema, plato fuerte a elegir en
+       tre pollo en salsa, res al jugo o cerdo en pipián, y postre del día. Servicio de mesa incluido. Disponible par
+       a un mínimo de 80 personas.
+   772
+   773 [H3] Menú Gourmet — 4 Tiempos
+   774 [PÁRRAFO] Nuestra opción más popular para bodas y quinceañeras. Entrada fría (ensalada gourmet o carpaccio de
+       temporada), sopa de autor, plato fuerte premium (filete de res, pollo a la crema o chuleta de cerdo con reducc
+       ión) y postre artesanal. Maridaje opcional con vino de la casa.
+   775
+   776 [H3] Menú Ejecutivo Premium — 5 Tiempos
+   777 [PÁRRAFO] La experiencia gastronómica completa para eventos de alto nivel. Amuse-bouche de bienvenida, entrada
+        fría, sopa de temporada, plato fuerte de autor con guarnición gourmet y mesa de postres premium con pastel pe
+       rsonalizado incluido. Presentación de restaurante de lujo en cada tiempo.
+   778
+   779 [H2] — Coctelería
+   780 Nuestra Barra de Cócteles para Eventos
+   781
+   782 [PÁRRAFO] — Coctelería
+   783 Servicio de open bar con bartenders profesionales, cócteles clásicos y de temporada, cerveza de barril, aguas
+       frescas y opciones sin alcohol para todos los invitados. Disponible como complemento en todos los paquetes o c
+       omo servicio independiente para eventos con bebidas propias.
+   784
+   785 [H2] — Cerveza de barril
+   786 Cerveza de Barril — El Brindis Perfecto
+   787
+   788 [PÁRRAFO] — Cerveza de barril
+   789 Contamos con sistema de servicio de cerveza de barril para eventos grandes. Tirada perfecta, temperatura contr
+       olada y barril al centro de la celebración. Una experiencia diferente al servicio de cerveza en botella, ideal
+        para fiestas de graduación y eventos corporativos.
+   790
+   791 [H2] — Descarga PDF
+   792 Descarga el Menú Completo en PDF
+   793
+   794 [PÁRRAFO] — PDF
+   795 ¿Quieres ver todos los platillos, opciones vegetarianas y precios por persona? Descarga nuestro menú completo
+       en PDF para revisarlo con calma o compartirlo con los organizadores del evento.
+   796
+   797 [H2] — CTA
+   798 ¿Te gustó el menú? Platiquemos sobre tu evento
+   799
+   800 [PÁRRAFO] — CTA
+   801 Una vez que elijas el menú que más te convence, el siguiente paso es cotizar tu evento completo. Escríbenos co
+       n la fecha, el tipo de celebración y el número de invitados y te enviamos una propuesta detallada en 24 horas.
+   802
+   803 [CTA] Botón descarga:
+   804 Descargar Menú PDF Gratis
+   805
+   806 [CTA] Botón cotización:
+   807 Cotizar Menú para Mi Evento
+   808
+   809 ---PÁGINA: comunidad.html---
+   810
+   811 ## Análisis de problemas actuales
+   812 - Esta página tiene una propuesta de valor diferente al resto del sitio (comunidad, talleres, desarrollo emoci
+       onal). Requiere su propio cluster de keywords completamente separado.
+   813 - La confusión semántica entre "salón de eventos" y "centro comunitario de talleres" puede diluir la autoridad
+        temática del dominio si no se delimita bien.
+   814 - Recomendación: mantener la página pero asegurarse de que los enlaces internos desde ella hacia las páginas d
+       e eventos sean claros, y que los textos no mezclen las propuestas de valor.
+   815
+   816 ---
+   817
+   818 [TITLE]
+   819 Comunidad La Cabaña | Talleres y Cursos en Zapotlán de Juárez, Hidalgo
+   820
+   821 Caracteres: 60 — DENTRO DEL LÍMITE
+   822
+   823 [META DESC]
+   824 La Cabaña Community: talleres de desarrollo emocional, cursos para niños y experiencias familiares en Zapotlán
+        de Juárez, Hidalgo. Consulta el calendario.
+   825
+   826 Caracteres: 152 — DENTRO DEL LÍMITE
+   827
+   828 [H1]
+   829 Comunidad La Cabaña — Talleres, Cursos y Experiencias en Hidalgo
+   830
+   831 [H2] — Intro
+   832 Más que un salón de eventos: un espacio de crecimiento y conexión
+   833
+   834 [PÁRRAFO] — Intro
+   835 La Cabaña no solo es el salón de eventos de referencia en Zapotlán de Juárez. También somos un espacio comunit
+       ario donde familias, jóvenes y emprendedores se reúnen para aprender, crecer y conectar. Nuestros talleres y c
+       ursos están diseñados para complementar la vida de las personas en nuestra comunidad.
+   836
+   837 [H2] — Talleres
+   838 Talleres y Cursos Disponibles
+   839
+   840 [H3] Taller de Desarrollo Emocional
+   841 [PÁRRAFO] Sesiones grupales e individuales de desarrollo emocional para adultos y jóvenes. Facilitadas por pro
+       fesionales certificados. Próximas fechas disponibles en el calendario de la comunidad.
+   842
+   843 [H2] — CTA salón de eventos
+   844 ¿Buscas el salón para tu próximo evento?
+   845
+   846 [PÁRRAFO] — CTA cruzado
+   847 Si llegaste a esta página buscando información sobre nuestro salón de eventos para bodas, XV años o graduacion
+       es, te invitamos a conocer nuestros paquetes y servicios.
+   848
+   849 [CTA] Botón cruzado:
+   850 Ver Salón de Eventos y Paquetes
+   851
+   852 ---PÁGINA: otros-eventos.html---
+   853
+   854 ## Análisis de problemas actuales
+   855 - El title "Cumpleaños, Bautizos, Cenas Corporativas y Reuniones | La Cabaña" es una lista de keywords que pue
+       de verse como keyword stuffing. Mejor enfocarse en el término de mayor volumen.
+   856 - Esta página tiene demasiados H2s (7 en total) para una sola página. Hay que consolidar la estructura.
+   857 - La sección corporativa merece su propia página si el negocio decide atacar ese segmento con fuerza. Por ahor
+       a, mantenerla en esta página es correcto.
+   858
+   859 ---
+   860
+   861 [TITLE]
+   862 Salón para Cumpleaños, Bautizos y Corporativos en Hidalgo | La Cabaña
+   863
+   864 Caracteres: 63 — 3 caracteres sobre el límite ideal. Versión alternativa:
+   865 Salón para Cumpleaños y Bautizos en Hidalgo | La Cabaña
+   866 Caracteres: 55 — DENTRO DEL LÍMITE
+   867
+   868 [META DESC]
+   869 Cumpleaños, bautizos y eventos corporativos en La Cabaña, Zapotlán de Juárez, Hidalgo. Capacidad 250 personas,
+        pista LED, DJ y menú gourmet. Cotiza ya.
+   870
+   871 Caracteres: 152 — DENTRO DEL LÍMITE
+   872
+   873 [H1]
+   874 Cumpleaños, Bautizos y Eventos Corporativos en Zapotlán de Juárez, Hidalgo
+   875
+   876 [H2] — Cumpleaños
+   877 Salón para Fiestas de Cumpleaños en Hidalgo
+   878
+   879 [PÁRRAFO] — Cumpleaños
+   880 Celebra tu cumpleaños o el de un ser querido en el salón más completo de la región. La Cabaña organiza fiestas
+        de cumpleaños para todas las edades: desde los 1 a 3 años con temáticas infantiles, hasta cumpleaños de 15, 1
+       8, 30, 50 o cualquier número que merezca una gran celebración. DJ, decoración personalizada, menú y pista LED
+       incluidos en todos los paquetes.
+   881
+   882 [H2] — Bautizos
+   883 Salón para Bautizos y Primeras Comuniones en Hidalgo
+   884
+   885 [PÁRRAFO] — Bautizos
+   886 Un sacramento tan importante merece una celebración a la altura. En La Cabaña organizamos bautizos y primeras
+       comuniones con ambientación religiosa, menú familiar, pastel personalizado y un espacio íntimo y elegante para
+        que tus invitados disfruten en comodidad. Atendemos grupos desde 50 hasta 250 personas.
+   887
+   888 [H2] — Pista LED corporativo
+   889 Pista Iluminada y Tecnología para Tus Eventos
+   890
+   891 [PÁRRAFO] — Pista tecnología
+   892 La pista LED iluminada y el sistema de proyección galaxia están incluidos en todos los eventos, sean sociales
+       o empresariales. Para corporativos, también disponemos de pantalla de proyección, micrófono inalámbrico y sist
+       ema de sonido para presentaciones.
+   893
+   894 [H2] — Corporativos
+   895 Eventos Empresariales y Cenas Corporativas en Hidalgo
+   896
+   897 [PÁRRAFO] — Corporativos
+   898 La Cabaña es el espacio ideal para cenas de empresa, juntas directivas, premiaciones anuales, lanzamientos de
+       producto y convenciones en la región de Hidalgo. Contamos con proyector, micrófono, iluminación adaptable y me
+       nú ejecutivo con servicio de meseros profesionales. A fácil acceso desde Tulancingo, Tizayuca y Pachuca.
+   899
+   900 [H2] — CTA
+   901 Reserva Tu Fecha para Cualquier Tipo de Evento
+   902
+   903 [PÁRRAFO] — CTA
+   904 ¿Tienes un evento en mente que no es boda ni XV años? Escríbenos con los detalles y te damos opciones y precio
+       s en 24 horas. Celebramos cualquier ocasión especial en el salón más completo de Zapotlán de Juárez.
+   905
+   906 [CTA] Botón:
+   907 Cotizar Mi Evento Ahora
+   908
+   909 [CTA] WhatsApp:
+   910 Preguntar por WhatsApp
+   911
+   912 ---PÁGINA: blog.html---
+   913
+   914 ## Análisis de problemas actuales
+   915 - Una página de blog sin artículos publicados no tiene valor SEO. El valor está en los artículos individuales.
+   916 - La página hub del blog debe servir como índice de temas relevantes para el negocio, organizada por categoría
+       s que correspondan a los clusters de keywords.
+   917 - Se recomienda publicar al menos 4 artículos en los primeros 90 días para comenzar a capturar tráfico informa
+       cional.
+   918
+   919 ---
+   920
+   921 [TITLE]
+   922 Blog de Eventos | Consejos para Bodas, XV Años y Más — La Cabaña
+   923
+   924 Caracteres: 60 — DENTRO DEL LÍMITE
+   925
+   926 [META DESC]
+   927 Consejos, tendencias e inspiración para tu evento en La Cabaña, Hidalgo. Guías para bodas, XV años, graduacion
+       es y más. Actualizaciones directas del equipo.
+   928
+   929 Caracteres: 155 — EN EL LÍMITE
+   930
+   931 [H1]
+   932 Blog de La Cabaña — Guías e Inspiración para Tu Evento en Hidalgo
+   933
+   934 [H2] — Intro
+   935 Todo lo que necesitas saber antes de organizar tu evento
+   936
+   937 [PÁRRAFO] — Intro
+   938 Desde cuánto cuesta una boda en Hidalgo hasta qué incluir en una fiesta de graduación perfecta, en el blog de
+       La Cabaña compartimos todo lo que hemos aprendido organizando eventos para cientos de familias en la región. A
+       quí encuentras guías prácticas, tendencias y consejos del equipo que hace realidad los mejores eventos de Zapo
+       tlán de Juárez.
+   939
+   940 [H2] — Artículos recomendados (lista de temas prioritarios para publicar)
+   941 Artículos Destacados
+   942
+   943 Nota para el equipo de contenido: Los siguientes artículos deben crearse con prioridad alta por su potencial d
+       e capturar tráfico informacional calificado:
+   944
+   945 1. "¿Cuánto cuesta una boda en Hidalgo en 2026? Guía de precios real"
+   946    Keywords target: precio boda Hidalgo, costo boda Hidalgo, cuánto cuesta boda Hidalgo
+   947
+   948 2. "Lista completa para organizar XV años en Hidalgo: todo lo que necesitas"
+   949    Keywords target: cómo organizar XV años Hidalgo, checklist XV años, qué necesito para XV años
+   950
+   951 3. "Las 7 mejores ideas de decoración para graduación 2026"
+   952    Keywords target: decoración graduación 2026, ideas fiesta graduación Hidalgo
+   953
+   954 4. "¿Salón de eventos o jardín? Guía para elegir el lugar perfecto en Hidalgo"
+   955    Keywords target: salón vs jardín eventos Hidalgo, dónde celebrar evento Hidalgo
+   956
+   957 5. "Menú gourmet para boda: ¿cuánto cuesta por persona en Hidalgo?"
+   958    Keywords target: precio menú boda Hidalgo, banquete por persona Hidalgo
+   959
+   960 [CTA]
+   961 ¿Listo para cotizar tu evento?
+   962
+   963 [CTA] Botón:
+   964 Solicitar Cotización Gratis
+   965
+   966 ---
+   967
+   968 # PARTE 3 — SCHEMA MARKUP (JSON-LD)
+   969
+   970 ---
+   971
+   972 ## Schema LocalBusiness + EventVenue — Listo para pegar en el `<head>` de index.html
+   973
+   974 ```html
+   975 <!-- Schema LocalBusiness + EventVenue — La Cabaña -->
+   976 <script type="application/ld+json">
+   977 {
+   978   "@context": "https://schema.org",
+   979   "@type": ["LocalBusiness", "EventVenue"],
+   980   "@id": "https://lacabanaeventos.com/#organization",
+   981   "name": "Salón de Eventos y Espectáculos La Cabaña",
+   982   "alternateName": "La Cabaña Eventos",
+   983   "url": "https://lacabanaeventos.com",
+   984   "logo": {
+   985     "@type": "ImageObject",
+   986     "url": "https://lacabanaeventos.com/images/logo-la-cabana.png",
+   987     "width": 200,
+   988     "height": 80
+   989   },
+   990   "image": [
+   991     "https://lacabanaeventos.com/images/salon-la-cabana-principal.jpg",
+   992     "https://lacabanaeventos.com/images/pista-led-la-cabana.jpg",
+   993     "https://lacabanaeventos.com/images/salon-boda-la-cabana.jpg"
+   994   ],
+   995   "description": "Salón de Eventos y Espectáculos La Cabaña en Zapotlán de Juárez, Hidalgo. Bodas, XV Años, Gr
+       aduaciones, Bautizos, Fiestas Infantiles y Corporativos. Capacidad para 250 personas. Pista LED iluminada, DJ,
+        menú gourmet, open bar y cabañas de hospedaje.",
+   996   "telephone": "+52-771-134-1559",
+   997   "email": "contacto@lacabanaeventos.com",
+   998   "address": {
+   999     "@type": "PostalAddress",
+  1000     "streetAddress": "Nicolás Bravo No. 72, Col. Niños Héroes",
+  1001     "addressLocality": "San Pedro Huaquilpan",
+  1002     "addressRegion": "Hidalgo",
+  1003     "postalCode": "42190",
+  1004     "addressCountry": "MX",
+  1005     "addressLocality2": "Zapotlán de Juárez"
+  1006   },
+  1007   "geo": {
+  1008     "@type": "GeoCoordinates",
+  1009     "latitude": "20.1234",
+  1010     "longitude": "-98.5678"
+  1011   },
+  1012   "openingHoursSpecification": [
+  1013     {
+  1014       "@type": "OpeningHoursSpecification",
+  1015       "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+  1016       "opens": "10:00",
+  1017       "closes": "19:00"
+  1018     }
+  1019   ],
+  1020   "priceRange": "$$",
+  1021   "currenciesAccepted": "MXN",
+  1022   "paymentAccepted": "Cash, Credit Card, Bank Transfer",
+  1023   "amenityFeature": [
+  1024     {
+  1025       "@type": "LocationFeatureSpecification",
+  1026       "name": "Pista de Baile LED Iluminada",
+  1027       "value": true
+  1028     },
+  1029     {
+  1030       "@type": "LocationFeatureSpecification",
+  1031       "name": "DJ Profesional",
+  1032       "value": true
+  1033     },
+  1034     {
+  1035       "@type": "LocationFeatureSpecification",
+  1036       "name": "Menú Gourmet",
+  1037       "value": true
+  1038     },
+  1039     {
+  1040       "@type": "LocationFeatureSpecification",
+  1041       "name": "Open Bar",
+  1042       "value": true
+  1043     },
+  1044     {
+  1045       "@type": "LocationFeatureSpecification",
+  1046       "name": "Cabañas de Hospedaje",
+  1047       "value": true
+  1048     },
+  1049     {
+  1050       "@type": "LocationFeatureSpecification",
+  1051       "name": "Estacionamiento",
+  1052       "value": true
+  1053     },
+  1054     {
+  1055       "@type": "LocationFeatureSpecification",
+  1056       "name": "Aire Acondicionado",
+  1057       "value": true
+  1058     },
+  1059     {
+  1060       "@type": "LocationFeatureSpecification",
+  1061       "name": "Show en Vivo",
+  1062       "value": true
+  1063     },
+  1064     {
+  1065       "@type": "LocationFeatureSpecification",
+  1066       "name": "Invitación Digital Gratuita",
+  1067       "value": true
+  1068     }
+  1069   ],
+  1070   "maximumAttendeeCapacity": 250,
+  1071   "hasMap": "https://maps.google.com/?q=Nicolás+Bravo+72+San+Pedro+Huaquilpan+Zapotlán+de+Juárez+Hidalgo",
+  1072   "sameAs": [
+  1073     "https://www.facebook.com/lacabanaeventos",
+  1074     "https://www.instagram.com/lacabanaeventos",
+  1075     "https://wa.me/527711341559"
+  1076   ],
+  1077   "areaServed": [
+  1078     {
+  1079       "@type": "City",
+  1080       "name": "Zapotlán de Juárez"
+  1081     },
+  1082     {
+  1083       "@type": "City",
+  1084       "name": "Tulancingo de Bravo"
+  1085     },
+  1086     {
+  1087       "@type": "City",
+  1088       "name": "Tizayuca"
+  1089     },
+  1090     {
+  1091       "@type": "City",
+  1092       "name": "Tepeapulco"
+  1093     },
+  1094     {
+  1095       "@type": "AdministrativeArea",
+  1096       "name": "Hidalgo"
+  1097     }
+  1098   ],
+  1099   "founder": {
+  1100     "@type": "Person",
+  1101     "name": "[Nombre del fundador/a]"
+  1102   },
+  1103   "foundingDate": "2025-11",
+  1104   "keywords": "salón de eventos Hidalgo, salón de bodas Zapotlán de Juárez, XV años Hidalgo, graduaciones Hida
+       lgo, bautizos Hidalgo, salón de fiestas Hidalgo"
+  1105 }
+  1106 </script>
+  1107 ```
+  1108
+  1109 ---
+  1110
+  1111 ## Schema FAQPage — Para agregar en index.html o en cotizar.html
+  1112
+  1113 ```html
+  1114 <!-- Schema FAQPage — Preguntas Frecuentes La Cabaña -->
+  1115 <script type="application/ld+json">
+  1116 {
+  1117   "@context": "https://schema.org",
+  1118   "@type": "FAQPage",
+  1119   "mainEntity": [
+  1120     {
+  1121       "@type": "Question",
+  1122       "name": "¿Cuántas personas tiene capacidad el salón La Cabaña?",
+  1123       "acceptedAnswer": {
+  1124         "@type": "Answer",
+  1125         "text": "El Salón de Eventos La Cabaña tiene capacidad para 250 personas, incluyendo área de banquete,
+        pista de baile LED y zona de convivio. Atendemos eventos desde 50 hasta 250 invitados."
+  1126       }
+  1127     },
+  1128     {
+  1129       "@type": "Question",
+  1130       "name": "¿Dónde está ubicado el Salón La Cabaña?",
+  1131       "acceptedAnswer": {
+  1132         "@type": "Answer",
+  1133         "text": "Estamos en Nicolás Bravo No. 72, Col. Niños Héroes, San Pedro Huaquilpan, Zapotlán de Juárez,
+        Hidalgo. A 35 minutos de Tulancingo y 50 minutos de Tizayuca."
+  1134       }
+  1135     },
+  1136     {
+  1137       "@type": "Question",
+  1138       "name": "¿Qué tipos de eventos organizan en La Cabaña?",
+  1139       "acceptedAnswer": {
+  1140         "@type": "Answer",
+  1141         "text": "Organizamos bodas, XV años, graduaciones, bautizos, fiestas de cumpleaños, primeras comunione
+       s, eventos corporativos, cenas de empresa y espectáculos. Todos los eventos incluyen pista LED iluminada sin c
+       osto adicional."
+  1142       }
+  1143     },
+  1144     {
+  1145       "@type": "Question",
+  1146       "name": "¿Los paquetes incluyen DJ y menú?",
+  1147       "acceptedAnswer": {
+  1148         "@type": "Answer",
+  1149         "text": "Sí. La mayoría de nuestros paquetes incluyen DJ profesional con equipo de sonido, menú de ban
+       quete (clásico, gourmet o premium), pista LED iluminada e invitación digital gratuita. El paquete La Cabaña Pr
+       emium incluye además open bar, show en vivo y mesa de postres."
+  1150       }
+  1151     },
+  1152     {
+  1153       "@type": "Question",
+  1154       "name": "¿Cómo puedo cotizar mi evento en La Cabaña?",
+  1155       "acceptedAnswer": {
+  1156         "@type": "Answer",
+  1157         "text": "Puedes solicitar tu cotización llenando el formulario en lacabanaeventos.com/cotizar.html o e
+       scribiéndonos directamente por WhatsApp al 771 134 1559. Respondemos en menos de 24 horas con una propuesta pe
+       rsonalizada."
+  1158       }
+  1159     },
+  1160     {
+  1161       "@type": "Question",
+  1162       "name": "¿La Cabaña tiene servicio de hospedaje para invitados?",
+  1163       "acceptedAnswer": {
+  1164         "@type": "Answer",
+  1165         "text": "Sí, contamos con cabañas de hospedaje dentro del mismo predio para que los invitados que vien
+       en de fuera puedan quedarse sin necesidad de transporte adicional. Es un servicio exclusivo de La Cabaña en la
+        región de Hidalgo."
+  1166       }
+  1167     },
+  1168     {
+  1169       "@type": "Question",
+  1170       "name": "¿Qué hace única a la pista de baile de La Cabaña?",
+  1171       "acceptedAnswer": {
+  1172         "@type": "Answer",
+  1173         "text": "Nuestra pista de baile LED iluminada cambia de colores al ritmo de la música y está complemen
+       tada con un sistema de proyección galaxia en el techo. Es la única pista de este tipo en la región de Zapotlán
+        de Juárez y Tulancingo, Hidalgo, y está incluida sin costo adicional en todos los paquetes."
+  1174       }
+  1175     }
+  1176   ]
+  1177 }
+  1178 </script>
+  1179 ```
+  1180
+  1181 ---
+  1182
+  1183 ## Schema BreadcrumbList — Para pegar en cada página interna
+  1184
+  1185 ### bodas.html
+  1186 ```html
+  1187 <script type="application/ld+json">
+  1188 {
+  1189   "@context": "https://schema.org",
+  1190   "@type": "BreadcrumbList",
+  1191   "itemListElement": [
+  1192     {
+  1193       "@type": "ListItem",
+  1194       "position": 1,
+  1195       "name": "Inicio",
+  1196       "item": "https://lacabanaeventos.com"
+  1197     },
+  1198     {
+  1199       "@type": "ListItem",
+  1200       "position": 2,
+  1201       "name": "Bodas",
+  1202       "item": "https://lacabanaeventos.com/bodas.html"
+  1203     }
+  1204   ]
+  1205 }
+  1206 </script>
+  1207 ```
+  1208
+  1209 ### xv-anos.html
+  1210 ```html
+  1211 <script type="application/ld+json">
+  1212 {
+  1213   "@context": "https://schema.org",
+  1214   "@type": "BreadcrumbList",
+  1215   "itemListElement": [
+  1216     {
+  1217       "@type": "ListItem",
+  1218       "position": 1,
+  1219       "name": "Inicio",
+  1220       "item": "https://lacabanaeventos.com"
+  1221     },
+  1222     {
+  1223       "@type": "ListItem",
+  1224       "position": 2,
+  1225       "name": "XV Años",
+  1226       "item": "https://lacabanaeventos.com/xv-anos.html"
+  1227     }
+  1228   ]
+  1229 }
+  1230 </script>
+  1231 ```
+  1232
+  1233 ### graduaciones.html
+  1234 ```html
+  1235 <script type="application/ld+json">
+  1236 {
+  1237   "@context": "https://schema.org",
+  1238   "@type": "BreadcrumbList",
+  1239   "itemListElement": [
+  1240     {
+  1241       "@type": "ListItem",
+  1242       "position": 1,
+  1243       "name": "Inicio",
+  1244       "item": "https://lacabanaeventos.com"
+  1245     },
+  1246     {
+  1247       "@type": "ListItem",
+  1248       "position": 2,
+  1249       "name": "Graduaciones",
+  1250       "item": "https://lacabanaeventos.com/graduaciones.html"
+  1251     }
+  1252   ]
+  1253 }
+  1254 </script>
+  1255 ```
+  1256
+  1257 ### Patrón para todas las demás páginas:
+  1258 Replicar el mismo patrón cambiando "name" e "item" en la posición 2 para: eventos.html, cotizar.html, contacto
+       .html, menu.html, comunidad.html, otros-eventos.html, blog.html.
+  1259
+  1260 ---
+  1261
+  1262 # PARTE 4 — CHECKLIST TÉCNICO SEO
+  1263
+  1264 ---
+  1265
+  1266 ## PRIORIDAD 1 — CRÍTICO (Implementar esta semana)
+  1267
+  1268 ### 1.1 Google Business Profile (GBP)
+  1269 - [ ] Crear o reclamar el perfil en business.google.com
+  1270 - [ ] Nombre exacto: "Salón de Eventos y Espectáculos La Cabaña"
+  1271 - [ ] Categoría principal: "Salón de eventos" (Event venue)
+  1272 - [ ] Categorías secundarias: "Salón de bodas", "Salón de fiestas", "Restaurante de banquetes"
+  1273 - [ ] Dirección exacta: Nicolás Bravo No. 72, Col. Niños Héroes, San Pedro Huaquilpan, Zapotlán de Juárez, Hid
+       algo, 42190
+  1274 - [ ] Teléfono: 771 134 1559
+  1275 - [ ] Sitio web: https://lacabanaeventos.com
+  1276 - [ ] Horario de atención: Lunes-Sábado 10:00-19:00
+  1277 - [ ] Subir mínimo 20 fotos de alta calidad: exterior, interior, pista LED, menú, eventos reales
+  1278 - [ ] Agregar servicios listados: Bodas, XV Años, Graduaciones, Bautizos, Fiestas Infantiles, Corporativos
+  1279 - [ ] Habilitar mensajes por WhatsApp en GBP
+  1280 - [ ] Solicitar las primeras 5-10 reseñas de conocidos y asistentes a la inauguración
+  1281
+  1282 ### 1.2 Schema Markup
+  1283 - [ ] Implementar JSON-LD LocalBusiness (ver Parte 3) en el `<head>` de index.html
+  1284 - [ ] Implementar JSON-LD FAQPage en index.html o cotizar.html
+  1285 - [ ] Implementar JSON-LD BreadcrumbList en todas las páginas internas
+  1286 - [ ] Validar todos los schemas con: https://search.google.com/test/rich-results
+  1287 - [ ] Validar schema LocalBusiness con: https://validator.schema.org
+  1288
+  1289 ### 1.3 Canonical Tags
+  1290 Agregar en el `<head>` de cada página:
+  1291 ```html
+  1292 <!-- index.html -->
+  1293 <link rel="canonical" href="https://lacabanaeventos.com/" />
+  1294
+  1295 <!-- bodas.html -->
+  1296 <link rel="canonical" href="https://lacabanaeventos.com/bodas.html" />
+  1297
+  1298 <!-- xv-anos.html -->
+  1299 <link rel="canonical" href="https://lacabanaeventos.com/xv-anos.html" />
+  1300
+  1301 <!-- graduaciones.html -->
+  1302 <link rel="canonical" href="https://lacabanaeventos.com/graduaciones.html" />
+  1303
+  1304 <!-- eventos.html -->
+  1305 <link rel="canonical" href="https://lacabanaeventos.com/eventos.html" />
+  1306
+  1307 <!-- cotizar.html -->
+  1308 <link rel="canonical" href="https://lacabanaeventos.com/cotizar.html" />
+  1309
+  1310 <!-- contacto.html -->
+  1311 <link rel="canonical" href="https://lacabanaeventos.com/contacto.html" />
+  1312
+  1313 <!-- menu.html -->
+  1314 <link rel="canonical" href="https://lacabanaeventos.com/menu.html" />
+  1315
+  1316 <!-- comunidad.html -->
+  1317 <link rel="canonical" href="https://lacabanaeventos.com/comunidad.html" />
+  1318
+  1319 <!-- otros-eventos.html -->
+  1320 <link rel="canonical" href="https://lacabanaeventos.com/otros-eventos.html" />
+  1321
+  1322 <!-- blog.html -->
+  1323 <link rel="canonical" href="https://lacabanaeventos.com/blog.html" />
+  1324 ```
+  1325
+  1326 ### 1.4 Google Search Console
+  1327 - [ ] Verificar propiedad en search.google.com/search-console
+  1328 - [ ] Método recomendado: agregar meta tag de verificación en el `<head>` de index.html
+  1329 - [ ] Una vez verificado, enviar el sitemap XML manualmente
+  1330 - [ ] Monitorear semanalmente: Cobertura de índice, Rendimiento (impresiones/clics), Core Web Vitals
+  1331
+  1332 ---
+  1333
+  1334 ## PRIORIDAD 2 — IMPORTANTE (Implementar en los próximos 15 días)
+  1335
+  1336 ### 2.1 Open Graph Tags (para compartir en redes sociales)
+  1337 Agregar en el `<head>` de CADA página. Ejemplo para index.html:
+  1338 ```html
+  1339 <!-- Open Graph — index.html -->
+  1340 <meta property="og:type" content="website" />
+  1341 <meta property="og:url" content="https://lacabanaeventos.com/" />
+  1342 <meta property="og:title" content="Salón de Eventos en Hidalgo | La Cabaña — Zapotlán de Juárez" />
+  1343 <meta property="og:description" content="Salón de eventos La Cabaña en Zapotlán de Juárez, Hidalgo. Bodas, XV
+       Años, graduaciones y más para 250 personas. Pista LED, DJ, menú gourmet. ¡Cotiza hoy!" />
+  1344 <meta property="og:image" content="https://lacabanaeventos.com/images/og-la-cabana-salon.jpg" />
+  1345 <meta property="og:image:width" content="1200" />
+  1346 <meta property="og:image:height" content="630" />
+  1347 <meta property="og:locale" content="es_MX" />
+  1348 <meta property="og:site_name" content="La Cabaña Eventos" />
+  1349 ```
+  1350 Nota: Crear una imagen OG de 1200x630px con el logo, el salón y el texto "Salón de Eventos | Zapotlán de Juáre
+       z, Hidalgo" para uso compartido.
+  1351
+  1352 ### 2.2 Twitter Card Tags
+  1353 ```html
+  1354 <!-- Twitter Card — index.html -->
+  1355 <meta name="twitter:card" content="summary_large_image" />
+  1356 <meta name="twitter:title" content="Salón de Eventos en Hidalgo | La Cabaña — Zapotlán de Juárez" />
+  1357 <meta name="twitter:description" content="Bodas, XV Años, graduaciones y más en La Cabaña. Pista LED, DJ, menú
+        gourmet. 250 personas. Cotiza hoy." />
+  1358 <meta name="twitter:image" content="https://lacabanaeventos.com/images/og-la-cabana-salon.jpg" />
+  1359 ```
+  1360
+  1361 ### 2.3 XML Sitemap
+  1362 Crear o verificar el archivo sitemap.xml en https://lacabanaeventos.com/sitemap.xml con el siguiente contenido
+        mínimo:
+  1363 ```xml
+  1364 <?xml version="1.0" encoding="UTF-8"?>
+  1365 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  1366   <url>
+  1367     <loc>https://lacabanaeventos.com/</loc>
+  1368     <lastmod>2026-04-19</lastmod>
+  1369     <changefreq>weekly</changefreq>
+  1370     <priority>1.0</priority>
+  1371   </url>
+  1372   <url>
+  1373     <loc>https://lacabanaeventos.com/bodas.html</loc>
+  1374     <lastmod>2026-04-19</lastmod>
+  1375     <changefreq>monthly</changefreq>
+  1376     <priority>0.9</priority>
+  1377   </url>
+  1378   <url>
+  1379     <loc>https://lacabanaeventos.com/xv-anos.html</loc>
+  1380     <lastmod>2026-04-19</lastmod>
+  1381     <changefreq>monthly</changefreq>
+  1382     <priority>0.9</priority>
+  1383   </url>
+  1384   <url>
+  1385     <loc>https://lacabanaeventos.com/graduaciones.html</loc>
+  1386     <lastmod>2026-04-19</lastmod>
+  1387     <changefreq>monthly</changefreq>
+  1388     <priority>0.9</priority>
+  1389   </url>
+  1390   <url>
+  1391     <loc>https://lacabanaeventos.com/eventos.html</loc>
+  1392     <lastmod>2026-04-19</lastmod>
+  1393     <changefreq>monthly</changefreq>
+  1394     <priority>0.8</priority>
+  1395   </url>
+  1396   <url>
+  1397     <loc>https://lacabanaeventos.com/cotizar.html</loc>
+  1398     <lastmod>2026-04-19</lastmod>
+  1399     <changefreq>monthly</changefreq>
+  1400     <priority>0.9</priority>
+  1401   </url>
+  1402   <url>
+  1403     <loc>https://lacabanaeventos.com/contacto.html</loc>
+  1404     <lastmod>2026-04-19</lastmod>
+  1405     <changefreq>monthly</changefreq>
+  1406     <priority>0.8</priority>
+  1407   </url>
+  1408   <url>
+  1409     <loc>https://lacabanaeventos.com/menu.html</loc>
+  1410     <lastmod>2026-04-19</lastmod>
+  1411     <changefreq>monthly</changefreq>
+  1412     <priority>0.7</priority>
+  1413   </url>
+  1414   <url>
+  1415     <loc>https://lacabanaeventos.com/comunidad.html</loc>
+  1416     <lastmod>2026-04-19</lastmod>
+  1417     <changefreq>monthly</changefreq>
+  1418     <priority>0.5</priority>
+  1419   </url>
+  1420   <url>
+  1421     <loc>https://lacabanaeventos.com/otros-eventos.html</loc>
+  1422     <lastmod>2026-04-19</lastmod>
+  1423     <changefreq>monthly</changefreq>
+  1424     <priority>0.7</priority>
+  1425   </url>
+  1426   <url>
+  1427     <loc>https://lacabanaeventos.com/blog.html</loc>
+  1428     <lastmod>2026-04-19</lastmod>
+  1429     <changefreq>weekly</changefreq>
+  1430     <priority>0.6</priority>
+  1431   </url>
+  1432 </urlset>
+  1433 ```
+  1434
+  1435 ### 2.4 robots.txt
+  1436 Verificar o crear el archivo en https://lacabanaeventos.com/robots.txt:
+  1437 ```
+  1438 User-agent: *
+  1439 Allow: /
+  1440
+  1441 Sitemap: https://lacabanaeventos.com/sitemap.xml
+  1442 ```
+  1443 Si hay rutas de administración, formularios con parámetros de URL o páginas de agradecimiento (thank-you pages
+       ) que no deben indexarse, agregar:
+  1444 ```
+  1445 Disallow: /admin/
+  1446 Disallow: /gracias.html
+  1447 Disallow: /*?*
+  1448 ```
+  1449
+  1450 ### 2.5 Alt Text en todas las imágenes
+  1451 Auditoría completa de imágenes. Cada `<img>` debe tener alt text descriptivo siguiendo el patrón:
+  1452 - Logo: `alt="Logo Salón de Eventos La Cabaña, Zapotlán de Juárez Hidalgo"`
+  1453 - Imágenes del salón: `alt="Interior del Salón La Cabaña con pista LED iluminada, Zapotlán de Juárez"`
+  1454 - Imágenes de bodas: `alt="Boda en Salón La Cabaña, Zapotlán de Juárez, Hidalgo — Capacidad 250 personas"`
+  1455 - Imágenes de XV años: `alt="Quinceañera en La Cabaña, Hidalgo — Decoración de lujo y pista LED"`
+  1456 - Imágenes de menú: `alt="Menú gourmet para eventos en La Cabaña, Zapotlán de Juárez"`
+  1457 Nunca usar alt text genérico como "imagen1.jpg" o dejarlo vacío (excepto imágenes puramente decorativas, que d
+       eben tener alt="").
+  1458
+  1459 ---
+  1460
+  1461 ## PRIORIDAD 3 — RECOMENDADO (Implementar en los próximos 30 días)
+  1462
+  1463 ### 3.1 Core Web Vitals — Optimización de rendimiento
+  1464 - [ ] Comprimir todas las imágenes a formato WebP o AVIF (herramienta: squoosh.app — gratuita)
+  1465 - [ ] Ninguna imagen debe superar 200KB. Las imágenes hero pueden ir hasta 300KB si están en WebP.
+  1466 - [ ] Implementar lazy loading en imágenes que no están en el viewport inicial:
+  1467       `<img src="..." alt="..." loading="lazy">`
+  1468 - [ ] Las imágenes del hero (las primeras visibles al cargar) NO deben tener lazy loading. Deben tener `loadin
+       g="eager"` o sin atributo.
+  1469 - [ ] Agregar `rel="preload"` en el `<head>` para la imagen hero principal:
+  1470       `<link rel="preload" as="image" href="/images/hero-la-cabana.webp">`
+  1471 - [ ] Verificar LCP, INP y CLS con PageSpeed Insights: https://pagespeed.web.dev
+  1472 - [ ] Objetivo: LCP < 2.5s en mobile, INP < 200ms, CLS < 0.1
+  1473
+  1474 ### 3.2 Velocidad de carga móvil
+  1475 - [ ] Activar caché del navegador (configurar headers de cache-control en el servidor)
+  1476 - [ ] Minificar CSS y JavaScript (si no están ya minificados)
+  1477 - [ ] Activar Gzip o Brotli en el servidor para comprimir transferencia de archivos
+  1478 - [ ] Verificar que el viewport meta tag esté en todas las páginas:
+  1479       `<meta name="viewport" content="width=device-width, initial-scale=1.0">`
+  1480
+  1481 ### 3.3 HTTPS y seguridad
+  1482 - [ ] Confirmar que el sitio sirve 100% en HTTPS (https://lacabanaeventos.com)
+  1483 - [ ] Verificar que no existen recursos mixtos (imágenes o scripts cargados en HTTP desde páginas HTTPS)
+  1484 - [ ] Configurar redirección 301 permanente de http:// a https:// en el servidor
+  1485 - [ ] Configurar redirección 301 de www.lacabanaeventos.com a lacabanaeventos.com (o viceversa, pero elegir un
+       o y ser consistente)
+  1486
+  1487 ### 3.4 Estructura de URLs
+  1488 - [ ] Verificar que no existen páginas con parámetros de URL indexadas (ej: /cotizar.html?ref=facebook)
+  1489 - [ ] Si el CMS genera URLs con parámetros, agregar a robots.txt: `Disallow: /*?*`
+  1490 - [ ] Asegurar que todas las URLs internas usen la misma versión (con o sin www, con o sin barra final)
+  1491
+  1492 ### 3.5 Enlazado interno (Internal Linking)
+  1493 Cada página debe enlazar a las páginas más relevantes para su visitante. Implementar los siguientes enlaces co
+       n texto ancla descriptivo (no usar "click aquí" o "más información"):
+  1494
+  1495 Desde index.html:
+  1496 - Enlazar a bodas.html con ancla: "paquetes de boda en Hidalgo"
+  1497 - Enlazar a xv-anos.html con ancla: "salón de XV años en Zapotlán de Juárez"
+  1498 - Enlazar a graduaciones.html con ancla: "fiesta de graduación en Hidalgo"
+  1499 - Enlazar a cotizar.html con ancla: "cotiza tu evento sin compromiso"
+  1500 - Enlazar a menu.html con ancla: "ver menú gourmet de banquete"
+  1501
+  1502 Desde bodas.html:
+  1503 - Enlazar a xv-anos.html: "también organizamos XV años"
+  1504 - Enlazar a menu.html: "ver todos los menús de banquete"
+  1505 - Enlazar a cotizar.html: "solicitar cotización de boda"
+  1506
+  1507 Desde xv-anos.html:
+  1508 - Enlazar a bodas.html: "también organizamos bodas en Hidalgo"
+  1509 - Enlazar a menu.html: "ver menú para quinceañera"
+  1510 - Enlazar a cotizar.html: "cotizar mis XV años"
+  1511
+  1512 Desde graduaciones.html:
+  1513 - Enlazar a otros-eventos.html: "también organizamos bautizos y cumpleaños"
+  1514 - Enlazar a menu.html: "ver menú para cena de graduación"
+  1515 - Enlazar a cotizar.html: "cotizar fiesta de graduación"
+  1516
+  1517 ### 3.6 NAP Consistency (Name, Address, Phone)
+  1518 El NAP del negocio debe ser idéntico en TODOS los puntos de mención: sitio web, GBP, Facebook, Instagram, dire
+       ctorios locales.
+  1519
+  1520 Formato estándar de NAP:
+  1521 ```
+  1522 Salón de Eventos y Espectáculos La Cabaña
+  1523 Nicolás Bravo No. 72, Col. Niños Héroes, San Pedro Huaquilpan, Zapotlán de Juárez, Hidalgo, C.P. 42190
+  1524 771 134 1559
+  1525 ```
+  1526 Este texto debe estar en el footer de TODAS las páginas del sitio, en texto plano (no en imagen). Google lo ra
+       streará y lo cruzará con GBP para confirmar consistencia.
+  1527
+  1528 ### 3.7 Google Maps Embed en contacto.html
+  1529 - [ ] Ir a maps.google.com, buscar la dirección exacta y usar la opción "Insertar mapa" (Share > Embed a map)
+  1530 - [ ] Pegar el iframe en contacto.html en la sección "¿Cómo llegar?"
+  1531 - [ ] El iframe refuerza la señal de ubicación para el SEO local y mejora la UX de usuarios que visitan la pág
+       ina de contacto
+  1532
+  1533 ### 3.8 Presencia en directorios locales y de eventos
+  1534 Registrar el negocio (con el NAP exacto) en los siguientes directorios que tienen autoridad en el nicho:
+  1535 - [ ] bodas.com.mx (directorio líder en México para búsquedas de salones de bodas)
+  1536 - [ ] fiestaschannel.com
+  1537 - [ ] zaloneros.com.mx
+  1538 - [ ] tufieston.com
+  1539 - [ ] eventumcool.com/estado/hidalgo/
+  1540 - [ ] Google Maps (ya cubierto por GBP)
+  1541 - [ ] Yelp México
+  1542 - [ ] Facebook (página de negocio — asegurarse de que la dirección esté completa)
+  1543
+  1544 Cada registro en estos directorios crea un backlink de relevancia local y refuerza las señales NAP que Google
+       usa para el ranking en el Local Pack.
+  1545
+  1546 ### 3.9 WhatsApp Business
+  1547 - [ ] Configurar cuenta de WhatsApp Business (no cuenta personal) con el número 771 134 1559
+  1548 - [ ] Completar perfil: nombre del negocio, dirección, horario, descripción, catálogo de servicios
+  1549 - [ ] Configurar respuesta automática fuera de horario
+  1550 - [ ] El enlace de WhatsApp en el sitio debe usar el formato: https://wa.me/527711341559
+  1551       (con código de país +52, sin el 0 inicial del número local)
+  1552
+  1553 ---
+  1554
+  1555 ## TABLA RESUMEN DE PRIORIDADES
+  1556
+  1557 | # | Acción | Prioridad | Tiempo estimado | Impacto SEO |
+  1558 |---|--------|-----------|-----------------|-------------|
+  1559 | 1 | Crear/optimizar Google Business Profile | CRÍTICO | 1-2 horas | MUY ALTO |
+  1560 | 2 | Implementar Schema LocalBusiness (JSON-LD) | CRÍTICO | 1 hora | ALTO |
+  1561 | 3 | Implementar Schema FAQPage (JSON-LD) | CRÍTICO | 30 min | ALTO |
+  1562 | 4 | Agregar canonical tags en todas las páginas | CRÍTICO | 30 min | ALTO |
+  1563 | 5 | Actualizar H1s con keywords (todas las páginas) | CRÍTICO | 2 horas | MUY ALTO |
+  1564 | 6 | Actualizar title tags (todas las páginas) | CRÍTICO | 1 hora | ALTO |
+  1565 | 7 | Corregir/agregar meta descriptions | CRÍTICO | 1 hora | ALTO |
+  1566 | 8 | Verificar sitio en Google Search Console | CRÍTICO | 30 min | ALTO |
+  1567 | 9 | Enviar sitemap.xml a Search Console | CRÍTICO | 15 min | ALTO |
+  1568 | 10 | Agregar alt text a todas las imágenes | IMPORTANTE | 2 horas | MEDIO |
+  1569 | 11 | Implementar Open Graph tags | IMPORTANTE | 1 hora | MEDIO |
+  1570 | 12 | Crear imagen OG (1200x630px) | IMPORTANTE | 1 hora (diseño) | MEDIO |
+  1571 | 13 | Verificar/crear robots.txt | IMPORTANTE | 15 min | MEDIO |
+  1572 | 14 | NAP en footer de todas las páginas | IMPORTANTE | 30 min | ALTO |
+  1573 | 15 | Comprimir imágenes a WebP | RECOMENDADO | 2-4 horas | ALTO |
+  1574 | 16 | Google Maps embed en contacto.html | RECOMENDADO | 15 min | MEDIO |
+  1575 | 17 | Registrar en bodas.com.mx y directorios | RECOMENDADO | 3-4 horas | ALTO |
+  1576 | 18 | Implementar enlazado interno según mapa | RECOMENDADO | 1-2 horas | MEDIO |
+  1577 | 19 | Configurar WhatsApp Business | RECOMENDADO | 30 min | MEDIO |
+  1578 | 20 | Publicar primeros 2 artículos de blog | RECOMENDADO | 4-6 horas | ALTO (largo plazo) |
+  1579 | 21 | Solicitar primeras 10 reseñas en GBP | RECOMENDADO | Continuo | MUY ALTO |
+  1580
+  1581 ---
+  1582
+  1583 ## NOTAS FINALES — EXPECTATIVAS Y PLAZOS
+  1584
+  1585 **Semanas 1-4**: Implementar todo lo de Prioridad 1 (crítico). Los cambios en title, H1 y schema deben indexar
+       se en 2-4 semanas. GBP puede empezar a aparecer en el Local Pack en 2-6 semanas si la categoría y zona tienen
+       baja competencia (que es el caso en Zapotlán de Juárez).
+  1586
+  1587 **Semanas 4-8**: Google empieza a rastrear y rankear el sitio con las nuevas señales. Es normal no ver resulta
+       dos en las primeras 4 semanas. La curva empieza a despegar en la semana 6-10.
+  1588
+  1589 **Meses 2-4**: Con contenido de blog publicado regularmente (1-2 artículos por mes) y acumulación de reseñas e
+       n GBP, el tráfico orgánico comenzará a crecer de forma consistente. Las keywords de Zapotlán de Juárez deben e
+       star en top 5 para este momento. Las keywords de Hidalgo más competidas (Pachuca, Tulancingo) tardarán 3-6 mes
+       es más.
+  1590
+  1591 **Meses 4-12**: La combinación de autoridad de dominio creciente, reseñas acumuladas, contenido de blog y back
+       links de directorios produce el efecto compuesto del SEO. El tráfico orgánico no-branded puede crecer 200-400%
+        en este periodo si las acciones se ejecutan de forma consistente.
+  1592
+  1593 **La palanca más rápida disponible hoy**: Google Business Profile + primeras reseñas + Schema LocalBusiness. E
+       stas tres acciones pueden generar las primeras llamadas o mensajes en 2-4 semanas, antes de que cualquier otra
+        optimización SEO produzca resultados.
+  1594
+  1595 ---
+  1596 *Reporte generado el 2026-04-19 para lacabanaeventos.com*
+  1597 *Basado en auditoría del sitio, análisis de competencia local en Hidalgo y estrategia de keywords de intención
+        transaccional para el mercado de salones de eventos en México*

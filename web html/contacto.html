@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacto | Salón La Cabaña — Zapotlán de Juárez, Hidalgo</title>
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '4510279802585543');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=4510279802585543&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel -->
+<meta name="description" content="Contáctanos para cotizar tu evento en La Cabaña. Estamos en Nicolás Bravo No. 72, Zapotlán de Juárez, Hidalgo. WhatsApp: 771 134 1559.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ---- CONTACTO PAGE EXTRAS ---- */
+.ctc-hero { background: linear-gradient(135deg, var(--vino-dark) 0%, var(--vino) 100%); padding: 80px 5%; color: #fff; position: relative; overflow: hidden; }
+.ctc-hero::before { content: ''; position: absolute; inset: 0; background: url('../../fotos%20ok/header_2.png') center/cover; opacity: .12; }
+.ctc-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: var(--container); margin: 0 auto; position: relative; z-index: 1; }
+.ctc-hero-copy h1 { font-family: var(--serif); font-size: clamp(36px, 5vw, 58px); margin-bottom: 14px; line-height: 1.1; }
+.ctc-hero-copy p { font-size: 16px; opacity: .85; line-height: 1.8; margin-bottom: 28px; }
+.ctc-hero-datos { display: flex; flex-direction: column; gap: 14px; }
+.ctc-dato { display: flex; align-items: flex-start; gap: 14px; }
+.ctc-dato-ic { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--gold); flex-shrink: 0; }
+.ctc-dato-body strong { display: block; font-size: 13px; color: rgba(255,255,255,.6); font-weight: 600; margin-bottom: 2px; letter-spacing: .5px; }
+.ctc-dato-body a, .ctc-dato-body span { font-size: 15px; color: #fff; font-weight: 700; }
+.ctc-dato-body a:hover { color: var(--gold); }
+
+/* FORM SECTION */
+.ctc-main { padding: 80px 0 100px; background: var(--off-white); }
+.ctc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.ctc-form-card { background: var(--white); border-radius: 20px; padding: 36px; box-shadow: var(--shadow-lg); border: 1px solid var(--border); }
+.ctc-form-card h2 { font-family: var(--serif); font-size: 28px; color: var(--vino-dark); margin-bottom: 6px; }
+.ctc-form-card > p { font-size: 14px; color: var(--text-mid); margin-bottom: 28px; line-height: 1.6; }
+.ctc-form { display: grid; gap: 16px; }
+.ctc-fg { display: grid; gap: 7px; }
+.ctc-fg label { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(42,13,23,.5); }
+.ctc-fg input, .ctc-fg select, .ctc-fg textarea { width: 100%; padding: 13px 15px; border-radius: 12px; border: 1.5px solid rgba(95,0,32,.12); background: #fffdfa; color: var(--text-dark); font-family: var(--sans); font-size: .93rem; outline: none; transition: var(--transition); -webkit-appearance: none; }
+.ctc-fg input:focus, .ctc-fg select:focus, .ctc-fg textarea:focus { border-color: var(--vino); box-shadow: 0 0 0 3px rgba(95,0,32,.08); }
+.ctc-fg input::placeholder, .ctc-fg textarea::placeholder { color: #b09aa0; }
+.ctc-fg textarea { min-height: 110px; resize: vertical; }
+.ctc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.ctc-btn-enviar { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 15px; border: 0; border-radius: 999px; background: var(--gold); color: #1b1209; font-family: var(--sans); font-size: .98rem; font-weight: 800; cursor: pointer; transition: var(--transition); }
+.ctc-btn-enviar:hover { background: var(--gold-dark); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(218,165,32,.4); }
+.ctc-btn-enviar:disabled { opacity: .7; cursor: not-allowed; transform: none; }
+.ctc-form-note { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 10px; font-size: .75rem; color: #9a8890; }
+.ctc-form-status { min-height: 18px; font-size: .85rem; text-align: center; color: var(--vino); margin-top: 6px; }
+
+/* INFO COLUMN */
+.ctc-info-col { display: flex; flex-direction: column; gap: 20px; }
+.ctc-info-card { background: var(--white); border-radius: 20px; padding: 28px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.ctc-info-card h3 { font-family: var(--serif); font-size: 20px; color: var(--vino-dark); margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid var(--gold); }
+.ctc-info-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
+.ctc-info-item:last-child { margin-bottom: 0; }
+.ctc-info-ic { width: 40px; height: 40px; border-radius: 50%; background: rgba(218,165,32,.1); display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--gold); flex-shrink: 0; }
+.ctc-info-item div strong { display: block; font-size: 13px; color: var(--text-dark); margin-bottom: 3px; }
+.ctc-info-item div span, .ctc-info-item div a { font-size: 14px; color: var(--text-mid); line-height: 1.6; }
+.ctc-info-item div a:hover { color: var(--vino); }
+
+.ctc-social-card { background: var(--vino); border-radius: 20px; padding: 24px; text-align: center; }
+.ctc-social-card h3 { font-family: var(--serif); font-size: 18px; color: var(--gold); margin-bottom: 8px; }
+.ctc-social-card p { font-size: 13px; color: rgba(255,255,255,.7); margin-bottom: 20px; line-height: 1.6; }
+.ctc-social-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.ctc-social-btn { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #fff; transition: var(--transition); }
+.ctc-social-btn:hover { transform: translateY(-3px) scale(1.1); }
+.ctc-social-btn.fb { background: #1877F2; }
+.ctc-social-btn.ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+.ctc-social-btn.tk { background: #000; border: 1px solid rgba(255,255,255,.1); }
+.ctc-social-btn.wa { background: #25D366; }
+
+.ctc-wapp-big { display: flex; align-items: center; justify-content: center; gap: 12px; background: #25D366; color: #fff; padding: 16px 24px; border-radius: 16px; font-weight: 800; font-size: 1rem; transition: var(--transition); width: 100%; margin-top: 4px; }
+.ctc-wapp-big:hover { background: #1da851; transform: translateY(-2px); }
+
+/* MAPA */
+.ctc-mapa-section { padding: 0 0 80px; background: var(--off-white); }
+.ctc-mapa-inner { max-width: var(--container); margin: 0 auto; padding: 0 5%; }
+.ctc-mapa-card { background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.ctc-mapa-header { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.ctc-mapa-header h3 { font-family: var(--serif); font-size: 20px; color: var(--vino-dark); display: flex; align-items: center; gap: 10px; }
+.ctc-mapa-header h3 i { color: var(--gold); }
+.ctc-mapa-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.ctc-mapa-btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 18px; border-radius: 999px; font-size: 13px; font-weight: 700; transition: var(--transition); }
+.ctc-mapa-btn.primary { background: var(--vino); color: #fff; }
+.ctc-mapa-btn.primary:hover { background: var(--vino-dark); }
+.ctc-mapa-btn.wapp { background: #25D366; color: #fff; }
+.ctc-mapa-btn.wapp:hover { background: #1da851; }
+.ctc-mapa-card iframe { width: 100%; height: 420px; border: 0; display: block; }
+
+/* HORARIOS DESTACADOS */
+.ctc-horarios { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
+.ctc-horario-item { background: var(--white); border-radius: 14px; padding: 18px; border: 1px solid var(--border); text-align: center; }
+.ctc-horario-item i { color: var(--gold); font-size: 20px; margin-bottom: 8px; display: block; }
+.ctc-horario-item strong { display: block; font-size: 13px; color: var(--text-dark); margin-bottom: 4px; }
+.ctc-horario-item span { font-size: 12px; color: var(--text-mid); line-height: 1.5; }
+
+@media(max-width:1024px) { .ctc-hero-grid, .ctc-grid { grid-template-columns: 1fr; } .ctc-hero-grid { gap: 36px; } }
+@media(max-width:768px) { .ctc-row { grid-template-columns: 1fr; } .ctc-horarios { grid-template-columns: 1fr; } .ctc-hero { padding: 60px 5%; } }
+</style>
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="La Cabaña Eventos" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:url" content="https://lacabanaeventos.com/contacto.html" />
+    <meta property="og:title" content="Contacto | Salón La Cabaña — Zapotlán de Juárez, Hidalgo" />
+    <meta property="og:description" content="Contáctanos para cotizar tu evento en La Cabaña. Estamos en Nicolás Bravo No. 72, Zapotlán de Juárez, Hidalgo. WhatsApp: 771 134 1559." />
+    <meta property="og:image" content="https://lacabanaeventos.com/pista%20iluminada%20%281%29.JPG" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Contacto | Salón La Cabaña — Zapotlán de Juárez, Hidalgo" />
+    <meta name="twitter:description" content="Contáctanos para cotizar tu evento en La Cabaña. Estamos en Nicolás Bravo No. 72, Zapotlán de Juárez, Hidalgo. WhatsApp: 771 134 1559." />
+    <meta name="twitter:image" content="https://lacabanaeventos.com/pista%20iluminada%20%281%29.JPG" />
+    <link rel="canonical" href="https://lacabanaeventos.com/contacto.html" />
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://lacabanaeventos.com"},{"@type":"ListItem","position":2,"name":"Contacto","item":"https://lacabanaeventos.com/contacto.html"}]}
+    </script>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="main-header" id="main-header">
+    <div class="logo-container">
+        <a href="index.html"><img src="../../CAMBIOS/blanco.png" alt="La Cabaña — Tu Evento, Tu Momento"></a>
+    </div>
+    <button class="mobile-toggle" aria-label="Abrir menú"><i class="fas fa-bars"></i></button>
+    <nav class="nav-menu">
+        <ul class="nav-list">
+            <li><a href="index.html" class="nav-link">Inicio</a></li>
+            <li><a href="eventos.html" class="nav-link">Eventos</a></li>
+            <li><a href="cotizar.html" class="nav-link">Paquetes</a></li>
+            <li><a href="comunidad.html" class="nav-link">Comunidad</a></li>
+            <li><a href="blog.html" class="nav-link">Blog</a></li>
+            <li><a href="contacto.html" class="nav-link active-page">Contacto</a></li>
+        </ul>
+    </nav>
+    <div class="header-cta">
+        <a href="https://wa.me/527711341559?text=Hola%2C%20quiero%20cotizar%20mi%20evento%20en%20La%20Caba%C3%B1a" class="cta-button" target="_blank">
+            <i class="fab fa-whatsapp"></i> Cotiza Ahora
+        </a>
+    </div>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="ctc-hero">
+    <div class="ctc-hero-grid">
+        <div class="ctc-hero-copy">
+            <span class="ev-category" style="margin-bottom:16px"><i class="fas fa-comments"></i> Hablemos</span>
+            <h1>Agenda Tu<br><span class="gold">Evento Hoy</span></h1>
+            <p>Cuéntanos sobre tu celebración y te preparamos una propuesta personalizada sin compromiso en menos de 24 horas.</p>
+            <a href="https://wa.me/527711341559?text=Hola%2C%20quiero%20cotizar%20mi%20evento%20en%20La%20Caba%C3%B1a" class="btn-wapp" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;background:#25D366;color:#fff;font-weight:700;font-size:15px;margin-top:4px;transition:.2s">
+                <i class="fab fa-whatsapp"></i> Escribir por WhatsApp
+            </a>
+        </div>
+        <div class="ctc-hero-datos">
+            <div class="ctc-dato">
+                <div class="ctc-dato-ic"><i class="fas fa-map-marker-alt"></i></div>
+                <div class="ctc-dato-body">
+                    <strong>Dirección</strong>
+                    <span>Nicolás Bravo No. 72, Col. Niños Héroes,<br>San Pedro Huaquilpan, Zapotlán de Juárez, Hgo.</span>
+                </div>
+            </div>
+            <div class="ctc-dato">
+                <div class="ctc-dato-ic"><i class="fas fa-phone"></i></div>
+                <div class="ctc-dato-body">
+                    <strong>Teléfono / WhatsApp</strong>
+                    <a href="tel:7711341559">771 134 1559</a>
+                </div>
+            </div>
+            <div class="ctc-dato">
+                <div class="ctc-dato-ic"><i class="fas fa-clock"></i></div>
+                <div class="ctc-dato-body">
+                    <strong>Horario de Atención</strong>
+                    <span>Lun–Sáb: 9:00 am – 7:00 pm<br>Dom: 10:00 am – 4:00 pm</span>
+                </div>
+            </div>
+            <div class="ctc-dato">
+                <div class="ctc-dato-ic"><i class="fas fa-envelope"></i></div>
+                <div class="ctc-dato-body">
+                    <strong>Correo Electrónico</strong>
+                    <a href="mailto:contacto@lacabanaeventos.com">contacto@lacabanaeventos.com</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== MAIN CONTACTO ========== -->
+<section class="ctc-main">
+    <div class="container">
+        <div class="ctc-grid">
+
+            <!-- FORMULARIO -->
+            <div class="ctc-form-card">
+                <h2>Envía tu Cotización</h2>
+                <p>Todos los campos marcados con <strong>*</strong> son obligatorios. Te respondemos en menos de 24 horas por WhatsApp.</p>
+                <form class="ctc-form" id="ctc-form">
+                    <div class="ctc-row">
+                        <div class="ctc-fg">
+                            <label for="c-nombre">Tu nombre *</label>
+                            <input type="text" id="c-nombre" placeholder="Ej. María García" required>
+                        </div>
+                        <div class="ctc-fg">
+                            <label for="c-tel">WhatsApp *</label>
+                            <input type="tel" id="c-tel" placeholder="771 000 0000" required>
+                        </div>
+                    </div>
+                    <div class="ctc-row">
+                        <div class="ctc-fg">
+                            <label for="c-tipo">Tipo de evento *</label>
+                            <select id="c-tipo" required>
+                                <option value="">Selecciona...</option>
+                                <option>Boda</option>
+                                <option>XV Años</option>
+                                <option>Graduación</option>
+                                <option>Cumpleaños</option>
+                                <option>Bautizo</option>
+                                <option>Cena Corporativa</option>
+                                <option>Reunión / Conferencia</option>
+                                <option>Otro</option>
+                            </select>
+                        </div>
+                        <div class="ctc-fg">
+                            <label for="c-fecha">Fecha tentativa</label>
+                            <input type="date" id="c-fecha">
+                        </div>
+                    </div>
+                    <div class="ctc-row">
+                        <div class="ctc-fg">
+                            <label for="c-personas">Número de invitados</label>
+                            <select id="c-personas">
+                                <option value="">Selecciona...</option>
+                                <option>Menos de 50</option>
+                                <option>50 – 100</option>
+                                <option>100 – 150</option>
+                                <option>150 – 200</option>
+                                <option>200 – 250</option>
+                                <option>Más de 250</option>
+                            </select>
+                        </div>
+                        <div class="ctc-fg">
+                            <label for="c-paquete">Paquete de interés</label>
+                            <select id="c-paquete">
+                                <option value="">Selecciona...</option>
+                                <option>Campestre ($15,900)</option>
+                                <option>Herradura ($400/pax)</option>
+                                <option>Mayoral ($500/pax)</option>
+                                <option>La Cabaña ($700/pax)</option>
+                                <option>Solo Salón ($13,900)</option>
+                                <option>Salón Essential ($18,900)</option>
+                                <option>Salón Plus ($19,900)</option>
+                                <option>No sé, necesito asesoría</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ctc-fg">
+                        <label for="c-msg">Comentarios o preguntas</label>
+                        <textarea id="c-msg" placeholder="Temática, ideas especiales, dudas sobre los paquetes..."></textarea>
+                    </div>
+                    <button type="submit" class="ctc-btn-enviar" id="ctc-btn">
+                        <i class="fas fa-paper-plane"></i> Enviar cotización
+                    </button>
+                    <p class="ctc-form-note"><i class="fas fa-lock" style="color:var(--gold)"></i> Tus datos son confidenciales y solo se usan para tu cotización</p>
+                    <p class="ctc-form-status" id="ctc-status"></p>
+                </form>
+            </div>
+
+            <!-- INFO -->
+            <div class="ctc-info-col">
+
+                <a href="https://wa.me/527711341559?text=Hola%2C%20quiero%20cotizar%20mi%20evento%20en%20La%20Caba%C3%B1a" class="ctc-wapp-big" target="_blank">
+                    <i class="fab fa-whatsapp" style="font-size:22px"></i>
+                    <span>Escribir directamente por WhatsApp<br><small style="font-weight:400;opacity:.85">Respuesta inmediata en horario de atención</small></span>
+                </a>
+
+                <div class="ctc-info-card">
+                    <h3>Información de Contacto</h3>
+                    <div class="ctc-info-item">
+                        <div class="ctc-info-ic"><i class="fas fa-map-marker-alt"></i></div>
+                        <div><strong>Dirección</strong><span>Nicolás Bravo No. 72, Col. Niños Héroes, San Pedro Huaquilpan, Zapotlán de Juárez, Hidalgo</span></div>
+                    </div>
+                    <div class="ctc-info-item">
+                        <div class="ctc-info-ic"><i class="fas fa-phone"></i></div>
+                        <div><strong>Teléfono / WhatsApp</strong><a href="tel:7711341559">771 134 1559</a></div>
+                    </div>
+                    <div class="ctc-info-item">
+                        <div class="ctc-info-ic"><i class="fas fa-envelope"></i></div>
+                        <div><strong>Email</strong><a href="mailto:contacto@lacabanaeventos.com">contacto@lacabanaeventos.com</a></div>
+                    </div>
+                    <div class="ctc-info-item">
+                        <div class="ctc-info-ic"><i class="fas fa-globe"></i></div>
+                        <div><strong>Sitio Web</strong><a href="https://lacabanaeventos.com" target="_blank">lacabanaeventos.com</a></div>
+                    </div>
+                </div>
+
+                <div class="ctc-info-card">
+                    <h3>Horarios de Atención</h3>
+                    <div class="ctc-horarios">
+                        <div class="ctc-horario-item">
+                            <i class="fas fa-calendar-week"></i>
+                            <strong>Lun – Vie</strong>
+                            <span>9:00 am – 7:00 pm</span>
+                        </div>
+                        <div class="ctc-horario-item">
+                            <i class="fas fa-calendar-day"></i>
+                            <strong>Sábados</strong>
+                            <span>9:00 am – 7:00 pm</span>
+                        </div>
+                        <div class="ctc-horario-item">
+                            <i class="fas fa-sun"></i>
+                            <strong>Domingos</strong>
+                            <span>10:00 am – 4:00 pm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ctc-social-card ctc-info-card">
+                    <h3>Síguenos en Redes</h3>
+                    <p>Entérate primero de promociones, nuevos eventos y actividades de comunidad.</p>
+                    <div class="ctc-social-btns">
+                        <a href="#" class="ctc-social-btn fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="ctc-social-btn ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="ctc-social-btn tk" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://wa.me/527711341559" class="ctc-social-btn wa" aria-label="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== MAPA ========== -->
+<div class="ctc-mapa-section">
+    <div class="ctc-mapa-inner">
+        <div class="ctc-mapa-card">
+            <div class="ctc-mapa-header">
+                <h3><i class="fas fa-map-marked-alt"></i> ¿Cómo llegar a La Cabaña?</h3>
+                <div class="ctc-mapa-btns">
+                    <a href="https://maps.google.com/?q=Nicolas+Bravo+72+San+Pedro+Huaquilpan+Zapotlan+de+Juarez+Hidalgo" target="_blank" class="ctc-mapa-btn primary">
+                        <i class="fas fa-directions"></i> Abrir en Maps
+                    </a>
+                    <a href="https://wa.me/527711341559?text=Hola%2C%20necesito%20indicaciones%20para%20llegar%20a%20La%20Caba%C3%B1a" target="_blank" class="ctc-mapa-btn wapp">
+                        <i class="fab fa-whatsapp"></i> Pedir indicaciones
+                    </a>
+                </div>
+            </div>
+            <iframe
+                src="https://maps.google.com/maps?q=Nicolas+Bravo+72+San+Pedro+Huaquilpan+Zapotlan+de+Juarez+Hidalgo+Mexico&output=embed&z=15"
+                allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Ubicación La Cabaña Zapotlán de Juárez">
+            </iframe>
+        </div>
+    </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer class="main-footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <img src="../../CAMBIOS/blanco.png" alt="La Cabaña" class="footer-logo">
+            <div class="footer-info">
+                <p><i class="fas fa-map-marker-alt"></i><span>Nicolás Bravo No. 72, Col. Niños Héroes,<br>San Pedro Huaquilpan, Zapotlán de Juárez, Hgo.</span></p>
+                <p><i class="fas fa-phone"></i><span>771 134 1559</span></p>
+            </div>
+            <div class="footer-social">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="https://wa.me/527711341559" aria-label="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h4>Eventos</h4>
+            <ul class="footer-links">
+                <li><a href="bodas.html">Bodas</a></li>
+                <li><a href="xv-anos.html">XV Años</a></li>
+                <li><a href="graduaciones.html">Graduaciones</a></li>
+                <li><a href="otros-eventos.html">Más Eventos</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>La Cabaña</h4>
+            <ul class="footer-links">
+                <li><a href="cotizar.html">Paquetes y Precios</a></li>
+                <li><a href="comunidad.html">Comunidad</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Salón de Eventos Sociales y Espectáculos La Cabaña — Todos los derechos reservados</p>
+    </div>
+</footer>
+
+<a href="https://wa.me/527711341559?text=Hola%2C%20me%20interesa%20La%20Caba%C3%B1a" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<script src="script.js"></script>
+<script>
+document.getElementById('ctc-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var form = document.getElementById('ctc-form');
+    var btn = document.getElementById('ctc-btn');
+    var status = document.getElementById('ctc-status');
+
+    var nombre = document.getElementById('c-nombre').value.trim();
+    var telefono = document.getElementById('c-tel').value.trim();
+    var tipo_evento = document.getElementById('c-tipo').value;
+    var fecha_evento = document.getElementById('c-fecha').value;
+    var num_personas = document.getElementById('c-personas').value;
+    var paquete_interes = document.getElementById('c-paquete').value;
+    var mensaje = document.getElementById('c-msg').value.trim();
+    /*
+
+    let texto = `Hola, soy *${nombre}* y quiero cotizar mi evento en La Cabaña.`;
+    if(tipo)     texto += `\n\n📋 *Evento:* ${tipo}`;
+    if(fecha)    texto += `\n📅 *Fecha:* ${fecha}`;
+    if(personas) texto += `\n👥 *Invitados:* ${personas}`;
+    if(paquete)  texto += `\n📦 *Paquete:* ${paquete}`;
+    if(tel)      texto += `\n📱 *Mi WhatsApp:* ${tel}`;
+    if(msg)      texto += `\n\n💬 ${msg}`;
+    texto += `\n\n✨ ¡Espero su respuesta!`;
+
+    setTimeout(() => {
+        window.open(`https://wa.me/527711341559?text=${encodeURIComponent(texto)}`, '_blank');
+        btn.innerHTML = '<i class="fas fa-check"></i> ¡Enviado por WhatsApp!';
+        btn.style.background = '#25D366'; btn.style.color = '#fff';
+        setTimeout(() => {
+            btn.innerHTML = '<i class="fab fa-whatsapp"></i> Enviar por WhatsApp';
+            btn.style.background = ''; btn.style.color = '';
+            btn.disabled = false;
+        }, 4000);
+    }, 600);
+    */
+
+    var payload = {
+        nombre: nombre,
+        telefono: telefono,
+        correo: '',
+        tipo_evento: tipo_evento,
+        fecha_evento: fecha_evento,
+        num_personas: num_personas,
+        paquete_interes: paquete_interes,
+        mensaje: mensaje,
+        fuente: 'website'
+    };
+
+    console.log('[Contacto] submit iniciado');
+    console.log('[Contacto] payload a enviar:', payload);
+
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+    btn.disabled = true;
+    status.textContent = '';
+    status.style.color = 'var(--vino)';
+
+    fetch('https://ferris-amendment-reliably.ngrok-free.dev/webhook/lacabana-lead', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+    .then(function(response) {
+        return response.text().then(function(responseText) {
+            console.log('[Contacto] fetch completado:', {
+                status: response.status,
+                ok: response.ok,
+                body: responseText
+            });
+
+            if (!response.ok) {
+                throw new Error('HTTP ' + response.status + ' - ' + responseText);
+            }
+
+            // Meta Pixel Lead — solo cuando webhook responde OK (response.ok)
+            if (typeof fbq === 'function') {
+                fbq('track', 'Lead');
+            }
+
+            form.reset();
+            status.textContent = '¡Solicitud enviada! Te contactaremos en menos de 24 horas.';
+            status.style.color = '#1da851';
+            btn.innerHTML = '<i class="fas fa-check"></i> ¡Enviado!';
+            btn.style.background = '#25D366';
+            btn.style.color = '#fff';
+
+            console.log('[Contacto] lead enviado correctamente a Make');
+        });
+    })
+    .catch(function(error) {
+        console.error('[Contacto] error al enviar lead:', error);
+        status.textContent = 'No se pudo enviar en este momento. Intenta de nuevo o escríbenos por WhatsApp.';
+        status.style.color = 'var(--vino)';
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar cotización';
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.disabled = false;
+    });
+});
+</script>
+</body>
+</html>

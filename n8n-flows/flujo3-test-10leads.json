@@ -1,0 +1,66 @@
+{
+  "id": "TEST10LEADSLaCabana",
+  "name": "La Cabaña — TEST: Enviar 10 leads de prueba (Flujo 3)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "trigger-manual",
+      "name": "Manual — Iniciar prueba",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 10 leads de prueba — uno por cada segmento + variantes\nconst leads = [\n  {\n    nombre: 'María González Reyes',\n    email: 'test1@prueba.lacabana.com',\n    telefono: '7771001001',\n    tipo_evento: 'Boda',\n    fecha_del_evento: '2026-12-20',\n    cuantas_personas: '150'\n  },\n  {\n    nombre: 'Familia Martínez Pérez',\n    email: 'test2@prueba.lacabana.com',\n    telefono: '7771001002',\n    tipo_evento: 'XV Años de Valentina',\n    fecha_del_evento: '2026-11-15',\n    cuantas_personas: '200'\n  },\n  {\n    nombre: 'Carlos López Ruiz',\n    email: 'test3@prueba.lacabana.com',\n    telefono: '7771001003',\n    tipo_evento: 'Cumpleaños 50 años',\n    fecha_del_evento: '2026-10-05',\n    cuantas_personas: '80'\n  },\n  {\n    nombre: 'Empresa ABC Soluciones SA',\n    email: 'test4@prueba.lacabana.com',\n    telefono: '7771001004',\n    tipo_evento: 'Evento Corporativo Anual',\n    fecha_del_evento: '2026-09-20',\n    cuantas_personas: '120'\n  },\n  {\n    nombre: 'Ana Ramírez Flores',\n    email: 'test5@prueba.lacabana.com',\n    telefono: '7771001005',\n    tipo_evento: 'Graduación Universidad',\n    fecha_del_evento: '2026-07-10',\n    cuantas_personas: '100'\n  },\n  {\n    nombre: 'Luis Hernández Castro',\n    email: 'test6@prueba.lacabana.com',\n    telefono: '7771001006',\n    tipo_evento: 'Bautizo de Santiago',\n    fecha_del_evento: '2026-06-14',\n    cuantas_personas: '60'\n  },\n  {\n    nombre: 'Jorge y Sofía Torres Vega',\n    email: 'test7@prueba.lacabana.com',\n    telefono: '7771001007',\n    tipo_evento: 'Boda Civil y Religiosa',\n    fecha_del_evento: '2027-02-14',\n    cuantas_personas: '50'\n  },\n  {\n    nombre: 'Familia Sánchez Morales',\n    email: 'test8@prueba.lacabana.com',\n    telefono: '7771001008',\n    tipo_evento: 'XV Años de Daniela',\n    fecha_del_evento: '2026-08-22',\n    cuantas_personas: '180'\n  },\n  {\n    nombre: 'Roberto Díaz Méndez',\n    email: 'test9@prueba.lacabana.com',\n    telefono: '7771001009',\n    tipo_evento: 'Cumpleaños infantil — Temático',\n    fecha_del_evento: '2026-05-30',\n    cuantas_personas: '40'\n  },\n  {\n    nombre: 'Constructora XYZ Hidalgo',\n    email: 'test10@prueba.lacabana.com',\n    telefono: '7771001010',\n    tipo_evento: 'Cena Corporativa fin de año',\n    fecha_del_evento: '2026-12-18',\n    cuantas_personas: '90'\n  }\n];\n\nreturn leads.map(lead => ({ json: lead }));"
+      },
+      "id": "generar-10-leads",
+      "name": "Generar 10 leads de prueba",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:5678/webhook/lacabana-facebook-lead",
+        "authentication": "none",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify($json) }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "enviar-al-flujo3",
+      "name": "POST → Flujo 3 (webhook)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [700, 300],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const results = $input.all();\nconst total = results.length;\nconst ok = results.filter(r => !r.json.error).length;\nconst fail = total - ok;\n\nconsole.log(`PRUEBA COMPLETADA: ${ok}/${total} leads enviados correctamente`);\n\nreturn [{ json: {\n  resumen: `${ok} de ${total} leads enviados al Flujo 3`,\n  exitosos: ok,\n  fallidos: fail,\n  instrucciones: 'Revisa HubSpot > Ventas > Negocios para ver los 10 deals en el pipeline como Nuevo Contacto'\n} }];"
+      },
+      "id": "resumen-prueba",
+      "name": "Resumen de prueba",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [940, 300]
+    }
+  ],
+  "connections": {
+    "Manual — Iniciar prueba": {
+      "main": [[{ "node": "Generar 10 leads de prueba", "type": "main", "index": 0 }]]
+    },
+    "Generar 10 leads de prueba": {
+      "main": [[{ "node": "POST → Flujo 3 (webhook)", "type": "main", "index": 0 }]]
+    },
+    "POST → Flujo 3 (webhook)": {
+      "main": [[{ "node": "Resumen de prueba", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" }
+}

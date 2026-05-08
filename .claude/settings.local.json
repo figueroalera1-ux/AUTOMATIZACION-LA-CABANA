@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node *)",
+      "PowerShell(Get-Command *)",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:5678/healthz\" -TimeoutSec 3 -ErrorAction Stop; Write-Host \"n8n CORRIENDO - status:\" $r.StatusCode } catch { Write-Host \"n8n NO está corriendo:\" $_.Exception.Message })",
+      "PowerShell(Start-Process -FilePath \"npx\" -ArgumentList \"n8n\" -WindowStyle Normal -PassThru | Select-Object Id, ProcessName)",
+      "Bash(npx n8n *)",
+      "Bash(curl -s http://localhost:5678/healthz)",
+      "Bash(curl -s \"http://localhost:5678/api/v1/workflows\" -H \"accept: application/json\")",
+      "PowerShell($r = Invoke-RestMethod -Uri \"http://localhost:5678/api/v1/workflows\" -Headers @{\"accept\"=\"application/json\"} -ErrorAction Stop; $r.data | ForEach-Object { Write-Host \"ID:$\\($_.id\\) | $\\($_.name\\) | activo:$\\($_.active\\)\" })",
+      "Bash(sqlite3 __TRACKED_VAR__/.n8n/database.sqlite 'SELECT id, name, active FROM workflow_entity ORDER BY id;')",
+      "PowerShell(Test-Path *)",
+      "WebFetch(domain:lacabanaeventos.com)",
+      "Bash(curl -s \"https://lacabanaeventos.com\")",
+      "Bash(curl -s \"https://lacabanaeventos.com/script.js?v=3\")",
+      "Bash(curl -s \"https://lacabanaeventos.com/cotizar.html\")",
+      "PowerShell(ngrok config *)",
+      "PowerShell(npx n8n import:workflow --input=\"C:\\\\Users\\\\studi\\\\Desktop\\\\la-cabana\\\\n8n-flows\\\\flujo1-web-lead.json\" 2>&1)",
+      "Bash(ngrok http *)",
+      "Bash(curl -s http://localhost:4040/api/tunnels)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); [print\\(t['public_url']\\) for t in d.get\\('tunnels',[]\\)]\")",
+      "Bash(curl -s http://127.0.0.1:4040/api/tunnels)",
+      "PowerShell(npx n8n update:workflow --id=CczTsT1utoEPuicm --active=true 2>&1)",
+      "PowerShell(npx n8n import:workflow --input=\"C:\\\\Users\\\\studi\\\\Desktop\\\\la-cabana\\\\n8n-flows\\\\flujo3-facebook-lead-ad.json\" 2>&1)",
+      "PowerShell(npx n8n publish:workflow --id=CczTsT1utoEPuicm 2>&1)",
+      "PowerShell(npx n8n publish:workflow --id=XXruEtS2Z2eSnXUm 2>&1)",
+      "PowerShell(Get-Process *)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
+    ]
+  }
+}

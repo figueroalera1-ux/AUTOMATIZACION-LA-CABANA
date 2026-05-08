@@ -1,0 +1,345 @@
+{
+  "id": "kHbR7VEW6ZMN3EjE",
+  "name": "La Cabaña — Flujo 2: Follow-up automático",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{ "field": "hours", "hoursInterval": 6 }]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Revisar cada 6 horas",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "sheets-leer",
+      "name": "Sheets — Leer todos los leads",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [460, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "=",
+        "options": {}
+      },
+      "id": "split-leads",
+      "name": "Separar cada lead",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const row = $input.first().json;\n\n// Saltar si no hay email o ya está cerrado\nif (!row.email || !row.fecha_captura) return [{ json: { ...row, accion: 'ninguna' } }];\n\nconst statusFinal = ['anticipo', 'confirmado', 'realizado', 'frio'];\nif (statusFinal.includes((row.status || '').toLowerCase())) {\n  return [{ json: { ...row, accion: 'ninguna' } }];\n}\n\n// Calcular días desde captura\nlet creado;\ntry {\n  // Intenta parsear el formato es-MX: 'DD/MM/YYYY HH:MM:SS'\n  const partes = row.fecha_captura.split(' ');\n  const [d, m, y] = partes[0].split('/').map(Number);\n  creado = new Date(y, m - 1, d);\n} catch(e) {\n  creado = new Date(row.fecha_captura);\n}\n\nconst ahora = new Date();\nconst dias = Math.floor((ahora - creado) / (1000 * 60 * 60 * 24));\nconst status = (row.status || 'nuevo').toLowerCase();\n\nlet accion = 'ninguna';\nif (status === 'nuevo') {\n  if (dias >= 10) accion = 'frio';\n  else if (dias >= 5) accion = 'urgencia';\n  else if (dias >= 2) accion = 'recordatorio';\n} else if (status === 'contactado') {\n  if (dias >= 10) accion = 'frio';\n  else if (dias >= 5) accion = 'urgencia';\n}\n\nreturn [{ json: { ...row, dias, accion } }];"
+      },
+      "id": "calcular-dias",
+      "name": "Calcular dias y accion",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "conditions": [
+            {
+              "leftValue": "={{ $json.accion }}",
+              "rightValue": "ninguna",
+              "operator": { "type": "string", "operation": "notEquals" }
+            },
+            {
+              "leftValue": "={{ $json.email }}",
+              "rightValue": "",
+              "operator": { "type": "string", "operation": "notEquals" }
+            }
+          ]
+        },
+        "combineOperation": "all"
+      },
+      "id": "filtrar-activos",
+      "name": "Requiere accion",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1120, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "conditions": [
+            {
+              "leftValue": "={{ $json.accion }}",
+              "rightValue": "recordatorio",
+              "operator": { "type": "string", "operation": "equals" }
+            }
+          ]
+        }
+      },
+      "id": "es-recordatorio",
+      "name": "Es recordatorio dia 2",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1340, 180]
+    },
+    {
+      "parameters": {
+        "fromEmail": "evento.social.lacabana@gmail.com",
+        "toEmail": "={{ $json.email }}",
+        "subject": "¿Pudiste ver nuestros paquetes? — La Cabaña Eventos 📅",
+        "emailType": "html",
+        "message": "={{ '<html><body style=\"font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;\"><div style=\"background:#2d5a27;padding:20px;border-radius:8px 8px 0 0;text-align:center;\"><h1 style=\"color:white;margin:0;\">🌿 La Cabaña Eventos</h1></div><div style=\"background:#f9f9f9;padding:30px;border:1px solid #ddd;\"><p style=\"font-size:18px;\">Hola <strong>' + $json.nombre + '</strong>,</p><p>Hace un par de días nos escribiste sobre tu evento. ¿Tuviste oportunidad de ver nuestros paquetes?</p><div style=\"background:#2d5a27;color:white;padding:20px;border-radius:8px;margin:20px 0;\"><p style=\"margin:0 0 10px;font-size:16px;font-weight:bold;\">⭐ Paquete más solicitado: Herradura</p><p style=\"margin:0;\">✅ Menú 3 tiempos · ✅ Open bar · ✅ DJ · ✅ Invitación digital gratis</p><p style=\"margin:8px 0 0;font-size:14px;\">Hasta 250 personas · A 15 min de Pachuca</p></div><div style=\"text-align:center;margin:25px 0;\"><a href=\"https://wa.me/527711341559\" style=\"background:#25D366;color:white;padding:12px 30px;border-radius:5px;text-decoration:none;font-size:16px;\">💬 Cotizar por WhatsApp</a></div></div><div style=\"background:#eee;padding:15px;text-align:center;font-size:12px;border-radius:0 0 8px 8px;\"><p style=\"margin:0;\">La Cabaña Eventos · 771 134 1559</p></div></body></html>' }}",
+        "options": {}
+      },
+      "id": "email-dia2",
+      "name": "Email Dia 2 — Recordatorio",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [1560, 80],
+      "continueOnFail": true,
+      "credentials": {
+        "smtp": {
+          "id": "GUuB0gffD5iBa139",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('Calcular dias y accion').item.json.id }}",
+            "status": "contactado",
+            "ultimo_email": "={{ new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' }) }}"
+          },
+          "matchingColumns": ["id"]
+        },
+        "options": {}
+      },
+      "id": "sheets-update-dia2",
+      "name": "Sheets — Actualizar status dia 2",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1780, 80],
+      "continueOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "conditions": [
+            {
+              "leftValue": "={{ $json.accion }}",
+              "rightValue": "urgencia",
+              "operator": { "type": "string", "operation": "equals" }
+            }
+          ]
+        }
+      },
+      "id": "es-urgencia",
+      "name": "Es urgencia dia 5",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1340, 380]
+    },
+    {
+      "parameters": {
+        "fromEmail": "evento.social.lacabana@gmail.com",
+        "toEmail": "={{ $json.email }}",
+        "subject": "Los sábados de este año se están llenando ⚠️",
+        "emailType": "html",
+        "message": "={{ '<html><body style=\"font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;\"><div style=\"background:#2d5a27;padding:20px;border-radius:8px 8px 0 0;text-align:center;\"><h1 style=\"color:white;margin:0;\">🌿 La Cabaña Eventos</h1></div><div style=\"background:#f9f9f9;padding:30px;border:1px solid #ddd;\"><p style=\"font-size:18px;\">Hola <strong>' + $json.nombre + '</strong>,</p><div style=\"background:#c0392b;color:white;padding:15px;border-radius:8px;margin:15px 0;text-align:center;\"><p style=\"margin:0;font-size:16px;\"><strong>⚠️ Aviso importante</strong></p><p style=\"margin:5px 0 0;\">Estamos recibiendo varias consultas para los próximos meses.</p></div><p>Si tu evento es en <strong>2026</strong>, te recomendamos apartar tu fecha pronto. Solo necesitas un <strong>anticipo</strong> para asegurarla.</p><p>¿Tienes preguntas? Escríbenos directo.</p><div style=\"text-align:center;margin:25px 0;\"><a href=\"https://wa.me/527711341559\" style=\"background:#25D366;color:white;padding:12px 30px;border-radius:5px;text-decoration:none;font-size:16px;\">💬 WhatsApp: 771 134 1559</a></div></div><div style=\"background:#eee;padding:15px;text-align:center;font-size:12px;border-radius:0 0 8px 8px;\"><p style=\"margin:0;\">La Cabaña Eventos · lacabanaeventos.com</p></div></body></html>' }}",
+        "options": {}
+      },
+      "id": "email-dia5",
+      "name": "Email Dia 5 — Urgencia",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [1560, 280],
+      "continueOnFail": true,
+      "credentials": {
+        "smtp": {
+          "id": "GUuB0gffD5iBa139",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('Calcular dias y accion').item.json.id }}",
+            "status": "contactado",
+            "ultimo_email": "={{ new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' }) }}"
+          },
+          "matchingColumns": ["id"]
+        },
+        "options": {}
+      },
+      "id": "sheets-update-dia5",
+      "name": "Sheets — Actualizar status dia 5",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1780, 280],
+      "continueOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "evento.social.lacabana@gmail.com",
+        "toEmail": "={{ $json.email }}",
+        "subject": "¿Aún buscas salón para tu evento? — La Cabaña Eventos",
+        "emailType": "html",
+        "message": "={{ '<html><body style=\"font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;\"><div style=\"background:#2d5a27;padding:20px;border-radius:8px 8px 0 0;text-align:center;\"><h1 style=\"color:white;margin:0;\">🌿 La Cabaña Eventos</h1></div><div style=\"background:#f9f9f9;padding:30px;border:1px solid #ddd;\"><p style=\"font-size:18px;\">Hola <strong>' + $json.nombre + '</strong>,</p><p>Hace unos días nos contactaste. Queremos asegurarnos de que encuentres el lugar perfecto para tu evento.</p><p>Si aún buscas salón en Hidalgo, seguimos disponibles para ayudarte.</p><div style=\"background:#2d5a27;color:white;padding:15px;border-radius:8px;margin:20px 0;\"><p style=\"margin:0;font-size:15px;\">📍 San Pedro Huaquilpan, a 15 min de Pachuca</p><p style=\"margin:8px 0 0;\">✅ Hasta 250 personas · Pista LED · DJ · Open bar</p></div><div style=\"text-align:center;margin:25px 0;\"><a href=\"https://wa.me/527711341559\" style=\"background:#25D366;color:white;padding:12px 30px;border-radius:5px;text-decoration:none;font-size:16px;\">💬 Escribir por WhatsApp</a></div></div><div style=\"background:#eee;padding:15px;text-align:center;font-size:12px;border-radius:0 0 8px 8px;\"><p style=\"margin:0;\">La Cabaña Eventos · 771 134 1559</p></div></body></html>' }}",
+        "options": {}
+      },
+      "id": "email-dia10",
+      "name": "Email Dia 10 — Reactivacion",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [1560, 480],
+      "continueOnFail": true,
+      "credentials": {
+        "smtp": {
+          "id": "GUuB0gffD5iBa139",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('Calcular dias y accion').item.json.id }}",
+            "status": "frio",
+            "ultimo_email": "={{ new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' }) }}"
+          },
+          "matchingColumns": ["id"]
+        },
+        "options": {}
+      },
+      "id": "sheets-update-frio",
+      "name": "Sheets — Marcar como frio",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1780, 480],
+      "continueOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Revisar cada 6 horas": {
+      "main": [[{ "node": "Sheets — Leer todos los leads", "type": "main", "index": 0 }]]
+    },
+    "Sheets — Leer todos los leads": {
+      "main": [[{ "node": "Separar cada lead", "type": "main", "index": 0 }]]
+    },
+    "Separar cada lead": {
+      "main": [[{ "node": "Calcular dias y accion", "type": "main", "index": 0 }]]
+    },
+    "Calcular dias y accion": {
+      "main": [[{ "node": "Requiere accion", "type": "main", "index": 0 }]]
+    },
+    "Requiere accion": {
+      "main": [
+        [{ "node": "Es recordatorio dia 2", "type": "main", "index": 0 }],
+        []
+      ]
+    },
+    "Es recordatorio dia 2": {
+      "main": [
+        [{ "node": "Email Dia 2 — Recordatorio", "type": "main", "index": 0 }],
+        [{ "node": "Es urgencia dia 5", "type": "main", "index": 0 }]
+      ]
+    },
+    "Email Dia 2 — Recordatorio": {
+      "main": [[{ "node": "Sheets — Actualizar status dia 2", "type": "main", "index": 0 }]]
+    },
+    "Es urgencia dia 5": {
+      "main": [
+        [{ "node": "Email Dia 5 — Urgencia", "type": "main", "index": 0 }],
+        [{ "node": "Email Dia 10 — Reactivacion", "type": "main", "index": 0 }]
+      ]
+    },
+    "Email Dia 5 — Urgencia": {
+      "main": [[{ "node": "Sheets — Actualizar status dia 5", "type": "main", "index": 0 }]]
+    },
+    "Email Dia 10 — Reactivacion": {
+      "main": [[{ "node": "Sheets — Marcar como frio", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" }
+}

@@ -1,0 +1,136 @@
+{
+  "id": "XXruEtS2Z2eSnXUm",
+  "name": "La Cabaña — Flujo 3: Lead de Facebook Lead Ad",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lacabana-facebook-lead",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-facebook",
+      "name": "Webhook — Facebook Lead Ad",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "lacabana-fb-lead-001"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body || $input.first().json;\nlet campos = {};\nif (body.entry && body.entry[0] && body.entry[0].changes) {\n  const data = body.entry[0].changes[0].value;\n  if (data.field_data) {\n    data.field_data.forEach(f => { campos[f.name] = f.values[0]; });\n  }\n} else {\n  campos = body;\n}\n\nconst tipoEvento = campos['tipo_evento'] || campos['cual_es_tu_evento'] || campos['tipoEvento'] || 'No especificado';\nconst ev = tipoEvento.toLowerCase();\nlet segmento = 'Otro';\nif (ev.includes('boda') || ev.includes('civil')) segmento = 'Bodas';\nelse if (ev.includes('xv') || ev.includes('quince')) segmento = 'XV Años';\nelse if (ev.includes('cumple') || ev.includes('infantil')) segmento = 'Cumpleaños';\nelse if (ev.includes('corporat') || ev.includes('empresa')) segmento = 'Corporativo';\nelse if (ev.includes('graduaci') || ev.includes('egresado')) segmento = 'Graduaciones';\nelse if (ev.includes('bautiz')) segmento = 'Bautizos';\n\nconst ahora = new Date();\nconst lead = {\n  id: 'FB-' + ahora.getTime(),\n  nombre: campos['full_name'] || campos['nombre'] || campos['name'] || 'Lead Facebook',\n  email: campos['email'] || '',\n  telefono: campos['phone_number'] || campos['telefono'] || campos['phone'] || '',\n  evento: tipoEvento + ' (' + segmento + ')',\n  fecha_evento: campos['fecha_del_evento'] || campos['event_date'] || campos['fecha'] || 'No especificada',\n  personas: campos['cuantas_personas'] || campos['guests'] || campos['personas'] || 'No especificado',\n  fuente: 'Facebook Lead Ad',\n  status: 'nuevo',\n  fecha_captura: ahora.toLocaleString('es-MX', { timeZone: 'America/Mexico_City' }),\n  ultimo_email: ''\n};\nreturn [{ json: lead }];"
+      },
+      "id": "procesar-fb-lead",
+      "name": "Procesar datos de Facebook",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {}
+        },
+        "options": {}
+      },
+      "id": "sheets-guardar",
+      "name": "Sheets — Guardar lead",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [680, 300],
+      "continueOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8676090287:AAFv7isGLDRiXaxU6o0gOOKeCd_exd7VaO0/sendMessage",
+        "authentication": "none",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ chat_id: '7790296286', text: '📣 *LEAD FACEBOOK — La Cabaña* ⚡\\n\\n👤 ' + $('Procesar datos de Facebook').first().json.nombre + '\\n📱 ' + $('Procesar datos de Facebook').first().json.telefono + '\\n📧 ' + $('Procesar datos de Facebook').first().json.email + '\\n🎊 ' + $('Procesar datos de Facebook').first().json.evento + '\\n📅 ' + $('Procesar datos de Facebook').first().json.fecha_evento + '\\n👥 ' + $('Procesar datos de Facebook').first().json.personas + '\\n\\n⚡ ¡Llama en los próximos 5 min!', parse_mode: 'Markdown' }) }}",
+        "options": {}
+      },
+      "id": "telegram-alerta",
+      "name": "Telegram — Alerta URGENTE",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [900, 160],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "SLACK_WEBHOOK_URL",
+        "authentication": "none",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ text: '*📣 LEAD FACEBOOK — La Cabaña* ⚡\\n👤 ' + $('Procesar datos de Facebook').first().json.nombre + '\\n📱 ' + $('Procesar datos de Facebook').first().json.telefono + '\\n📧 ' + $('Procesar datos de Facebook').first().json.email + '\\n🎊 ' + $('Procesar datos de Facebook').first().json.evento + '\\n📅 ' + $('Procesar datos de Facebook').first().json.fecha_evento + '\\n👥 ' + $('Procesar datos de Facebook').first().json.personas + '\\n\\n⚡ ¡Llama en los próximos 5 min!' }) }}",
+        "options": {}
+      },
+      "id": "slack-alerta-fb",
+      "name": "Slack — Alerta URGENTE",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [900, 300],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "fromEmail": "evento.social.lacabana@gmail.com",
+        "toEmail": "={{ $('Procesar datos de Facebook').first().json.email }}",
+        "subject": "¡Recibimos tu solicitud! — La Cabaña Eventos 🎉",
+        "emailType": "html",
+        "message": "={{ '<html><body style=\"font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;\"><div style=\"background:#2d5a27;padding:20px;border-radius:8px 8px 0 0;text-align:center;\"><h1 style=\"color:white;margin:0;\">🌿 La Cabaña Eventos</h1><p style=\"color:#a8d5a2;margin:5px 0 0;\">San Pedro Huaquilpan, Hidalgo</p></div><div style=\"background:#f9f9f9;padding:30px;border:1px solid #ddd;\"><p style=\"font-size:18px;\">Hola <strong>' + $('Procesar datos de Facebook').first().json.nombre + '</strong>,</p><p>Recibimos tu solicitud para tu <strong>' + $('Procesar datos de Facebook').first().json.evento + '</strong>. ¡Nos da mucho gusto!</p><div style=\"background:#fff3cd;border:1px solid #ffc107;padding:15px;border-radius:8px;margin:15px 0;\"><p style=\"margin:5px 0;\">📅 Fecha: <strong>' + $('Procesar datos de Facebook').first().json.fecha_evento + '</strong></p><p style=\"margin:5px 0;\">👥 Invitados: <strong>' + $('Procesar datos de Facebook').first().json.personas + '</strong></p></div><p>Un asesor te contactará muy pronto.</p><div style=\"text-align:center;margin:25px 0;\"><a href=\"https://wa.me/527711341559?text=Hola!%20Llené%20un%20formulario%20de%20Facebook\" style=\"background:#25D366;color:white;padding:14px 35px;border-radius:5px;text-decoration:none;font-size:16px;\">💬 Escríbenos por WhatsApp</a></div></div><div style=\"background:#eee;padding:15px;text-align:center;font-size:12px;border-radius:0 0 8px 8px;\"><p style=\"margin:0;\">La Cabaña Eventos · 771 134 1559</p></div></body></html>' }}",
+        "options": {}
+      },
+      "id": "email-confirmacion",
+      "name": "Email — Confirmacion Facebook",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [900, 440],
+      "continueOnFail": true,
+      "credentials": {
+        "smtp": {
+          "id": "GUuB0gffD5iBa139",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook — Facebook Lead Ad": {
+      "main": [[{ "node": "Procesar datos de Facebook", "type": "main", "index": 0 }]]
+    },
+    "Procesar datos de Facebook": {
+      "main": [[{ "node": "Sheets — Guardar lead", "type": "main", "index": 0 }]]
+    },
+    "Sheets — Guardar lead": {
+      "main": [[
+        { "node": "Telegram — Alerta URGENTE", "type": "main", "index": 0 },
+        { "node": "Slack — Alerta URGENTE", "type": "main", "index": 0 },
+        { "node": "Email — Confirmacion Facebook", "type": "main", "index": 0 }
+      ]]
+    }
+  },
+  "settings": { "executionOrder": "v1" }
+}

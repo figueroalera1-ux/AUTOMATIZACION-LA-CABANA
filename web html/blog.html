@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog | Salón La Cabaña — Consejos, Tendencias y Noticias</title>
+<meta name="description" content="Blog oficial de La Cabaña: consejos para bodas, XV años, graduaciones, tendencias de decoración y más. Actualizaciones directas desde WordPress.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ---- BLOG HUB ---- */
+.blog-hero { background: linear-gradient(135deg, var(--vino-dark) 0%, var(--vino) 100%); padding: 80px 5%; text-align: center; color: #fff; position: relative; overflow: hidden; }
+.blog-hero::before { content: ''; position: absolute; inset: 0; background: url('../../CAMBIOS/SECCION%204%20(1).png') center/cover; opacity: .12; }
+.blog-hero-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+.blog-hero h1 { font-family: var(--serif); font-size: clamp(36px, 5vw, 58px); margin-bottom: 14px; }
+.blog-hero p { font-size: 16px; opacity: .85; line-height: 1.8; margin-bottom: 28px; }
+.blog-search-wrap { display: flex; max-width: 480px; margin: 0 auto; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.25); border-radius: 999px; overflow: hidden; }
+.blog-search-wrap input { flex: 1; background: transparent; border: none; padding: 13px 20px; color: #fff; font-family: var(--sans); font-size: 14px; outline: none; }
+.blog-search-wrap input::placeholder { color: rgba(255,255,255,.5); }
+.blog-search-wrap button { background: var(--gold); border: none; padding: 13px 20px; cursor: pointer; color: #000; font-size: 14px; transition: var(--transition); }
+.blog-search-wrap button:hover { background: var(--gold-dark); color: #fff; }
+
+/* ---- FILTROS ---- */
+.blog-filtros { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 5%; position: sticky; top: 90px; z-index: 99; }
+.filtros-inner { max-width: var(--container); margin: 0 auto; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
+.filtros-inner::-webkit-scrollbar { display: none; }
+.filtro-btn { padding: 16px 20px; border: none; background: transparent; font-family: var(--sans); font-size: 13px; font-weight: 700; color: var(--text-light); cursor: pointer; white-space: nowrap; border-bottom: 3px solid transparent; transition: var(--transition); }
+.filtro-btn:hover { color: var(--vino); }
+.filtro-btn.active { color: var(--vino); border-bottom-color: var(--gold); }
+
+/* ---- GRID ---- */
+.blog-main { padding: 60px 0 100px; background: var(--off-white); }
+.blog-grid-full { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.blog-card-full { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: var(--transition); border: 1px solid var(--border); }
+.blog-card-full:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+.blog-card-full.featured { grid-column: span 2; }
+.bcf-img { height: 220px; background-size: cover; background-position: center; position: relative; }
+.blog-card-full.featured .bcf-img { height: 280px; }
+.bcf-cat { position: absolute; top: 14px; left: 14px; background: var(--vino); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; }
+.bcf-body { padding: 22px; }
+.bcf-meta { display: flex; align-items: center; gap: 14px; font-size: 12px; color: var(--text-light); margin-bottom: 10px; }
+.bcf-meta i { color: var(--gold); }
+.bcf-title { font-family: var(--serif); font-size: 19px; color: var(--text-dark); margin-bottom: 10px; line-height: 1.3; }
+.blog-card-full.featured .bcf-title { font-size: 24px; }
+.bcf-excerpt { font-size: 13px; color: var(--text-mid); line-height: 1.7; margin-bottom: 16px; }
+.bcf-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--vino); transition: var(--transition); }
+.bcf-link:hover { color: var(--gold); gap: 10px; }
+
+/* ---- LOADING / EMPTY ---- */
+.blog-loading-state { grid-column: span 3; text-align: center; padding: 80px 20px; color: var(--text-mid); }
+.blog-loading-state i { font-size: 36px; color: var(--gold); margin-bottom: 16px; display: block; }
+.blog-loading-state p { font-size: 15px; }
+
+/* ---- PAGINACIÓN ---- */
+.blog-paginacion { display: flex; justify-content: center; gap: 8px; margin-top: 50px; flex-wrap: wrap; }
+.pag-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: var(--white); font-size: 14px; font-weight: 700; cursor: pointer; color: var(--text-mid); font-family: var(--sans); transition: var(--transition); }
+.pag-btn:hover { background: var(--vino); color: #fff; border-color: var(--vino); }
+.pag-btn.active { background: var(--vino); color: #fff; border-color: var(--vino); }
+.pag-btn.arrow { width: auto; padding: 0 16px; border-radius: 20px; }
+
+/* ---- SIDEBAR PANEL ---- */
+.blog-layout { display: grid; grid-template-columns: 1fr 300px; gap: 36px; align-items: start; }
+.blog-sidebar { display: flex; flex-direction: column; gap: 24px; }
+.sidebar-card { background: var(--white); border-radius: var(--radius); padding: 24px; border: 1px solid var(--border); box-shadow: var(--shadow); }
+.sidebar-card h4 { font-family: var(--serif); font-size: 18px; color: var(--text-dark); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid var(--gold); }
+.sidebar-cats { display: flex; flex-direction: column; gap: 8px; }
+.sidebar-cat { display: flex; align-items: center; justify-content: space-between; padding: 9px 12px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text-mid); transition: var(--transition); border: 1px solid transparent; }
+.sidebar-cat:hover { background: var(--off-white); color: var(--vino); border-color: var(--border); }
+.sidebar-cat span { font-size: 11px; background: rgba(95,0,32,.08); color: var(--vino); padding: 2px 8px; border-radius: 10px; font-weight: 700; }
+.sidebar-recientes { display: flex; flex-direction: column; gap: 14px; }
+.sidebar-rec { display: flex; gap: 12px; align-items: flex-start; }
+.sidebar-rec-img { width: 60px; height: 60px; border-radius: 8px; background-size: cover; background-position: center; flex-shrink: 0; }
+.sidebar-rec-body { font-size: 12px; }
+.sidebar-rec-title { font-weight: 700; color: var(--text-dark); line-height: 1.4; margin-bottom: 4px; }
+.sidebar-rec-date { color: var(--text-light); }
+.sidebar-cta { background: linear-gradient(135deg, var(--vino), var(--vino-dark)); color: #fff; text-align: center; }
+.sidebar-cta h4 { color: var(--gold); border-bottom-color: rgba(218,165,32,.3); }
+.sidebar-cta p { font-size: 13px; color: rgba(255,255,255,.75); line-height: 1.7; margin-bottom: 16px; }
+.sidebar-cta a { display: flex; align-items: center; justify-content: center; gap: 8px; background: #25D366; color: #fff; padding: 11px 16px; border-radius: 999px; font-size: 13px; font-weight: 700; transition: var(--transition); }
+.sidebar-cta a:hover { background: #1da851; }
+
+/* ADMIN NOTE */
+.admin-banner { background: #06060f; color: #fff; padding: 14px 5%; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.admin-banner p { font-size: 13px; color: rgba(255,255,255,.6); display: flex; align-items: center; gap: 8px; }
+.admin-banner p i { color: var(--gold); }
+.admin-banner a { display: inline-flex; align-items: center; gap: 6px; background: var(--gold); color: #000; padding: 8px 18px; border-radius: 999px; font-size: 12px; font-weight: 700; white-space: nowrap; transition: var(--transition); }
+.admin-banner a:hover { background: var(--gold-dark); color: #fff; }
+
+@media(max-width:1024px) { .blog-layout { grid-template-columns: 1fr; } .blog-sidebar { display: none; } }
+@media(max-width:768px) { .blog-grid-full { grid-template-columns: 1fr; } .blog-card-full.featured { grid-column: span 1; } .blog-loading-state { grid-column: span 1; } .blog-hero { padding: 60px 5%; } }
+</style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src='https://connect.facebook.net/en_US/fbevents.js';
+s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script');
+fbq('init', '4510279802585543');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=4510279802585543&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="main-header" id="main-header">
+    <div class="logo-container">
+        <a href="index.html"><img src="../../CAMBIOS/blanco.png" alt="La Cabaña"></a>
+    </div>
+    <button class="mobile-toggle" aria-label="Abrir menú"><i class="fas fa-bars"></i></button>
+    <nav class="nav-menu">
+        <ul class="nav-list">
+            <li><a href="index.html" class="nav-link">Inicio</a></li>
+            <li><a href="eventos.html" class="nav-link">Eventos</a></li>
+            <li><a href="cotizar.html" class="nav-link">Paquetes</a></li>
+            <li><a href="comunidad.html" class="nav-link">Comunidad</a></li>
+            <li><a href="blog.html" class="nav-link active-page">Blog</a></li>
+            <li><a href="contacto.html" class="nav-link">Contacto</a></li>
+        </ul>
+    </nav>
+    <div class="header-cta">
+        <a href="https://wa.me/527711341559?text=Hola%2C%20quiero%20cotizar%20mi%20evento%20en%20La%20Caba%C3%B1a" class="cta-button" target="_blank">
+            <i class="fab fa-whatsapp"></i> Cotiza Ahora
+        </a>
+    </div>
+</header>
+
+<!-- ADMIN BANNER — solo visible si hay sesión WP (puedes ocultarlo en producción) -->
+<div class="admin-banner" id="admin-banner" style="display:none">
+    <p><i class="fas fa-pencil-alt"></i> Administra el blog desde WordPress — los artículos aparecen aquí y en el inicio automáticamente.</p>
+    <a href="https://lacabanaeventos.com/wp-admin/post-new.php" target="_blank"><i class="fas fa-plus"></i> Nuevo Artículo</a>
+</div>
+
+<!-- ========== HERO ========== -->
+<section class="blog-hero">
+    <div class="blog-hero-content">
+        <span class="section-tag center" style="color:rgba(218,165,32,.85)">Artículos & Noticias</span>
+        <h1>Blog <span class="gold">La Cabaña</span></h1>
+        <p>Consejos, tendencias e historias de eventos para inspirar tu próxima celebración.</p>
+        <div class="blog-search-wrap">
+            <input type="text" id="search-input" placeholder="Buscar artículos..." onkeyup="filtrarPosts()">
+            <button onclick="filtrarPosts()"><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+</section>
+
+<!-- ========== FILTROS ========== -->
+<div class="blog-filtros">
+    <div class="filtros-inner">
+        <button class="filtro-btn active" onclick="setFiltro('todos',this)">Todos</button>
+        <button class="filtro-btn" onclick="setFiltro('bodas',this)">Bodas</button>
+        <button class="filtro-btn" onclick="setFiltro('xv-anos',this)">XV Años</button>
+        <button class="filtro-btn" onclick="setFiltro('graduaciones',this)">Graduaciones</button>
+        <button class="filtro-btn" onclick="setFiltro('cumpleanos',this)">Cumpleaños</button>
+        <button class="filtro-btn" onclick="setFiltro('tips',this)">Consejos</button>
+        <button class="filtro-btn" onclick="setFiltro('comunidad',this)">Comunidad</button>
+    </div>
+</div>
+
+<!-- ========== CONTENIDO PRINCIPAL ========== -->
+<section class="blog-main">
+    <div class="container">
+        <div class="blog-layout">
+
+            <!-- POSTS GRID -->
+            <div>
+                <div class="blog-grid-full" id="blog-grid-full">
+                    <div class="blog-loading-state">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Cargando artículos...</p>
+                    </div>
+                </div>
+                <div class="blog-paginacion" id="blog-paginacion" style="display:none"></div>
+            </div>
+
+            <!-- SIDEBAR -->
+            <aside class="blog-sidebar">
+
+                <div class="sidebar-card">
+                    <h4>Categorías</h4>
+                    <div class="sidebar-cats">
+                        <div class="sidebar-cat" onclick="setFiltro('bodas',null)"><span style="display:flex;align-items:center;gap:8px;"><i class="fas fa-ring" style="color:var(--gold)"></i> Bodas</span><span id="cnt-bodas">—</span></div>
+                        <div class="sidebar-cat" onclick="setFiltro('xv-anos',null)"><span style="display:flex;align-items:center;gap:8px;"><i class="fas fa-crown" style="color:var(--gold)"></i> XV Años</span><span id="cnt-xv">—</span></div>
+                        <div class="sidebar-cat" onclick="setFiltro('graduaciones',null)"><span style="display:flex;align-items:center;gap:8px;"><i class="fas fa-graduation-cap" style="color:var(--gold)"></i> Graduaciones</span><span id="cnt-grad">—</span></div>
+                        <div class="sidebar-cat" onclick="setFiltro('tips',null)"><span style="display:flex;align-items:center;gap:8px;"><i class="fas fa-lightbulb" style="color:var(--gold)"></i> Consejos</span><span id="cnt-tips">—</span></div>
+                        <div class="sidebar-cat" onclick="setFiltro('comunidad',null)"><span style="display:flex;align-items:center;gap:8px;"><i class="fas fa-users" style="color:var(--gold)"></i> Comunidad</span><span id="cnt-com">—</span></div>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h4>Artículos Recientes</h4>
+                    <div class="sidebar-recientes" id="sidebar-recientes">
+                        <p style="font-size:13px;color:var(--text-light)">Cargando...</p>
+                    </div>
+                </div>
+
+                <div class="sidebar-card sidebar-cta">
+                    <h4>¿Planeas un evento?</h4>
+                    <p>Cotiza sin compromiso y recibe tu propuesta personalizada en menos de 24 horas.</p>
+                    <a href="formulario.html"><i class="fab fa-whatsapp"></i> Solicitar Cotización</a>
+                </div>
+
+            </aside>
+        </div>
+    </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="main-footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <img src="../../CAMBIOS/blanco.png" alt="La Cabaña" class="footer-logo">
+            <div class="footer-info">
+                <p><i class="fas fa-map-marker-alt"></i><span>Nicolás Bravo No. 72, Col. Niños Héroes,<br>San Pedro Huaquilpan, Zapotlán de Juárez, Hgo.</span></p>
+                <p><i class="fas fa-phone"></i><span>771 134 1559</span></p>
+            </div>
+            <div class="footer-social">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="https://wa.me/527711341559" aria-label="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h4>Eventos</h4>
+            <ul class="footer-links">
+                <li><a href="bodas.html">Bodas</a></li>
+                <li><a href="xv-anos.html">XV Años</a></li>
+                <li><a href="graduaciones.html">Graduaciones</a></li>
+                <li><a href="otros-eventos.html">Más Eventos</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>La Cabaña</h4>
+            <ul class="footer-links">
+                <li><a href="cotizar.html">Paquetes y Precios</a></li>
+                <li><a href="comunidad.html">Comunidad</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Salón de Eventos Sociales y Espectáculos La Cabaña — Todos los derechos reservados</p>
+    </div>
+</footer>
+
+<a href="https://wa.me/527711341559?text=Hola%2C%20me%20interesa%20La%20Caba%C3%B1a" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<script src="script.js"></script>
+<script>
+// ============================================================
+// CONFIG
+// ============================================================
+const WP_API = 'https://lacabanaeventos.com/wp-json/wp/v2';
+const PER_PAGE = 9;
+let todosLosPosts = [];
+let filtroActual = 'todos';
+let paginaActual = 1;
+let categorias = {};
+
+const PLACEHOLDERS = [
+    { titulo: '¿Cuánto cuesta un salón de eventos en Hidalgo? Guía de precios 2026', categoria: 'Consejos', slug: 'tips', img: 'CAMBIOS/SECCION%204%20(6).png', fecha: 'Abril 2026', excerpt: 'Descubre cuánto cuesta rentar un salón de eventos en Hidalgo en 2026. Precios reales para bodas, XV años y graduaciones, qué incluyen los paquetes y cómo elegir bien.', link: 'cuanto-cuesta-salon-de-eventos-hidalgo.html' },
+    { titulo: 'XV Años cerca de Pachuca: qué incluye un buen salón y qué preguntar', categoria: 'XV Anos', slug: 'xv-anos', img: 'CAMBIOS/SECCION%203%20XV%20A%C3%91OS.png', fecha: 'Abril 2026', excerpt: '¿Buscas salón para XV años cerca de Pachuca? Descubre qué debe incluir un buen paquete y las 7 preguntas que debes hacer antes de firmar.', link: 'xv-anos-cerca-de-pachuca.html' },
+    { titulo: 'Bodas con hospedaje incluido en Hidalgo: la opción que pocos conocen', categoria: 'Bodas', slug: 'bodas', img: 'CAMBIOS/SECCION%20ALOJAMIENTO%20LA%20CABA%C3%91A.png', fecha: 'Abril 2026', excerpt: 'Descubre por qué las bodas con hospedaje en el mismo predio cambian toda la experiencia. La Cabaña ofrece cabañas propias para tus invitados de fuera.', link: 'bodas-con-hospedaje-hidalgo.html' },
+    { titulo: 'Pista LED iluminada: el toque espectacular que transforma tu evento', categoria: 'Consejos', slug: 'tips', img: 'fotos%20ok/pista%20iluminada%20(7).JPG', fecha: 'Mayo 2026', excerpt: 'Descubre por qué la pista LED con efecto galaxia es el elemento que más impresiona a los invitados en cualquier tipo de evento.', link: 'pista-led-salon-de-eventos-hidalgo.html' },
+    { titulo: 'Bautizos íntimos en Hidalgo: cómo crear el ambiente perfecto', categoria: 'Consejos', slug: 'tips', img: 'fotos%20ok/0galeria%20(3).JPG', fecha: 'Mayo 2026', excerpt: 'Los detalles que hacen que una celebración de bautizo sea cálida, familiar y completamente especial para todos los presentes.', link: 'bautizos-intimos-salon-de-eventos-hidalgo.html' },
+    { titulo: 'La Cabaña Community: el taller que está transformando niños', categoria: 'Comunidad', slug: 'comunidad', img: 'fotos%20ok/TALLER%20DE%20DESARROLLO%20EMOCIONAL-2.png', fecha: 'Abril 2026', excerpt: 'Conoce el Taller de Desarrollo Emocional que está ayudando a niños de 5 a 12 años a hablar en público, emprender y liderar.', link: 'taller-desarrollo-emocional.html' },
+];
+
+// ============================================================
+// CARGA PRINCIPAL
+// ============================================================
+async function cargarPosts() {
+    try {
+        // Intentar WordPress API
+        const res = await fetch(`${WP_API}/posts?per_page=50&_embed&status=publish`, { signal: AbortSignal.timeout(6000) });
+        if (!res.ok) throw new Error('API no disponible');
+        const posts = await res.json();
+        todosLosPosts = posts.map(p => ({
+            id: p.id,
+            titulo: p.title?.rendered || '',
+            excerpt: p.excerpt?.rendered?.replace(/<[^>]+>/g, '').slice(0, 140) + '…' || '',
+            img: p._embedded?.['wp:featuredmedia']?.[0]?.source_url || '',
+            link: p.link || '#',
+            fecha: new Date(p.date).toLocaleDateString('es-MX', { year:'numeric', month:'long', day:'numeric' }),
+            categoria: p._embedded?.['wp:term']?.[0]?.[0]?.name || 'General',
+            slug: p._embedded?.['wp:term']?.[0]?.[0]?.slug || 'general',
+            isWP: true
+        }));
+
+        // Mostrar banner admin si hay posts
+        document.getElementById('admin-banner').style.display = 'flex';
+
+    } catch (e) {
+        // Usar placeholders
+        todosLosPosts = PLACEHOLDERS.map((p, i) => ({
+            id: i, titulo: p.titulo, excerpt: p.excerpt,
+            img: p.img, link: p.link || '#', fecha: p.fecha,
+            categoria: p.categoria, slug: p.slug, isWP: false
+        }));
+    }
+
+    cargarSidebar();
+    renderPosts();
+}
+
+// ============================================================
+// RENDER POSTS
+// ============================================================
+function renderPosts() {
+    const grid = document.getElementById('blog-grid-full');
+    const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
+
+    let posts = todosLosPosts;
+
+    // Filtro categoría
+    if (filtroActual !== 'todos') {
+        posts = posts.filter(p => p.slug === filtroActual || p.categoria.toLowerCase().includes(filtroActual.replace('-',' ')));
+    }
+
+    // Búsqueda
+    if (searchTerm) {
+        posts = posts.filter(p =>
+            p.titulo.toLowerCase().includes(searchTerm) ||
+            p.excerpt.toLowerCase().includes(searchTerm) ||
+            p.categoria.toLowerCase().includes(searchTerm)
+        );
+    }
+
+    const total = posts.length;
+    const totalPages = Math.ceil(total / PER_PAGE);
+    const start = (paginaActual - 1) * PER_PAGE;
+    const pagePosts = posts.slice(start, start + PER_PAGE);
+
+    if (pagePosts.length === 0) {
+        grid.innerHTML = `
+            <div class="blog-loading-state">
+                <i class="fas fa-search"></i>
+                <p>No se encontraron artículos${searchTerm ? ` para "${searchTerm}"` : ''}.</p>
+                <p style="margin-top:8px;font-size:13px;">¿Nuevo en WordPress? Publica tu primer artículo desde el panel de administración.</p>
+                <a href="https://lacabanaeventos.com/wp-admin/post-new.php" target="_blank" style="margin-top:16px;display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:999px;background:var(--vino);color:#fff;font-size:13px;font-weight:700;text-decoration:none"><i class="fas fa-plus"></i> Crear primer artículo</a>
+            </div>`;
+        document.getElementById('blog-paginacion').style.display = 'none';
+        return;
+    }
+
+    grid.innerHTML = pagePosts.map((p, i) => {
+        const isFeatured = i === 0 && paginaActual === 1 && filtroActual === 'todos' && !searchTerm;
+        const imgStyle = p.img ? `background-image:url('${p.img}')` : `background:linear-gradient(135deg,var(--vino),var(--vino-dark))`;
+        return `
+        <article class="blog-card-full${isFeatured ? ' featured' : ''}" data-cat="${p.slug}">
+            <div class="bcf-img" style="${imgStyle}">
+                <span class="bcf-cat">${p.categoria}</span>
+            </div>
+            <div class="bcf-body">
+                <div class="bcf-meta">
+                    <span><i class="fas fa-calendar-alt"></i> ${p.fecha}</span>
+                </div>
+                <h3 class="bcf-title">${p.titulo}</h3>
+                <p class="bcf-excerpt">${p.excerpt}</p>
+                <a href="${p.link}" class="bcf-link" ${p.isWP ? 'target="_blank"' : ''}>
+                    Leer artículo <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </article>`;
+    }).join('');
+
+    // Paginación
+    renderPaginacion(totalPages);
+}
+
+function renderPaginacion(totalPages) {
+    const pag = document.getElementById('blog-paginacion');
+    if (totalPages <= 1) { pag.style.display = 'none'; return; }
+    pag.style.display = 'flex';
+    let html = '';
+    if (paginaActual > 1) html += `<button class="pag-btn arrow" onclick="irPagina(${paginaActual - 1})"><i class="fas fa-chevron-left"></i></button>`;
+    for (let i = 1; i <= totalPages; i++) {
+        html += `<button class="pag-btn${i === paginaActual ? ' active' : ''}" onclick="irPagina(${i})">${i}</button>`;
+    }
+    if (paginaActual < totalPages) html += `<button class="pag-btn arrow" onclick="irPagina(${paginaActual + 1})"><i class="fas fa-chevron-right"></i></button>`;
+    pag.innerHTML = html;
+}
+
+function irPagina(n) {
+    paginaActual = n;
+    renderPosts();
+    document.querySelector('.blog-filtros').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ============================================================
+// FILTROS
+// ============================================================
+function setFiltro(cat, btn) {
+    filtroActual = cat;
+    paginaActual = 1;
+    if (btn) {
+        document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+    renderPosts();
+}
+
+function filtrarPosts() {
+    paginaActual = 1;
+    renderPosts();
+}
+
+// ============================================================
+// SIDEBAR
+// ============================================================
+function cargarSidebar() {
+    // Recientes
+    const recientes = todosLosPosts.slice(0, 4);
+    const sideRec = document.getElementById('sidebar-recientes');
+    if (recientes.length === 0) { sideRec.innerHTML = '<p style="font-size:13px;color:var(--text-light)">Aún no hay artículos.</p>'; return; }
+    sideRec.innerHTML = recientes.map(p => `
+        <div class="sidebar-rec">
+            <div class="sidebar-rec-img" style="${p.img ? `background-image:url('${p.img}')` : 'background:var(--vino)'}"></div>
+            <div class="sidebar-rec-body">
+                <div class="sidebar-rec-title">${p.titulo.slice(0, 60)}${p.titulo.length > 60 ? '…' : ''}</div>
+                <div class="sidebar-rec-date">${p.fecha}</div>
+            </div>
+        </div>`).join('');
+
+    // Conteos por categoría
+    const slugMap = { 'bodas': 'cnt-bodas', 'xv-anos': 'cnt-xv', 'graduaciones': 'cnt-grad', 'tips': 'cnt-tips', 'comunidad': 'cnt-com' };
+    Object.entries(slugMap).forEach(([slug, id]) => {
+        const n = todosLosPosts.filter(p => p.slug === slug || p.categoria.toLowerCase().includes(slug.replace('-',' '))).length;
+        const el = document.getElementById(id);
+        if (el) el.textContent = n || 0;
+    });
+}
+
+// ============================================================
+// INIT
+// ============================================================
+cargarPosts();
+
+// Header scroll
+const header = document.getElementById('main-header');
+window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 60));
+const toggle = document.querySelector('.mobile-toggle');
+const navList = document.querySelector('.nav-list');
+if (toggle) toggle.addEventListener('click', () => {
+    navList.classList.toggle('active');
+    toggle.querySelector('i').classList.toggle('fa-bars');
+    toggle.querySelector('i').classList.toggle('fa-times');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>La Cabaña — Flujos de Automatización</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f0f4f0; padding: 30px; }
+  h1 { text-align: center; color: #2d5a27; margin-bottom: 8px; font-size: 28px; }
+  .subtitle { text-align: center; color: #666; margin-bottom: 40px; font-size: 14px; }
+
+  .flujo { background: white; border-radius: 16px; padding: 30px; margin-bottom: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+  .flujo-title { font-size: 20px; font-weight: bold; margin-bottom: 25px; padding: 12px 20px; border-radius: 8px; color: white; }
+  .f1 { background: #2d5a27; }
+  .f2 { background: #1a4a8a; }
+  .f3 { background: #8a1a1a; }
+
+  .flow-row { display: flex; align-items: flex-start; gap: 0; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 10px; }
+
+  .node { text-align: center; min-width: 130px; max-width: 140px; }
+  .node-box { background: #f8f8f8; border: 2px solid #ddd; border-radius: 10px; padding: 12px 8px; margin: 0 4px; }
+  .node-box.trigger { border-color: #2d5a27; background: #e8f5e9; }
+  .node-box.hubspot { border-color: #ff7a59; background: #fff3ef; }
+  .node-box.telegram { border-color: #0088cc; background: #e3f4fd; }
+  .node-box.email { border-color: #ea4335; background: #fce8e6; }
+  .node-box.code { border-color: #9c27b0; background: #f3e5f5; }
+  .node-box.condition { border-color: #ff9800; background: #fff8e1; }
+  .node-box.response { border-color: #4caf50; background: #e8f5e9; }
+  .node-icon { font-size: 28px; display: block; margin-bottom: 6px; }
+  .node-name { font-size: 11px; font-weight: bold; color: #333; line-height: 1.3; }
+  .node-desc { font-size: 10px; color: #666; margin-top: 4px; line-height: 1.3; }
+
+  .arrow { display: flex; align-items: center; padding-top: 20px; color: #999; font-size: 20px; min-width: 24px; flex-shrink: 0; }
+
+  .credential-warning { background: #fff3cd; border: 2px solid #ffc107; border-radius: 10px; padding: 15px 20px; margin-top: 20px; }
+  .credential-warning h3 { color: #856404; margin-bottom: 10px; font-size: 15px; }
+  .cred-row { display: flex; gap: 20px; flex-wrap: wrap; }
+  .cred-item { background: white; border: 1px solid #ffc107; border-radius: 8px; padding: 10px 15px; font-size: 13px; }
+  .cred-item strong { display: block; color: #333; margin-bottom: 4px; }
+  .cred-item span { color: #856404; }
+
+  .fix-box { background: #e3f4fd; border: 2px solid #0088cc; border-radius: 10px; padding: 20px; margin-top: 20px; }
+  .fix-box h3 { color: #006699; margin-bottom: 15px; font-size: 16px; }
+  .step { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+  .step-num { background: #0088cc; color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 13px; flex-shrink: 0; }
+  .step-text { font-size: 13px; color: #333; line-height: 1.5; padding-top: 4px; }
+  .step-text strong { color: #006699; }
+
+  .parallel { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px; }
+  .parallel-item { flex: 1; min-width: 120px; }
+
+  @media (max-width: 600px) {
+    .flow-row { flex-direction: column; align-items: center; }
+    .arrow { transform: rotate(90deg); padding-top: 0; padding: 4px 0; }
+  }
+</style>
+</head>
+<body>
+
+<h1>🌿 La Cabaña Eventos</h1>
+<p class="subtitle">Sistema de Automatización de Leads — 3 Flujos en n8n</p>
+
+<!-- FLUJO 1 -->
+<div class="flujo">
+  <div class="flujo-title f1">📋 FLUJO 1 — Lead desde el Sitio Web</div>
+
+  <div class="flow-row">
+    <div class="node">
+      <div class="node-box trigger">
+        <span class="node-icon">🌐</span>
+        <div class="node-name">Webhook</div>
+        <div class="node-desc">Recibe datos del formulario del sitio web</div>
+      </div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="node">
+      <div class="node-box code">
+        <span class="node-icon">⚙️</span>
+        <div class="node-name">Normalizar datos</div>
+        <div class="node-desc">Ordena nombre, tel, email, tipo evento</div>
+      </div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="node">
+      <div class="node-box condition">
+        <span class="node-icon">❓</span>
+        <div class="node-name">¿Tiene teléfono?</div>
+        <div class="node-desc">Filtra leads incompletos</div>
+      </div>
+    </div>
+    <div class="arrow">→</div>
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div class="node">
+        <div class="node-box hubspot">
+          <span class="node-icon">🟠</span>
+          <div class="node-name">HubSpot</div>
+          <div class="node-desc">Guarda el lead en el CRM</div>
+        </div>
+      </div>
+      <div class="node">
+        <div class="node-box telegram">
+          <span class="node-icon">✈️</span>
+          <div class="node-name">Telegram</div>
+          <div class="node-desc">Te avisa al celular al instante</div>
+        </div>
+      </div>
+      <div class="node">
+        <div class="node-box email">
+          <span class="node-icon">📧</span>
+          <div class="node-name">Email</div>
+          <div class="node-desc">Envía bienvenida automática al cliente</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="credential-warning">
+    <h3>⚠️ Nodos con error en este flujo — necesitan credencial asignada:</h3>
+    <div class="cred-row">
+      <div class="cred-item">
+        <strong>🟠 Nodo "HubSpot — Guardar lead"</strong>
+        <span>Credencial: seleccionar "HubSpot API"</span>
+      </div>
+      <div class="cred-item">
+        <strong>📧 Nodo "Email — Bienvenida"</strong>
+        <span>Credencial: seleccionar "Gmail SMTP"</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FLUJO 2 -->
+<div class="flujo">
+  <div class="flujo-title f2">🔁 FLUJO 2 — Follow-up Automático (cada 6 horas)</div>
+
+  <div class="flow-row">
+    <div class="node">
+      <div class="node-box trigger">
+        <span class="node-icon">⏰</span>
+        <div class="node-name">Cada 6 horas</div>
+        <div class="node-desc">Se activa solo automáticamente</div>
+      </div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="node">
+      <div class="node-box hubspot">
+        <span class="node-icon">🟠</span>
+        <div class="node-name">HubSpot</div>
+        <div class="node-desc">Obtiene leads nuevos sin respuesta</div>
+      </div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="node">
+      <div class="node-box code">
+        <span class="node-icon">🗓️</span>
+        <div class="node-name">Calcular días</div>
+        <div class="node-desc">¿Cuántos días lleva sin responder?</div>
+      </div>
+    </div>
+    <div class="arrow">→</div>
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div class="node">
+        <div class="node-box email">
+          <span class="node-icon">📧 Día 2</span>
+          <div class="node-name">Email recordatorio</div>
+          <div class="node-desc">"¿Pudiste ver nuestros paquetes?"</div>
+        </div>
+      </div>
+      <div class="node">
+        <div class="node-box email">
+          <span class="node-icon">🔥 Día 5</span>
+          <div class="node-name">Email urgencia</div>
+          <div class="node-desc">"Los sábados se están llenando"</div>
+        </div>
+      </div>
+      <div class="node">
+        <div class="node-box hubspot">
+          <span class="node-icon">❄️ Día 10</span>
+          <div class="node-name">Marcar frío</div>
+          <div class="node-desc">Actualiza estado en HubSpot</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FLUJO 3 -->
+<div class="flujo">
+  <div class="flujo-title f3">📣 FLUJO 3 — Lead desde Facebook Ads</div>
+
+  <div class="flow-row">
+    <div class="node">
+      <div class="node-box trigger">
+        <span class="node-icon">📣</span>
+        <div class="node-name">Facebook Lead Ad</div>
+        <div class="node-desc">Lead llena formulario en Facebook</div>
+      </div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="node">
+      <div class="node-box code">
+        <span class="node-icon">⚙️</span>
+        <div class="node-name">Procesar datos</div>
+        <div class="node-desc">Convierte formato de Facebook</div>
+      </div>
+    </div>
+    <div class="arrow">→</div>
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div class="node">
+        <div class="node-box hubspot">
+          <span class="node-icon">🟠</span>
+          <div class="node-name">HubSpot</div>
+          <div class="node-desc">Guarda el lead en el CRM</div>
+        </div>
+      </div>
+      <div class="node">
+        <div class="node-box telegram">
+          <span class="node-icon">⚡✈️</span>
+          <div class="node-name">Telegram URGENTE</div>
+          <div class="node-desc">"¡Llama en los próximos 5 min!"</div>
+        </div>
+      </div>
+      <div class="node">
+        <div class="node-box email">
+          <span class="node-icon">📧</span>
+          <div class="node-name">Email confirmación</div>
+          <div class="node-desc">Respuesta inmediata al lead</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INSTRUCCIONES PARA ARREGLAR -->
+<div class="fix-box">
+  <h3>🔧 Cómo arreglar los nodos con error (2 minutos)</h3>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-text">Haz clic en el nodo naranja <strong>"HubSpot — Guardar lead"</strong> (ícono 🟠 con borde rojo)</div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-text">En el panel derecho busca el campo <strong>"Credential for Header Auth"</strong> → abre el dropdown → selecciona <strong>"HubSpot API"</strong></div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-text">Cierra ese nodo. Haz clic en el nodo rojo <strong>"Email — Bienvenida"</strong> (ícono 📧)</div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-text">En el campo <strong>"Credential"</strong> → selecciona <strong>"Gmail SMTP"</strong></div>
+  </div>
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-text">Clic en <strong>"Save"</strong> arriba a la derecha → activa el toggle ▶️</div>
+  </div>
+</div>
+
+</body>
+</html>

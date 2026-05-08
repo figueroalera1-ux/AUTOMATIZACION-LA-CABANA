@@ -1,0 +1,10 @@
+node_modules
+.env
+
+# Archivos con credenciales de n8n — no subir al repo
+n8n-flows/export-actual.json
+n8n-flows/export-credentials.json
+n8n-flows/brevo-smtp-credential.json
+n8n-flows/enviar-10-leads-prueba.ps1
+n8n-flows/iniciar-n8n.ps1
+webhook-url-actual.txt

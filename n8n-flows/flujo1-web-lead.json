@@ -1,0 +1,136 @@
+{
+  "id": "CczTsT1utoEPuicm",
+  "name": "La Cabaña — Flujo 1: Lead desde sitio web",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lacabana-lead",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-lead",
+      "name": "Webhook — Lead entra",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "lacabana-lead-001"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body || $input.first().json;\nconst ahora = new Date();\nconst lead = {\n  id: 'WEB-' + ahora.getTime(),\n  nombre: body.nombre || body.full_name || body.name || 'Sin nombre',\n  telefono: body.telefono || body.phone || '',\n  email: body.email || body.correo || '',\n  evento: body.tipo_evento || body.tipoEvento || 'No especificado',\n  fecha_evento: body.fecha_evento || body.fecha || body.event_date || 'No especificada',\n  personas: body.num_personas || body.personas || body.guests || 'No especificado',\n  paquete: body.paquete_interes || body.paquete || '',\n  mensaje: body.mensaje || '',\n  fuente: body.fuente || 'Sitio Web',\n  status: 'nuevo',\n  fecha_captura: ahora.toLocaleString('es-MX', { timeZone: 'America/Mexico_City' }),\n  ultimo_email: ''\n};\nreturn [{ json: lead }];"
+      },
+      "id": "normalizar-lead",
+      "name": "Normalizar datos del lead",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {}
+        },
+        "options": {}
+      },
+      "id": "sheets-guardar",
+      "name": "Sheets — Guardar lead",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [680, 300],
+      "continueOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8676090287:AAFv7isGLDRiXaxU6o0gOOKeCd_exd7VaO0/sendMessage",
+        "authentication": "none",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ chat_id: '7790296286', text: '🌿 *NUEVO LEAD — La Cabaña*\\n\\n👤 ' + $('Normalizar datos del lead').first().json.nombre + '\\n📱 ' + $('Normalizar datos del lead').first().json.telefono + '\\n📧 ' + $('Normalizar datos del lead').first().json.email + '\\n🎊 ' + $('Normalizar datos del lead').first().json.evento + '\\n📅 ' + $('Normalizar datos del lead').first().json.fecha_evento + '\\n👥 ' + $('Normalizar datos del lead').first().json.personas + '\\n🔗 Sitio Web\\n\\n💬 ¡Contáctalo pronto!', parse_mode: 'Markdown' }) }}",
+        "options": {}
+      },
+      "id": "telegram-alerta",
+      "name": "Telegram — Notificar al dueño",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [900, 160],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "SLACK_WEBHOOK_URL",
+        "authentication": "none",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ text: '*🌿 NUEVO LEAD — La Cabaña*\\n👤 ' + $('Normalizar datos del lead').first().json.nombre + '\\n📱 ' + $('Normalizar datos del lead').first().json.telefono + '\\n📧 ' + $('Normalizar datos del lead').first().json.email + '\\n🎊 ' + $('Normalizar datos del lead').first().json.evento + '\\n📅 ' + $('Normalizar datos del lead').first().json.fecha_evento + '\\n👥 ' + $('Normalizar datos del lead').first().json.personas + '\\n🔗 ' + $('Normalizar datos del lead').first().json.fuente + '\\n\\n💬 ¡Contáctalo pronto!' }) }}",
+        "options": {}
+      },
+      "id": "slack-alerta",
+      "name": "Slack — Notificar al dueño",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [900, 300],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "fromEmail": "evento.social.lacabana@gmail.com",
+        "toEmail": "={{ $('Normalizar datos del lead').first().json.email }}",
+        "subject": "¡Recibimos tu solicitud! — La Cabaña Eventos 🎉",
+        "emailType": "html",
+        "message": "={{ '<html><body style=\"font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;\"><div style=\"background:#2d5a27;padding:20px;border-radius:8px 8px 0 0;text-align:center;\"><h1 style=\"color:white;margin:0;\">🌿 La Cabaña Eventos</h1></div><div style=\"background:#f9f9f9;padding:30px;border:1px solid #ddd;\"><p style=\"font-size:18px;\">Hola <strong>' + $('Normalizar datos del lead').first().json.nombre + '</strong>,</p><p>Recibimos tu solicitud para un <strong>' + $('Normalizar datos del lead').first().json.evento + '</strong>. En breve te contactamos.</p><div style=\"background:#2d5a27;color:white;padding:15px;border-radius:8px;margin:20px 0;\"><p style=\"margin:0;\">📅 Fecha solicitada: <strong>' + $('Normalizar datos del lead').first().json.fecha_evento + '</strong></p><p style=\"margin:5px 0 0;\">👥 Personas: <strong>' + $('Normalizar datos del lead').first().json.personas + '</strong></p></div><div style=\"text-align:center;margin:25px 0;\"><a href=\"https://wa.me/527711341559\" style=\"background:#25D366;color:white;padding:14px 35px;border-radius:5px;text-decoration:none;font-size:16px;\">💬 Escríbenos por WhatsApp</a></div></div><div style=\"background:#eee;padding:15px;text-align:center;font-size:12px;\"><p style=\"margin:0;\">La Cabaña Eventos · 771 134 1559 · San Pedro Huaquilpan, Hidalgo</p></div></body></html>' }}",
+        "options": {}
+      },
+      "id": "email-bienvenida",
+      "name": "Email — Bienvenida al lead",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [900, 440],
+      "continueOnFail": true,
+      "credentials": {
+        "smtp": {
+          "id": "GUuB0gffD5iBa139",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook — Lead entra": {
+      "main": [[{ "node": "Normalizar datos del lead", "type": "main", "index": 0 }]]
+    },
+    "Normalizar datos del lead": {
+      "main": [[{ "node": "Sheets — Guardar lead", "type": "main", "index": 0 }]]
+    },
+    "Sheets — Guardar lead": {
+      "main": [[
+        { "node": "Telegram — Notificar al dueño", "type": "main", "index": 0 },
+        { "node": "Slack — Notificar al dueño", "type": "main", "index": 0 },
+        { "node": "Email — Bienvenida al lead", "type": "main", "index": 0 }
+      ]]
+    }
+  },
+  "settings": { "executionOrder": "v1" }
+}

@@ -1,0 +1,63 @@
+[
+  {
+    "updatedAt": "2026-05-12T03:51:22.835Z",
+    "createdAt": "2026-05-12T03:51:22.835Z",
+    "id": "Dxequ3TXbS8F52wg",
+    "name": "My workflow",
+    "description": null,
+    "active": false,
+    "isArchived": false,
+    "nodes": [
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "n8n-nodes-base.formTrigger",
+        "typeVersion": 2.5,
+        "position": [
+          0,
+          0
+        ],
+        "id": "1993fe64-9d09-4313-b882-1297f94d94e7",
+        "name": "On form submission",
+        "webhookId": "1ad9c154-b048-435c-8894-b9606d9e91dd"
+      }
+    ],
+    "connections": {},
+    "settings": {
+      "executionOrder": "v1",
+      "binaryMode": "separate"
+    },
+    "staticData": null,
+    "meta": null,
+    "pinData": {},
+    "versionId": "d26c2af7-ff62-4f45-84fa-f1951949a2ac",
+    "activeVersionId": null,
+    "versionCounter": 1,
+    "triggerCount": 0,
+    "tags": [],
+    "shared": [
+      {
+        "updatedAt": "2026-05-12T03:51:22.840Z",
+        "createdAt": "2026-05-12T03:51:22.840Z",
+        "role": "workflow:owner",
+        "workflowId": "Dxequ3TXbS8F52wg",
+        "projectId": "gb9Cs52RPG7BCVej",
+        "project": {
+          "updatedAt": "2026-05-09T03:38:40.683Z",
+          "createdAt": "2026-05-07T05:49:04.929Z",
+          "id": "gb9Cs52RPG7BCVej",
+          "name": "Angel Figueroa <figueroa.lera1@gmail.com>",
+          "type": "personal",
+          "icon": null,
+          "description": null,
+          "creatorId": "6723b938-929e-4498-b609-9807ac77b465"
+        }
+      }
+    ],
+    "versionMetadata": {
+      "name": null,
+      "description": null
+    }
+  }
+]

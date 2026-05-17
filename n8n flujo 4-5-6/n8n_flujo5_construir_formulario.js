@@ -1,0 +1,32 @@
+const token = String($('Webhook — Abrir formulario').first().json.query?.token || '').trim();
+
+let clientData = null;
+const rows = $('Sheets — Leer selecciones').all();
+
+for (const row of rows) {
+  const rowToken = String(row.json.token || '').trim();
+  if (rowToken === token) {
+    clientData = row.json;
+    break;
+  }
+}
+
+const status = String(clientData?.status || '').trim().toLowerCase();
+const isValid = Boolean(token && clientData && status === 'pendiente');
+
+const unavailableHtml = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>La Cabana - Sesion no disponible</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f0f4f0;display:flex;align-items:center;justify-content:center;min-height:100vh}.box{background:#fff;max-width:440px;width:90%;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.12);text-align:center}.hdr{background:#2d5a27;padding:22px 20px}.hdr h1{color:#fff;font-size:20px}.hdr p{color:#a8d5a2;font-size:12px;margin-top:4px}.bod{padding:28px 24px}.ico{font-size:48px;margin-bottom:14px}h2{color:#333;margin-bottom:10px;font-size:18px}p{color:#666;font-size:14px;line-height:1.6}.wa{display:inline-block;background:#25D366;color:white;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:bold;margin-top:18px;font-size:15px}</style></head><body><div class="box"><div class="hdr"><h1>La Cabana Eventos</h1><p>San Pedro Huaquilpan, Hidalgo</p></div><div class="bod"><div class="ico">&#9201;</div><h2>Este link ya no esta disponible</h2><p>La sesion de seleccion ya fue utilizada o el enlace no es valido.<br><br>Si necesitas ayuda, contactanos.</p><a href="https://wa.me/527711341559?text=Hola,%20necesito%20ayuda%20con%20mi%20seleccion%20de%20menu" class="wa">Contactar a La Cabana</a></div></div></body></html>`;
+
+if (!isValid) {
+  return [{ json: { html: unavailableHtml, valid: false, token } }];
+}
+
+const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+const nombre = esc(clientData.nombre || 'Cliente');
+const tipoEvento = esc(clientData.tipo_evento || 'Evento');
+const fechaEvento = esc(clientData.fecha_evento || '');
+const paquete = esc(clientData.paquete_asignado || 'Paquete contratado');
+const tokenEsc = esc(token);
+
+const html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Seleccion de Menu - La Cabana</title><style>*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#eef4ef;color:#1f2a1f}.wrap{max-width:860px;margin:0 auto;padding:24px}.hdr{background:#2d5a27;color:white;padding:24px;border-radius:14px 14px 0 0;text-align:center}.hdr h1{font-size:24px;margin:0 0 6px}.panel{background:white;padding:24px;border-radius:0 0 14px 14px;box-shadow:0 4px 18px rgba(0,0,0,.12)}.event{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:22px}.tile{background:#f4f8f4;border:1px solid #d8e7d8;border-radius:10px;padding:12px}.tile span{display:block;font-size:12px;color:#607060;margin-bottom:5px}.section{margin:22px 0;padding-top:6px}.option{display:block;border:2px solid #d8e7d8;border-radius:12px;padding:14px;margin:12px 0;cursor:pointer}.option:hover{border-color:#2d5a27}.option input{margin-right:8px}.option b{color:#2d5a27}.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}label{font-weight:bold;display:block;margin:10px 0 6px}input[type=number],textarea{width:100%;border:1px solid #cfd8cf;border-radius:10px;padding:12px;font-size:15px}textarea{min-height:90px;resize:vertical}.check{display:block;background:#f8faf8;border:1px solid #d8e7d8;border-radius:10px;padding:12px;margin:8px 0}.btn{width:100%;border:0;background:#2d5a27;color:white;font-size:18px;font-weight:bold;padding:15px;border-radius:10px;margin-top:18px;cursor:pointer}.warn{font-size:13px;color:#795548;background:#fff8e1;border:1px solid #ffe0a3;padding:12px;border-radius:10px;margin-top:16px}</style></head><body><div class="wrap"><div class="hdr"><h1>La Cabana Eventos</h1><p>Seleccion de menu para tu evento especial</p></div><form class="panel" method="POST" action="https://n8n.lacabanaeventos.com/webhook/seleccion-guardar"><input type="hidden" name="token" value="${tokenEsc}"><div class="event"><div class="tile"><span>Cliente</span><strong>${nombre}</strong></div><div class="tile"><span>Tipo de evento</span><strong>${tipoEvento}</strong></div><div class="tile"><span>Fecha del evento</span><strong>${fechaEvento}</strong></div><div class="tile"><span>Paquete contratado</span><strong>${paquete}</strong></div></div><div class="section"><h2>Elige tu menu</h2><label class="option"><input type="radio" name="menu_elegido" value="Clasico - Opcion 1" required><b>Opcion 1</b><br>Crema de cilantro, pechuga rellena en salsa de agave y postres de la casa.</label><label class="option"><input type="radio" name="menu_elegido" value="Clasico - Opcion 2" required><b>Opcion 2</b><br>Ensalada Cesar, pierna de cerdo en salsa de chile guajillo y gelatinas artesanales.</label><label class="option"><input type="radio" name="menu_elegido" value="Clasico - Opcion 3" required><b>Opcion 3</b><br>Crema de elote, barbacoa en platon por mesa y bunuelos con cajeta.</label></div><div class="section"><label for="num_invitados">Numero de invitados confirmados *</label><input id="num_invitados" name="num_invitados" type="number" min="1" required></div><div class="section"><h2>Servicios adicionales</h2><label class="check"><input type="checkbox" name="cocteleria" value="Si"> Cocteleria artesanal</label><label class="check"><input type="checkbox" name="cerveza_barril" value="Si"> Cerveza de barril</label></div><div class="row"><div><label for="dietas_especiales">Dietas especiales</label><textarea id="dietas_especiales" name="dietas_especiales" placeholder="Ej: vegetarianos, sin gluten, alergias..."></textarea></div><div><label for="notas_cliente">Notas para el chef</label><textarea id="notas_cliente" name="notas_cliente" placeholder="Peticiones especiales o detalles importantes..."></textarea></div></div><button class="btn" type="submit">Confirmar mi seleccion</button><div class="warn">Este link es de un solo uso. Revisa bien antes de enviar.</div></form></div></body></html>`;
+
+return [{ json: { html, valid: true, token } }];

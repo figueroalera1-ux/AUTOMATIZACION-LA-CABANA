@@ -1,0 +1,92 @@
+{
+  "name": "La Cabaña — Follow-up PRO (HubSpot Style)",
+  "nodes": [
+    {
+      "id": "cron",
+      "name": "Cron 6h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [200, 300],
+      "parameters": {
+        "rule": {
+          "interval": [{ "field": "hours", "hoursInterval": 6 }]
+        }
+      }
+    },
+    {
+      "id": "read",
+      "name": "Leer CRM",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [420, 300],
+      "parameters": {
+        "operation": "read",
+        "documentId": "TU_SHEET_ID",
+        "sheetName": "CRM"
+      }
+    },
+    {
+      "id": "engine",
+      "name": "Follow-up Engine PRO",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [640, 300],
+      "parameters": {
+        "jsCode": "const now = Date.now();\n\nreturn $input.all()\n  .map(i => {\n    const r = i.json;\n    if (!r.email || !r.id) return null;\n\n    const created = new Date(r.created_at || Date.now()).getTime();\n    const days = Math.floor((now - created) / 86400000);\n\n    const stage = (r.stage || 'new').toLowerCase();\n\n    let action = 'none';\n\n    if (stage === 'new' && days >= 1) action = 'nurture';\n    else if (stage === 'contacted' && days >= 3) action = 'follow_up';\n    else if (stage === 'hot' && days >= 0) action = 'urgent_reply';\n    else if (stage === 'booked' && days >= 1) action = 'reminder';\n\n    const lastEmail = r.last_email ? new Date(r.last_email).getTime() : 0;\n\n    // anti-spam: no repetir en menos de 24h\n    if (lastEmail && (now - lastEmail) < 86400000) action = 'none';\n\n    return {\n      json: {\n        ...r,\n        days,\n        action\n      }\n    };\n  })\n  .filter(Boolean);"
+      }
+    },
+    {
+      "id": "filter",
+      "name": "Filtrar acciones",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [860, 300],
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.action }}",
+              "operation": "notEquals",
+              "value2": "none"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "update",
+      "name": "Actualizar CRM",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1080, 300],
+      "parameters": {
+        "operation": "update",
+        "documentId": "TU_SHEET_ID",
+        "sheetName": "CRM",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.id }}",
+            "last_action": "={{ $json.action }}",
+            "last_email": "={{ new Date().toISOString() }}"
+          },
+          "matchingColumns": ["id"]
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Cron 6h": {
+      "main": [[{ "node": "Leer CRM", "type": "main", "index": 0 }]]
+    },
+    "Leer CRM": {
+      "main": [[{ "node": "Follow-up Engine PRO", "type": "main", "index": 0 }]]
+    },
+    "Follow-up Engine PRO": {
+      "main": [[{ "node": "Filtrar acciones", "type": "main", "index": 0 }]]
+    },
+    "Filtrar acciones": {
+      "main": [[{ "node": "Actualizar CRM", "type": "main", "index": 0 }]]
+    }
+  }
+}

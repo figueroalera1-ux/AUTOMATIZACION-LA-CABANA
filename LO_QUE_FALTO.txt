@@ -1,0 +1,114 @@
+LA CABAÑA EVENTOS — SECCIONES ELIMINADAS DE ESTRATEGIA DE MARKETING
+======================================================================
+
+
+1. PRODUCCIÓN DE VIDEO — LARGO Y CORTO
+=======================================
+
+Sony A6400 como base. Sin IBIS — requiere gimbal para video en movimiento.
+
+CÁMARA BASE: SONY A6400
+- Ya disponible
+- Sensor APS-C 24 MP · 4K 30fps
+- Autofoco en tiempo real con Eye Tracking
+- Limitación principal: sin estabilización de cuerpo (IBIS)
+- Solución: gimbal de 3 ejes obligatorio para reels
+
+LENTE RECOMENDADA — para interiores con poca luz
+- Sony 16mm f/1.4 APS-C
+- Apertura f/1.4 — ideal para salón oscuro y pista LED de noche
+- Precio: ~$4,500–$6,000 MXN (Mercado Libre)
+- Alternativa económica: Sigma 16mm f/1.4 DC DN · ~$4,000 MXN
+- Para qué: toma completa del salón en espacio cerrado, pista LED de noche
+
+TABLA DE EQUIPO COMPLETO
+-------------------------
+Equipo               | Estado      | Costo aprox.
+---------------------|-------------|----------------
+Sony A6400 (cuerpo)  | Disponible  | —
+Lente 16mm f/1.4     | Falta       | ~$4,500 MXN
+Gimbal 3 ejes        | Falta       | ~$3,500 MXN
+  (DJI OM6 o Zhiyun Crane M3)
+Micrófono lavalier   | Falta       | ~$3,800 MXN
+  (RODE Wireless GO II o similar)
+Micrófono shotgun    | Opcional    | ~$1,200 MXN
+  (RODE VideoMicro — audio ambiente del evento)
+Trípode              | Verificar   | ~$800 MXN
+DaVinci Resolve      | Gratis      | $0
+
+INVERSIÓN PARA COMPLETAR EL EQUIPO (sin cámara): ~$11,800–$13,500 MXN
+
+SOFTWARE DE EDICIÓN
+- DaVinci Resolve (versión gratuita)
+- Suficiente para reels, cortes y contenido social
+- No se necesita la versión paga para este uso
+
+DISTRIBUCIÓN DEL VIDEO POR PLATAFORMA
+--------------------------------------
+Instagram Reels
+- Formato 9:16 vertical · duración 15–45 segundos
+- Subtítulos en pantalla · audio trending
+- Publicar jueves a sábado
+
+Facebook Reels + Feed
+- Mismo video de IG subido nativo a FB (no compartir desde IG)
+- Mayor alcance orgánico en zona Hidalgo
+
+YouTube Shorts
+- Mismo video 9:16 · canal como repositorio SEO
+- No requiere producción extra
+
+Meta Ads — Creativo
+- El reel del salón es el video del anuncio de pauta
+- Un solo video sirve para orgánico y paid al mismo tiempo
+
+Google Business Profile
+- Clips de 15s subidos a la ficha de Maps
+- Aumenta posicionamiento en búsquedas locales "salón de eventos Pachuca"
+
+WhatsApp Status
+- Stories diarias con clips del salón, pista LED o promociones
+- Audiencia cálida: contactos que ya conocen el lugar
+
+
+2. PUNTO DE EQUILIBRIO
+=======================
+
+Con $14,220 MXN/mes de costo total del sistema:
+
+- 1 evento Herradura (80 personas x $400 = $32,000 MXN)
+  → cubre el 44% de la inversión mensual del sistema
+
+- 1 evento Mayoral (100 personas x $500 = $50,000 MXN)
+  → lo cubre 3.5 veces
+
+El sistema se paga solo con 1 evento al mes.
+
+Con 2 eventos Herradura al mes:
+- Ingreso bruto: $64,000 MXN
+- Margen después de costos del sistema: ~$49,780 MXN
+
+
+3. COSTOS MENSUALES DEL SISTEMA COMPLETO
+=========================================
+
+Componente                    | Descripción                                              | Costo mensual
+------------------------------|----------------------------------------------------------|--------------
+Meta Ads — Lead Gen           | Captación de leads: bodas, XV años, graduaciones         | $1,200 MXN
+Meta Ads — Retargeting        | Reimpacto a visitantes del sitio y audiencias cálidas     | $800 MXN
+Cloudflare Tunnel             | Acceso permanente a n8n (n8n.lacabanaeventos.com)        | $0 MXN
+n8n (self-hosted)             | Automatización CRM, WhatsApp, Google Sheets              | $0 MXN
+Google Drive / Sheets         | CRM en Sheets, archivos y fotos                          | $0–$120 MXN
+Dominio lacabanaeventos.com   | Renovación anual ÷ 12 meses                              | ~$50 MXN
+Hosting web                   | Si es GitHub Pages = $0                                  | $0–$200 MXN
+Canva Pro                     | Diseño de posts, stories, memes, flyers                  | ~$220 MXN
+Directorios de eventos        | Perfil básico gratuito. Premium opcional a futuro.       | $0 MXN
+Airbnb — cuota anfitrión      | 3% solo cuando hay reserva (~$150 con $5,000/mes)        | Variable
+NFC stickers                  | ~20 stickers x $10 MXN por evento                       | ~$200/evento
+
+TOTAL SISTEMA DIGITAL (sin Airbnb ni NFC): ~$2,270–$2,590 MXN/mes
+TOTAL ORIGINAL DOCUMENTADO EN ESTRATEGIA (todos los rubros): ~$14,220 MXN/mes
+
+
+======================================================================
+Archivo generado como referencia — contenido eliminado de estrategia-marketing.html

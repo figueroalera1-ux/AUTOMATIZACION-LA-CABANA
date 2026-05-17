@@ -1,0 +1,52 @@
+4. Cómo entra un lead al CRM
+Primero llega un dato a Leads, por web, Meta, Facebook o algún formulario.
+Si el lead llega por WhatsApp y se captura a mano, se escribe en WhatsApp Leads.
+El Flujo 8 o el Flujo 9 lo lee.
+El sistema limpia nombre, teléfono, email, evento, fecha, personas y paquete.
+El sistema calcula un score.
+El CRM lo marca como CALIENTE, TIBIO o FRIO.
+El Flujo 2 revisa el CRM y manda los correos cuando toca.
+Explicación fácil: es como una fila en la escuela. Todos llegan por puertas distintas, pero al final se forman en la misma fila ordenada llamada CRM.
+5. Cómo funciona el enlace de un solo uso para clientes firmados
+Este sistema es para clientes que ya firmaron. La idea es mandarles un enlace donde puedan elegir su menú y detalles de evento. Ese enlace debe usarse una sola vez para que no estén cambiando la selección después.
+
+Flujo 4: Generar Link de Selección
+Yo lleno un formulario interno con datos del cliente: nombre, email, teléfono, fecha del evento, tipo de evento y paquete contratado.
+El flujo crea un token único. Ese token se ve como algo parecido a LC-1770000000000-ABC123.
+Con ese token arma un link así: https://n8n.lacabanaeventos.com/webhook/seleccion?token=TOKEN.
+Guarda ese token en la hoja Selecciones con estado pendiente.
+Me manda el link por Telegram para que yo lo copie y se lo mande al cliente por WhatsApp.
+Flujo 5: Abrir el Formulario del Cliente
+El cliente abre el link.
+El flujo mira el token que viene en la URL.
+Busca ese token en la hoja Selecciones.
+Si el token existe y todavía dice pendiente, muestra el formulario.
+Si el token no existe o ya fue usado, muestra una pantalla diciendo que el enlace ya no está disponible.
+Flujo 6: Guardar Selección de Menú
+Cuando el cliente manda el formulario, el Flujo 6 recibe la respuesta.
+Vuelve a revisar el token en la hoja Selecciones.
+Solo acepta la respuesta si el token sigue en estado pendiente.
+Guarda menú elegido, invitados, coctelería, cerveza de barril, dietas especiales, notas y fecha de selección.
+Cambia el estado a completado.
+Manda correo de confirmación al cliente.
+Manda alerta por Telegram con el resumen de la selección.
+Si alguien intenta usar otra vez el mismo enlace, el flujo lo rechaza porque ya no está pendiente.
+La seguridad principal: el candado es el token más el estado. El link solo sirve si el token existe y está en pendiente. Después de usarse, queda como completado, y ya no debe abrirse como nuevo formulario.
+6. Cómo tengo certeza de cómo se arma el enlace
+Para tener certeza, revisé los flujos que participan en el proceso:
+
+El Flujo 4 crea el token y guarda el registro en Selecciones.
+El Flujo 5 usa ese token para decidir si muestra el formulario.
+El Flujo 6 usa ese mismo token para guardar la respuesta y bloquearlo después.
+El enlace se arma con esta idea:
+
+URL pública de n8n + /webhook/seleccion?token= + token único
+
+En este sistema, la URL pública es:
+
+https://n8n.lacabanaeventos.com/
+
+
+
+se realizo una landing que es la que dispara el token a oartir de llenar ese formulario se envia al sheet La cabaña leads, 
+todos los datos los alberga el shjett pues el tema es que ese dato se dispoare al crm 

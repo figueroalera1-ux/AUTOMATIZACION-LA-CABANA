@@ -1,0 +1,57 @@
+{
+  "name": "La Cabaña — Flujo 5: Servir Formulario HTML",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "seleccion",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-seleccion",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const fs = require('fs');\nconst html = fs.readFileSync('C:/Users/studi/Desktop/la-cabana/Rediseño Web/seleccion-menu.html', 'utf8');\nreturn [{ json: { html } }];"
+      },
+      "id": "code-html",
+      "name": "Leer HTML",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.html }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Content-Type", "value": "text/html; charset=utf-8" }
+            ]
+          }
+        }
+      },
+      "id": "respond-html",
+      "name": "Responder HTML",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [680, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Leer HTML", "type": "main", "index": 0 }]]
+    },
+    "Leer HTML": {
+      "main": [[{ "node": "Responder HTML", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -27,7 +27,28 @@
       "PowerShell(npx n8n publish:workflow --id=XXruEtS2Z2eSnXUm 2>&1)",
       "PowerShell(Get-Process *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "PowerShell(winget install *)",
+      "Bash(cloudflared --version)",
+      "Bash(/c/Windows/System32/cloudflared.exe --version)",
+      "PowerShell(Get-ChildItem *)",
+      "PowerShell(cloudflared tunnel *)",
+      "PowerShell(winget list *)",
+      "PowerShell($cf = \"C:\\\\Users\\\\studi\\\\AppData\\\\Local\\\\Microsoft\\\\WinGet\\\\Packages\\\\Cloudflare.cloudflared_Microsoft.Winget.Source_8wekyb3d8bbwe\\\\cloudflared.exe\"; & $cf tunnel create la-cabana)",
+      "PowerShell($cf = \"C:\\\\Users\\\\studi\\\\AppData\\\\Local\\\\Microsoft\\\\WinGet\\\\Packages\\\\Cloudflare.cloudflared_Microsoft.Winget.Source_8wekyb3d8bbwe\\\\cloudflared.exe\"; & $cf tunnel route dns la-cabana n8n.lacabanaeventos.com 2>&1)",
+      "PowerShell($cf = \"C:\\\\Users\\\\studi\\\\AppData\\\\Local\\\\Microsoft\\\\WinGet\\\\Packages\\\\Cloudflare.cloudflared_Microsoft.Winget.Source_8wekyb3d8bbwe\\\\cloudflared.exe\"; & $cf service install 2>&1)",
+      "PowerShell(Start-Service *)",
+      "PowerShell(Get-Service *)",
+      "PowerShell($cf = \"C:\\\\Users\\\\studi\\\\AppData\\\\Local\\\\Microsoft\\\\WinGet\\\\Packages\\\\Cloudflare.cloudflared_Microsoft.Winget.Source_8wekyb3d8bbwe\\\\cloudflared.exe\"; & $cf tunnel info la-cabana 2>&1)",
+      "PowerShell($cf = \"C:\\\\Users\\\\studi\\\\AppData\\\\Local\\\\Microsoft\\\\WinGet\\\\Packages\\\\Cloudflare.cloudflared_Microsoft.Winget.Source_8wekyb3d8bbwe\\\\cloudflared.exe\"; & $cf service uninstall 2>&1)",
+      "PowerShell(Stop-Process *)",
+      "PowerShell(Start-Sleep -Seconds 10; Invoke-RestMethod -Uri \"http://localhost:5678/healthz\" -TimeoutSec 8 2>&1)",
+      "PowerShell(Start-Process -FilePath \"cmd.exe\" -ArgumentList \"/c npx n8n\" -WindowStyle Normal; Write-Host \"n8n iniciando, espera 20 segundos...\")",
+      "PowerShell($ok = $false; for\\($i=0;$i -lt 10;$i++\\){Start-Sleep -Seconds 4; try{$r=Invoke-RestMethod -Uri \"http://localhost:5678/healthz\" -TimeoutSec 3; if\\($r.status -eq \"ok\"\\){$ok=$true; break}}catch{}}; if\\($ok\\){\"n8n LISTO\"}else{\"n8n aun cargando - abrelo manualmente con: npx n8n\"})",
+      "PowerShell(Invoke-RestMethod -Uri \"http://localhost:5678/api/v1/workflows\" -Method GET -ErrorAction SilentlyContinue 2>&1 | Select-Object -First 3)",
+      "PowerShell(Get-Content *)",
+      "PowerShell(node \"C:\\\\Users\\\\studi\\\\Desktop\\\\la-cabana\\\\activar-flujos.js\" 2>&1)",
+      "PowerShell(Get-NetTCPConnection *)"
     ]
   }
 }

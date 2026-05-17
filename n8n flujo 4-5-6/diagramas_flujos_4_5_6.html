@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flujos 4, 5 y 6 - La Cabana Eventos</title>
+  <style>
+    :root {
+      --green: #24563a;
+      --mint: #dceee4;
+      --gold: #c89b3c;
+      --ink: #1e2722;
+      --muted: #607066;
+      --line: #c7d8ce;
+      --paper: #ffffff;
+      --bad: #8b2f25;
+      --ok: #1f6f45;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: #f5f7f3;
+      line-height: 1.5;
+    }
+    header {
+      background: var(--green);
+      color: white;
+      padding: 34px 20px;
+      border-bottom: 6px solid var(--gold);
+    }
+    .wrap { max-width: 1120px; margin: 0 auto; }
+    h1 { margin: 0 0 8px; font-size: 32px; letter-spacing: 0; }
+    h2 { margin: 0 0 16px; font-size: 24px; color: var(--green); }
+    h3 { margin: 0 0 8px; font-size: 18px; }
+    p { margin: 0 0 12px; }
+    code {
+      background: #eef3ee;
+      padding: 2px 6px;
+      border-radius: 5px;
+      font-family: Consolas, monospace;
+      font-size: 0.95em;
+    }
+    section {
+      padding: 28px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    .panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 3px 12px rgba(31, 54, 39, 0.07);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+    }
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--green);
+      background: var(--mint);
+      padding: 4px 8px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+    .flow {
+      display: grid;
+      gap: 12px;
+      margin: 18px 0;
+    }
+    .step {
+      background: white;
+      border: 2px solid var(--line);
+      border-left: 8px solid var(--green);
+      border-radius: 8px;
+      padding: 14px;
+      position: relative;
+    }
+    .step strong { display: block; color: var(--green); font-size: 16px; }
+    .arrow {
+      text-align: center;
+      color: var(--gold);
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .decision {
+      border-left-color: var(--gold);
+      background: #fffaf0;
+    }
+    .bad { border-left-color: var(--bad); }
+    .ok { border-left-color: var(--ok); }
+    .split {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .mini {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 8px;
+      background: white;
+      border: 1px solid var(--line);
+    }
+    .table th, .table td {
+      padding: 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    .table th {
+      background: var(--green);
+      color: white;
+    }
+    .pill-ok, .pill-bad {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .pill-ok { color: white; background: var(--ok); }
+    .pill-bad { color: white; background: var(--bad); }
+    .note {
+      background: #fff7df;
+      border: 1px solid #ead49c;
+      border-radius: 8px;
+      padding: 14px;
+    }
+    @media (max-width: 620px) {
+      h1 { font-size: 26px; }
+      section { padding: 22px 14px; }
+      .panel { padding: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Flujos 4, 5 y 6 - sistema de token</h1>
+      <p>La Cabana Eventos: formulario de seleccion de menu para cliente que agenda un salon de eventos.</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="wrap panel">
+      <h2>La idea en corto</h2>
+      <p>El token es como una pulsera de entrada. Si la pulsera existe en Google Sheets y dice <code>pendiente</code>, el cliente puede abrir el formulario. Cuando lo manda, n8n cambia esa pulsera a <code>completado</code> y ya no sirve otra vez.</p>
+      <div class="flow">
+        <div class="step"><strong>Tu llenas datos del evento</strong><span class="mini">Nombre, telefono, correo, fecha, tipo de evento y paquete.</span></div>
+        <div class="arrow">↓</div>
+        <div class="step"><strong>Flujo 4 fabrica el token</strong><span class="mini">Ejemplo: LC-1770000000000-ABC123</span></div>
+        <div class="arrow">↓</div>
+        <div class="step"><strong>Sheets guarda status pendiente</strong><span class="mini">La pestana importante se llama Selecciones.</span></div>
+        <div class="arrow">↓</div>
+        <div class="step"><strong>Cliente abre el link</strong><span class="mini">https://n8n.lacabanaeventos.com/webhook/seleccion?token=TOKEN</span></div>
+        <div class="arrow">↓</div>
+        <div class="step"><strong>Flujo 5 revisa y muestra formulario</strong><span class="mini">Solo si el token sigue pendiente.</span></div>
+        <div class="arrow">↓</div>
+        <div class="step"><strong>Flujo 6 guarda la seleccion</strong><span class="mini">Menu, invitados, cocteleria, cerveza, dietas y notas.</span></div>
+        <div class="arrow">↓</div>
+        <div class="step ok"><strong>Sheets cambia a completado</strong><span class="mini">El mismo link queda cerrado.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>El candado correcto</h2>
+      <div class="split">
+        <div class="card">
+          <span class="tag">Pasa</span>
+          <h3>Token bueno</h3>
+          <p><code>token existe</code></p>
+          <p><code>status = pendiente</code></p>
+          <p><span class="pill-ok">Mostrar formulario</span></p>
+        </div>
+        <div class="card">
+          <span class="tag">No pasa</span>
+          <h3>Token usado o falso</h3>
+          <p><code>token no existe</code> o <code>status = completado</code></p>
+          <p><span class="pill-bad">Link no disponible</span></p>
+        </div>
+      </div>
+      <div class="note" style="margin-top:14px">
+        <strong>Bug encontrado:</strong> el token <code>TEST-ANGEL-001</code> sigue abriendo el formulario publico. Eso indica que en n8n todavia hay una excepcion de prueba que debe quitarse de los nodos de codigo del Flujo 5 y Flujo 6.
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap panel">
+      <h2>Flujo 4: generar link</h2>
+      <div class="flow">
+        <div class="step"><strong>Webhook o formulario interno</strong><span class="mini">Recibe datos del cliente y evento.</span></div>
+        <div class="arrow">↓</div>
+        <div class="step"><strong>Code - Generar token</strong><span class="mini">Usar archivo n8n_flujo4_generar_token.js.</span></div>
+        <div class="arrow">↓</div>
+        <div class="step decision"><strong>IF - Datos validos?</strong><span class="mini">Si falta nombre, email, telefono, fecha, tipo o paquete, responde error.</span></div>
+        <div class="arrow">↓</div>
+        <div class="step"><strong>Google Sheets - Agregar fila</strong><span class="mini">Guarda en Selecciones con status pendiente.</span></div>
+        <div class="arrow">↓</div>
+        <div class="step"><strong>Telegram</strong><span class="mini">Te manda el link para copiarlo a WhatsApp.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap panel">
+      <h2>Flujo 5: abrir formulario</h2>
+      <div class="flow">
+        <div class="step"><strong>Webhook GET /seleccion</strong><span class="mini">Lee el token desde query.token.</span></div>
+        <div class="arrow">↓</div>
+        <div class="step"><strong>Sheets - Leer selecciones</strong><span class="mini">Busca la fila del token.</span></div>
+        <div class="arrow">↓</div>
+        <div class="step decision"><strong>Code - Validar status</strong><span class="mini">token + status pendiente.</span></div>
+        <div class="arrow">↓</div>
+        <div class="split">
+          <div class="step ok"><strong>Valido</strong><span class="mini">Responder HTML del formulario.</span></div>
+          <div class="step bad"><strong>No valido</strong><span class="mini">Responder "Este link ya no esta disponible".</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap panel">
+      <h2>Flujo 6: guardar seleccion</h2>
+      <div class="flow">
+        <div class="step"><strong>Webhook POST /seleccion-guardar</strong><span class="mini">Recibe el formulario del cliente.</span></div>
+        <div class="arrow">↓</div>
+        <div class="step"><strong>Sheets - Leer para validar</strong><span class="mini">Vuelve a buscar el token. Esta segunda revision es obligatoria.</span></div>
+        <div class="arrow">↓</div>
+        <div class="step decision"><strong>IF - Token valido?</strong><span class="mini">Solo acepta si status sigue pendiente.</span></div>
+        <div class="arrow">↓</div>
+        <div class="split">
+          <div class="step ok"><strong>Valido</strong><span class="mini">Actualizar la misma fila por token y poner status completado.</span></div>
+          <div class="step bad"><strong>No valido</strong><span class="mini">Rechazar intento duplicado.</span></div>
+        </div>
+        <div class="arrow">↓</div>
+        <div class="step"><strong>Email + Telegram</strong><span class="mini">Confirmacion al cliente y alerta interna.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Columnas de Sheets</h2>
+      <table class="table">
+        <thead>
+          <tr><th>Columna</th><th>Para que sirve</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>token</code></td><td>Llave unica que une los flujos 4, 5 y 6.</td></tr>
+          <tr><td><code>status</code></td><td>Candado: primero <code>pendiente</code>, despues <code>completado</code>.</td></tr>
+          <tr><td><code>nombre</code>, <code>email</code>, <code>telefono</code></td><td>Datos del cliente.</td></tr>
+          <tr><td><code>fecha_evento</code>, <code>tipo_evento</code>, <code>paquete_asignado</code></td><td>Datos del evento contratado.</td></tr>
+          <tr><td><code>menu_elegido</code>, <code>num_invitados</code></td><td>Respuesta principal del formulario.</td></tr>
+          <tr><td><code>cocteleria</code>, <code>cerveza_barril</code></td><td>Servicios adicionales.</td></tr>
+          <tr><td><code>dietas_especiales</code>, <code>notas_cliente</code></td><td>Indicaciones para cocina y operacion.</td></tr>
+          <tr><td><code>fecha_seleccion</code></td><td>Fecha en que el cliente confirmo su menu.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap panel">
+      <h2>Prueba final</h2>
+      <p>Despues de pegar los codigos en n8n, la prueba debe hacerse asi:</p>
+      <div class="grid">
+        <div class="card"><span class="tag">1</span><p>Ejecuta Flujo 4 con cliente de prueba.</p></div>
+        <div class="card"><span class="tag">2</span><p>Confirma fila nueva en Selecciones con <code>status=pendiente</code>.</p></div>
+        <div class="card"><span class="tag">3</span><p>Abre el link generado y verifica que salga el formulario.</p></div>
+        <div class="card"><span class="tag">4</span><p>Envia una seleccion de menu.</p></div>
+        <div class="card"><span class="tag">5</span><p>Confirma que la misma fila queda en <code>status=completado</code>.</p></div>
+        <div class="card"><span class="tag">6</span><p>Abre el mismo link otra vez: debe decir que ya no esta disponible.</p></div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

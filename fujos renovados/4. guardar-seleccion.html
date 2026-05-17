@@ -1,0 +1,15 @@
+const body = $input.first().json.body;
+
+const token = body.token;
+const menu = body.menu_elegido;
+const invitados = body.num_invitados;
+
+return [{
+  json:{
+    token,
+    menu,
+    invitados,
+    status:"completado",
+    fecha:new Date().toISOString()
+  }
+}];

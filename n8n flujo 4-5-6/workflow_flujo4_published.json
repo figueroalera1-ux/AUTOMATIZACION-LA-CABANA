@@ -1,0 +1,247 @@
+[
+  {
+    "updatedAt": "2026-05-12T06:29:35.000Z",
+    "createdAt": "2026-05-08T11:23:09.509Z",
+    "id": "flujo4-generar-link",
+    "name": "La Cabaña — Flujo 4: Generar Link de Selección de Menú",
+    "description": null,
+    "active": true,
+    "isArchived": false,
+    "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "generar-link-seleccion",
+          "responseMode": "responseNode",
+          "options": {}
+        },
+        "id": "form-datos-cliente",
+        "name": "Webhook — Generar link desde landing",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          240,
+          300
+        ],
+        "webhookId": "lacabana-generar-link-seleccion-001"
+      },
+      {
+        "parameters": {
+          "jsCode": "const source = $('Webhook — Generar link desde landing').first().json;\nconst body = source.body || source;\nconst ahora = new Date();\nconst clean = (value) => String(value ?? '').trim();\nconst token = 'LC-' + ahora.getTime() + '-' + Math.random().toString(36).slice(2, 8).toUpperCase();\nconst link = 'https://n8n.lacabanaeventos.com/webhook/seleccion?token=' + encodeURIComponent(token);\n\nconst nombre = clean(body.nombre || body['Nombre completo del cliente']);\nconst email = clean(body.email || body['Email del cliente']);\nconst telefono = clean(body.telefono || body['Teléfono del cliente'] || body['Telefono del cliente']);\nconst fecha_evento = clean(body.fecha_evento || body['Fecha del evento']);\nconst tipo_evento = clean(body.tipo_evento || body['Tipo de evento']);\nconst paquete_asignado = clean(body.paquete_asignado || body['Paquete contratado']);\nconst cliente_id = clean(body.cliente_id);\nconst num_invitados_estimado = clean(body.num_invitados_estimado);\nconst servicio_adicional = clean(body.servicio_adicional);\nconst observaciones = clean(body.observaciones);\n\nreturn [{ json: {\n  token,\n  link,\n  cliente_id,\n  nombre,\n  email,\n  telefono,\n  fecha_evento,\n  tipo_evento,\n  paquete_asignado,\n  num_invitados_estimado,\n  servicio_adicional,\n  observaciones,\n  origen: clean(body.origen || 'landing_control_interno'),\n  status: 'pendiente',\n  fecha_generacion: ahora.toLocaleString('es-MX', { timeZone: 'America/Mexico_City' }),\n  menu_elegido: '',\n  opcion_elegida: '',\n  num_invitados: '',\n  cocteleria: '',\n  cerveza_barril: '',\n  dietas_especiales: '',\n  notas_cliente: '',\n  fecha_seleccion: ''\n}}];"
+        },
+        "id": "generar-token",
+        "name": "Generar token único",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          460,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://sheets.googleapis.com/v4/spreadsheets/1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk:batchUpdate",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "googleSheetsOAuth2Api",
+          "sendBody": true,
+          "contentType": "json",
+          "body": "{\"requests\":[{\"addSheet\":{\"properties\":{\"title\":\"Selecciones\"}}}]}",
+          "options": {}
+        },
+        "id": "crear-hoja-selecciones",
+        "name": "Crear hoja Selecciones",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4,
+        "position": [
+          680,
+          300
+        ],
+        "continueOnFail": true,
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "google-sheets-cred",
+            "name": "Google Sheets account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "append",
+          "documentId": {
+            "__rl": true,
+            "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk",
+            "mode": "id"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": "Selecciones",
+            "mode": "name"
+          },
+          "columns": {
+            "mappingMode": "autoMapInputData",
+            "value": {}
+          },
+          "options": {}
+        },
+        "id": "sheets-guardar-token",
+        "name": "Sheets — Guardar token",
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4,
+        "position": [
+          680,
+          300
+        ],
+        "continueOnFail": true,
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "google-sheets-cred",
+            "name": "Google Sheets account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://api.telegram.org/bot8676090287:AAFv7isGLDRiXaxU6o0gOOKeCd_exd7VaO0/sendMessage",
+          "authentication": "none",
+          "sendBody": true,
+          "contentType": "raw",
+          "rawContentType": "application/json",
+          "body": "={{ JSON.stringify({ chat_id: '7790296286', text: '🔗 *LINK DE MENÚ GENERADO — La Cabaña*\\n\\n👤 ' + $('Generar token único').first().json.nombre + '\\n📱 ' + $('Generar token único').first().json.telefono + '\\n🎊 ' + $('Generar token único').first().json.tipo_evento + '\\n📅 ' + $('Generar token único').first().json.fecha_evento + '\\n📦 ' + $('Generar token único').first().json.paquete_asignado + '\\n\\n🔗 Link para el cliente:\\n' + $('Generar token único').first().json.link + '\\n\\n📋 Cópialo y envíalo por WhatsApp.', parse_mode: 'Markdown' }) }}",
+          "options": {}
+        },
+        "id": "telegram-link",
+        "name": "Telegram — Enviar link",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4,
+        "position": [
+          900,
+          180
+        ],
+        "continueOnFail": true
+      },
+      {
+        "parameters": {
+          "respondWith": "text",
+          "responseBody": "={{ '<html><head><meta charset=UTF-8><meta name=viewport content=\"width=device-width,initial-scale=1\"><title>Link generado</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f0f4f0;display:flex;align-items:center;justify-content:center;min-height:100vh}.box{background:white;max-width:480px;width:90%;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.12)}.hdr{background:#2d5a27;padding:22px;text-align:center}.hdr h1{color:white;font-size:20px}.hdr p{color:#a8d5a2;font-size:12px;margin-top:4px}.bod{padding:28px}.ico{text-align:center;font-size:46px;margin-bottom:14px}h2{color:#2d5a27;text-align:center;margin-bottom:12px}p{color:#555;font-size:14px;line-height:1.6;text-align:center}.link-box{background:#e8f5e9;border:1px solid #2d5a27;border-radius:8px;padding:14px;margin:16px 0;word-break:break-all;font-size:13px}.info{background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:12px;font-size:13px;color:#856404;margin-top:12px}</style></head><body><div class=box><div class=hdr><h1>🌿 La Cabaña Eventos</h1><p>Sistema de gestión de eventos</p></div><div class=bod><div class=ico>✅</div><h2>Link generado con éxito</h2><p>El link fue enviado a tu Telegram. Cópialo y mándalo al cliente por WhatsApp.</p><div class=link-box><b>Cliente:</b> ' + $(\\'Generar token único\\').first().json.nombre + '<br><b>Link:</b><br>' + $(\\'Generar token único\\').first().json.link + '</div><div class=info>⚠️ Este link es de un solo uso. Una vez que el cliente confirme, queda bloqueado automáticamente.</div></div></div></body></html>' }}",
+          "options": {
+            "responseHeaders": {
+              "values": [
+                {
+                  "name": "Content-Type",
+                  "value": "text/html; charset=utf-8"
+                },
+                {
+                  "name": "Access-Control-Allow-Origin",
+                  "value": "https://lacabanaeventos.com"
+                },
+                {
+                  "name": "Access-Control-Allow-Methods",
+                  "value": "POST, OPTIONS"
+                },
+                {
+                  "name": "Access-Control-Allow-Headers",
+                  "value": "Content-Type"
+                }
+              ]
+            }
+          }
+        },
+        "id": "responder-exito",
+        "name": "Mostrar confirmación",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1,
+        "position": [
+          900,
+          380
+        ]
+      }
+    ],
+    "connections": {
+      "Generar token único": {
+        "main": [
+          [
+            {
+              "node": "Crear hoja Selecciones",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Crear hoja Selecciones": {
+        "main": [
+          [
+            {
+              "node": "Sheets — Guardar token",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Sheets — Guardar token": {
+        "main": [
+          [
+            {
+              "node": "Telegram — Enviar link",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Mostrar confirmación",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Webhook — Generar link desde landing": {
+        "main": [
+          [
+            {
+              "node": "Generar token único",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "staticData": null,
+    "meta": null,
+    "pinData": null,
+    "versionId": "20bbffe6-c405-4551-8c8d-0a18a240d0f0",
+    "activeVersionId": "20bbffe6-c405-4551-8c8d-0a18a240d0f0",
+    "versionCounter": 9,
+    "triggerCount": 0,
+    "tags": [],
+    "shared": [
+      {
+        "updatedAt": "2026-05-08T11:23:09.516Z",
+        "createdAt": "2026-05-08T11:23:09.516Z",
+        "role": "workflow:owner",
+        "workflowId": "flujo4-generar-link",
+        "projectId": "gb9Cs52RPG7BCVej",
+        "project": {
+          "updatedAt": "2026-05-09T03:38:40.683Z",
+          "createdAt": "2026-05-07T05:49:04.929Z",
+          "id": "gb9Cs52RPG7BCVej",
+          "name": "Angel Figueroa <figueroa.lera1@gmail.com>",
+          "type": "personal",
+          "icon": null,
+          "description": null,
+          "creatorId": "6723b938-929e-4498-b609-9807ac77b465"
+        }
+      }
+    ],
+    "versionMetadata": {
+      "name": null,
+      "description": null
+    }
+  }
+]

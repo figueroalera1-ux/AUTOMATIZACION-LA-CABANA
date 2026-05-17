@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario Cliente - La Cabaña</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f8f8f8; color: #333; margin: 0; padding: 20px; }
+    h1 { color: #8B0000; text-align: center; }
+    form { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    label { display: block; margin-top: 10px; font-weight: bold; }
+    input, textarea, select { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+    button { margin-top: 20px; background-color: #8B0000; color: #fff; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%; }
+    button:hover { background-color: #a52a2a; }
+  </style>
+</head>
+<body>
+  <h1>Formulario de Cliente</h1>
+  
+  <form action="https://n8n.lacabanaeventos.com/webhook-test/generar-link-seleccion" method="POST">
+    
+    <label for="nombre">Nombre *</label>
+    <input type="text" id="nombre" name="nombre" required>
+
+    <label for="correo">Correo *</label>
+    <input type="email" id="correo" name="correo" required>
+
+    <label for="telefono">Teléfono</label>
+    <input type="text" id="telefono" name="telefono">
+
+    <label for="tipo_evento">Evento</label>
+    <input type="text" id="tipo_evento" name="tipo_evento">
+
+    <label for="fecha_evento">Fecha del Evento</label>
+    <input type="date" id="fecha_evento" name="fecha_evento">
+
+    <label for="num_invitados_estimado">Número de Invitados</label>
+    <input type="number" id="num_invitados_estimado" name="num_invitados_estimado">
+
+    <label for="paquete_asignado">Menú</label>
+    <select id="paquete_asignado" name="paquete_asignado">
+      <option value="tradicional">Tradicional</option>
+      <option value="vegetariano">Vegetariano</option>
+      <option value="infantil">Infantil</option>
+    </select>
+
+    <label for="observaciones">Comentarios</label>
+    <textarea id="observaciones" name="observaciones"></textarea>
+    
+    <input type="hidden" name="origen" value="landing_page">
+
+    <button type="submit">Enviar Formulario</button>
+  </form>
+</body>
+</html>

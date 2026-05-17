@@ -1,0 +1,29 @@
+const token = ($('Webhook — Consulta cliente').first().json.query?.token || '').trim();
+
+if (!token) return [{ json: { ok:false } }];
+
+const rows = $('Leer Selecciones').first().json.values || [];
+
+const h = rows[0];
+const ti = h.indexOf('token');
+const si = h.indexOf('status');
+
+for (let i=1;i<rows.length;i++){
+  const r = rows[i];
+
+  if((r[ti]||'') === token){
+    return [{
+      json:{
+        ok:true,
+        nombre:r[1],
+        email:r[2],
+        tipo_evento:r[4],
+        fecha_evento:r[5],
+        paquete_asignado:r[6],
+        status:r[si]
+      }
+    }];
+  }
+}
+
+return [{ json:{ ok:false } }];

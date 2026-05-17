@@ -1,0 +1,96 @@
+{
+  "name": "La Cabaña — Flujo 5b: Listar Clientes",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "lacabana-clientes",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-clientes",
+      "name": "Webhook — Listar clientes",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "lacabana-clientes-001"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "documentId": {
+          "__rl": true,
+          "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Selecciones",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "sheets-leer-todos",
+      "name": "Sheets — Leer todos",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [460, 300],
+      "continueOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      },
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $('Sheets — Leer todos').all();\nconst clientes = rows.map(r => r.json).filter(r => r && r.folio).sort((a, b) => {\n  const ap = (a.status || '').includes('pend') ? 0 : 1;\n  const bp = (b.status || '').includes('pend') ? 0 : 1;\n  return ap - bp;\n});\nreturn [{ json: clientes }];"
+      },
+      "id": "formatear-lista",
+      "name": "Formatear lista",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "responder-lista",
+      "name": "Responder — Lista",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "Webhook — Listar clientes": {
+      "main": [
+        [
+          { "node": "Sheets — Leer todos", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Sheets — Leer todos": {
+      "main": [
+        [
+          { "node": "Formatear lista", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Formatear lista": {
+      "main": [
+        [
+          { "node": "Responder — Lista", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

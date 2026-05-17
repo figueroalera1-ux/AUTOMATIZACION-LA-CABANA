@@ -1,0 +1,85 @@
+{
+  "id": "setup-crear-hoja",
+  "name": "SETUP — Crear hoja Selecciones",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sheets.googleapis.com/v4/spreadsheets/1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendBody": true,
+        "contentType": "json",
+        "body": "{\"requests\":[{\"addSheet\":{\"properties\":{\"title\":\"Selecciones\"}}}]}",
+        "options": {}
+      },
+      "id": "crear-hoja",
+      "name": "Crear hoja Selecciones",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [460, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": { "__rl": true, "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk", "mode": "id" },
+        "sheetName": { "__rl": true, "value": "Selecciones", "mode": "name" },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "mappingValues": [
+              { "column": "token", "value": "token" },
+              { "column": "nombre", "value": "nombre" },
+              { "column": "email", "value": "email" },
+              { "column": "telefono", "value": "telefono" },
+              { "column": "fecha_evento", "value": "fecha_evento" },
+              { "column": "tipo_evento", "value": "tipo_evento" },
+              { "column": "paquete_asignado", "value": "paquete_asignado" },
+              { "column": "status", "value": "status" },
+              { "column": "menu_elegido", "value": "menu_elegido" },
+              { "column": "num_invitados", "value": "num_invitados" },
+              { "column": "cocteleria", "value": "cocteleria" },
+              { "column": "cerveza_barril", "value": "cerveza_barril" },
+              { "column": "dietas_especiales", "value": "dietas_especiales" },
+              { "column": "notas_cliente", "value": "notas_cliente" },
+              { "column": "fecha_seleccion", "value": "fecha_seleccion" },
+              { "column": "fecha_generacion", "value": "fecha_generacion" }
+            ]
+          }
+        },
+        "options": {}
+      },
+      "id": "agregar-encabezados",
+      "name": "Agregar encabezados",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [680, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": { "id": "google-sheets-cred", "name": "Google Sheets account" }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Crear hoja Selecciones", "type": "main", "index": 0 }]]
+    },
+    "Crear hoja Selecciones": {
+      "main": [[{ "node": "Agregar encabezados", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" }
+}

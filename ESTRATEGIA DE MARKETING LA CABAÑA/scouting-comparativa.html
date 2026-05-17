@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Cabaña Eventos — Scouting & Comparativa de Mercado</title>
+<style>
+  :root {
+    --guinda: #6B1223;
+    --guinda-dark: #4d0d1a;
+    --ocre: #C8960C;
+    --gris-claro: #f7f4f0;
+    --gris-medio: #e8e0d8;
+    --texto: #1a1a1a;
+    --texto-suave: #555;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--gris-claro); color: var(--texto); line-height: 1.6; }
+
+  /* HEADER */
+  .header {
+    background: var(--guinda-dark);
+    color: white;
+    padding: 44px 48px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; right: -60px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: rgba(200,150,12,0.10);
+    pointer-events: none;
+  }
+  .header-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--ocre);
+    margin-bottom: 10px;
+  }
+  .header h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+  .header-sub { font-size: 14px; opacity: 0.80; max-width: 680px; }
+  .header-chips {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.9);
+  }
+  .chip strong { color: var(--ocre); }
+
+  /* LAYOUT */
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 24px 64px; }
+
+  /* SECCIÓN */
+  .seccion { margin-top: 44px; }
+  .seccion-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 22px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--gris-medio);
+  }
+  .seccion-icon {
+    background: var(--guinda);
+    color: white;
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .seccion-titles h2 { font-size: 19px; font-weight: 700; color: var(--guinda); }
+  .seccion-titles p { font-size: 13px; color: var(--texto-suave); margin-top: 2px; }
+
+  /* METODOLOGÍA */
+  .metodo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+  }
+  .metodo-card {
+    background: white;
+    border-radius: 8px;
+    padding: 18px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    border-top: 3px solid var(--guinda);
+  }
+  .metodo-card.ocre { border-top-color: var(--ocre); }
+  .metodo-num { font-size: 28px; font-weight: 900; color: var(--guinda); line-height: 1; }
+  .metodo-card.ocre .metodo-num { color: var(--ocre); }
+  .metodo-label { font-size: 12px; color: var(--texto-suave); margin-top: 3px; }
+  .metodo-desc { font-size: 12.5px; margin-top: 8px; }
+
+  /* HALLAZGOS */
+  .hallazgos-list { display: flex; flex-direction: column; gap: 14px; }
+  .hallazgo {
+    background: white;
+    border-radius: 8px;
+    padding: 18px 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .hallazgo-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .hallazgo-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .hallazgo-body { font-size: 13px; color: var(--texto-suave); }
+  .hallazgo-body strong { color: var(--texto); }
+  .hallazgo-derivacion {
+    display: inline-block;
+    margin-top: 8px;
+    background: #fef7e0;
+    border-left: 3px solid var(--ocre);
+    padding: 6px 10px;
+    font-size: 12px;
+    color: #7a5200;
+    border-radius: 0 4px 4px 0;
+  }
+  .hallazgo-derivacion::before { content: '→ Derivó en: '; font-weight: 700; }
+
+  /* TABLA COMPARATIVA */
+  .tabla-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  th { background: var(--guinda); color: white; padding: 10px 12px; text-align: left; font-size: 11px; letter-spacing: 0.5px; font-weight: 600; }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--gris-claro); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fafaf8; }
+  tr.yo td { background: #fff8f0; }
+  tr.yo td:first-child { font-weight: 700; color: var(--guinda); }
+  .check { color: #34a853; }
+  .cross { color: #bbb; }
+  .maybe { color: var(--ocre); }
+  .tag-amenaza {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+  }
+  .tag-alta { background: #fce8e6; color: #c62828; }
+  .tag-media { background: #fef7e0; color: #9a6c00; }
+  .tag-baja { background: #e6f4ea; color: #1a7a35; }
+  .tag-lujo { background: #f3e5f5; color: #7b1fa2; }
+
+  /* NEXO SCOUTING → PAQUETE */
+  .nexo-list { display: flex; flex-direction: column; gap: 0; }
+  .nexo-item {
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr;
+    gap: 0;
+    align-items: stretch;
+    margin-bottom: 16px;
+  }
+  .nexo-hallazgo {
+    background: white;
+    border-radius: 8px 0 0 8px;
+    padding: 16px 18px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    border-left: 4px solid var(--ocre);
+  }
+  .nexo-hallazgo-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--ocre);
+    margin-bottom: 5px;
+  }
+  .nexo-hallazgo-text { font-size: 13px; }
+  .nexo-arrow {
+    background: var(--gris-medio);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--guinda);
+  }
+  .nexo-paquete {
+    background: var(--guinda);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 18px;
+    color: white;
+  }
+  .nexo-paquete-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 5px;
+  }
+  .nexo-paquete-nombre { font-size: 15px; font-weight: 800; }
+  .nexo-paquete-precio { font-size: 12px; color: var(--ocre); margin-top: 2px; }
+  .nexo-paquete-razon { font-size: 12px; color: rgba(255,255,255,0.8); margin-top: 6px; }
+
+  /* MAPA DE BRECHAS */
+  .brechas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .brecha-card {
+    background: white;
+    border-radius: 8px;
+    padding: 18px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .brecha-titulo {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .brecha-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-verde { background: #34a853; }
+  .dot-ocre { background: var(--ocre); }
+  .dot-rojo { background: #d93025; }
+  .brecha-desc { font-size: 12.5px; color: var(--texto-suave); }
+  .brecha-respuesta {
+    margin-top: 10px;
+    font-size: 12px;
+    background: var(--gris-claro);
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-weight: 600;
+    color: var(--guinda);
+  }
+
+  /* CALLOUT */
+  .callout {
+    background: #e8f0fe;
+    border-left: 4px solid #1a73e8;
+    border-radius: 0 6px 6px 0;
+    padding: 14px 18px;
+    margin-top: 16px;
+    font-size: 13px;
+    color: #174ea6;
+  }
+  .alerta {
+    background: #fce8e6;
+    border-left: 4px solid #d93025;
+    border-radius: 0 6px 6px 0;
+    padding: 14px 18px;
+    margin-top: 24px;
+    margin-bottom: 4px;
+    font-size: 13px;
+  }
+  .alerta strong { color: #d93025; }
+
+  /* CONCLUSIÓN */
+  .conclusion {
+    background: var(--guinda);
+    color: white;
+    border-radius: 10px;
+    padding: 28px 32px;
+    margin-top: 40px;
+  }
+  .conclusion h3 { font-size: 18px; font-weight: 800; margin-bottom: 12px; }
+  .conclusion p { font-size: 13.5px; opacity: 0.9; line-height: 1.7; }
+  .conclusion ul { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+  .conclusion li {
+    font-size: 13px;
+    opacity: 0.85;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .conclusion li::before { content: '→'; color: var(--ocre); font-weight: 700; flex-shrink: 0; }
+
+  .footer-note {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--gris-medio);
+    font-size: 12px;
+    color: var(--texto-suave);
+    text-align: center;
+  }
+
+  @media (max-width: 700px) {
+    .nexo-item { grid-template-columns: 1fr; }
+    .nexo-hallazgo { border-radius: 8px 8px 0 0; border-left: 4px solid var(--ocre); }
+    .nexo-arrow { height: 32px; border-radius: 0; }
+    .nexo-paquete { border-radius: 0 0 8px 8px; }
+    .header { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-label">Scouting de Mercado · Mayo 2026</div>
+  <h1>La Cabaña Eventos — Scouting & Comparativa</h1>
+  <div class="header-sub">Hallazgos del levantamiento competitivo en radio de 20 km y su derivación directa en la propuesta de paquetes. Este documento explica <em>por qué</em> existen los 10 paquetes.</div>
+  <div class="header-chips">
+    <span class="chip"><strong>20 km</strong> radio auditado</span>
+    <span class="chip"><strong>11</strong> competidores reales</span>
+    <span class="chip"><strong>3 zonas</strong> geográficas</span>
+    <span class="chip"><strong>5</strong> brechas de mercado identificadas</span>
+    <span class="chip"><strong>10</strong> paquetes derivados</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="alerta">
+    <strong>Nota de corrección:</strong> Salón de Fiestas Maia Fernanda fue eliminado del análisis — el local fue una mueblería, no un salón de eventos. Todo el análisis refleja los 11 competidores verificados.
+  </div>
+
+  <!-- SECCIÓN 1: METODOLOGÍA -->
+  <div class="seccion">
+    <div class="seccion-header">
+      <div class="seccion-icon">🔍</div>
+      <div class="seccion-titles">
+        <h2>Metodología del Scouting</h2>
+        <p>Cómo se realizó el levantamiento y qué se buscó en cada competidor</p>
+      </div>
+    </div>
+    <div class="metodo-grid">
+      <div class="metodo-card">
+        <div class="metodo-num">20</div>
+        <div class="metodo-label">kilómetros de radio</div>
+        <div class="metodo-desc">Desde San Pedro Huaquilpan hacia Zapotlán, Mineral de la Reforma y Pachuca de Soto.</div>
+      </div>
+      <div class="metodo-card ocre">
+        <div class="metodo-num" style="color:var(--ocre);">11</div>
+        <div class="metodo-label">salones auditados</div>
+        <div class="metodo-desc">Levantamiento de precios, capacidad, servicios incluidos y presencia digital de cada competidor.</div>
+      </div>
+      <div class="metodo-card">
+        <div class="metodo-num">6</div>
+        <div class="metodo-label">variables por competidor</div>
+        <div class="metodo-desc">Precio · Capacidad · Servicios incluidos · Presencia digital · Hospedaje · Segmento objetivo.</div>
+      </div>
+      <div class="metodo-card ocre">
+        <div class="metodo-num" style="color:var(--ocre);">3</div>
+        <div class="metodo-label">zonas geográficas</div>
+        <div class="metodo-desc">Zona inmediata (Zapotlán) · Mineral de la Reforma · Pachuca de Soto.</div>
+      </div>
+      <div class="metodo-card">
+        <div class="metodo-num">5</div>
+        <div class="metodo-label">brechas identificadas</div>
+        <div class="metodo-desc">Huecos reales en la oferta local que derivan directamente en paquetes nuevos o ajustes de precio.</div>
+      </div>
+      <div class="metodo-card ocre">
+        <div class="metodo-num" style="color:var(--ocre);">10</div>
+        <div class="metodo-label">paquetes derivados</div>
+        <div class="metodo-desc">5 existentes validados por el scouting · 5 nuevos creados a partir de brechas detectadas.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 2: HALLAZGOS CLAVE -->
+  <div class="seccion">
+    <div class="seccion-header">
+      <div class="seccion-icon">📌</div>
+      <div class="seccion-titles">
+        <h2>Hallazgos Clave del Scouting</h2>
+        <p>Lo que el mercado reveló y que justifica cada decisión de precio y portafolio</p>
+      </div>
+    </div>
+
+    <div class="hallazgos-list">
+
+      <div class="hallazgo">
+        <div class="hallazgo-icon">🏷️</div>
+        <div>
+          <div class="hallazgo-title">Hallazgo 1 — El mercado tiene dos acantilados de precio y un valle vacío</div>
+          <div class="hallazgo-body">
+            Los salones populares (Castelo, Sol y Luna, Prismas) operan en el rango de <strong>$5,000–$18,000 de renta de espacio</strong>, sin servicios incluidos. Los recintos aspiracionales (Hacienda Huitepec, Hacienda Zontecomate) van de <strong>$890 a $1,280 por persona</strong>, o rentas desde $40,000. En medio existe un valle casi vacío: el segmento de $280–$550/persona con servicio completo y más de 150 invitados. HAUZ, Celebrarte y Los Portales lo intentan cubrir, pero ninguno supera 160 personas de capacidad.
+          </div>
+          <div class="hallazgo-derivacion">Paquetes Herradura ($400/pp), Mayoral ($500/pp) y La Cabaña Premium ($700/pp) — posicionados exactamente en ese valle con 250 personas de capacidad.</div>
+        </div>
+      </div>
+
+      <div class="hallazgo">
+        <div class="hallazgo-icon">👥</div>
+        <div>
+          <div class="hallazgo-title">Hallazgo 2 — El techo de capacidad de los competidores crea demanda que rebosa hacia arriba</div>
+          <div class="hallazgo-body">
+            <strong>Celebrarte: 144 personas</strong> · <strong>Los Portales: 160</strong> · <strong>HAUZ: 150</strong> · <strong>Castelo: 120</strong>. Cualquier evento con 161+ invitados que busca un salón con servicios completos en Mineral–Pachuca se queda sin opciones en ese segmento de precio. La Cabaña es la única alternativa con 250 personas en el rango $400–$700/persona.
+          </div>
+          <div class="hallazgo-derivacion">Diferenciador central de los paquetes Herradura, Mayoral y Premium: siempre mencionan capacidad de 250 personas como ventaja directa.</div>
+        </div>
+      </div>
+
+      <div class="hallazgo">
+        <div class="hallazgo-icon">🏨</div>
+        <div>
+          <div class="hallazgo-title">Hallazgo 3 — El hospedaje en sitio no existe en el segmento medio</div>
+          <div class="hallazgo-body">
+            De los 11 competidores auditados, <strong>solo las haciendas de lujo</strong> (Zontecomate: $12,000–$16,000/noche por habitación) ofrecen hospedaje en el sitio. Ningún salón del segmento popular ni medio tiene esta opción. La Cabaña dispone de hospedaje para hasta 20 personas a precio por definir — un diferenciador único en el mercado local accesible.
+          </div>
+          <div class="hallazgo-derivacion">Paquete Micro-Boda ($17,500 fijo, hasta 50p): único paquete del mercado local que incluye hospedaje para los novios como parte del precio.</div>
+        </div>
+      </div>
+
+      <div class="hallazgo">
+        <div class="hallazgo-icon">🎓</div>
+        <div>
+          <div class="hallazgo-title">Hallazgo 4 — No existe ningún paquete específico para graduaciones ni micro-bodas en el radio</div>
+          <div class="hallazgo-body">
+            El scouting no identificó ningún competidor con oferta diferenciada para <strong>graduaciones</strong> (mayo–julio, colectas grupales) ni para <strong>micro-bodas</strong> (menos de 50 personas, tendencia creciente desde 2022). Todos los paquetes por persona exigen mínimos de 80–100 invitados, lo que excluye a estos dos perfiles de cliente por completo.
+          </div>
+          <div class="hallazgo-derivacion">Paquete Graduación ($320/pp, mín. 50) y Micro-Boda ($17,500 fijo, hasta 50p) — cubren un mercado que ningún competidor atiende.</div>
+        </div>
+      </div>
+
+      <div class="hallazgo">
+        <div class="hallazgo-icon">📱</div>
+        <div>
+          <div class="hallazgo-title">Hallazgo 5 — El competidor más fuerte en redes tiene 8,966 seguidores pero 106 personas menos de capacidad</div>
+          <div class="hallazgo-body">
+            <strong>Celebrarte Pachuca (Instagram: 8,966 seguidores)</strong> es el referente digital del mercado. Sin embargo, su salón tiene máximo 144 personas. Cualquier familia con más de 150 invitados que ve a Celebrarte en redes, en el momento en que busca espacio para más gente, queda sin opción — a menos que llegue a La Cabaña. La visibilidad digital de Celebrarte puede convertirse en fuente indirecta de leads para ti si estás bien posicionado.
+          </div>
+          <div class="hallazgo-derivacion">Benchmark de seguidores: 8,966 en Instagram es la meta digital a 12 meses. Validó también la necesidad del paquete Estrella XV ($550/pp) — Celebrarte cobra $410 sin diferenciador para XV.</div>
+        </div>
+      </div>
+
+      <div class="hallazgo">
+        <div class="hallazgo-icon">💡</div>
+        <div>
+          <div class="hallazgo-title">Hallazgo 6 — 7 de 11 competidores no publican precios; los que sí publican tienen ventaja de conversión</div>
+          <div class="hallazgo-body">
+            GALLIA, Los Portales, Castelo, Sol y Luna, Prismas, Quinta Paraíso, Santa Cecilia y Nando's no publican precios. Solo HAUZ ($280–$390), Celebrarte ($410+), Huitepec ($890–$1,280) y Zontecomate ($40k+) tienen precios visibles. <strong>El cliente que ve un precio claro convierte antes</strong>. La Cabaña publica todos sus precios — eso ya es una ventaja competitiva sobre el 63% del mercado auditado.
+          </div>
+          <div class="hallazgo-derivacion">Justifica la política de precios transparentes en todos los paquetes desde Solo Salón ($13,900) hasta Premium ($700/pp).</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECCIÓN 3: TABLA COMPARATIVA -->
+  <div class="seccion">
+    <div class="seccion-header">
+      <div class="seccion-icon">📊</div>
+      <div class="seccion-titles">
+        <h2>Comparativa de Mercado</h2>
+        <p>Posición de La Cabaña vs. los 11 competidores en variables clave</p>
+      </div>
+    </div>
+
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Salón</th>
+            <th>Zona</th>
+            <th>Amenaza</th>
+            <th>Capacidad</th>
+            <th>Precio ref.</th>
+            <th>DJ</th>
+            <th>Comida</th>
+            <th>Bar</th>
+            <th>Hospedaje</th>
+            <th>Pista LED</th>
+            <th>Digital</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="yo">
+            <td>La Cabaña ← tú</td>
+            <td>Zapotlán (local)</td>
+            <td>—</td>
+            <td><strong>250</strong></td>
+            <td><strong>$400–$700/pp</strong></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span> 20p</td>
+            <td><span class="check">✓</span> Galaxia</td>
+            <td>Web + FB + IG + TikTok</td>
+          </tr>
+          <tr>
+            <td>Hacienda Huitepec</td>
+            <td>Zapotlán</td>
+            <td><span class="tag-amenaza tag-baja">Baja — lujo</span></td>
+            <td>50–3,000</td>
+            <td>$890–$1,280/pp</td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="maybe">?</span></td>
+            <td>Solo FB</td>
+          </tr>
+          <tr>
+            <td>Hacienda Zontecomate</td>
+            <td>Zempoala ~18km</td>
+            <td><span class="tag-amenaza tag-lujo">Lujo</span></td>
+            <td>50–1,500</td>
+            <td>Renta $40k–$100k</td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span> Cuartos</td>
+            <td><span class="maybe">?</span></td>
+            <td>FB + IG + WA</td>
+          </tr>
+          <tr>
+            <td>Salón Los Portales</td>
+            <td>Mineral de la Ref.</td>
+            <td><span class="tag-amenaza tag-media">Media</span></td>
+            <td>30–<strong>160</strong></td>
+            <td>No publicado</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span> Descorche</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="maybe">?</span></td>
+            <td>FB + IG</td>
+          </tr>
+          <tr>
+            <td>Castelo Salón</td>
+            <td>Mineral de la Ref.</td>
+            <td><span class="tag-amenaza tag-baja">Baja</span></td>
+            <td>hasta <strong>120</strong></td>
+            <td>No publicado</td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="maybe">?</span></td>
+            <td>IG + FB</td>
+          </tr>
+          <tr>
+            <td>Salón Sol y Luna</td>
+            <td>Mineral de la Ref.</td>
+            <td><span class="tag-amenaza tag-baja">Muy baja</span></td>
+            <td>N/D</td>
+            <td>No publicado</td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td>Solo FB</td>
+          </tr>
+          <tr>
+            <td>Salón Prismas</td>
+            <td>Mineral / Pachuquilla</td>
+            <td><span class="tag-amenaza tag-baja">Muy baja</span></td>
+            <td>N/D</td>
+            <td>No publicado</td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td>Solo FB</td>
+          </tr>
+          <tr>
+            <td>Quinta Paraíso</td>
+            <td>Mineral de la Ref.</td>
+            <td><span class="tag-amenaza tag-media">Media</span></td>
+            <td>N/D</td>
+            <td>No publicado</td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td>FB</td>
+          </tr>
+          <tr>
+            <td>Hacienda Santa Cecilia</td>
+            <td>Mineral de la Ref.</td>
+            <td><span class="tag-amenaza tag-media">Media</span></td>
+            <td>120–1,920</td>
+            <td>No publicado</td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="maybe">?</span></td>
+            <td>N/D</td>
+          </tr>
+          <tr>
+            <td>GALLIA Salón y Jardín</td>
+            <td>Pachuca ~14km</td>
+            <td><span class="tag-amenaza tag-alta">Alta</span></td>
+            <td>60–900</td>
+            <td>No publicado</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span> 4t</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓</span></td>
+            <td>FB + IG + WA</td>
+          </tr>
+          <tr>
+            <td>HAUZ Salón</td>
+            <td>Pachuca ~13km</td>
+            <td><span class="tag-amenaza tag-alta">Alta</span></td>
+            <td>50–<strong>150</strong></td>
+            <td>$280–$390/pp</td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="check">✓</span> 4t</td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="maybe">?</span></td>
+            <td>IG + FB</td>
+          </tr>
+          <tr>
+            <td>Celebrarte Pachuca</td>
+            <td>Pachuca ~13km</td>
+            <td><span class="tag-amenaza tag-alta">Alta — digital</span></td>
+            <td>hasta <strong>144</strong></td>
+            <td>$410+/pp</td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="maybe">?</span></td>
+            <td>IG <strong>8,966</strong> + FB</td>
+          </tr>
+          <tr>
+            <td>Benevento Banquetería</td>
+            <td>Pachuca ~15km</td>
+            <td><span class="tag-amenaza tag-baja">Baja — lejos</span></td>
+            <td>hasta 2,000</td>
+            <td>No publicado</td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="maybe">?</span></td>
+            <td>FB + IG + TikTok</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout" style="margin-top:14px;">
+      <strong>Lectura de la tabla:</strong> Las columnas con <strong>?</strong> (amarillo) son información que los competidores no publican públicamente — la opacidad de precios es generalizada. En ese contexto, La Cabaña tiene ventaja al publicar todos sus precios con detalle.
+    </div>
+  </div>
+
+  <!-- SECCIÓN 4: BRECHAS DE MERCADO -->
+  <div class="seccion">
+    <div class="seccion-header">
+      <div class="seccion-icon">🎯</div>
+      <div class="seccion-titles">
+        <h2>Brechas de Mercado Identificadas</h2>
+        <p>Huecos reales en la oferta actual que La Cabaña puede ocupar</p>
+      </div>
+    </div>
+    <div class="brechas-grid">
+
+      <div class="brecha-card">
+        <div class="brecha-titulo">
+          <span class="brecha-dot dot-rojo"></span>
+          Brecha 1 — Capacidad de 160–250 personas con servicio completo
+        </div>
+        <div class="brecha-desc">Ningún salón con DJ, comida y bar incluido acepta más de 160 invitados en el segmento $300–$600/pp. Para eventos de 161–250 personas con ese rango de presupuesto, La Cabaña no tiene competencia directa.</div>
+        <div class="brecha-respuesta">Cubre: Herradura, Mayoral, Premium, Estrella XV</div>
+      </div>
+
+      <div class="brecha-card">
+        <div class="brecha-titulo">
+          <span class="brecha-dot dot-rojo"></span>
+          Brecha 2 — Micro-bodas con hospedaje (menos de 50 personas)
+        </div>
+        <div class="brecha-desc">Todos los paquetes por persona en el mercado exigen mínimo 80–100 invitados. Parejas que quieren una boda íntima (20–50 personas) con alojamiento no tienen salón diseñado para ellos en el radio de 20 km.</div>
+        <div class="brecha-respuesta">Cubre: Micro-Boda ($17,500 fijo, hospedaje incluido)</div>
+      </div>
+
+      <div class="brecha-card">
+        <div class="brecha-titulo">
+          <span class="brecha-dot dot-ocre"></span>
+          Brecha 3 — Graduaciones: sin oferta formal en temporada mayo–julio
+        </div>
+        <div class="brecha-desc">Mayo a julio es temporada de graduaciones (preparatoria, universidad, posgrado). Ningún competidor tiene un paquete específico con precio por persona y mínimo de 50 asistentes para este segmento. Las colectas grupales buscan precio fijo o por persona accesible.</div>
+        <div class="brecha-respuesta">Cubre: Graduación ($320/pp, mínimo 50)</div>
+      </div>
+
+      <div class="brecha-card">
+        <div class="brecha-titulo">
+          <span class="brecha-dot dot-ocre"></span>
+          Brecha 4 — Servicio mínimo con mobiliario entre $15k y $32k
+        </div>
+        <div class="brecha-desc">Hay un salto de precio entre Solo Salón ($13,900 sin servicio) y el Herradura ($400 × 80 = $32,000). El cliente que no quiere pagar $32,000 pero sí necesita meseros y mobiliario queda sin opción en el mercado local.</div>
+        <div class="brecha-respuesta">Cubre: Essential ($18,900) y Plus ($19,900)</div>
+      </div>
+
+      <div class="brecha-card">
+        <div class="brecha-titulo">
+          <span class="brecha-dot dot-verde"></span>
+          Brecha 5 — XV años sin paquete especializado en Mineral–Zapotlán
+        </div>
+        <div class="brecha-desc">Celebrarte cobra $410/pp para cualquier evento sin diferenciación. Ningún salón en el radio tiene un paquete diseñado específicamente para quinceañeras con sesión de fotos, pastel, countdown y vals coordinado como servicios diferenciados.</div>
+        <div class="brecha-respuesta">Cubre: Estrella XV ($550/pp, mínimo 60, con 2hrs de sesión matutina)</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECCIÓN 5: NEXO SCOUTING → PAQUETE -->
+  <div class="seccion">
+    <div class="seccion-header">
+      <div class="seccion-icon">🔗</div>
+      <div class="seccion-titles">
+        <h2>De cada hallazgo a cada paquete</h2>
+        <p>Trazabilidad directa: qué encontró el scouting y qué paquete lo responde</p>
+      </div>
+    </div>
+
+    <div class="nexo-list">
+
+      <div class="nexo-item">
+        <div class="nexo-hallazgo">
+          <div class="nexo-hallazgo-label">Scouting encontró</div>
+          <div class="nexo-hallazgo-text">Salones populares cobran $5k–$18k por espacio sin servicio. Castelo, Sol y Luna y Prismas operan en esa banda sin publicar precios ni tener sitio web. El cliente que busca solo el espacio no tiene referencia de precio en la zona.</div>
+        </div>
+        <div class="nexo-arrow">→</div>
+        <div class="nexo-paquete">
+          <div class="nexo-paquete-label">Derivó en el paquete</div>
+          <div class="nexo-paquete-nombre">01 — Solo Salón</div>
+          <div class="nexo-paquete-precio">$13,900 fijo · hasta 250 personas</div>
+          <div class="nexo-paquete-razon">Precio competitivo publicado, mayor capacidad que cualquier salón popular local. El único con precio visible y 250p en la zona inmediata.</div>
+        </div>
+      </div>
+
+      <div class="nexo-item">
+        <div class="nexo-hallazgo">
+          <div class="nexo-hallazgo-label">Scouting encontró</div>
+          <div class="nexo-hallazgo-text">Para eventos de 60–100 personas en Zapotlán y Mineral, no existe una opción con mobiliario incluido y precio fijo transparente. Los competidores pequeños no publican precios. El cliente de bautizo o reunión familiar no sabe cuánto va a gastar.</div>
+        </div>
+        <div class="nexo-arrow">→</div>
+        <div class="nexo-paquete">
+          <div class="nexo-paquete-label">Derivó en el paquete</div>
+          <div class="nexo-paquete-nombre">02 — Campestre</div>
+          <div class="nexo-paquete-precio">$15,900 fijo · hasta 100 personas</div>
+          <div class="nexo-paquete-razon">Primer paquete con mobiliario incluido a precio publicado en el mercado local. Gana al cliente que quiere certeza de costo sin sorpresas.</div>
+        </div>
+      </div>
+
+      <div class="nexo-item">
+        <div class="nexo-hallazgo">
+          <div class="nexo-hallazgo-label">Scouting encontró</div>
+          <div class="nexo-hallazgo-text">El hueco entre salones básicos ($15k–$19k, sin servicio completo) y los paquetes por persona (desde $32k para 80p) es donde la mayoría de las familias no encuentran opción. Essential y Plus responden a ese intermedio sin presión de mínimo de invitados.</div>
+        </div>
+        <div class="nexo-arrow">→</div>
+        <div class="nexo-paquete">
+          <div class="nexo-paquete-label">Derivó en los paquetes</div>
+          <div class="nexo-paquete-nombre">06 — Essential · 07 — Plus</div>
+          <div class="nexo-paquete-precio">$18,900 y $19,900 fijos</div>
+          <div class="nexo-paquete-razon">Servicio básico sin compromiso de mínimo de invitados. El cliente que necesita meseros y bar pero tiene DJ y catering propios.</div>
+        </div>
+      </div>
+
+      <div class="nexo-item">
+        <div class="nexo-hallazgo">
+          <div class="nexo-hallazgo-label">Scouting encontró</div>
+          <div class="nexo-hallazgo-text">HAUZ cobra $280–$390/persona para máximo 150 invitados. Celebrarte cobra $410/persona para máximo 144. Todo evento de más de 160 invitados en ese rango de precio queda sin salón adecuado en el radio local. La demanda rebosa — nadie la captura.</div>
+        </div>
+        <div class="nexo-arrow">→</div>
+        <div class="nexo-paquete">
+          <div class="nexo-paquete-label">Derivó en el paquete</div>
+          <div class="nexo-paquete-nombre">03 — Herradura ⭐</div>
+          <div class="nexo-paquete-precio">$400/persona · mínimo 80 · hasta 250</div>
+          <div class="nexo-paquete-razon">Mismo rango de precio que HAUZ y Celebrarte, pero con 90–106 personas más de capacidad. El cliente que sale de ellos por exceder su techo de invitados llega aquí.</div>
+        </div>
+      </div>
+
+      <div class="nexo-item">
+        <div class="nexo-hallazgo">
+          <div class="nexo-hallazgo-label">Scouting encontró</div>
+          <div class="nexo-hallazgo-text">GALLIA ofrece 4 tiempos, coordinador y música en vivo a precio no publicado (estimado $600–$900/pp). Hacienda Huitepec cobra $890–$1,280. Existe un perfil de cliente que quiere coordinador y 4 tiempos pero no tiene presupuesto de hacienda ni quiere ir hasta Pachuca.</div>
+        </div>
+        <div class="nexo-arrow">→</div>
+        <div class="nexo-paquete">
+          <div class="nexo-paquete-label">Derivó en el paquete</div>
+          <div class="nexo-paquete-nombre">04 — Mayoral</div>
+          <div class="nexo-paquete-precio">$500/persona · mínimo 100</div>
+          <div class="nexo-paquete-razon">4 tiempos + coordinador por $50,000 total (100p) vs $89,000+ en Huitepec. El evento completo sin el precio de hacienda y sin hacer 13 km hasta Pachuca.</div>
+        </div>
+      </div>
+
+      <div class="nexo-item">
+        <div class="nexo-hallazgo">
+          <div class="nexo-hallazgo-label">Scouting encontró</div>
+          <div class="nexo-hallazgo-text">Hacienda Huitepec: $890–$1,280/pp. Hacienda Zontecomate: renta $40k–$100k más servicios. Existe un segmento que desea el feeling de hacienda (5 tiempos, decoración floral, staff completo) pero cuyo presupuesto no alcanza esos rangos. Ese perfil existe y hoy no tiene opción.</div>
+        </div>
+        <div class="nexo-arrow">→</div>
+        <div class="nexo-paquete">
+          <div class="nexo-paquete-label">Derivó en el paquete</div>
+          <div class="nexo-paquete-nombre">05 — La Cabaña Premium ⭐</div>
+          <div class="nexo-paquete-precio">$700/persona · mínimo 120</div>
+          <div class="nexo-paquete-razon">La experiencia completa de hacienda (5 tiempos, floral, pista LED, staff) a 22–44% menos que Huitepec. El argumento de venta más fuerte del portafolio.</div>
+        </div>
+      </div>
+
+      <div class="nexo-item">
+        <div class="nexo-hallazgo">
+          <div class="nexo-hallazgo-label">Scouting encontró</div>
+          <div class="nexo-hallazgo-text">Ningún salón en el radio tiene un paquete específico para bodas íntimas de menos de 50 personas con hospedaje. Solo las haciendas de lujo ofrecen pernoctar — a $12,000–$16,000 la noche por habitación. La Cabaña tiene hospedaje propio disponible.</div>
+        </div>
+        <div class="nexo-arrow">→</div>
+        <div class="nexo-paquete">
+          <div class="nexo-paquete-label">Derivó en el paquete</div>
+          <div class="nexo-paquete-nombre">08 — Micro-Boda</div>
+          <div class="nexo-paquete-precio">$17,500 fijo · hasta 50p · hospedaje 1 noche</div>
+          <div class="nexo-paquete-razon">Único paquete de micro-boda con hospedaje en sitio en el radio. Para la pareja que quiere algo íntimo y no pagar hacienda.</div>
+        </div>
+      </div>
+
+      <div class="nexo-item">
+        <div class="nexo-hallazgo">
+          <div class="nexo-hallazgo-label">Scouting encontró</div>
+          <div class="nexo-hallazgo-text">Celebrarte Pachuca cobra $410/persona para cualquier evento incluyendo XV, sin diferenciador. No existe en el radio un paquete diseñado para quinceañeras con sesión de fotos, pastel, countdown personalizado y pista LED como elementos específicos del evento.</div>
+        </div>
+        <div class="nexo-arrow">→</div>
+        <div class="nexo-paquete">
+          <div class="nexo-paquete-label">Derivó en el paquete</div>
+          <div class="nexo-paquete-nombre">09 — Estrella XV</div>
+          <div class="nexo-paquete-precio">$550/persona · mínimo 60</div>
+          <div class="nexo-paquete-razon">Especialización que ningún competidor tiene. 2 horas de sesión matutina en el salón + pista LED + pastel = diferenciador concreto para el segmento más visual del mercado.</div>
+        </div>
+      </div>
+
+      <div class="nexo-item">
+        <div class="nexo-hallazgo">
+          <div class="nexo-hallazgo-label">Scouting encontró</div>
+          <div class="nexo-hallazgo-text">Mayo a julio es temporada de graduaciones en Hidalgo. Ningún competidor tiene un paquete con ese nombre o diseño. Las colectas de egresados buscan precio por persona accesible con mínimo bajo (50 personas). El mercado está completamente desatendido en este segmento.</div>
+        </div>
+        <div class="nexo-arrow">→</div>
+        <div class="nexo-paquete">
+          <div class="nexo-paquete-label">Derivó en el paquete</div>
+          <div class="nexo-paquete-nombre">10 — Graduación</div>
+          <div class="nexo-paquete-precio">$320/persona · mínimo 50</div>
+          <div class="nexo-paquete-razon">Precio accesible para colecta grupal. Sin competencia directa en el segmento. Llena fechas de temporada que de otra forma quedan vacías.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CONCLUSIÓN -->
+  <div class="conclusion">
+    <h3>Conclusión del Scouting</h3>
+    <p>El levantamiento de mercado en el radio de 20 km confirmó que La Cabaña opera en un espacio con <strong>poca competencia directa</strong>. Los salones populares son invisibles digitalmente y tienen capacidad limitada. Los recintos de lujo están en otro nivel de precio. Los competidores reales (HAUZ, Celebrarte, Los Portales) tienen techos de 144–160 personas que dejan fuera a una porción importante de la demanda real.</p>
+    <ul>
+      <li>Cada uno de los 10 paquetes tiene un respaldo directo en datos del scouting — no son precios inventados, son respuestas a huecos reales identificados.</li>
+      <li>Los 5 paquetes base (Solo Salón, Campestre, Herradura, Mayoral, Premium) fueron validados por el scouting: sus precios son competitivos o no tienen rival directo en el radio.</li>
+      <li>Los 5 paquetes nuevos (Essential, Plus, Micro-Boda, Estrella XV, Graduación) fueron creados a partir de brechas específicas que ningún competidor está cubriendo hoy.</li>
+      <li>La política de precios transparentes ya es una ventaja sobre el 63% del mercado que no publica precios.</li>
+      <li>El diferenciador más valioso y único en el mercado es el hospedaje en sitio para 20 personas — algo que solo las haciendas de lujo tienen, y a precios 5–10x mayores.</li>
+    </ul>
+  </div>
+
+  <div class="footer-note">
+    La Cabaña Eventos · San Pedro Huaquilpan, Zapotlán de Juárez, Hidalgo · Scouting mayo 2026<br>
+    Documento de referencia para decisiones de portafolio y precio. Información de competidores sujeta a actualización.
+  </div>
+
+</div>
+</body>
+</html>

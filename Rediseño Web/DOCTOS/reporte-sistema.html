@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reporte del Sistema — La Cabaña Eventos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --guinda:#6B1223;--guinda-dark:#4d0c19;
+      --gold:#C8960C;--gold-pale:#fdf3d0;
+      --gray:#f8f5f2;--border:#e0dbd5;
+      --text:#1a1a1a;--muted:#666;
+    }
+    body{font-family:'Inter',sans-serif;background:var(--gray);color:var(--text);line-height:1.7;}
+
+    /* HEADER */
+    .header{background:linear-gradient(135deg,var(--guinda-dark),var(--guinda));color:#fff;padding:56px 40px 48px;text-align:center;}
+    .header__logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:rgba(255,255,255,.6);letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px;}
+    .header__title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;margin-bottom:12px;}
+    .header__sub{font-size:.95rem;color:rgba(255,255,255,.7);max-width:600px;margin:0 auto 24px;}
+    .header__badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:50px;padding:7px 20px;font-size:.78rem;font-weight:600;letter-spacing:.06em;}
+
+    /* LAYOUT */
+    .container{max-width:960px;margin:0 auto;padding:48px 24px 80px;}
+
+    /* SECTION */
+    .section{margin-bottom:48px;}
+    .section-label{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:block;}
+    .section-title{font-family:'Playfair Display',serif;font-size:1.7rem;color:var(--guinda);margin-bottom:6px;}
+    .section-intro{font-size:.92rem;color:var(--muted);margin-bottom:28px;max-width:680px;}
+
+    /* CARD */
+    .card{background:#fff;border-radius:14px;border:1px solid var(--border);padding:28px;margin-bottom:16px;box-shadow:0 2px 12px rgba(0,0,0,.05);}
+    .card-hdr{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+    .card-icon{width:40px;height:40px;border-radius:10px;background:rgba(107,18,35,.08);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+    .card-title{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--guinda);}
+    .card-sub{font-size:.76rem;color:var(--muted);}
+
+    /* STATUS BADGE */
+    .badge{display:inline-flex;align-items:center;gap:5px;padding:3px 11px;border-radius:50px;font-size:.72rem;font-weight:700;letter-spacing:.04em;}
+    .badge-green{background:#e6f7ee;color:#1a7f4b;}
+    .badge-gold{background:var(--gold-pale);color:#7a5800;}
+    .badge-red{background:#fdecea;color:#b91c1c;}
+
+    /* FLOW GRID */
+    .flow-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+    .flow-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px;position:relative;overflow:hidden;}
+    .flow-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--guinda);}
+    .flow-num{font-size:.68rem;color:var(--muted);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+    .flow-name{font-weight:700;font-size:.9rem;color:#1a1a1a;margin-bottom:6px;}
+    .flow-desc{font-size:.78rem;color:var(--muted);line-height:1.5;margin-bottom:10px;}
+    .flow-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .flow-tag{background:var(--gray);border-radius:20px;padding:2px 9px;font-size:.65rem;font-weight:600;color:#555;}
+
+    /* STEPS */
+    .steps{counter-reset:step;}
+    .step{display:flex;gap:16px;margin-bottom:20px;counter-increment:step;}
+    .step-num{width:32px;height:32px;border-radius:50%;background:var(--guinda);color:#fff;font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .step-body h4{font-size:.9rem;font-weight:700;color:#1a1a1a;margin-bottom:4px;}
+    .step-body p{font-size:.83rem;color:var(--muted);}
+    .step-body code{background:var(--gray);border:1px solid var(--border);border-radius:5px;padding:2px 8px;font-size:.78rem;font-family:monospace;color:var(--guinda);}
+
+    /* TABLE */
+    .tbl{width:100%;border-collapse:collapse;font-size:.84rem;}
+    .tbl th{background:var(--guinda);color:#fff;padding:10px 14px;text-align:left;font-weight:600;font-size:.75rem;letter-spacing:.05em;}
+    .tbl td{padding:10px 14px;border-bottom:1px solid var(--border);}
+    .tbl tr:last-child td{border-bottom:none;}
+    .tbl tr:hover td{background:var(--gray);}
+
+    /* URL BOX */
+    .url-box{background:var(--guinda-dark);color:#fff;border-radius:10px;padding:14px 18px;font-family:monospace;font-size:.85rem;margin:10px 0;word-break:break-all;}
+    .url-label{font-size:.68rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;font-family:'Inter',sans-serif;}
+
+    /* ALERT */
+    .alert{display:flex;gap:12px;padding:14px 18px;border-radius:10px;margin:16px 0;font-size:.83rem;}
+    .alert-gold{background:var(--gold-pale);border:1px solid rgba(200,150,12,.3);color:#6b4d00;}
+    .alert-green{background:#e6f7ee;border:1px solid rgba(26,127,75,.25);color:#155c38;}
+    .alert-ci{font-size:1.1rem;flex-shrink:0;}
+
+    /* FOOTER */
+    .footer{background:#1a1a1a;color:rgba(255,255,255,.4);text-align:center;padding:28px;font-size:.78rem;}
+    .footer strong{color:var(--gold);}
+
+    @media(max-width:600px){.header{padding:36px 20px 32px;}.container{padding:32px 16px 60px;}.flow-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header__logo">La Cabaña Eventos · Zapotlán de Juárez, Hidalgo</div>
+  <h1 class="header__title">Sistema Digital Completo</h1>
+  <p class="header__sub">Todo lo que construí para automatizar y digitalizar La Cabaña: desde la captación de leads hasta la orden de servicio de cada cliente.</p>
+  <div class="header__badge">📅 Mayo 2026 · Versión 1.0</div>
+</div>
+
+<div class="container">
+
+  <!-- ===== RESUMEN EJECUTIVO ===== -->
+  <div class="section">
+    <span class="section-label">Panorama general</span>
+    <h2 class="section-title">Lo que construí</h2>
+    <p class="section-intro">Partí de cero y armé un sistema completo de automatización conectado al sitio web, Google Sheets, Telegram y correo electrónico. Hoy capturo leads, doy seguimiento automático y entrego fichas de evento digitales sin intervención manual.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-top:24px;">
+      <div class="card" style="text-align:center;padding:22px 16px;">
+        <div style="font-size:2rem;margin-bottom:8px;">🤖</div>
+        <div style="font-weight:700;font-size:1.4rem;color:var(--guinda);">7</div>
+        <div style="font-size:.78rem;color:var(--muted);">Flujos automatizados</div>
+      </div>
+      <div class="card" style="text-align:center;padding:22px 16px;">
+        <div style="font-size:2rem;margin-bottom:8px;">🌐</div>
+        <div style="font-weight:700;font-size:1.4rem;color:var(--guinda);">24/7</div>
+        <div style="font-size:.78rem;color:var(--muted);">Sistema activo</div>
+      </div>
+      <div class="card" style="text-align:center;padding:22px 16px;">
+        <div style="font-size:2rem;margin-bottom:8px;">📋</div>
+        <div style="font-weight:700;font-size:1.4rem;color:var(--guinda);">6</div>
+        <div style="font-size:.78rem;color:var(--muted);">Pasos ficha de evento</div>
+      </div>
+      <div class="card" style="text-align:center;padding:22px 16px;">
+        <div style="font-size:2rem;margin-bottom:8px;">📦</div>
+        <div style="font-weight:700;font-size:1.4rem;color:var(--guinda);">8</div>
+        <div style="font-size:.78rem;color:var(--muted);">Paquetes en el cotizador</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FLUJOS ===== -->
+  <div class="section">
+    <span class="section-label">Automatización</span>
+    <h2 class="section-title">Los 7 flujos que armé en n8n</h2>
+    <p class="section-intro">Cada flujo es una automatización que corre en n8n instalado en mi propia PC, sin pagar servidor externo.</p>
+
+    <div class="flow-grid">
+      <div class="flow-card">
+        <div class="flow-num">Flujo 01</div>
+        <div class="flow-name">Lead desde el sitio web</div>
+        <div class="flow-desc">Cuando alguien llena el cotizador, el lead llega automáticamente a Google Sheets, Telegram y correo en menos de 5 segundos.</div>
+        <div class="flow-tags">
+          <span class="flow-tag">Google Sheets</span><span class="flow-tag">Telegram</span><span class="flow-tag">Email</span>
+        </div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-num">Flujo 02</div>
+        <div class="flow-name">Follow-up automático</div>
+        <div class="flow-desc">A los 2, 5 y 10 días de recibir un lead sin respuesta, el sistema envía recordatorio por correo al prospecto.</div>
+        <div class="flow-tags"><span class="flow-tag">Cron cada 6h</span><span class="flow-tag">Email</span></div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-num">Flujo 03</div>
+        <div class="flow-name">Lead desde Facebook Ads</div>
+        <div class="flow-desc">Los leads que entran por Facebook Lead Ads se procesan igual que los del sitio web: Sheets + Telegram + Email.</div>
+        <div class="flow-tags"><span class="flow-tag">Facebook</span><span class="flow-tag">Google Sheets</span></div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-num">Flujo 04</div>
+        <div class="flow-name">Generar link de menú</div>
+        <div class="flow-desc">Cuando firmo contrato con un cliente, lleno un formulario interno y el sistema genera su token único y link personalizado de selección de menú.</div>
+        <div class="flow-tags"><span class="flow-tag">Token único</span><span class="flow-tag">Google Sheets</span></div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-num">Flujo 05</div>
+        <div class="flow-name">Servir formulario de menú</div>
+        <div class="flow-desc">Cuando el cliente abre su link, el sistema valida su token, lee sus datos del Sheets y le muestra el formulario personalizado con las opciones de su paquete.</div>
+        <div class="flow-tags"><span class="flow-tag">Token seguro</span><span class="flow-tag">HTML dinámico</span></div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-num">Flujo 06</div>
+        <div class="flow-name">Guardar selección de menú</div>
+        <div class="flow-desc">Cuando el cliente confirma su menú, el sistema lo guarda en Sheets, manda notificación por Telegram y envía confirmación al cliente por correo.</div>
+        <div class="flow-tags"><span class="flow-tag">Google Sheets</span><span class="flow-tag">Telegram</span><span class="flow-tag">Email</span></div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-num">Flujo 07</div>
+        <div class="flow-name">Ficha de evento completa</div>
+        <div class="flow-desc">Recibe la ficha de 6 pasos del cliente (menú completo, bebidas, servicios, notas) y la guarda en Google Sheets con notificación a Telegram.</div>
+        <div class="flow-tags"><span class="flow-tag">6 pasos</span><span class="flow-tag">Google Sheets</span><span class="flow-tag">Telegram</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CÓMO USAR EL SISTEMA DE TOKENS ===== -->
+  <div class="section">
+    <span class="section-label">Operación diaria</span>
+    <h2 class="section-title">Cómo entrego el link de menú a un cliente</h2>
+    <p class="section-intro">Este es el proceso exacto que sigo cada vez que firmo contrato con un cliente.</p>
+
+    <div class="card">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Abro el formulario interno de generación de link</h4>
+            <p>Entro a <code>http://localhost:5678</code>, busco el <strong>Flujo 4</strong> y abro el formulario. También puedo entrar directamente al webhook del formulario desde n8n.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Lleno los datos del cliente</h4>
+            <p>Nombre, email, teléfono, fecha del evento, tipo de evento y paquete contratado. El sistema genera un token único automáticamente (ej: <code>LC-1746832901234-AB8K2J</code>).</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>El sistema guarda el token en Google Sheets</h4>
+            <p>En la hoja <strong>"Selecciones"</strong> queda registrado el cliente con status <code>pendiente</code>. El link generado se guarda también ahí.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Envío el link al cliente por WhatsApp o correo</h4>
+            <p>El link tiene este formato:<br>
+            <code>https://n8n.lacabanaeventos.com/webhook/seleccion?token=LC-XXXX-XXXXXX</code><br>
+            Es <strong>de un solo uso</strong> — una vez que el cliente selecciona su menú, el token se marca como <code>completado</code> y no puede usarse de nuevo.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <h4>El cliente elige su menú y confirma</h4>
+            <p>El formulario le muestra las opciones correspondientes a su paquete (Clásico, Gourmet o Premium). Al confirmar, me llega notificación por Telegram y queda registrado en Sheets.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-gold">
+        <span class="alert-ci">⚠️</span>
+        <div>El token de prueba <strong>TEST-ANGEL-001</strong> siempre funciona para probar el sistema sin afectar datos reales. Nunca lo envíes a un cliente real.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FORMULARIOS PUBLICADOS ===== -->
+  <div class="section">
+    <span class="section-label">Sitio web</span>
+    <h2 class="section-title">Formularios publicados en lacabanaeventos.com</h2>
+    <p class="section-intro">Publiqué dos formularios en el sitio que conectan directamente con el sistema de automatización.</p>
+
+    <div class="card">
+      <div class="card-hdr">
+        <div class="card-icon">📊</div>
+        <div>
+          <div class="card-title">Cotizador — 8 paquetes</div>
+          <div class="card-sub">Para nuevos clientes que quieren precio</div>
+        </div>
+        <span class="badge badge-green" style="margin-left:auto;">✅ Activo</span>
+      </div>
+      <div class="url-label">URL pública</div>
+      <div class="url-box">https://lacabanaeventos.com/cotizador.html</div>
+      <p style="font-size:.83rem;color:var(--muted);margin-top:10px;">El prospecto elige su paquete de interés y llena sus datos. El lead llega automáticamente a Google Sheets + Telegram + Email (Flujo 1).</p>
+    </div>
+
+    <div class="card">
+      <div class="card-hdr">
+        <div class="card-icon">📋</div>
+        <div>
+          <div class="card-title">Ficha de Evento — 6 pasos</div>
+          <div class="card-sub">Para clientes con contrato firmado</div>
+        </div>
+        <span class="badge badge-green" style="margin-left:auto;">✅ Activo</span>
+      </div>
+      <div class="url-label">URL pública</div>
+      <div class="url-box">https://lacabanaeventos.com/ficha-cliente.html</div>
+      <p style="font-size:.83rem;color:var(--muted);margin-top:10px;">El cliente llena los detalles completos de su evento: menú por tiempos, bebidas, servicios contratados y notas especiales. Se guarda en Google Sheets + notificación a Telegram (Flujo 7).</p>
+    </div>
+  </div>
+
+  <!-- ===== INFRAESTRUCTURA ===== -->
+  <div class="section">
+    <span class="section-label">Infraestructura</span>
+    <h2 class="section-title">Cómo está montado el sistema</h2>
+
+    <div class="card">
+      <table class="tbl">
+        <thead><tr><th>Componente</th><th>Qué es</th><th>Estado</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>n8n v2.19.4</strong></td>
+            <td>Motor de automatización, corre en mi PC (localhost:5678)</td>
+            <td><span class="badge badge-green">Activo</span></td>
+          </tr>
+          <tr>
+            <td><strong>Cloudflare Tunnel</strong></td>
+            <td>Expone n8n al internet sin abrir puertos ni pagar servidor</td>
+            <td><span class="badge badge-green">Activo</span></td>
+          </tr>
+          <tr>
+            <td><strong>n8n.lacabanaeventos.com</strong></td>
+            <td>URL permanente del sistema — nunca cambia</td>
+            <td><span class="badge badge-green">Activo</span></td>
+          </tr>
+          <tr>
+            <td><strong>Google Sheets</strong></td>
+            <td>Base de datos: leads, selecciones de menú, fichas de evento</td>
+            <td><span class="badge badge-green">Conectado</span></td>
+          </tr>
+          <tr>
+            <td><strong>Telegram Bot</strong></td>
+            <td>Notificaciones en tiempo real de cada lead y selección</td>
+            <td><span class="badge badge-green">Activo</span></td>
+          </tr>
+          <tr>
+            <td><strong>Brevo SMTP</strong></td>
+            <td>Envío de correos de confirmación y follow-up automático</td>
+            <td><span class="badge badge-green">Activo</span></td>
+          </tr>
+          <tr>
+            <td><strong>HostGator + Cloudflare DNS</strong></td>
+            <td>Hosting del sitio web con protección Cloudflare activada</td>
+            <td><span class="badge badge-gold">Propagando</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== CÓMO ARRANCAR EL SISTEMA ===== -->
+  <div class="section">
+    <span class="section-label">Operación</span>
+    <h2 class="section-title">Cómo arranco el sistema cada día</h2>
+
+    <div class="card">
+      <div class="alert alert-green">
+        <span class="alert-ci">✅</span>
+        <div>El sistema se inicia con <strong>un solo clic</strong> desde el acceso directo en el escritorio: <strong>"INICIAR LA CABANA.bat"</strong></div>
+      </div>
+      <p style="font-size:.85rem;color:var(--muted);margin:16px 0 10px;">El script hace automáticamente:</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body"><h4>Verifica si n8n ya está corriendo</h4><p>Si no está activo, lo inicia y espera a que esté listo.</p></div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body"><h4>Activa los flujos 5 y 6</h4><p>Los flujos de selección de menú se activan automáticamente.</p></div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body"><h4>Verifica el Cloudflare Tunnel</h4><p>Si el tunnel no está corriendo, lo inicia para que el sistema sea accesible desde internet.</p></div>
+        </div>
+      </div>
+      <div class="alert alert-gold" style="margin-top:8px;">
+        <span class="alert-ci">⚡</span>
+        <div><strong>Importante:</strong> La PC donde corre n8n debe estar encendida y con internet para que el sistema funcione. Si se apaga, los webhooks dejan de responder.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== GOOGLE SHEETS ===== -->
+  <div class="section">
+    <span class="section-label">Base de datos</span>
+    <h2 class="section-title">Cómo está organizado Google Sheets</h2>
+
+    <div class="card">
+      <table class="tbl">
+        <thead><tr><th>Hoja</th><th>Qué guarda</th><th>Flujo que escribe</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Hoja principal</strong></td>
+            <td>Todos los leads del sitio web y Facebook Ads</td>
+            <td>Flujos 1 y 3</td>
+          </tr>
+          <tr>
+            <td><strong>Selecciones</strong></td>
+            <td>Clientes con contrato: token, datos, selección de menú</td>
+            <td>Flujos 4, 5 y 6</td>
+          </tr>
+          <tr>
+            <td><strong>Fichas</strong></td>
+            <td>Fichas completas de evento enviadas por clientes</td>
+            <td>Flujo 7</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <p>Sistema construido para <strong>La Cabaña Eventos</strong> · Zapotlán de Juárez, Hidalgo · Mayo 2026</p>
+  <p style="margin-top:6px;">n8n + Cloudflare Tunnel + Google Sheets + Telegram + Brevo</p>
+</footer>
+
+</body>
+</html>

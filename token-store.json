@@ -1,0 +1,48 @@
+{
+  "tokens": [
+    {
+      "token": "LC-1778709136532-L7L16A",
+      "nombre": "Angel",
+      "email": "info@lacabanaeventos.com",
+      "telefono": "7711341559",
+      "fecha_evento": "2026-05-28",
+      "tipo_evento": "Corporativo",
+      "paquete_asignado": "Herradura — Menú Clásico (3 tiempos)",
+      "status": "pendiente",
+      "fecha_generacion": "13/5/2026, 3:52:16 p.m."
+    },
+    {
+      "token": "LC-1778709796755-H9W8OA",
+      "nombre": "Angel Figueroa Lera",
+      "email": "figueroa.lera1@gmail.com",
+      "telefono": "7771323232",
+      "fecha_evento": "2026-05-30",
+      "tipo_evento": "XV Años",
+      "paquete_asignado": "Mayoral — Menú Gourmet (4 tiempos)",
+      "status": "pendiente",
+      "fecha_generacion": "13/5/2026, 4:03:16 p.m."
+    },
+    {
+      "token": "LC-1778711498041-L347B6",
+      "nombre": "Angel",
+      "email": "eldiabloderiosucio@gmail.com",
+      "telefono": "1112223333",
+      "fecha_evento": "2026-05-30",
+      "tipo_evento": "Graduación",
+      "paquete_asignado": "Boda Soñada — Menú Boda (5 tiempos)",
+      "status": "pendiente",
+      "fecha_generacion": "13/5/2026, 4:31:38 p.m."
+    },
+    {
+      "token": "LC-1778723463443-US2QMH",
+      "nombre": "S",
+      "email": "eldiabloderiosucio@gmail.com",
+      "telefono": "+525619219350",
+      "fecha_evento": "2026-05-21",
+      "tipo_evento": "Graduación",
+      "paquete_asignado": "Intermedio — Menú Banquete",
+      "status": "pendiente",
+      "fecha_generacion": "13/5/2026, 7:51:03 p.m."
+    }
+  ]
+}

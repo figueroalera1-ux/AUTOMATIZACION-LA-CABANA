@@ -1,0 +1,55 @@
+const token = ($('Webhook — Consulta cliente').first().json.query?.token || '').trim();
+
+if (!token) {
+  return [{ json: { ok: false, error: 'missing_token' } }];
+}
+
+const values = $('Leer Selecciones').first().json.values || [];
+
+if (values.length < 2) {
+  return [{ json: { ok: false, error: 'empty_db' } }];
+}
+
+const headers = values[0];
+
+// índices seguros
+const ti = headers.indexOf('token');
+const ni = headers.indexOf('nombre');
+const ei = headers.indexOf('email');
+const tip = headers.indexOf('tipo_evento');
+const fi = headers.indexOf('fecha_evento');
+const pi = headers.indexOf('paquete_asignado');
+const si = headers.indexOf('status');
+const ex = headers.indexOf('expires_at');
+
+for (let i = 1; i < values.length; i++) {
+  const r = values[i];
+
+  if ((r[ti] || '').trim() === token) {
+
+    // ❗ expiración (SI EXISTE)
+    if (ex !== -1 && r[ex]) {
+      if (Date.now() > Number(r[ex])) {
+        return [{ json: { ok: false, error: 'expired' } }];
+      }
+    }
+
+    if ((r[si] || '') === 'used') {
+      return [{ json: { ok: false, error: 'already_used' } }];
+    }
+
+    return [{
+      json: {
+        ok: true,
+        nombre: r[ni] || '',
+        email: r[ei] || '',
+        tipo_evento: r[tip] || '',
+        fecha_evento: r[fi] || '',
+        paquete_asignado: r[pi] || '',
+        status: r[si] || 'pendiente'
+      }
+    }];
+  }
+}
+
+return [{ json: { ok: false, error: 'not_found' } }];

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lo que faltó — Secciones eliminadas de Estrategia</title>
+<style>
+  :root{
+    --guinda:#6B1223;--guinda-dark:#4d0d1a;--ocre:#C8960C;--ocre-light:#fef7e0;
+    --verde:#1a7a35;--verde-light:#e6f4ea;--azul:#1a73e8;--azul-light:#e8f0fe;
+    --gris:#f7f4f0;--gris-med:#e8e0d8;--texto:#1a1a1a;--suave:#555;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gris);color:var(--texto);line-height:1.65;}
+
+  .header{background:var(--guinda);color:white;padding:36px 48px 28px;}
+  .htag{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ocre);margin-bottom:8px;}
+  .header h1{font-size:22px;font-weight:800;margin-bottom:6px;}
+  .header p{font-size:13px;opacity:.8;}
+
+  .wrap{max-width:980px;margin:0 auto;padding:0 32px 80px;}
+
+  .sec{margin-top:44px;}
+  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--gris-med);}
+  .sec-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+  .sec-head h2{font-size:18px;font-weight:700;color:var(--guinda);}
+  .sec-head p{font-size:12px;color:var(--suave);margin-top:2px;}
+
+  .tabla{width:100%;border-collapse:collapse;background:white;border-radius:10px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.07);}
+  .tabla th{background:var(--guinda);color:white;padding:11px 14px;font-size:12px;text-align:left;}
+  .tabla td{padding:10px 14px;font-size:13px;border-bottom:1px solid var(--gris);}
+  .tabla tr:last-child td{border-bottom:none;}
+  .tabla tr.total td{background:var(--guinda-dark);color:white;font-weight:700;}
+  .monto{font-weight:700;color:var(--guinda);white-space:nowrap;}
+
+  .callout-o{background:var(--ocre-light);border-left:4px solid var(--ocre);border-radius:0 6px 6px 0;padding:14px 18px;font-size:13px;color:#7a5200;margin-top:16px;}
+  .callout-v{background:var(--verde-light);border-left:4px solid var(--verde);border-radius:0 6px 6px 0;padding:14px 18px;font-size:13px;color:#0d4d1f;margin-top:12px;}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .vcard{background:white;border-radius:10px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.07);}
+  .vcard-h{padding:12px 16px;color:white;display:flex;gap:10px;align-items:center;}
+  .vcard-h .ico{font-size:20px;}
+  .vcard-h h4{font-size:13px;font-weight:800;}
+  .vcard-h small{font-size:11px;opacity:.8;}
+  .vcard-b{padding:13px 16px;}
+  .item{display:flex;justify-content:space-between;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--gris);font-size:12.5px;gap:12px;}
+  .item:last-child{border-bottom:none;}
+  .item-label{color:var(--suave);flex-shrink:0;min-width:120px;}
+  .item-val{font-weight:600;text-align:right;}
+  .precio{color:var(--guinda);font-weight:700;}
+
+  .equipo-tabla{width:100%;border-collapse:collapse;background:white;border-radius:10px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.07);margin-top:14px;}
+  .equipo-tabla th{background:var(--guinda-dark);color:white;padding:10px 13px;font-size:12px;text-align:left;}
+  .equipo-tabla td{padding:9px 13px;font-size:12.5px;border-bottom:1px solid var(--gris);}
+  .equipo-tabla tr:last-child td{border-bottom:none;}
+  .equipo-tabla .total-row td{background:#f7f4f0;font-weight:700;}
+  .badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;}
+  .b-yes{background:var(--verde-light);color:var(--verde);}
+  .b-no{background:#fce8e6;color:#b71c1c;}
+  .b-opt{background:var(--ocre-light);color:#7a5200;}
+
+  .dist-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px;}
+  .dist-card{background:white;border-radius:8px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.07);text-align:center;}
+  .dist-card .plat{font-size:20px;margin-bottom:6px;}
+  .dist-card h5{font-size:12px;font-weight:800;color:var(--guinda);margin-bottom:4px;}
+  .dist-card p{font-size:11px;color:var(--suave);line-height:1.5;}
+
+  @media print{body{background:white;}.header,.tabla th,.tabla tr.total td,.equipo-tabla th{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="htag">La Cabaña Eventos — Referencia</div>
+  <h1>Secciones eliminadas de Estrategia de Marketing</h1>
+  <p>Producción de Video · Punto de equilibrio · Costos mensuales del sistema</p>
+</div>
+
+<div class="wrap">
+
+  <!-- VIDEO -->
+  <div class="sec">
+    <div class="sec-head">
+      <div class="sec-icon" style="background:#1565c0">🎬</div>
+      <div>
+        <h2>Producción de Video — Largo y Corto</h2>
+        <p>Sony A6400 como base · Qué falta, cuánto cuesta, qué se recomienda para completar el equipo</p>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="vcard">
+        <div class="vcard-h" style="background:#1565c0">
+          <div class="ico">📷</div>
+          <div><h4>Cámara base: Sony A6400</h4><small>Ya disponible · Sin IBIS — requiere gimbal para video en movimiento</small></div>
+        </div>
+        <div class="vcard-b">
+          <div class="item"><span class="item-label">Estado</span><span class="item-val"><span class="badge b-yes">Disponible</span></span></div>
+          <div class="item"><span class="item-label">Sensor</span><span class="item-val">APS-C 24 MP · 4K 30fps</span></div>
+          <div class="item"><span class="item-label">Autofoco</span><span class="item-val">AF en tiempo real · Eye Tracking</span></div>
+          <div class="item"><span class="item-label">Limitación</span><span class="item-val">Sin estabilización de cuerpo (IBIS)</span></div>
+          <div class="item"><span class="item-label">Solución</span><span class="item-val">Gimbal de 3 ejes para reels en movimiento</span></div>
+        </div>
+      </div>
+
+      <div class="vcard">
+        <div class="vcard-h" style="background:#4527a0">
+          <div class="ico">🔭</div>
+          <div><h4>Lente recomendada</h4><small>Interiores con poca luz — salón + pista LED</small></div>
+        </div>
+        <div class="vcard-b">
+          <div class="item"><span class="item-label">Recomendada</span><span class="item-val">Sony 16mm f/1.4 APS-C</span></div>
+          <div class="item"><span class="item-label">Apertura</span><span class="item-val">f/1.4 — ideal para poca luz</span></div>
+          <div class="item"><span class="item-label">Precio aprox.</span><span class="item-val precio">$4,500–$6,000 MXN</span></div>
+          <div class="item"><span class="item-label">Alternativa</span><span class="item-val">Sigma 16mm f/1.4 DC DN · ~$4,000 MXN</span></div>
+          <div class="item"><span class="item-label">Para qué</span><span class="item-val">Salón completo en toma cerrada, pista de noche</span></div>
+        </div>
+      </div>
+    </div>
+
+    <table class="equipo-tabla">
+      <thead>
+        <tr>
+          <th>Equipo</th>
+          <th>Descripción</th>
+          <th>Estado</th>
+          <th>Costo aprox.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Sony A6400</strong></td>
+          <td>Cámara principal — cuerpo</td>
+          <td><span class="badge b-yes">Disponible</span></td>
+          <td class="precio">—</td>
+        </tr>
+        <tr>
+          <td><strong>Lente 16mm f/1.4</strong></td>
+          <td>Gran angular para interiores oscuros</td>
+          <td><span class="badge b-no">Falta</span></td>
+          <td class="precio">~$4,500 MXN</td>
+        </tr>
+        <tr>
+          <td><strong>Gimbal 3 ejes</strong></td>
+          <td>Estabilización para reels en movimiento. DJI OM6 o Zhiyun Crane M3</td>
+          <td><span class="badge b-no">Falta</span></td>
+          <td class="precio">~$3,500 MXN</td>
+        </tr>
+        <tr>
+          <td><strong>Micrófono lavalier</strong></td>
+          <td>Para reels en cámara con voz. RODE Wireless GO II o similar</td>
+          <td><span class="badge b-no">Falta</span></td>
+          <td class="precio">~$3,800 MXN</td>
+        </tr>
+        <tr>
+          <td><strong>Micrófono shotgun</strong></td>
+          <td>Para captar audio ambiente del evento. RODE VideoMicro</td>
+          <td><span class="badge b-opt">Opcional</span></td>
+          <td class="precio">~$1,200 MXN</td>
+        </tr>
+        <tr>
+          <td><strong>Trípode</strong></td>
+          <td>Para tomas estáticas del salón</td>
+          <td><span class="badge b-opt">Verificar</span></td>
+          <td class="precio">~$800 MXN</td>
+        </tr>
+        <tr>
+          <td><strong>DaVinci Resolve</strong></td>
+          <td>Software de edición profesional. La versión gratuita es suficiente para reels y contenido social.</td>
+          <td><span class="badge b-yes">Gratis</span></td>
+          <td class="precio">$0</td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="3"><strong>Inversión para completar el equipo (sin cámara)</strong></td>
+          <td class="precio">~$11,800–$13,500 MXN</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:20px;">
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--suave);margin-bottom:10px;">Distribución del video por plataforma</div>
+      <div class="dist-grid">
+        <div class="dist-card">
+          <div class="plat">📱</div>
+          <h5>Instagram Reels</h5>
+          <p>9:16 vertical · 15–45s · Subtítulos en pantalla · Audio trending · Publicar jue–sáb</p>
+        </div>
+        <div class="dist-card">
+          <div class="plat">👥</div>
+          <h5>Facebook Reels + Feed</h5>
+          <p>Mismo video de IG subido nativo a FB. No compartir desde IG. Mayor alcance orgánico en zona Hidalgo.</p>
+        </div>
+        <div class="dist-card">
+          <div class="plat">▶️</div>
+          <h5>YouTube Shorts</h5>
+          <p>9:16 vertical · Mismos videos. Canal como repositorio SEO. No requiere producción extra.</p>
+        </div>
+        <div class="dist-card">
+          <div class="plat">🎯</div>
+          <h5>Meta Ads — Creativo</h5>
+          <p>El reel del salón es el video del anuncio de pauta. Un video sirve para orgánico y paid al mismo tiempo.</p>
+        </div>
+        <div class="dist-card">
+          <div class="plat">📊</div>
+          <h5>Google Business Profile</h5>
+          <p>Clips de 15s en la ficha de Maps. Aumenta posicionamiento en búsquedas locales "salón de eventos Pachuca".</p>
+        </div>
+        <div class="dist-card">
+          <div class="plat">💬</div>
+          <h5>WhatsApp Status</h5>
+          <p>Stories diarias con clips del salón, pista LED o promociones. Audiencia cálida — contactos que ya conocen el lugar.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PUNTO DE EQUILIBRIO -->
+  <div class="sec">
+    <div class="sec-head">
+      <div class="sec-icon" style="background:var(--ocre)">⚖️</div>
+      <div>
+        <h2>Punto de Equilibrio</h2>
+        <p>Relación entre costo operativo mensual y eventos necesarios para cubrirlo</p>
+      </div>
+    </div>
+
+    <div class="callout-o">
+      <strong>Punto de equilibrio:</strong> Con $14,220 MXN/mes de costo total del sistema, 1 evento Herradura
+      (80 personas × $400 = $32,000 MXN) cubre el <strong>44%</strong> de la inversión mensual del sistema.
+      1 evento Mayoral (100 personas × $500 = $50,000 MXN) lo cubre <strong>3.5 veces</strong>.
+      El sistema se paga solo con 1 evento al mes.
+    </div>
+    <div class="callout-v">
+      Con 2 eventos Herradura al mes: $64,000 MXN ingreso bruto. Margen después de costos del sistema: ~$49,780 MXN.
+      El sistema no es un gasto — es la infraestructura que hace posible captar y cerrar esos eventos.
+    </div>
+  </div>
+
+  <!-- COSTOS DEL SISTEMA -->
+  <div class="sec">
+    <div class="sec-head">
+      <div class="sec-icon" style="background:var(--guinda)">💰</div>
+      <div>
+        <h2>Costos Mensuales del Sistema Completo</h2>
+        <p>Inversión operativa para mantener activos todos los ejes</p>
+      </div>
+    </div>
+
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>Componente</th>
+          <th>Descripción</th>
+          <th>Costo mensual</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Meta Ads — Lead Gen</strong></td>
+          <td>Campaña captación de leads: bodas, XV años, graduaciones</td>
+          <td class="monto">$1,200 MXN</td>
+        </tr>
+        <tr>
+          <td><strong>Meta Ads — Retargeting</strong></td>
+          <td>Campaña de reimpacto a visitantes del sitio y audiencias cálidas</td>
+          <td class="monto">$800 MXN</td>
+        </tr>
+        <tr>
+          <td><strong>Cloudflare Tunnel</strong></td>
+          <td>Acceso permanente a n8n (n8n.lacabanaeventos.com)</td>
+          <td class="monto">$0 MXN</td>
+        </tr>
+        <tr>
+          <td><strong>n8n (self-hosted)</strong></td>
+          <td>Automatización CRM, WhatsApp, Google Sheets. Corre en computadora local.</td>
+          <td class="monto">$0 MXN</td>
+        </tr>
+        <tr>
+          <td><strong>Google Drive / Sheets</strong></td>
+          <td>CRM en Sheets, archivos y fotos en Drive</td>
+          <td class="monto">$0–$120 MXN</td>
+        </tr>
+        <tr>
+          <td><strong>Dominio lacabanaeventos.com</strong></td>
+          <td>Renovación anual dividida entre 12 meses</td>
+          <td class="monto">~$50 MXN</td>
+        </tr>
+        <tr>
+          <td><strong>Hosting web</strong></td>
+          <td>Si se usa hosting externo. GitHub Pages = $0.</td>
+          <td class="monto">$0–$200 MXN</td>
+        </tr>
+        <tr>
+          <td><strong>Canva Pro</strong></td>
+          <td>Diseño de posts, stories, memes, flyers</td>
+          <td class="monto">~$220 MXN</td>
+        </tr>
+        <tr>
+          <td><strong>Directorios de eventos</strong></td>
+          <td>Perfil básico gratuito en todos. Premium en bodas.com.mx opcional a futuro.</td>
+          <td class="monto">$0 MXN</td>
+        </tr>
+        <tr>
+          <td><strong>Airbnb — cuota anfitrión</strong></td>
+          <td>3% solo cuando hay reserva. Con $5,000/mes de hospedaje → cuota $150 MXN.</td>
+          <td class="monto">Variable (~$150)</td>
+        </tr>
+        <tr>
+          <td><strong>NFC stickers</strong></td>
+          <td>~20 stickers por evento × $10 MXN. Solo cuando hay evento.</td>
+          <td class="monto">~$200/evento</td>
+        </tr>
+        <tr class="total">
+          <td colspan="2"><strong>Total operativo mensual del sistema digital</strong></td>
+          <td><strong>~$2,270–$2,590 MXN</strong></td>
+        </tr>
+        <tr class="total">
+          <td colspan="2"><strong>Total original documentado en estrategia (todos los rubros)</strong></td>
+          <td><strong>~$14,220 MXN</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</body>
+</html>

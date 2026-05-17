@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selecciona tu Menú — La Cabaña Eventos</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;color:#1a1a1a;background:#f8f7f4;line-height:1.6;-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}
+
+:root{
+  --guinda:#6B1223;
+  --guinda-dark:#4d0c19;
+  --guinda-light:#8f1a2f;
+  --gold:#C8960C;
+  --gold-pale:#fdf3d0;
+  --gray-light:#f8f7f4;
+  --gray-mid:#f0ede8;
+  --gray-border:#e8e5e0;
+  --radius:14px;
+  --radius-sm:8px;
+  --shadow:0 4px 24px rgba(0,0,0,.08);
+  --transition:all .25s ease;
+}
+
+/* NAV */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  height:64px;padding:0 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:#fff;box-shadow:0 1px 16px rgba(0,0,0,.06);
+}
+.nav__logo-text{font-family:'Playfair Display',Georgia,serif;font-size:1.25rem;color:var(--guinda);}
+.nav__logo-text em{color:var(--gold);font-style:normal;}
+.nav__wa{
+  display:inline-flex;align-items:center;gap:7px;
+  background:#25D366;color:#fff;border-radius:50px;
+  padding:8px 18px;font-size:.8rem;font-weight:600;
+  transition:opacity .2s;
+}
+.nav__wa:hover{opacity:.85;}
+@media(max-width:480px){.nav{padding:0 20px;}.nav__wa span{display:none;}}
+
+/* LOADING STATE */
+.state-loading{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:20px;padding:80px 24px;text-align:center;
+}
+.loader{
+  width:52px;height:52px;border-radius:50%;
+  border:3px solid rgba(107,18,35,.15);
+  border-top-color:var(--guinda);
+  animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.state-loading p{font-size:.95rem;color:#777;}
+
+/* ERROR STATE */
+.state-error{
+  min-height:100vh;display:none;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:80px 24px;text-align:center;
+}
+.error-icon{
+  width:80px;height:80px;border-radius:50%;
+  background:rgba(185,28,44,.08);border:2px solid rgba(185,28,44,.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:2rem;margin-bottom:20px;
+}
+.state-error h2{font-family:'Playfair Display',Georgia,serif;font-size:1.7rem;margin-bottom:12px;color:#1a1a1a;}
+.state-error p{font-size:.95rem;color:#666;max-width:380px;margin:0 auto 28px;line-height:1.7;}
+.btn-wa-big{
+  display:inline-flex;align-items:center;gap:10px;
+  background:#25D366;color:#fff;padding:13px 28px;border-radius:50px;
+  font-weight:700;font-size:.95rem;transition:opacity .2s;
+}
+.btn-wa-big:hover{opacity:.88;}
+
+/* SUCCESS STATE */
+.state-success{
+  min-height:100vh;display:none;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:80px 24px;text-align:center;
+}
+.success-ring{
+  width:96px;height:96px;border-radius:50%;
+  background:rgba(107,18,35,.07);border:2px solid var(--guinda);
+  display:flex;align-items:center;justify-content:center;
+  font-size:2.6rem;margin-bottom:24px;
+}
+.state-success h2{font-family:'Playfair Display',Georgia,serif;font-size:2rem;margin-bottom:12px;}
+.state-success .sub{font-size:.95rem;color:#555;max-width:400px;margin:0 auto 10px;line-height:1.7;}
+.state-success .sub2{font-size:.85rem;color:#888;max-width:380px;margin:0 auto 30px;line-height:1.6;}
+.success-detail{
+  background:#fff;border:1.5px solid var(--gray-border);border-radius:var(--radius-sm);
+  padding:18px 22px;max-width:440px;margin:0 auto 24px;text-align:left;
+}
+.success-detail p{font-size:.85rem;color:#555;margin-bottom:6px;line-height:1.5;}
+.success-detail p strong{color:#1a1a1a;}
+.success-detail p:last-child{margin-bottom:0;}
+
+/* FORM STATE */
+.state-form{display:none;}
+
+/* CLIENT HERO */
+.client-hero{
+  padding:90px 24px 40px;
+  background:linear-gradient(160deg,var(--guinda-dark) 0%,var(--guinda) 55%,var(--guinda-light) 100%);
+  text-align:center;color:#fff;
+  position:relative;overflow:hidden;
+}
+.client-hero::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+  border-radius:50px;padding:5px 14px;
+  font-size:.74rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:16px;position:relative;
+}
+.client-hero h1{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:clamp(1.7rem,4vw,2.6rem);font-weight:700;
+  margin-bottom:8px;position:relative;line-height:1.2;
+}
+.client-hero p{font-size:.95rem;color:rgba(255,255,255,.78);max-width:480px;margin:0 auto;position:relative;line-height:1.6;}
+
+/* PACKAGE BANNER */
+.pkg-banner-wrap{padding:0 24px;}
+.pkg-banner{
+  max-width:760px;margin:0 auto;
+  display:flex;align-items:center;gap:16px;
+  background:#fff;border:2px solid var(--guinda);border-top:none;
+  border-radius:0 0 var(--radius) var(--radius);
+  padding:18px 24px;
+  box-shadow:var(--shadow);
+}
+.pkg-banner-swatch{
+  width:52px;height:52px;border-radius:var(--radius-sm);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:1.6rem;
+}
+.pkg-banner-info{flex:1;}
+.pkg-banner-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--guinda);margin-bottom:2px;}
+.pkg-banner-name{font-family:'Playfair Display',Georgia,serif;font-size:1.15rem;font-weight:700;color:#1a1a1a;}
+.pkg-banner-sub{font-size:.8rem;color:#777;}
+
+/* PROGRESS BAR */
+.progress-wrap{max-width:760px;margin:16px auto 0;padding:0 24px;}
+.progress-inner{
+  background:#fff;border-radius:var(--radius-sm);padding:13px 18px;
+  border:1px solid var(--gray-border);
+  display:flex;align-items:center;gap:12px;
+}
+.progress-label{font-size:.76rem;color:#888;white-space:nowrap;}
+.progress-bar{flex:1;height:6px;background:var(--gray-mid);border-radius:3px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--guinda);border-radius:3px;transition:width .4s ease;}
+.progress-count{font-size:.78rem;font-weight:700;color:var(--guinda);white-space:nowrap;}
+
+/* MENU FORM LAYOUT */
+.menu-form-wrap{max-width:760px;margin:0 auto;padding:20px 24px 48px;}
+
+/* COURSE SECTION */
+.curso-section{
+  background:#fff;border-radius:var(--radius);
+  border:1.5px solid var(--gray-border);
+  margin-bottom:16px;overflow:hidden;
+  transition:border-color .2s;
+}
+.curso-section.done{border-color:rgba(107,18,35,.3);}
+.curso-header{
+  padding:14px 18px;
+  display:flex;align-items:center;gap:10px;
+  border-bottom:1px solid var(--gray-border);
+  background:var(--gray-light);
+}
+.curso-num{
+  width:30px;height:30px;border-radius:50%;flex-shrink:0;
+  background:var(--gray-mid);color:#999;border:2px solid var(--gray-border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;font-weight:700;transition:var(--transition);
+}
+.curso-section.done .curso-num{background:var(--guinda);color:#fff;border-color:var(--guinda);}
+.curso-icon{font-size:1.2rem;}
+.curso-title-wrap{flex:1;}
+.curso-title{font-family:'Playfair Display',Georgia,serif;font-size:.98rem;font-weight:700;color:#1a1a1a;}
+.curso-subtitle{font-size:.74rem;color:#888;}
+.curso-check{color:var(--guinda);font-size:.95rem;display:none;}
+.curso-section.done .curso-check{display:block;}
+
+.curso-options{padding:14px 18px;display:flex;flex-direction:column;gap:8px;}
+
+.opt-card{
+  border:2px solid var(--gray-border);border-radius:var(--radius-sm);
+  padding:11px 15px;cursor:pointer;
+  display:flex;align-items:center;gap:11px;
+  transition:var(--transition);background:#fff;
+}
+.opt-card:hover{border-color:var(--guinda);background:rgba(107,18,35,.02);}
+.opt-card.selected{border-color:var(--guinda);background:rgba(107,18,35,.04);}
+.opt-radio{
+  width:18px;height:18px;border-radius:50%;border:2px solid var(--gray-border);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  transition:var(--transition);position:relative;
+}
+.opt-card.selected .opt-radio{background:var(--guinda);border-color:var(--guinda);}
+.opt-radio::after{
+  content:'';width:7px;height:7px;border-radius:50%;background:#fff;
+  position:absolute;opacity:0;transition:opacity .15s;
+}
+.opt-card.selected .opt-radio::after{opacity:1;}
+.opt-text{font-size:.86rem;color:#333;line-height:1.4;flex:1;}
+.opt-card.selected .opt-text{color:#1a1a1a;font-weight:500;}
+.opt-included{
+  flex-shrink:0;
+  background:rgba(107,18,35,.09);color:var(--guinda);
+  font-size:.64rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  padding:2px 8px;border-radius:50px;
+}
+
+/* EXTRAS SECTION */
+.extras-section{
+  background:#fff;border-radius:var(--radius);
+  border:1.5px solid var(--gray-border);
+  padding:22px 18px;margin-bottom:16px;
+}
+.extras-title{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:1rem;font-weight:700;color:#1a1a1a;
+  margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--gray-border);
+}
+.field-group{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+.field-group:last-child{margin-bottom:0;}
+.field-label{font-size:.73rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#555;}
+input[type=number],input[type=text],textarea{
+  width:100%;padding:11px 14px;
+  border:1.5px solid var(--gray-border);border-radius:var(--radius-sm);
+  font-family:'Inter',sans-serif;font-size:.92rem;color:#1a1a1a;
+  background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;
+}
+input:focus,textarea:focus{border-color:var(--guinda);box-shadow:0 0 0 3px rgba(107,18,35,.07);}
+input::placeholder,textarea::placeholder{color:#bbb;}
+textarea{resize:vertical;min-height:88px;}
+
+.toggle-row{display:flex;gap:8px;flex-wrap:wrap;}
+.toggle-btn{
+  padding:8px 20px;border-radius:50px;
+  border:1.5px solid var(--gray-border);background:#fff;
+  font-family:'Inter',sans-serif;font-size:.84rem;font-weight:600;color:#555;
+  cursor:pointer;transition:var(--transition);
+}
+.toggle-btn:hover{border-color:var(--guinda);color:var(--guinda);}
+.toggle-btn.sel{background:var(--guinda);border-color:var(--guinda);color:#fff;}
+
+/* SUBMIT SECTION */
+.submit-section{
+  background:#fff;border-radius:var(--radius);
+  border:1.5px solid var(--gray-border);
+  padding:22px 18px;
+}
+.submit-note{font-size:.79rem;color:#888;margin-bottom:14px;line-height:1.55;}
+.val-msg{font-size:.78rem;color:#b91c1c;margin-bottom:10px;display:none;}
+.val-msg.show{display:block;}
+.submit-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:15px 24px;border:none;border-radius:50px;cursor:pointer;
+  background:var(--guinda);color:#fff;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:.96rem;letter-spacing:.02em;
+  transition:background .2s,transform .15s;
+  box-shadow:0 4px 18px rgba(107,18,35,.28);
+}
+.submit-btn:hover:not(:disabled){background:var(--guinda-dark);transform:translateY(-1px);}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.submit-btn .spin{
+  display:none;width:18px;height:18px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.3);border-top-color:#fff;
+  animation:spin .7s linear infinite;flex-shrink:0;
+}
+.submit-btn.loading .btn-txt{display:none;}
+.submit-btn.loading .spin{display:block;}
+
+/* TOAST */
+.toast{
+  display:none;position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  background:#b91c2c;color:#fff;border-radius:50px;
+  padding:12px 26px;font-size:.86rem;font-weight:600;
+  box-shadow:0 4px 20px rgba(0,0,0,.22);z-index:9999;
+  white-space:nowrap;max-width:92vw;text-align:center;
+}
+.toast.show{display:block;animation:toastIn .3s ease;}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+.fade-up{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease;}
+.fade-up.visible{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__logo-text">La <em>Cabaña</em></div>
+  <a class="nav__wa" href="https://wa.me/527711341559" target="_blank">
+    <i class="fa-brands fa-whatsapp"></i>
+    <span>Contactar</span>
+  </a>
+</nav>
+
+<!-- LOADING -->
+<div class="state-loading" id="stateLoading">
+  <div class="loader"></div>
+  <p>Cargando tu información…</p>
+</div>
+
+<!-- ERROR -->
+<div class="state-error" id="stateError">
+  <div class="error-icon">🔒</div>
+  <h2>Link no válido</h2>
+  <p>Este link ya fue utilizado, expiró o no es correcto. Contacta a La Cabaña para obtener uno nuevo.</p>
+  <a class="btn-wa-big" href="https://wa.me/527711341559?text=Hola,%20necesito%20un%20nuevo%20link%20para%20elegir%20mi%20menú" target="_blank">
+    <i class="fa-brands fa-whatsapp"></i> Hablar con La Cabaña
+  </a>
+</div>
+
+<!-- SUCCESS -->
+<div class="state-success" id="stateSuccess">
+  <div class="success-ring">✅</div>
+  <h2>¡Selección confirmada!</h2>
+  <p class="sub">Tu elección de menú fue registrada exitosamente. Nuestro equipo la revisará y te contactará para confirmar los detalles finales.</p>
+  <p class="sub2">También te enviamos una confirmación al correo que tenemos registrado.</p>
+  <div class="success-detail" id="successDetail"></div>
+  <a class="btn-wa-big" href="https://wa.me/527711341559" target="_blank">
+    <i class="fa-brands fa-whatsapp"></i> Hablar con La Cabaña
+  </a>
+</div>
+
+<!-- FORM -->
+<div class="state-form" id="stateForm">
+
+  <section class="client-hero">
+    <div class="hero-badge">🍽️ Selección de menú</div>
+    <h1>Hola, <span id="heroNombre">—</span></h1>
+    <p>Elige los platillos para tu <strong id="heroEvento" style="color:#fff">—</strong> el <span id="heroFecha">—</span></p>
+  </section>
+
+  <div class="pkg-banner-wrap">
+    <div class="pkg-banner">
+      <div class="pkg-banner-swatch" id="pkgSwatch"></div>
+      <div class="pkg-banner-info">
+        <div class="pkg-banner-label">Tu paquete</div>
+        <div class="pkg-banner-name" id="pkgNombre">—</div>
+        <div class="pkg-banner-sub" id="pkgSub">—</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-inner">
+      <span class="progress-label">Tu progreso</span>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <span class="progress-count" id="progressCount">0 / 0</span>
+    </div>
+  </div>
+
+  <div class="menu-form-wrap">
+    <div id="cursosContainer"></div>
+
+    <div class="extras-section fade-up">
+      <div class="extras-title">📋 Detalles del evento</div>
+
+      <div class="field-group">
+        <label class="field-label">Número de invitados confirmados *</label>
+        <input type="number" id="numInvitados" placeholder="Ej. 120" min="1" max="500">
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">¿Desean servicio de coctelería?</label>
+        <div class="toggle-row">
+          <button type="button" class="toggle-btn" onclick="toggle('cocteleria','Sí',this)">Sí</button>
+          <button type="button" class="toggle-btn sel" onclick="toggle('cocteleria','No',this)">No</button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">¿Desean barra de cerveza barril?</label>
+        <div class="toggle-row">
+          <button type="button" class="toggle-btn" onclick="toggle('cerveza','Sí',this)">Sí</button>
+          <button type="button" class="toggle-btn sel" onclick="toggle('cerveza','No',this)">No</button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Dietas especiales o alergias (opcional)</label>
+        <input type="text" id="dietas" placeholder="Ej. vegetariano, sin gluten, alergia a mariscos…">
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Notas adicionales (opcional)</label>
+        <textarea id="notas" placeholder="Cualquier detalle que quieras que consideremos para tu menú…"></textarea>
+      </div>
+    </div>
+
+    <div class="submit-section fade-up">
+      <p class="submit-note">🔒 Una vez que confirmes, tu selección quedará registrada y no podrás modificarla. Asegúrate de revisar todas tus elecciones antes de enviar.</p>
+      <div class="val-msg" id="valMsg"></div>
+      <button class="submit-btn" id="submitBtn" onclick="enviarSeleccion()">
+        <span class="btn-txt">✅ Confirmar mi selección de menú</span>
+        <span class="spin"></span>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API_URL    = 'https://n8n.lacabanaeventos.com/webhook/lacabana-cliente';
+const SUBMIT_URL = 'https://n8n.lacabanaeventos.com/webhook/seleccion-guardar';
+
+const PAQUETES = {
+  'Íntimo': {
+    emoji:'🕯️', color:'linear-gradient(135deg,#5d4037,#8d6e63)', sub:'Precio fijo · hasta 50 personas',
+    cursos:[
+      {id:'c1',nombre:'Entrada',icono:'🥗',opciones:[
+        'Ensalada mixta con vinagreta de miel y mostaza',
+        'Crema de elote con chile poblano tostado',
+        'Caldo tlalpeño casero con garbanzos'
+      ]},
+      {id:'c2',nombre:'Plato fuerte',icono:'🍽️',opciones:[
+        'Pollo en salsa de champiñones con puré de papa',
+        'Arrachera a las brasas con ensalada y papas',
+        'Cerdo en mole rojo con arroz y frijoles'
+      ]}
+    ]
+  },
+  'Intermedio': {
+    emoji:'🏡', color:'linear-gradient(135deg,#4e342e,#bf360c)', sub:'Precio fijo · hasta 80 personas',
+    cursos:[
+      {id:'c1',nombre:'Entrada',icono:'🥗',opciones:[
+        'Ensalada verde con aderezo balsámico de la casa',
+        'Sopa de lima estilo yucateco con tortilla',
+        'Crema de zanahoria con jengibre y crutones'
+      ]},
+      {id:'c2',nombre:'Plato fuerte',icono:'🍽️',opciones:[
+        'Pollo asado al horno con guarnición de temporada',
+        'Arrachera a la parrilla con papas al pastor',
+        'Cerdo en salsa verde con tamales oaxaqueños'
+      ]}
+    ]
+  },
+  'Entre Semana': {
+    emoji:'📅', color:'linear-gradient(135deg,#1565c0,#42a5f5)', sub:'Precio fijo · hasta 60 personas',
+    cursos:[
+      {id:'c1',nombre:'Entrada',icono:'🥗',opciones:[
+        'Ensalada Caprese con vinagreta de albahaca',
+        'Caldo de pollo con verduras y fideos de temporada',
+        'Crema de chícharos con menta fresca'
+      ]},
+      {id:'c2',nombre:'Plato fuerte',icono:'🍽️',opciones:[
+        'Pollo en pipián verde con arroz y tortillas',
+        'Milanesa empanizada con puré de papa cremoso',
+        'Barbacoa de res con consomé y guarnición'
+      ]}
+    ]
+  },
+  'Herradura': {
+    emoji:'🌾', color:'linear-gradient(135deg,#2d5a27,#4caf50)', sub:'Menú Clásico · 80–150 personas',
+    cursos:[
+      {id:'c1',nombre:'Entrada',icono:'🥗',opciones:[
+        'Ensalada Caprese con vinagreta de albahaca y pesto',
+        'Ceviche de camarón con tostadas y aguacate',
+        'Carpaccio de res con alcaparras y parmesano'
+      ]},
+      {id:'c2',nombre:'Plato fuerte',icono:'🍽️',opciones:[
+        'Pollo en salsa de champiñones y crema con arroz',
+        'Arrachera a las brasas con chimichurri y papas',
+        'Cerdo en mole negro estilo oaxaqueño con arroz',
+        'Filete de res en salsa de vino tinto con puré'
+      ]},
+      {id:'c3',nombre:'Postre',icono:'🎂',opciones:[
+        'Pastel de celebración personalizado',
+        'Tres leches artesanal con frutos rojos',
+        'Gelatina mosaico con crema chantilly'
+      ]}
+    ]
+  },
+  'Mayoral': {
+    emoji:'🥩', color:'linear-gradient(135deg,#6a1520,#c62828)', sub:'Menú Gourmet · 100–200 personas',
+    cursos:[
+      {id:'c1',nombre:'Entrada elaborada',icono:'🥗',opciones:[
+        'Carpaccio de res con rúcula y parmesano',
+        'Ceviche de camarón y pulpo con aguacate',
+        'Ensalada de betabel con queso de cabra y nuez'
+      ]},
+      {id:'c2',nombre:'Sopa',icono:'🍲',opciones:[
+        'Consomé de res doble con verduras finamente cortadas',
+        'Crema de elote con rajas de chile poblano',
+        'Bisque de camarón con crutones al ajo'
+      ]},
+      {id:'c3',nombre:'Plato fuerte gourmet',icono:'🍽️',opciones:[
+        'Filete de res Wellington con salsa de champiñones',
+        'Camarones al mojo de ajo con risotto de parmesano',
+        'Pierna de cerdo en salsa de ciruela con puré',
+        'Pechuga rellena de espinacas y queso manchego'
+      ]},
+      {id:'c4',nombre:'Postre',icono:'🎂',opciones:[
+        'Pastel de celebración + mousse de chocolate',
+        'Cheesecake de frutos rojos + helado artesanal',
+        'Profiteroles con salsa de chocolate caliente'
+      ]}
+    ]
+  },
+  'La Cabaña': {
+    emoji:'🌿', color:'linear-gradient(135deg,#4a148c,#7b1fa2)', sub:'Menú Premium · 100–250 personas',
+    cursos:[
+      {id:'c1',nombre:'Entrada premium',icono:'🥗',opciones:[
+        'Carpaccio de atún con aguacate y salsa ponzu',
+        'Ostiones al natural con granita de limón',
+        'Tartare de res con yema curada y aceite de trufa'
+      ]},
+      {id:'c2',nombre:'Sopa',icono:'🍲',opciones:[
+        'Bisque de langosta con crema fraîche y eneldo',
+        'Velouté de hongos silvestres con aceite de trufa',
+        'Consomé doble clarificado con cabellos de ángel'
+      ]},
+      {id:'c3',nombre:'Sorbete limpiador de paladar',icono:'🍧',fijo:true,opciones:[
+        'Sorbete artesanal de limón con menta fresca (incluido)'
+      ]},
+      {id:'c4',nombre:'Plato fuerte de autor',icono:'🍽️',opciones:[
+        'Filete Rossini con foie gras y salsa de trufa negra',
+        'Rack de cordero con salsa de menta y papas Hasselback',
+        'Langosta thermidor con mantequilla de hierbas finas',
+        'Medallones de res en demi-glace con risotto de parmesano'
+      ]},
+      {id:'c5',nombre:'Postre + pastel + champaña',icono:'🎂',fijo:true,opciones:[
+        'Pastel de celebración personalizado + brindis con champaña (incluido)'
+      ]}
+    ]
+  },
+  'Boda Soñada': {
+    emoji:'💍', color:'linear-gradient(135deg,#880e4f,#e91e63)', sub:'Menú Boda · solo bodas',
+    cursos:[
+      {id:'c1',nombre:'Cocktail de bienvenida',icono:'🥂',opciones:[
+        'Estación de mimosas y bloody mary (30 minutos)',
+        'Cava de vinos con tabla de quesos artesanales',
+        'Barra de cócteles de autor con bartender'
+      ]},
+      {id:'c2',nombre:'Entrada gourmet',icono:'🥗',opciones:[
+        'Carpaccio de res con rúcula, parmesano y trufa',
+        'Tataki de atún sellado con ponzu y aguacate',
+        'Ensalada de arúgula con betabel y queso de cabra'
+      ]},
+      {id:'c3',nombre:'Sopa',icono:'🍲',opciones:[
+        'Bisque de camarón con champaña y crema fraîche',
+        'Crema de flor de calabaza con crema fraîche',
+        'Velouté de hongos silvestres con aceite de trufa'
+      ]},
+      {id:'c4',nombre:'Plato fuerte especial',icono:'🍽️',opciones:[
+        'Dueto: Filete de res + media langosta thermidor',
+        'Filete Wellington con foie gras y salsa périgueux',
+        'Pato confitado con salsa de cereza y puré de chipotle',
+        'Salmón atlántico en costra de hierbas con beurre blanc'
+      ]},
+      {id:'c5',nombre:'Postre nupcial',icono:'🎂',fijo:true,opciones:[
+        'Pastel de bodas personalizado de 3 pisos + brindis con champaña (incluido)'
+      ]}
+    ]
+  },
+  'Empresarial': {
+    emoji:'💼', color:'linear-gradient(135deg,#263238,#546e7a)', sub:'Menú Ejecutivo · 30–150 personas',
+    cursos:[
+      {id:'c1',nombre:'Entrada ejecutiva',icono:'🥗',opciones:[
+        'Ensalada verde mixta con aderezo balsámico',
+        'Mini bruschettas variadas con tomate y albahaca',
+        'Sopa del día (estacional)'
+      ]},
+      {id:'c2',nombre:'Plato fuerte',icono:'🍽️',opciones:[
+        'Pollo a la plancha con verduras salteadas y arroz',
+        'Filete de res en salsa de champiñones con pasta',
+        'Salmón al horno con vegetales mediterráneos'
+      ]},
+      {id:'c3',nombre:'Postre + coffee break',icono:'☕',fijo:true,opciones:[
+        'Fruta de temporada + 2 coffee breaks incluidos'
+      ]}
+    ]
+  }
+};
+
+const selecciones = {};
+const extras = { cocteleria: 'No', cerveza: 'No' };
+let clientToken = '';
+let paqueteData = null;
+
+function getPaqueteClave(pa) {
+  const s = pa || '';
+  if (s.includes('Boda')) return 'Boda Soñada';
+  if (s.includes('Empresarial')) return 'Empresarial';
+  if (s.includes('Mayoral')) return 'Mayoral';
+  if (s.includes('La Cabaña')) return 'La Cabaña';
+  if (s.includes('Herradura')) return 'Herradura';
+  if (s.includes('Íntimo') || s.includes('Intimo')) return 'Íntimo';
+  if (s.includes('Intermedio')) return 'Intermedio';
+  if (s.includes('Entre')) return 'Entre Semana';
+  return null;
+}
+
+function formatFecha(f) {
+  if (!f) return f;
+  const parts = f.split('-');
+  if (parts.length !== 3) return f;
+  const [y, m, d] = parts;
+  const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  return d + ' de ' + (meses[parseInt(m, 10) - 1] || m) + ' de ' + y;
+}
+
+function showState(id) {
+  ['stateLoading','stateError','stateSuccess','stateForm'].forEach(s => {
+    const el = document.getElementById(s);
+    el.style.display = s === id ? (s === 'stateForm' ? 'block' : 'flex') : 'none';
+  });
+}
+
+function renderCursos() {
+  const cont = document.getElementById('cursosContainer');
+  cont.innerHTML = '';
+  const cursos = paqueteData.cursos;
+
+  cursos.forEach((curso, i) => {
+    const fijo = !!curso.fijo;
+    if (fijo) selecciones[curso.id] = curso.opciones[0];
+
+    const div = document.createElement('div');
+    div.className = 'curso-section fade-up' + (fijo ? ' done' : '');
+    div.id = 'curso-' + curso.id;
+
+    const optsHtml = curso.opciones.map((op, j) => `
+      <div class="opt-card${fijo ? ' selected' : ''}" id="opt-${curso.id}-${j}"
+           ${fijo ? '' : `onclick="elegirOpcion('${curso.id}',${j},this)"`}>
+        <div class="opt-radio"></div>
+        <span class="opt-text">${op}</span>
+        ${fijo ? '<span class="opt-included">Incluido</span>' : ''}
+      </div>`).join('');
+
+    div.innerHTML = `
+      <div class="curso-header">
+        <div class="curso-num">${i + 1}</div>
+        <span class="curso-icon">${curso.icono}</span>
+        <div class="curso-title-wrap">
+          <div class="curso-title">${curso.nombre}</div>
+          <div class="curso-subtitle">${fijo ? 'Incluido en tu paquete' : 'Elige una opción'}</div>
+        </div>
+        <i class="fa-solid fa-check curso-check"></i>
+      </div>
+      <div class="curso-options">${optsHtml}</div>`;
+
+    cont.appendChild(div);
+  });
+
+  updateProgress();
+  setTimeout(() => {
+    document.querySelectorAll('#cursosContainer .fade-up, .extras-section, .submit-section')
+      .forEach(el => el.classList.add('visible'));
+  }, 60);
+}
+
+function elegirOpcion(cursoId, opIdx, el) {
+  const curso = paqueteData.cursos.find(c => c.id === cursoId);
+  if (!curso) return;
+  selecciones[cursoId] = curso.opciones[opIdx];
+  document.querySelectorAll('[id^="opt-' + cursoId + '-"]').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  const sec = document.getElementById('curso-' + cursoId);
+  if (sec) sec.classList.add('done');
+  updateProgress();
+}
+
+function updateProgress() {
+  const cursos = paqueteData.cursos;
+  const elegidos = cursos.filter(c => selecciones[c.id]).length;
+  const pct = Math.round((elegidos / cursos.length) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressCount').textContent = elegidos + ' / ' + cursos.length;
+}
+
+function toggle(campo, valor, btn) {
+  extras[campo] = valor;
+  btn.closest('.toggle-row').querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+
+async function enviarSeleccion() {
+  const pendientes = paqueteData.cursos.filter(c => !c.fijo && !selecciones[c.id]);
+  if (pendientes.length > 0) {
+    const vm = document.getElementById('valMsg');
+    vm.textContent = 'Aún te faltan por elegir: ' + pendientes.map(c => c.nombre).join(', ');
+    vm.classList.add('show');
+    document.getElementById('curso-' + pendientes[0].id).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  const numInv = document.getElementById('numInvitados').value.trim();
+  if (!numInv) {
+    mostrarToast('Indica el número de invitados confirmados');
+    document.getElementById('numInvitados').focus();
+    return;
+  }
+  document.getElementById('valMsg').classList.remove('show');
+
+  const menuElegido = paqueteData.cursos.map(c =>
+    c.nombre + ': ' + (selecciones[c.id] || '—')
+  ).join(' | ');
+
+  const payload = {
+    token: clientToken,
+    menu_elegido: menuElegido,
+    num_invitados: numInv,
+    cocteleria: extras.cocteleria,
+    cerveza_barril: extras.cerveza,
+    dietas_especiales: document.getElementById('dietas').value.trim(),
+    notas: document.getElementById('notas').value.trim()
+  };
+
+  const btn = document.getElementById('submitBtn');
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  try {
+    const res = await fetch(SUBMIT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!data.ok) throw new Error('nok');
+
+    const det = document.getElementById('successDetail');
+    det.innerHTML = paqueteData.cursos.map(c =>
+      '<p><strong>' + c.nombre + ':</strong> ' + (selecciones[c.id] || '—') + '</p>'
+    ).join('') +
+    '<p><strong>Invitados:</strong> ' + numInv + '</p>' +
+    '<p><strong>Coctelería:</strong> ' + extras.cocteleria +
+    ' &nbsp;·&nbsp; <strong>Cerveza barril:</strong> ' + extras.cerveza + '</p>';
+
+    showState('stateSuccess');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (err) {
+    console.error(err);
+    mostrarToast('Ocurrió un error al enviar. Intenta de nuevo o contáctanos por WhatsApp.');
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+}
+
+function mostrarToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4500);
+}
+
+async function init() {
+  const params = new URLSearchParams(window.location.search);
+  clientToken = params.get('token') || '';
+  if (!clientToken) { showState('stateError'); return; }
+
+  try {
+    const res = await fetch(API_URL + '?token=' + encodeURIComponent(clientToken));
+    const data = await res.json();
+    if (!data.ok) { showState('stateError'); return; }
+
+    const clave = getPaqueteClave(data.paquete_asignado || '');
+    paqueteData = clave ? PAQUETES[clave] : null;
+    if (!paqueteData) { showState('stateError'); return; }
+
+    document.getElementById('heroNombre').textContent = (data.nombre || '').split(' ')[0] || 'Cliente';
+    document.getElementById('heroEvento').textContent = data.tipo_evento || 'evento';
+    document.getElementById('heroFecha').textContent = formatFecha(data.fecha_evento);
+    document.getElementById('pkgSwatch').textContent = paqueteData.emoji;
+    document.getElementById('pkgSwatch').style.background = paqueteData.color;
+    document.getElementById('pkgNombre').textContent = data.paquete_asignado || clave;
+    document.getElementById('pkgSub').textContent = paqueteData.sub;
+
+    renderCursos();
+    showState('stateForm');
+  } catch (err) {
+    console.error(err);
+    showState('stateError');
+  }
+}
+
+init();
+</script>
+</body>
+</html>

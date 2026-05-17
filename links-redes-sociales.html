@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Links de Tracking — La Cabaña Eventos</title>
+<style>
+  :root {
+    --guinda: #6B1223;
+    --guinda-dark: #4a0d19;
+    --ocre: #C8960C;
+    --bg: #f8f5f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: #222;
+    min-height: 100vh;
+  }
+  header {
+    background: var(--guinda);
+    color: white;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  header h1 { font-size: 22px; font-weight: 700; }
+  header p  { font-size: 13px; opacity: .8; margin-top: 4px; }
+  .badge {
+    background: var(--ocre);
+    color: white;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+    margin-left: auto;
+  }
+  .info-bar {
+    background: #fff8e1;
+    border-left: 4px solid var(--ocre);
+    padding: 14px 24px;
+    font-size: 13px;
+    color: #555;
+    line-height: 1.6;
+  }
+  .info-bar strong { color: var(--guinda); }
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 28px 16px 60px;
+  }
+  .network {
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,.07);
+  }
+  .network-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .network-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .network-header h2 { font-size: 16px; font-weight: 700; }
+  .network-header span { font-size: 12px; color: #888; }
+  .links-list { padding: 12px 0; }
+  .link-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    border-bottom: 1px solid #f7f7f7;
+    transition: background .15s;
+  }
+  .link-row:last-child { border-bottom: none; }
+  .link-row:hover { background: #fafafa; }
+  .link-label {
+    min-width: 160px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+  }
+  .link-url {
+    flex: 1;
+    font-size: 12px;
+    color: #666;
+    background: #f5f5f5;
+    padding: 7px 12px;
+    border-radius: 6px;
+    font-family: monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    border: 1px solid #e8e8e8;
+  }
+  .btn-copy {
+    background: var(--guinda);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background .2s, transform .1s;
+  }
+  .btn-copy:hover { background: var(--guinda-dark); }
+  .btn-copy:active { transform: scale(.96); }
+  .btn-copy.copied {
+    background: #2e7d32;
+  }
+  .btn-test {
+    background: transparent;
+    color: var(--guinda);
+    border: 1.5px solid var(--guinda);
+    padding: 7px 13px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s;
+    text-decoration: none;
+  }
+  .btn-test:hover { background: #fdf0f2; }
+  .flow-diagram {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.07);
+    text-align: center;
+  }
+  .flow-diagram h3 { font-size: 14px; color: #888; margin-bottom: 20px; text-transform: uppercase; letter-spacing: .5px; }
+  .flow-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+  .flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .step-box {
+    background: var(--guinda);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    min-width: 110px;
+  }
+  .step-box.green { background: #2e7d32; }
+  .step-box.ocre  { background: var(--ocre); }
+  .step-box small { display: block; font-weight: 400; font-size: 10px; opacity: .85; margin-top: 3px; }
+  .arrow { font-size: 20px; color: #ccc; padding: 0 8px; }
+  @media(max-width:600px) {
+    .link-row { flex-wrap: wrap; }
+    .link-label { min-width: unset; width: 100%; }
+    .btn-test { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>🔗 Links de Tracking — La Cabaña Eventos</h1>
+    <p>Cada link registra el click en la hoja y redirige al cotizador automáticamente</p>
+  </div>
+  <span class="badge">ACTIVO</span>
+</header>
+
+<div class="info-bar">
+  <strong>¿Cómo funciona?</strong>
+  Usuario ve tu post → hace clic en el link → se registra en pestaña <strong>Click</strong> de Google Sheets → el usuario llega al cotizador.
+  Si llena el formulario → lead en pestaña <strong>Leads</strong> → pasa al <strong>CRM</strong> automáticamente cada hora.
+</div>
+
+<main>
+
+  <!-- Diagrama de flujo -->
+  <div class="flow-diagram">
+    <h3>Flujo completo</h3>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="step-box">📱 Red social<small>Post / Story / Bio</small></div>
+      </div>
+      <span class="arrow">→</span>
+      <div class="flow-step">
+        <div class="step-box">🔗 Link de tracking<small>registra el click</small></div>
+      </div>
+      <span class="arrow">→</span>
+      <div class="flow-step">
+        <div class="step-box ocre">📋 Pestaña Click<small>quién y cuándo</small></div>
+      </div>
+      <span class="arrow">→</span>
+      <div class="flow-step">
+        <div class="step-box">💻 Cotizador<small>lacabanaeventos.com</small></div>
+      </div>
+      <span class="arrow">→</span>
+      <div class="flow-step">
+        <div class="step-box green">✅ Lead en CRM<small>si llena el form</small></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Facebook -->
+  <div class="network">
+    <div class="network-header">
+      <div class="network-icon" style="background:#e7f0fd">📘</div>
+      <div>
+        <h2>Facebook</h2>
+        <span>Pega el link en tu bio, publicaciones o anuncios</span>
+      </div>
+    </div>
+    <div class="links-list">
+      <div class="link-row">
+        <span class="link-label">📌 Bio / Página</span>
+        <span class="link-url" onclick="copyThis(this)">https://n8n.lacabanaeventos.com/webhook/ir?r=facebook&c=bio</span>
+        <button class="btn-copy" onclick="copy(this,'https://n8n.lacabanaeventos.com/webhook/ir?r=facebook&c=bio')">Copiar</button>
+        <a class="btn-test" href="https://n8n.lacabanaeventos.com/webhook/ir?r=facebook&c=bio" target="_blank">Probar</a>
+      </div>
+      <div class="link-row">
+        <span class="link-label">📝 Post orgánico</span>
+        <span class="link-url" onclick="copyThis(this)">https://n8n.lacabanaeventos.com/webhook/ir?r=facebook&c=post</span>
+        <button class="btn-copy" onclick="copy(this,'https://n8n.lacabanaeventos.com/webhook/ir?r=facebook&c=post')">Copiar</button>
+        <a class="btn-test" href="https://n8n.lacabanaeventos.com/webhook/ir?r=facebook&c=post" target="_blank">Probar</a>
+      </div>
+      <div class="link-row">
+        <span class="link-label">📢 Anuncio (Ads)</span>
+        <span class="link-url" onclick="copyThis(this)">https://n8n.lacabanaeventos.com/webhook/ir?r=facebook&c=ads</span>
+        <button class="btn-copy" onclick="copy(this,'https://n8n.lacabanaeventos.com/webhook/ir?r=facebook&c=ads')">Copiar</button>
+        <a class="btn-test" href="https://n8n.lacabanaeventos.com/webhook/ir?r=facebook&c=ads" target="_blank">Probar</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Instagram -->
+  <div class="network">
+    <div class="network-header">
+      <div class="network-icon" style="background:#fde7f4">📸</div>
+      <div>
+        <h2>Instagram</h2>
+        <span>Bio, Stories, Reels y anuncios</span>
+      </div>
+    </div>
+    <div class="links-list">
+      <div class="link-row">
+        <span class="link-label">📌 Bio / Perfil</span>
+        <span class="link-url" onclick="copyThis(this)">https://n8n.lacabanaeventos.com/webhook/ir?r=instagram&c=bio</span>
+        <button class="btn-copy" onclick="copy(this,'https://n8n.lacabanaeventos.com/webhook/ir?r=instagram&c=bio')">Copiar</button>
+        <a class="btn-test" href="https://n8n.lacabanaeventos.com/webhook/ir?r=instagram&c=bio" target="_blank">Probar</a>
+      </div>
+      <div class="link-row">
+        <span class="link-label">📖 Historia (Story)</span>
+        <span class="link-url" onclick="copyThis(this)">https://n8n.lacabanaeventos.com/webhook/ir?r=instagram&c=story</span>
+        <button class="btn-copy" onclick="copy(this,'https://n8n.lacabanaeventos.com/webhook/ir?r=instagram&c=story')">Copiar</button>
+        <a class="btn-test" href="https://n8n.lacabanaeventos.com/webhook/ir?r=instagram&c=story" target="_blank">Probar</a>
+      </div>
+      <div class="link-row">
+        <span class="link-label">🎬 Reel</span>
+        <span class="link-url" onclick="copyThis(this)">https://n8n.lacabanaeventos.com/webhook/ir?r=instagram&c=reel</span>
+        <button class="btn-copy" onclick="copy(this,'https://n8n.lacabanaeventos.com/webhook/ir?r=instagram&c=reel')">Copiar</button>
+        <a class="btn-test" href="https://n8n.lacabanaeventos.com/webhook/ir?r=instagram&c=reel" target="_blank">Probar</a>
+      </div>
+      <div class="link-row">
+        <span class="link-label">📢 Anuncio (Ads)</span>
+        <span class="link-url" onclick="copyThis(this)">https://n8n.lacabanaeventos.com/webhook/ir?r=instagram&c=ads</span>
+        <button class="btn-copy" onclick="copy(this,'https://n8n.lacabanaeventos.com/webhook/ir?r=instagram&c=ads')">Copiar</button>
+        <a class="btn-test" href="https://n8n.lacabanaeventos.com/webhook/ir?r=instagram&c=ads" target="_blank">Probar</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- TikTok -->
+  <div class="network">
+    <div class="network-header">
+      <div class="network-icon" style="background:#e8fdf5">🎵</div>
+      <div>
+        <h2>TikTok</h2>
+        <span>Bio, videos y anuncios</span>
+      </div>
+    </div>
+    <div class="links-list">
+      <div class="link-row">
+        <span class="link-label">📌 Bio / Perfil</span>
+        <span class="link-url" onclick="copyThis(this)">https://n8n.lacabanaeventos.com/webhook/ir?r=tiktok&c=bio</span>
+        <button class="btn-copy" onclick="copy(this,'https://n8n.lacabanaeventos.com/webhook/ir?r=tiktok&c=bio')">Copiar</button>
+        <a class="btn-test" href="https://n8n.lacabanaeventos.com/webhook/ir?r=tiktok&c=bio" target="_blank">Probar</a>
+      </div>
+      <div class="link-row">
+        <span class="link-label">🎥 Video orgánico</span>
+        <span class="link-url" onclick="copyThis(this)">https://n8n.lacabanaeventos.com/webhook/ir?r=tiktok&c=video</span>
+        <button class="btn-copy" onclick="copy(this,'https://n8n.lacabanaeventos.com/webhook/ir?r=tiktok&c=video')">Copiar</button>
+        <a class="btn-test" href="https://n8n.lacabanaeventos.com/webhook/ir?r=tiktok&c=video" target="_blank">Probar</a>
+      </div>
+      <div class="link-row">
+        <span class="link-label">📢 Anuncio (Ads)</span>
+        <span class="link-url" onclick="copyThis(this)">https://n8n.lacabanaeventos.com/webhook/ir?r=tiktok&c=ads</span>
+        <button class="btn-copy" onclick="copy(this,'https://n8n.lacabanaeventos.com/webhook/ir?r=tiktok&c=ads')">Copiar</button>
+        <a class="btn-test" href="https://n8n.lacabanaeventos.com/webhook/ir?r=tiktok&c=ads" target="_blank">Probar</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- WhatsApp -->
+  <div class="network">
+    <div class="network-header">
+      <div class="network-icon" style="background:#e8fde8">💬</div>
+      <div>
+        <h2>WhatsApp</h2>
+        <span>Mensajes directos y estados</span>
+      </div>
+    </div>
+    <div class="links-list">
+      <div class="link-row">
+        <span class="link-label">💬 Mensaje directo</span>
+        <span class="link-url" onclick="copyThis(this)">https://n8n.lacabanaeventos.com/webhook/ir?r=whatsapp&c=directo</span>
+        <button class="btn-copy" onclick="copy(this,'https://n8n.lacabanaeventos.com/webhook/ir?r=whatsapp&c=directo')">Copiar</button>
+        <a class="btn-test" href="https://n8n.lacabanaeventos.com/webhook/ir?r=whatsapp&c=directo" target="_blank">Probar</a>
+      </div>
+      <div class="link-row">
+        <span class="link-label">🔵 Estado (Status)</span>
+        <span class="link-url" onclick="copyThis(this)">https://n8n.lacabanaeventos.com/webhook/ir?r=whatsapp&c=status</span>
+        <button class="btn-copy" onclick="copy(this,'https://n8n.lacabanaeventos.com/webhook/ir?r=whatsapp&c=status')">Copiar</button>
+        <a class="btn-test" href="https://n8n.lacabanaeventos.com/webhook/ir?r=whatsapp&c=status" target="_blank">Probar</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Google Ads -->
+  <div class="network">
+    <div class="network-header">
+      <div class="network-icon" style="background:#fef3e7">🔍</div>
+      <div>
+        <h2>Google Ads</h2>
+        <span>Búsqueda y Display</span>
+      </div>
+    </div>
+    <div class="links-list">
+      <div class="link-row">
+        <span class="link-label">🔎 Búsqueda</span>
+        <span class="link-url" onclick="copyThis(this)">https://n8n.lacabanaeventos.com/webhook/ir?r=google&c=busqueda</span>
+        <button class="btn-copy" onclick="copy(this,'https://n8n.lacabanaeventos.com/webhook/ir?r=google&c=busqueda')">Copiar</button>
+        <a class="btn-test" href="https://n8n.lacabanaeventos.com/webhook/ir?r=google&c=busqueda" target="_blank">Probar</a>
+      </div>
+      <div class="link-row">
+        <span class="link-label">🖼️ Display / Banner</span>
+        <span class="link-url" onclick="copyThis(this)">https://n8n.lacabanaeventos.com/webhook/ir?r=google&c=display</span>
+        <button class="btn-copy" onclick="copy(this,'https://n8n.lacabanaeventos.com/webhook/ir?r=google&c=display')">Copiar</button>
+        <a class="btn-test" href="https://n8n.lacabanaeventos.com/webhook/ir?r=google&c=display" target="_blank">Probar</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- YouTube -->
+  <div class="network">
+    <div class="network-header">
+      <div class="network-icon" style="background:#fde7e7">▶️</div>
+      <div>
+        <h2>YouTube</h2>
+        <span>Descripción de videos</span>
+      </div>
+    </div>
+    <div class="links-list">
+      <div class="link-row">
+        <span class="link-label">📹 Descripción video</span>
+        <span class="link-url" onclick="copyThis(this)">https://n8n.lacabanaeventos.com/webhook/ir?r=youtube&c=video</span>
+        <button class="btn-copy" onclick="copy(this,'https://n8n.lacabanaeventos.com/webhook/ir?r=youtube&c=video')">Copiar</button>
+        <a class="btn-test" href="https://n8n.lacabanaeventos.com/webhook/ir?r=youtube&c=video" target="_blank">Probar</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom link section -->
+  <div class="network" style="border:2px dashed #ddd; background:#fafafa; box-shadow:none">
+    <div class="network-header" style="background:transparent">
+      <div class="network-icon" style="background:#f0f0f0">✏️</div>
+      <div>
+        <h2>Link personalizado</h2>
+        <span>Crea tu propio link cambiando r= y c=</span>
+      </div>
+    </div>
+    <div style="padding:16px 20px; font-size:13px; color:#555; line-height:1.8">
+      <code style="background:#f0f0f0;padding:4px 8px;border-radius:4px;font-size:12px">
+        https://n8n.lacabanaeventos.com/webhook/ir?r=<strong>RED</strong>&c=<strong>CAMPAÑA</strong>
+      </code>
+      <br><br>
+      Ejemplos de <strong>r=</strong> (red social): facebook · instagram · tiktok · whatsapp · google · youtube<br>
+      Ejemplos de <strong>c=</strong> (campaña): bio · post · story · reel · ads · video · evento · boda · xv
+    </div>
+  </div>
+
+</main>
+
+<script>
+function copy(btn, url) {
+  navigator.clipboard.writeText(url).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copiado';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = url; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = '✓ Copiado'; btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+function copyThis(el) {
+  copy({ textContent: '', classList: { add:()=>{}, remove:()=>{} } }, el.textContent.trim());
+}
+</script>
+</body>
+</html>

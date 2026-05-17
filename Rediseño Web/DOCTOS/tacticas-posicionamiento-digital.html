@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tácticas de Posicionamiento Digital — La Cabaña Eventos 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter',sans-serif; background:#f8f7f4; color:#1a1a1a; }
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, #2d5a27 0%, #1a3d15 60%, #0f2610 100%);
+  padding: 48px 40px 36px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content:'';
+  position:absolute; bottom:-80px; right:-40px;
+  width:400px; height:400px;
+  background:radial-gradient(circle, rgba(249,200,70,.08) 0%, transparent 65%);
+  border-radius:50%;
+}
+.header-badge {
+  display:inline-block;
+  background:rgba(249,200,70,.15);
+  border:1px solid rgba(249,200,70,.4);
+  color:#f9c846;
+  padding:6px 16px;
+  border-radius:30px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  margin-bottom:20px;
+}
+.header h1 { font-family:'Playfair Display',serif; font-size:34px; line-height:1.2; margin-bottom:10px; }
+.header h1 span { color:#f9c846; }
+.header p { color:rgba(255,255,255,.6); font-size:14px; max-width:600px; line-height:1.6; }
+
+.meta-bar {
+  display:flex; gap:32px; margin-top:28px; flex-wrap:wrap;
+}
+.meta-item { text-align:center; }
+.meta-num { font-size:24px; font-weight:800; color:#f9c846; }
+.meta-lbl { font-size:10px; color:rgba(255,255,255,.45); text-transform:uppercase; letter-spacing:.08em; margin-top:2px; }
+
+/* CONTENIDO */
+.container { max-width:960px; margin:0 auto; padding:40px 20px 60px; }
+
+/* SECCIÓN */
+.seccion {
+  background:white;
+  border-radius:20px;
+  margin-bottom:28px;
+  box-shadow:0 2px 20px rgba(0,0,0,.06);
+  overflow:hidden;
+}
+.sec-header {
+  display:flex; align-items:center; gap:14px;
+  padding:22px 28px;
+  border-bottom:1px solid #f0f0f0;
+}
+.sec-icon {
+  width:46px; height:46px;
+  border-radius:14px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:22px;
+  flex-shrink:0;
+}
+.sec-icon.verde { background:#e8f5e9; }
+.sec-icon.azul { background:#e3f2fd; }
+.sec-icon.rojo { background:#fce4ec; }
+.sec-icon.dorado { background:#fff8e1; }
+.sec-icon.morado { background:#f3e5f5; }
+.sec-icon.naranja { background:#fff3e0; }
+.sec-icon.negro { background:#f5f5f5; }
+.sec-icon.rosa { background:#fce4ec; }
+
+.sec-titulo h2 { font-size:18px; font-weight:700; color:#1a1a1a; margin-bottom:2px; }
+.sec-titulo p { font-size:12px; color:#888; }
+.sec-prioridad {
+  margin-left:auto;
+  padding:4px 12px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:700;
+  white-space:nowrap;
+}
+.prio-alta { background:#fee2e2; color:#dc2626; }
+.prio-media { background:#fef3c7; color:#d97706; }
+.prio-baja { background:#d1fae5; color:#059669; }
+
+.sec-body { padding:24px 28px; }
+
+/* TÁCTICA ITEM */
+.tactica {
+  border-left:3px solid #eee;
+  padding:14px 16px;
+  margin-bottom:12px;
+  border-radius:0 10px 10px 0;
+  transition:all .2s;
+}
+.tactica:hover { background:#fafafa; }
+.tactica.alta { border-left-color:#ef4444; }
+.tactica.media { border-left-color:#f59e0b; }
+.tactica.baja { border-left-color:#10b981; }
+
+.tactica h4 { font-size:14px; font-weight:600; color:#1a1a1a; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+.tactica p { font-size:12.5px; color:#555; line-height:1.65; }
+.tactica .accion {
+  display:inline-block;
+  background:#f0fdf4;
+  border:1px solid #86efac;
+  color:#166534;
+  font-size:11px;
+  padding:3px 10px;
+  border-radius:10px;
+  margin-top:8px;
+  font-weight:600;
+}
+.tactica .accion.azul-claro { background:#eff6ff; border-color:#93c5fd; color:#1e40af; }
+.tactica .accion.rojo-claro { background:#fef2f2; border-color:#fca5a5; color:#991b1b; }
+.tactica .accion.morado-claro { background:#faf5ff; border-color:#c4b5fd; color:#6b21a8; }
+
+/* GRID PLATAFORMAS */
+.plat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.plat-card {
+  border-radius:14px;
+  padding:18px;
+  text-align:center;
+}
+.plat-card.fb { background:linear-gradient(135deg, #e7f0fd, #dde8fa); }
+.plat-card.ig { background:linear-gradient(135deg, #fce4ec, #f8bbd0); }
+.plat-card.tt { background:linear-gradient(135deg, #f5f5f5, #eeeeee); border:1px solid #e0e0e0; }
+.plat-card.gm { background:linear-gradient(135deg, #e8f5e9, #c8e6c9); }
+.plat-card.wa { background:linear-gradient(135deg, #e8f5e9, #a5d6a7); }
+.plat-card.yt { background:linear-gradient(135deg, #ffebee, #ffcdd2); }
+
+.plat-card .p-icon { font-size:28px; margin-bottom:8px; }
+.plat-card h3 { font-size:13px; font-weight:700; margin-bottom:6px; }
+.plat-card ul { list-style:none; text-align:left; }
+.plat-card ul li { font-size:11px; color:#444; padding:3px 0; border-bottom:1px solid rgba(0,0,0,.06); }
+.plat-card ul li:last-child { border:none; }
+.plat-card .plat-meta { font-size:10px; color:#888; margin-top:8px; font-style:italic; }
+
+/* KPIs */
+.kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.kpi-card { background:#f8f7f4; border-radius:12px; padding:16px; text-align:center; border:1px solid #eee; }
+.kpi-card .k-icon { font-size:22px; margin-bottom:6px; }
+.kpi-card .k-nombre { font-size:11px; color:#888; text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px; }
+.kpi-card .k-meta { font-size:18px; font-weight:700; color:#2d5a27; }
+.kpi-card .k-plazo { font-size:10px; color:#aaa; margin-top:2px; }
+
+/* CALENDARIO DE ACCIONES */
+.plan-grid { display:grid; grid-template-columns:80px 1fr; gap:0; }
+.plan-mes {
+  writing-mode:vertical-lr;
+  text-orientation:mixed;
+  transform:rotate(180deg);
+  display:flex; align-items:center; justify-content:center;
+  background:#2d5a27;
+  color:white;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.1em;
+  padding:12px;
+  border-radius:10px 0 0 10px;
+  min-height:60px;
+  text-transform:uppercase;
+}
+.plan-acciones { padding:14px 16px; background:#f9f9f9; border-radius:0 10px 10px 0; border:1px solid #eee; border-left:none; margin-bottom:4px; }
+.plan-acciones h4 { font-size:12px; font-weight:700; color:#1a1a1a; margin-bottom:6px; }
+.plan-acciones ul { list-style:none; display:flex; gap:6px; flex-wrap:wrap; }
+.plan-acciones ul li { background:white; border:1px solid #e0e0e0; border-radius:20px; padding:3px 10px; font-size:11px; color:#555; }
+
+/* PRESUPUESTO */
+.presupuesto-table { width:100%; border-collapse:collapse; font-size:13px; }
+.presupuesto-table th { background:#2d5a27; color:white; padding:10px 14px; text-align:left; }
+.presupuesto-table td { padding:9px 14px; border-bottom:1px solid #f0f0f0; }
+.presupuesto-table tr:nth-child(even) td { background:#fafafa; }
+.presupuesto-table .total-row td { font-weight:700; background:#e8f5e9; color:#2d5a27; }
+.prioridad-dot { width:8px; height:8px; border-radius:50%; display:inline-block; margin-right:6px; }
+.dot-alta { background:#ef4444; }
+.dot-media { background:#f59e0b; }
+.dot-baja { background:#10b981; }
+
+/* TikTok especial */
+.tiktok-pilares { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:4px; }
+.pilar {
+  background:linear-gradient(135deg, #1a1a1a, #2d2d2d);
+  border-radius:12px;
+  padding:16px;
+  border:1px solid rgba(255,0,80,.2);
+}
+.pilar .p-num { color:rgba(255,0,80,.8); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; margin-bottom:6px; }
+.pilar h4 { color:white; font-size:13px; font-weight:700; margin-bottom:8px; }
+.pilar ul { list-style:none; }
+.pilar ul li { font-size:11px; color:rgba(255,255,255,.6); padding:3px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+.pilar ul li:last-child { border:none; }
+
+.nota-importante {
+  background:linear-gradient(135deg, #fff8e1, #fffde7);
+  border:2px solid #f9c846;
+  border-radius:12px;
+  padding:16px 20px;
+  margin-top:16px;
+  font-size:13px;
+  line-height:1.6;
+}
+.nota-importante strong { color:#b8860b; }
+
+@media(max-width:768px){
+  .plat-grid, .kpi-grid, .tiktok-pilares { grid-template-columns:1fr; }
+  .header { padding:24px 20px; }
+  .header h1 { font-size:24px; }
+  .sec-body { padding:16px; }
+  .sec-header { padding:16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-badge">Estrategia Digital 2026</div>
+  <h1>Tácticas de Posicionamiento<br><span>La Cabaña Eventos</span></h1>
+  <p>Plan completo para dominar el mercado digital de salones de eventos en Hidalgo. TikTok, Instagram, Facebook, SEO local y Google Maps.</p>
+  <div class="meta-bar">
+    <div class="meta-item"><div class="meta-num">8</div><div class="meta-lbl">Tácticas clave</div></div>
+    <div class="meta-item"><div class="meta-num">4</div><div class="meta-lbl">Plataformas</div></div>
+    <div class="meta-item"><div class="meta-num">3</div><div class="meta-lbl">Meses de plan</div></div>
+    <div class="meta-item"><div class="meta-num">$0</div><div class="meta-lbl">Costo para empezar</div></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- 1. GOOGLE MY BUSINESS -->
+  <div class="seccion">
+    <div class="sec-header">
+      <div class="sec-icon verde">📍</div>
+      <div class="sec-titulo">
+        <h2>Google My Business — Base de todo</h2>
+        <p>El canal que más leads genera para salones de eventos · Búsquedas intencionales</p>
+      </div>
+      <div class="sec-prioridad prio-alta">PRIORIDAD ALTA</div>
+    </div>
+    <div class="sec-body">
+      <div class="tactica alta">
+        <h4>🗺️ Optimizar perfil de Google Maps</h4>
+        <p>El perfil de Google Maps de La Cabaña debe estar 100% completo: horarios actualizados, categorías correctas (Salón de eventos, Sala de banquetes), descripción con keywords locales ("salón de eventos Hidalgo", "salón cerca de Pachuca"), todas las fotos subidas y actualizadas.</p>
+        <a class="accion" href="https://maps.app.goo.gl/4n817j43riAUnxjNA" target="_blank">📍 Ver perfil actual en Maps</a>
+      </div>
+      <div class="tactica alta">
+        <h4>⭐ Campaña activa de reseñas de 5 estrellas</h4>
+        <p>Cada evento terminado = pedir reseña en Google. Envía el link directo por WhatsApp al cliente a las 24–48 hrs post-evento: "Hola [nombre], fue un placer servirles. ¿Nos regalas 2 minutos para dejarnos una reseña? 👉 [link]". Meta: llegar a 50+ reseñas en 3 meses. Las reseñas son el factor #1 de ranking local en Google Maps.</p>
+        <span class="accion">Meta: 50 reseñas en 90 días</span>
+      </div>
+      <div class="tactica media">
+        <h4>📸 Fotos actualizadas mensualmente</h4>
+        <p>Google Maps prioriza perfiles con fotos recientes. Subir mínimo 5 fotos nuevas por mes: salón en diferentes configuraciones, menú, pista LED, área de juegos, jardín. Las fotos de clientes también cuentan — pídeles que las suban desde Maps.</p>
+        <span class="accion">5 fotos nuevas / mes</span>
+      </div>
+      <div class="tactica media">
+        <h4>📝 Publicaciones en Google (posts)</h4>
+        <p>Google My Business permite publicar ofertas y novedades que aparecen en el perfil. Publicar la promo Entre Semana, los paquetes nuevos y los eventos especiales. Estos posts duran 7 días — publicar al menos 1 por semana.</p>
+        <span class="accion">1 post/semana en GMB</span>
+      </div>
+      <div class="nota-importante">
+        <strong>Acción inmediata:</strong> Verificar que la dirección en Maps sea exacta y que el link de dirección lleve correctamente a <strong>Zapotlán de Juárez, Hidalgo</strong>. Agregar atributos: "Estacionamiento", "Accesible para sillas de ruedas", "Apto para grupos grandes". Esto mejora el ranking local instantáneamente.
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. TIKTOK -->
+  <div class="seccion">
+    <div class="sec-header">
+      <div class="sec-icon negro">🎵</div>
+      <div class="sec-titulo">
+        <h2>TikTok — Canal de crecimiento orgánico</h2>
+        <p>La plataforma de mayor alcance gratuito · Llega a personas que NO te conocen</p>
+      </div>
+      <div class="sec-prioridad prio-alta">PRIORIDAD ALTA</div>
+    </div>
+    <div class="sec-body">
+      <p style="font-size:13px;color:#555;margin-bottom:16px;">TikTok es la única red donde un negocio local puede llegar a <strong>cientos de miles de personas sin gastar un peso en publicidad</strong>. Un solo video viral puede generar más consultas que 6 meses de Facebook orgánico. La clave: consistencia + hook poderoso en los primeros 3 segundos.</p>
+
+      <div class="tiktok-pilares">
+        <div class="pilar">
+          <div class="p-num">Pilar 01</div>
+          <h4>Educacional / Info</h4>
+          <ul>
+            <li>"¿Cuánto cuesta un salón en Hidalgo?"</li>
+            <li>"Cosas que NADIE te dice al contratar un salón"</li>
+            <li>"¿DJ propio o externo? La verdad"</li>
+            <li>"Errores al organizar tu boda"</li>
+            <li>Frecuencia: 2x por semana</li>
+          </ul>
+        </div>
+        <div class="pilar">
+          <div class="p-num">Pilar 02</div>
+          <h4>Showcase / WOW</h4>
+          <ul>
+            <li>Pista LED encendiéndose (reveal)</li>
+            <li>Galaxia en el techo (impresionante)</li>
+            <li>Área de juegos en acción</li>
+            <li>Montaje del salón (timelapse)</li>
+            <li>Frecuencia: 3x por semana</li>
+          </ul>
+        </div>
+        <div class="pilar">
+          <div class="p-num">Pilar 03</div>
+          <h4>Humano / Detrás</h4>
+          <ul>
+            <li>Un día en La Cabaña (POV)</li>
+            <li>Preparando el menú del evento</li>
+            <li>El equipo antes de que lleguen</li>
+            <li>Testimonios de clientes (60 seg)</li>
+            <li>Frecuencia: 2x por semana</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tactica alta" style="margin-top:16px;">
+        <h4>🎯 Reglas de oro para TikTok (no negociables)</h4>
+        <p><strong>1. Hook en 3 segundos:</strong> El texto del hook aparece en pantalla en los primeros 3 segundos. Si no enganchas, no hay video.<br>
+        <strong>2. Subtítulos siempre:</strong> 85% de los usuarios ve sin sonido — subtítulos automáticos en la app.<br>
+        <strong>3. 1 video por día mínimo</strong> durante las primeras 4 semanas para que el algoritmo empuje la cuenta.<br>
+        <strong>4. Sonidos en tendencia:</strong> Cada semana revisar "Trending Sounds" y usar el que aplique.<br>
+        <strong>5. Nunca borres:</strong> Un video con pocas vistas hoy puede viral mañana. El algoritmo los relanza.<br>
+        <strong>6. Responde comentarios con video:</strong> Genera 3x más alcance que un comentario de texto.</p>
+        <span class="accion morado-claro">Meta: cuenta activa con 500+ seguidores en 60 días</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. INSTAGRAM -->
+  <div class="seccion">
+    <div class="sec-header">
+      <div class="sec-icon rosa">📷</div>
+      <div class="sec-titulo">
+        <h2>Instagram — Inspiración y conversión</h2>
+        <p>Donde los clientes fantasean con su evento antes de contactar</p>
+      </div>
+      <div class="sec-prioridad prio-alta">PRIORIDAD ALTA</div>
+    </div>
+    <div class="sec-body">
+      <div class="tactica alta">
+        <h4>🎬 Reels como estrategia principal</h4>
+        <p>Instagram prioriza Reels sobre fotos. Un Reel bien hecho llega a 6–10x más personas que una foto. Mínimo 4 Reels por semana: montajes del salón, pista LED, eventos reales (con permiso del cliente), behind the scenes. Duración ideal: 15–30 segundos.</p>
+        <span class="accion azul-claro">4 Reels / semana</span>
+      </div>
+      <div class="tactica alta">
+        <h4>💬 Stories diarios — mantener presencia</h4>
+        <p>Publicar Stories todos los días aunque no haya post en el feed. Stories con: encuestas ("¿Boda o XV años?"), preguntas ("¿Ya tienes tu fecha?"), cuenta regresiva de eventos próximos, detrás de cámaras rápidos. Stories generan mensajes directos — el objetivo es la conversación privada.</p>
+        <span class="accion azul-claro">Stories diarios · siempre</span>
+      </div>
+      <div class="tactica media">
+        <h4>🔗 Link en bio optimizado</h4>
+        <p>El link en bio debe llevar a una página de aterrizaje con botones claros: "Cotizar", "Ver paquetes", "WhatsApp directo". Usar Linktree o una página HTML propia. Actualmente este link es el único punto de salida desde Instagram — debe ser perfecto.</p>
+        <span class="accion azul-claro">Actualizar link en bio esta semana</span>
+      </div>
+      <div class="tactica media">
+        <h4>📌 Destacados (Highlights) bien organizados</h4>
+        <p>Los Highlights del perfil son lo primero que ve un visitante nuevo. Organizar en: "Paquetes" / "Bodas" / "XV Años" / "Menú" / "Instalaciones" / "Reseñas". Cada uno con portada de imagen bonita. Actualizar con contenido nuevo mensualmente.</p>
+        <span class="accion azul-claro">6 Highlights organizados</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. FACEBOOK -->
+  <div class="seccion">
+    <div class="sec-header">
+      <div class="sec-icon azul">👥</div>
+      <div class="sec-titulo">
+        <h2>Facebook — Comunidad y anuncios pagados</h2>
+        <p>La audiencia de 30–55 años toma decisiones aquí · Mayor poder adquisitivo</p>
+      </div>
+      <div class="sec-prioridad prio-media">PRIORIDAD MEDIA</div>
+    </div>
+    <div class="sec-body">
+      <div class="tactica alta">
+        <h4>📣 Campaña de anuncios — $500–$1,000 MXN/mes</h4>
+        <p>Con un presupuesto mínimo en Meta Ads puedes llegar a personas en Pachuca, Mineral de la Reforma, Tizayuca y Tulancingo que están <strong>buscando activamente salones de eventos</strong>. Segmentación: mujeres y hombres 25–50 años, Hidalgo, intereses: "Boda", "XV años", "Eventos sociales". Anuncio con la promo Entre Semana o el paquete Herradura.</p>
+        <span class="accion">Campaña $500 MXN = ~8,000 personas alcanzadas</span>
+      </div>
+      <div class="tactica media">
+        <h4>🏘️ Grupos de Facebook locales</h4>
+        <p>En Pachuca e Hidalgo hay grupos activos de "Bodas y quinceañeras Hidalgo", "Mamás de Pachuca", "Eventos en Hidalgo". Publicar en estos grupos semanalmente (no spam — contenido de valor: tips para organizar eventos, fotos del salón). Cada post puede generar 5–15 consultas.</p>
+        <span class="accion">3 publicaciones/semana en grupos locales</span>
+      </div>
+      <div class="tactica baja">
+        <h4>📊 Facebook Pixel ya instalado</h4>
+        <p>El pixel de Facebook (ID: 4510279802585543) ya está en el sitio web. Esto permite hacer <strong>retargeting</strong>: mostrar anuncios a personas que ya visitaron lacabanaeventos.com. Es el anuncio más barato y efectivo porque llega a gente que ya te conoce.</p>
+        <span class="accion">Activar audiencia de retargeting en Meta Ads</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. SEO LOCAL -->
+  <div class="seccion">
+    <div class="sec-header">
+      <div class="sec-icon verde">🔍</div>
+      <div class="sec-titulo">
+        <h2>SEO Local — Aparecer en Google sin pagar</h2>
+        <p>Búsquedas: "salón de eventos Hidalgo", "salón XV años Pachuca", etc.</p>
+      </div>
+      <div class="sec-prioridad prio-alta">PRIORIDAD ALTA</div>
+    </div>
+    <div class="sec-body">
+      <div class="tactica alta">
+        <h4>🎯 Keywords principales a posicionar</h4>
+        <p>El sitio web ya tiene algunas pages de SEO. Las palabras clave más valiosas para el negocio son: <strong>"salón de eventos Hidalgo"</strong> (alta intención de compra), <strong>"salón XV años cerca de Pachuca"</strong>, <strong>"salón de bodas Hidalgo"</strong>, <strong>"cotizar salón de eventos Hidalgo"</strong>. El sitio ya tiene páginas para Pachuca, Tizayuca y Mineral de la Reforma — mantenerlas actualizadas.</p>
+        <span class="accion">Actualizar meta descriptions con nuevos precios</span>
+      </div>
+      <div class="tactica alta">
+        <h4>📄 Agregar página de paquetes actualizada</h4>
+        <p>La página de paquetes del sitio web debe reflejar los 8 paquetes nuevos con sus precios. Google indexa estos precios y los muestra en los resultados. Los precios claros en el sitio web <strong>aumentan el CTR (clicks) hasta un 40%</strong> porque el cliente sabe qué esperar antes de hacer click.</p>
+        <span class="accion rojo-claro">Actualizar cotizar.html — próximo paso</span>
+      </div>
+      <div class="tactica media">
+        <h4>📝 Blog activo — 1 artículo por mes</h4>
+        <p>El sitio ya tiene blog. Publicar artículos útiles para los buscadores: "¿Cuánto cuesta un salón de eventos en Hidalgo en 2026?", "Cómo organizar una boda en Pachuca", "Los mejores salones para XV años en Hidalgo". Cada artículo nuevo es una puerta de entrada adicional desde Google.</p>
+        <span class="accion">1 artículo de blog / mes</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. WHATSAPP BUSINESS -->
+  <div class="seccion">
+    <div class="sec-header">
+      <div class="sec-icon verde">💬</div>
+      <div class="sec-titulo">
+        <h2>WhatsApp Business — Canal de cierre de ventas</h2>
+        <p>El 90% de los leads en México se cierran por WhatsApp</p>
+      </div>
+      <div class="sec-prioridad prio-alta">PRIORIDAD ALTA</div>
+    </div>
+    <div class="sec-body">
+      <div class="tactica alta">
+        <h4>🤖 Mensaje automático de bienvenida</h4>
+        <p>Configurar en WhatsApp Business el mensaje automático que se envía cuando alguien escribe por primera vez: <em>"¡Hola! Soy el equipo de La Cabaña Eventos 🌿 Gracias por contactarnos. Para atenderte mejor, ¿me puedes decir qué tipo de evento estás planeando y para cuántas personas? Enseguida te ayudamos."</em> Esto compra tiempo y filtra el lead.</p>
+        <span class="accion">Configurar hoy en WhatsApp Business App</span>
+      </div>
+      <div class="tactica alta">
+        <h4>📋 Catálogo de productos en WhatsApp</h4>
+        <p>WhatsApp Business permite crear un catálogo con fotos, descripciones y precios de los paquetes. Cuando el cliente pregunta "¿qué paquetes tienen?", envías el catálogo completo en 1 tap. Reducir la fricción en el proceso de cotización aumenta el cierre de ventas.</p>
+        <span class="accion">Crear catálogo con 8 paquetes + precios</span>
+      </div>
+      <div class="tactica media">
+        <h4>📱 Link directo wa.me en todas partes</h4>
+        <p>Crear un link de WhatsApp con mensaje pre-cargado: <code>https://wa.me/527711341559?text=Hola,%20quiero%20cotizar%20un%20evento%20en%20La%20Cabaña</code>. Este link va en: Instagram bio, Facebook, Google Maps (se puede agregar), el sitio web en todos los botones. Reducir los pasos para contactar = más leads.</p>
+        <span class="accion azul-claro">Agregar link wa.me en todos los canales</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. REPUTACIÓN Y RESEÑAS -->
+  <div class="seccion">
+    <div class="sec-header">
+      <div class="sec-icon dorado">⭐</div>
+      <div class="sec-titulo">
+        <h2>Gestión de Reputación — Reseñas y testimonios</h2>
+        <p>Las reseñas son el factor #1 de decisión para salones de eventos</p>
+      </div>
+      <div class="sec-prioridad prio-alta">PRIORIDAD ALTA</div>
+    </div>
+    <div class="sec-body">
+      <div class="tactica alta">
+        <h4>📲 Sistema post-evento para pedir reseña</h4>
+        <p>Crear un protocolo: 24 horas después de cada evento, enviar WhatsApp personalizado al cliente: <em>"Hola [nombre], fue un honor celebrar con ustedes el día de ayer. Si tuvieron una buena experiencia, les agradeceríamos mucho una reseña en Google: [link]. ¡Nos ayudaría a seguir creciendo! 🙏"</em>. La tasa de respuesta post-evento es del 40–60%.</p>
+        <span class="accion">Link directo a reseña de Google Maps</span>
+      </div>
+      <div class="tactica alta">
+        <h4>📸 Testimonios en video para redes sociales</h4>
+        <p>Al final de cada evento, pedir al festejado principal (si está dispuesto) un video de 30 segundos: "¿Cómo fue tu experiencia en La Cabaña?" Este video se sube a TikTok, Instagram Reels y Facebook con el permiso del cliente. Los testimonios en video convierten 5x más que los escritos.</p>
+        <span class="accion">1 testimonio en video / evento</span>
+      </div>
+      <div class="tactica media">
+        <h4>💬 Responder TODAS las reseñas</h4>
+        <p>Google premia los perfiles que responden a las reseñas. Responder en menos de 24 horas, siempre en tono cálido y personalizado. A las negativas: responder con empatía y ofrecer solución. Una respuesta bien hecha a una reseña negativa puede convertir a un detractor en cliente.</p>
+        <span class="accion">Respuesta en &lt;24hrs a toda reseña</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. CONTENIDO ORGÁNICO -->
+  <div class="seccion">
+    <div class="sec-header">
+      <div class="sec-icon naranja">📅</div>
+      <div class="sec-titulo">
+        <h2>Calendario de Contenido — Estructura semanal permanente</h2>
+        <p>Consistencia = algoritmo feliz = alcance gratis</p>
+      </div>
+      <div class="sec-prioridad prio-media">PRIORIDAD MEDIA</div>
+    </div>
+    <div class="sec-body">
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
+        <thead>
+          <tr style="background:#2d5a27;color:white;">
+            <th style="padding:10px 12px;text-align:left;">Día</th>
+            <th style="padding:10px 12px;text-align:left;">TikTok</th>
+            <th style="padding:10px 12px;text-align:left;">Instagram</th>
+            <th style="padding:10px 12px;text-align:left;">Facebook</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#fafafa;"><td style="padding:9px 12px;font-weight:600;">Lunes</td><td style="padding:9px 12px;">Educacional (preguntas frecuentes)</td><td style="padding:9px 12px;">Story + encuesta</td><td style="padding:9px 12px;">Post info / tip de eventos</td></tr>
+          <tr><td style="padding:9px 12px;font-weight:600;">Martes</td><td style="padding:9px 12px;">Showcase WOW (pista, galaxia, juegos)</td><td style="padding:9px 12px;">Reel del salón</td><td style="padding:9px 12px;">Video diferenciadores</td></tr>
+          <tr style="background:#fafafa;"><td style="padding:9px 12px;font-weight:600;">Miércoles</td><td style="padding:9px 12px;">Menú / ASMR / gastronomía</td><td style="padding:9px 12px;">Carrusel menú o paquetes</td><td style="padding:9px 12px;">Foto del platillo del día</td></tr>
+          <tr><td style="padding:9px 12px;font-weight:600;">Jueves</td><td style="padding:9px 12px;">PROMO Entre Semana (precio en 3 seg)</td><td style="padding:9px 12px;">Story CTA + link cotizar</td><td style="padding:9px 12px;">Post de oferta Entre Semana</td></tr>
+          <tr style="background:#fafafa;"><td style="padding:9px 12px;font-weight:600;">Viernes</td><td style="padding:9px 12px;">Get Ready With Me · montaje evento</td><td style="padding:9px 12px;">Reel behind the scenes</td><td style="padding:9px 12px;">Video preparación fin de semana</td></tr>
+          <tr><td style="padding:9px 12px;font-weight:600;">Sábado</td><td style="padding:9px 12px;">POV del evento en vivo</td><td style="padding:9px 12px;">Fotos del evento (con permiso)</td><td style="padding:9px 12px;">Foto del salón montado</td></tr>
+          <tr style="background:#fafafa;"><td style="padding:9px 12px;font-weight:600;">Domingo</td><td style="padding:9px 12px;">Recap emocional / testimonio</td><td style="padding:9px 12px;">Carrusel "Así fue el evento"</td><td style="padding:9px 12px;">Foto emotiva + CTA suave</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="seccion">
+    <div class="sec-header">
+      <div class="sec-icon morado">📊</div>
+      <div class="sec-titulo">
+        <h2>KPIs — Métricas a monitorear cada semana</h2>
+        <p>Lo que no se mide no se mejora</p>
+      </div>
+    </div>
+    <div class="sec-body">
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="k-icon">📍</div>
+          <div class="k-nombre">Reseñas Google</div>
+          <div class="k-meta">+5/mes</div>
+          <div class="k-plazo">Meta: 50 en 90 días</div>
+        </div>
+        <div class="kpi-card">
+          <div class="k-icon">🎵</div>
+          <div class="k-nombre">Vistas TikTok</div>
+          <div class="k-meta">1,000+/video</div>
+          <div class="k-plazo">Meta mes 1</div>
+        </div>
+        <div class="kpi-card">
+          <div class="k-icon">💬</div>
+          <div class="k-nombre">DMs / Cotizaciones</div>
+          <div class="k-meta">10+/semana</div>
+          <div class="k-plazo">En 60 días</div>
+        </div>
+        <div class="kpi-card">
+          <div class="k-icon">🌐</div>
+          <div class="k-nombre">Visitas al sitio web</div>
+          <div class="k-meta">500+/mes</div>
+          <div class="k-plazo">Google Analytics</div>
+        </div>
+        <div class="kpi-card">
+          <div class="k-icon">📷</div>
+          <div class="k-nombre">Seguidores IG</div>
+          <div class="k-meta">+100/mes</div>
+          <div class="k-plazo">Orgánico</div>
+        </div>
+        <div class="kpi-card">
+          <div class="k-icon">⭐</div>
+          <div class="k-nombre">Rating Google</div>
+          <div class="k-meta">4.8+</div>
+          <div class="k-plazo">Mantener siempre</div>
+        </div>
+        <div class="kpi-card">
+          <div class="k-icon">📱</div>
+          <div class="k-nombre">Seguidores TikTok</div>
+          <div class="k-meta">500+</div>
+          <div class="k-plazo">En 60 días</div>
+        </div>
+        <div class="kpi-card">
+          <div class="k-icon">💰</div>
+          <div class="k-nombre">Eventos cerrados</div>
+          <div class="k-meta">Digital traceable</div>
+          <div class="k-plazo">Preguntar "¿cómo nos conociste?"</div>
+        </div>
+      </div>
+
+      <div class="nota-importante" style="margin-top:20px;">
+        <strong>Regla de oro:</strong> En cada cotización pregunta "¿Cómo nos conociste?" y registra la respuesta. En 3 meses sabrás exactamente qué canal trae más clientes y cuál puedes fortalecer o descartar. Sin este dato, todas las decisiones de marketing son a ciegas.
+      </div>
+    </div>
+  </div>
+
+  <!-- PRESUPUESTO SUGERIDO -->
+  <div class="seccion">
+    <div class="sec-header">
+      <div class="sec-icon dorado">💰</div>
+      <div class="sec-titulo">
+        <h2>Presupuesto Mensual Sugerido</h2>
+        <p>Plan de inversión escalonado — puedes empezar con $0</p>
+      </div>
+    </div>
+    <div class="sec-body">
+      <table class="presupuesto-table">
+        <thead>
+          <tr>
+            <th>Canal</th>
+            <th>Acción</th>
+            <th>Costo</th>
+            <th>ROI esperado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="prioridad-dot dot-alta"></span>Google My Business</td>
+            <td>Optimización + respuestas + fotos</td>
+            <td>$0 (tiempo)</td>
+            <td>Alto · búsquedas directas</td>
+          </tr>
+          <tr>
+            <td><span class="prioridad-dot dot-alta"></span>TikTok</td>
+            <td>7 videos/semana · orgánico</td>
+            <td>$0 (tiempo + teléfono)</td>
+            <td>Muy alto · alcance masivo</td>
+          </tr>
+          <tr>
+            <td><span class="prioridad-dot dot-alta"></span>Instagram</td>
+            <td>4 Reels + Stories diarios</td>
+            <td>$0 (tiempo)</td>
+            <td>Alto · conversión directa</td>
+          </tr>
+          <tr>
+            <td><span class="prioridad-dot dot-media"></span>Meta Ads (Facebook/IG)</td>
+            <td>Campaña promo Entre Semana</td>
+            <td>$500–$1,000/mes</td>
+            <td>Muy alto · segmentado</td>
+          </tr>
+          <tr>
+            <td><span class="prioridad-dot dot-baja"></span>Blog / SEO</td>
+            <td>1 artículo mensual</td>
+            <td>$0 (tiempo)</td>
+            <td>Medio · crecimiento lento pero sostenido</td>
+          </tr>
+          <tr class="total-row">
+            <td colspan="2"><strong>Total mínimo para empezar</strong></td>
+            <td><strong>$0 MXN</strong></td>
+            <td><strong>Solo tiempo y constancia</strong></td>
+          </tr>
+          <tr class="total-row">
+            <td colspan="2"><strong>Plan con anuncios pagados</strong></td>
+            <td><strong>$500–$1,000/mes</strong></td>
+            <td><strong>1 evento = recuperas la inversión</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

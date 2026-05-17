@@ -1,0 +1,130 @@
+{
+  "name": "CRM AUTÓNOMO — La Cabaña (FREE + IA)",
+  "nodes": [
+    {
+      "id": "webhook",
+      "name": "Webhook Lead",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [200, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lacabana-lead",
+        "responseMode": "lastNode"
+      }
+    },
+    {
+      "id": "score",
+      "name": "Scoring Lead",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [420, 300],
+      "parameters": {
+        "jsCode": "const b = ($input.first().json.body || $input.first().json || {});\nconst safe = v => v ? String(v).trim() : '';\n\nconst id = `WEB-${Date.now()}`;\n\nconst nombre = safe(b.nombre || b.name);\nconst telefono = safe(b.telefono || b.phone);\nconst email = safe(b.email);\nconst evento = safe(b.evento);\nconst fecha = safe(b.fecha_evento);\nconst personas = safe(b.personas);\n\nlet score = 0;\nif (nombre) score++;\nif (telefono || email) score += 2;\nif (evento) score += 2;\nif (fecha) score += 2;\nif (personas) score++;\n\nlet status = 'frio';\nif (score >= 6) status = 'caliente';\nelse if (score >= 3) status = 'medio';\n\nreturn [{ json: { id, nombre, telefono, email, evento, fecha, personas, score, status } }];"
+      }
+    },
+    {
+      "id": "ai",
+      "name": "IA OpenRouter",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [640, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer TU_OPENROUTER_KEY"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "body": "={\"model\":\"openai/gpt-4o\",\"messages\":[{\"role\":\"system\",\"content\":\"Eres un vendedor de salón de eventos. Responde corto. Devuelve JSON: {action,message}\"},{\"role\":\"user\",\"content\":JSON.stringify($json)}]}"
+      }
+    },
+    {
+      "id": "parse_ai",
+      "name": "Parse IA",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [860, 300],
+      "parameters": {
+        "jsCode": "const ai = $json.choices[0].message.content;\nlet parsed;\ntry { parsed = JSON.parse(ai); } catch(e) { parsed = { action:'info', message:'ok' }; }\nreturn [{ json: { ...$json, action: parsed.action, ai_message: parsed.message } }];"
+      }
+    },
+    {
+      "id": "sheet",
+      "name": "Google Sheets CRM",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1080, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "https://sheets.googleapis.com/v4/spreadsheets/TU_SHEET_ID/values/Leads:append?valueInputOption=USER_ENTERED",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ values: [[ $json.id, $json.nombre, $json.telefono, $json.email, $json.evento, $json.score, $json.status, $json.ai_message ]] }) }}"
+      }
+    },
+    {
+      "id": "email",
+      "name": "Email Notificación",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [1080, 150],
+      "continueOnFail": true,
+      "parameters": {
+        "operation": "send",
+        "resource": "message",
+        "subject": "={{ '🔥 Lead ' + $json.status + ' - ' + $json.nombre }}",
+        "emailType": "html",
+        "message": "={{ '<h3>' + $json.ai_message + '</h3><p>' + $json.telefono + '</p>' }}",
+        "sendTo": "TU_EMAIL"
+      }
+    },
+    {
+      "id": "calendar",
+      "name": "Google Calendar (HOT)",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1280, 300],
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.status }}",
+              "operation": "equals",
+              "value2": "caliente"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook Lead": {
+      "main": [[{ "node": "Scoring Lead", "type": "main", "index": 0 }]]
+    },
+    "Scoring Lead": {
+      "main": [[{ "node": "IA OpenRouter", "type": "main", "index": 0 }]]
+    },
+    "IA OpenRouter": {
+      "main": [[{ "node": "Parse IA", "type": "main", "index": 0 }]]
+    },
+    "Parse IA": {
+      "main": [[{ "node": "Google Sheets CRM", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

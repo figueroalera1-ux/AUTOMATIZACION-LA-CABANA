@@ -1,0 +1,149 @@
+{
+  "name": "La Cabaña — Ficha de Cliente",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lacabana-ficha",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "node-webhook",
+      "name": "Webhook — Ficha Cliente",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [260, 300],
+      "webhookId": "lacabana-ficha"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            { "id": "ts",      "name": "Fecha_Llenado",    "value": "={{ $now.format('dd/MM/yyyy HH:mm') }}", "type": "string" },
+            { "id": "folio",   "name": "Folio",            "value": "={{ $json.body.folio || 'SIN-FOLIO' }}", "type": "string" },
+            { "id": "resp",    "name": "Nombre_Responsable","value": "={{ $json.body.nombre_responsable }}", "type": "string" },
+            { "id": "tel",     "name": "Telefono",         "value": "={{ $json.body.telefono }}", "type": "string" },
+            { "id": "email",   "name": "Email",            "value": "={{ $json.body.email || '' }}", "type": "string" },
+            { "id": "fest",    "name": "Festejado",        "value": "={{ $json.body.nombre_festejado }}", "type": "string" },
+            { "id": "tipo",    "name": "Tipo_Evento",      "value": "={{ $json.body.tipo_evento }}", "type": "string" },
+            { "id": "fecha",   "name": "Fecha_Evento",     "value": "={{ $json.body.fecha_evento }}", "type": "string" },
+            { "id": "hora",    "name": "Hora",             "value": "={{ $json.body.hora_inicio }}", "type": "string" },
+            { "id": "pkg",     "name": "Paquete",          "value": "={{ $json.body.paquete_contratado }}", "type": "string" },
+            { "id": "personas","name": "Personas",         "value": "={{ $json.body.num_personas }}", "type": "string" },
+            { "id": "t1",      "name": "Primer_Tiempo",    "value": "={{ $json.body.menu_primer_tiempo || '' }}", "type": "string" },
+            { "id": "t2",      "name": "Segundo_Tiempo",   "value": "={{ $json.body.menu_segundo_tiempo || '' }}", "type": "string" },
+            { "id": "fuerte",  "name": "Plato_Fuerte",     "value": "={{ $json.body.menu_plato_fuerte || '' }}", "type": "string" },
+            { "id": "guar",    "name": "Guarnicion",       "value": "={{ $json.body.menu_guarnicion || '' }}", "type": "string" },
+            { "id": "postre",  "name": "Postre",           "value": "={{ $json.body.menu_postre || '' }}", "type": "string" },
+            { "id": "beb",     "name": "Bebidas",          "value": "={{ $json.body.menu_bebidas || '' }}", "type": "string" },
+            { "id": "agua",    "name": "Sabores_Agua",     "value": "={{ $json.body.sabores_agua || '' }}", "type": "string" },
+            { "id": "alerg",   "name": "Restricciones",    "value": "={{ $json.body.restricciones_alimentarias || '' }}", "type": "string" },
+            { "id": "veg",     "name": "Vegetariano",      "value": "={{ $json.body.vegetarianos || '0' }}", "type": "string" },
+            { "id": "srv",     "name": "Servicios",        "value": "={{ $json.body.servicios_adicionales || '' }}", "type": "string" },
+            { "id": "notas",   "name": "Nota",             "value": "={{ $json.body.notas_generales || '' }}", "type": "string" },
+            { "id": "firma",   "name": "Firma",            "value": "={{ $json.body.firma_autorizacion }}", "type": "string" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "node-set",
+      "name": "Preparar datos",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "FICHA DEL CLIENTE",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "node-sheets",
+      "name": "Google Sheets — Guardar Ficha",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [700, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"status\": \"ok\", \"message\": \"Ficha recibida correctamente\" }",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "node-respond",
+      "name": "Responder OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [920, 200]
+    },
+    {
+      "parameters": {
+        "fromEmail": "angel3467maldad@gmail.com",
+        "toEmail": "figueroa.lera1@gmail.com",
+        "subject": "=🎉 Nueva Ficha de Evento — {{ $('Preparar datos').item.json.Festejado }} ({{ $('Preparar datos').item.json.Tipo_Evento }})",
+        "emailType": "html",
+        "message": "=<div style=\"font-family:Arial,sans-serif;max-width:600px;margin:0 auto;\">\n<div style=\"background:#6B1223;padding:24px;text-align:center;\">\n  <h1 style=\"color:#fff;margin:0;font-size:22px;\">La Cabaña Eventos</h1>\n  <p style=\"color:rgba(255,255,255,.8);margin:4px 0 0;font-size:13px;\">Nueva Ficha de Evento Recibida</p>\n</div>\n<div style=\"padding:24px;background:#f8f5f2;\">\n  <table style=\"width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08);\">\n    <tr style=\"background:#6B1223;\">\n      <td colspan=\"2\" style=\"padding:14px 20px;color:#fff;font-weight:700;font-size:14px;\">📋 Datos del Evento</td>\n    </tr>\n    <tr><td style=\"padding:10px 20px;font-size:13px;color:#666;width:140px;\">Folio</td><td style=\"padding:10px 20px;font-size:13px;font-weight:600;\">{{ $('Preparar datos').item.json.Folio }}</td></tr>\n    <tr style=\"background:#fafafa;\"><td style=\"padding:10px 20px;font-size:13px;color:#666;\">Festejado/a</td><td style=\"padding:10px 20px;font-size:13px;font-weight:600;\">{{ $('Preparar datos').item.json.Festejado }}</td></tr>\n    <tr><td style=\"padding:10px 20px;font-size:13px;color:#666;\">Tipo de evento</td><td style=\"padding:10px 20px;font-size:13px;font-weight:600;\">{{ $('Preparar datos').item.json.Tipo_Evento }}</td></tr>\n    <tr style=\"background:#fafafa;\"><td style=\"padding:10px 20px;font-size:13px;color:#666;\">Fecha y hora</td><td style=\"padding:10px 20px;font-size:13px;font-weight:600;\">{{ $('Preparar datos').item.json.Fecha_Evento }} · {{ $('Preparar datos').item.json.Hora }} hrs</td></tr>\n    <tr><td style=\"padding:10px 20px;font-size:13px;color:#666;\">Paquete</td><td style=\"padding:10px 20px;font-size:13px;font-weight:600;\">{{ $('Preparar datos').item.json.Paquete }}</td></tr>\n    <tr style=\"background:#fafafa;\"><td style=\"padding:10px 20px;font-size:13px;color:#666;\">Personas</td><td style=\"padding:10px 20px;font-size:13px;font-weight:600;\">{{ $('Preparar datos').item.json.Personas }}</td></tr>\n    <tr><td style=\"padding:10px 20px;font-size:13px;color:#666;\">Responsable</td><td style=\"padding:10px 20px;font-size:13px;font-weight:600;\">{{ $('Preparar datos').item.json.Nombre_Responsable }}</td></tr>\n    <tr style=\"background:#fafafa;\"><td style=\"padding:10px 20px;font-size:13px;color:#666;\">Teléfono</td><td style=\"padding:10px 20px;font-size:13px;font-weight:600;\">{{ $('Preparar datos').item.json.Telefono }}</td></tr>\n    <tr style=\"background:#6B1223;\">\n      <td colspan=\"2\" style=\"padding:14px 20px;color:#fff;font-weight:700;font-size:14px;\">🍽️ Menú Seleccionado</td>\n    </tr>\n    <tr><td style=\"padding:10px 20px;font-size:13px;color:#666;\">1er Tiempo</td><td style=\"padding:10px 20px;font-size:13px;\">{{ $('Preparar datos').item.json.Primer_Tiempo }}</td></tr>\n    <tr style=\"background:#fafafa;\"><td style=\"padding:10px 20px;font-size:13px;color:#666;\">2do Tiempo</td><td style=\"padding:10px 20px;font-size:13px;\">{{ $('Preparar datos').item.json.Segundo_Tiempo }}</td></tr>\n    <tr><td style=\"padding:10px 20px;font-size:13px;color:#666;\">Plato Fuerte</td><td style=\"padding:10px 20px;font-size:13px;font-weight:600;\">{{ $('Preparar datos').item.json.Plato_Fuerte }}</td></tr>\n    <tr style=\"background:#fafafa;\"><td style=\"padding:10px 20px;font-size:13px;color:#666;\">Guarnición</td><td style=\"padding:10px 20px;font-size:13px;\">{{ $('Preparar datos').item.json.Guarnicion }}</td></tr>\n    <tr><td style=\"padding:10px 20px;font-size:13px;color:#666;\">Postre</td><td style=\"padding:10px 20px;font-size:13px;\">{{ $('Preparar datos').item.json.Postre }}</td></tr>\n    <tr style=\"background:#fafafa;\"><td style=\"padding:10px 20px;font-size:13px;color:#666;\">Bebidas</td><td style=\"padding:10px 20px;font-size:13px;\">{{ $('Preparar datos').item.json.Bebidas }}</td></tr>\n    <tr style=\"background:#6B1223;\">\n      <td colspan=\"2\" style=\"padding:14px 20px;color:#fff;font-weight:700;font-size:14px;\">⭐ Servicios y Notas</td>\n    </tr>\n    <tr><td style=\"padding:10px 20px;font-size:13px;color:#666;\">Servicios</td><td style=\"padding:10px 20px;font-size:13px;\">{{ $('Preparar datos').item.json.Servicios || 'Ninguno adicional' }}</td></tr>\n    <tr style=\"background:#fafafa;\"><td style=\"padding:10px 20px;font-size:13px;color:#666;\">Restricciones</td><td style=\"padding:10px 20px;font-size:13px;\">{{ $('Preparar datos').item.json.Restricciones || 'Ninguna' }}</td></tr>\n    <tr><td style=\"padding:10px 20px;font-size:13px;color:#666;\">Notas</td><td style=\"padding:10px 20px;font-size:13px;\">{{ $('Preparar datos').item.json.Nota || '—' }}</td></tr>\n  </table>\n  <div style=\"margin-top:20px;padding:16px;background:#fff;border-radius:10px;border-left:4px solid #C8960C;\">\n    <p style=\"margin:0;font-size:13px;color:#555;\">✅ Esta ficha fue guardada automáticamente en <strong>Google Sheets — Fichas de Clientes</strong>.<br>Recibida el {{ $('Preparar datos').item.json.Fecha_Llenado }}.</p>\n  </div>\n</div>\n<div style=\"padding:16px;text-align:center;background:#1a1a1a;\">\n  <p style=\"color:rgba(255,255,255,.4);font-size:11px;margin:0;\">La Cabaña Eventos · Zapotlán de Juárez, Hidalgo · n8n automático</p>\n</div>\n</div>",
+        "options": {}
+      },
+      "id": "node-notif",
+      "name": "Notificar a Angel (Email)",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [920, 420],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-lacabana",
+          "name": "SMTP La Cabaña"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook — Ficha Cliente": {
+      "main": [
+        [{ "node": "Preparar datos", "type": "main", "index": 0 }]
+      ]
+    },
+    "Preparar datos": {
+      "main": [
+        [
+          { "node": "Google Sheets — Guardar Ficha", "type": "main", "index": 0 },
+          { "node": "Responder OK", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Google Sheets — Guardar Ficha": {
+      "main": [
+        [{ "node": "Notificar a Angel (Email)", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [{ "name": "La Cabaña" }],
+  "triggerCount": 0,
+  "updatedAt": "2026-05-09T00:00:00.000Z",
+  "versionId": "1"
+}

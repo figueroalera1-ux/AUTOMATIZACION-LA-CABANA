@@ -1,27 +1,33 @@
 {
-  "id": "flujo5-formulario-cliente",
-  "name": "La Cabaña — Flujo 5: Servir Formulario de Selección",
+  "name": "La Cabaña — Flujo 5: API Cliente (JSON)",
   "nodes": [
     {
       "parameters": {
         "httpMethod": "GET",
-        "path": "seleccion",
+        "path": "lacabana-cliente",
         "responseMode": "responseNode",
         "options": {}
       },
-      "id": "webhook-seleccion",
-      "name": "Webhook — Abrir formulario",
+      "id": "webhook-cliente",
+      "name": "Webhook — Consulta cliente",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [240, 300],
-      "webhookId": "lacabana-seleccion-001"
+      "webhookId": "lacabana-cliente-001"
     },
     {
       "parameters": {
-        "operation": "read",
-        "documentId": { "__rl": true, "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk", "mode": "id" },
-        "sheetName": { "__rl": true, "value": "Selecciones", "mode": "name" },
-        "filtersUI": {},
+        "operation": "getAll",
+        "documentId": {
+          "__rl": true,
+          "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Selecciones",
+          "mode": "name"
+        },
         "options": {}
       },
       "id": "sheets-leer",
@@ -31,46 +37,60 @@
       "position": [460, 300],
       "continueOnFail": true,
       "credentials": {
-        "googleSheetsOAuth2Api": { "id": "google-sheets-cred", "name": "Google Sheets account" }
-      }
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      },
+      "alwaysOutputData": true
     },
     {
       "parameters": {
-        "jsCode": "const token = ($('Webhook — Abrir formulario').first().json.query && $('Webhook — Abrir formulario').first().json.query.token) ? $('Webhook — Abrir formulario').first().json.query.token : '';\nconst rows = $('Sheets — Leer selecciones').all();\n\nlet clientData = null;\nfor (const row of rows) {\n  if (row.json.token === token) { clientData = row.json; break; }\n}\n\nconst isValid = clientData && clientData.status === 'pendiente';\n\nif (!isValid) {\n  const html = `<!DOCTYPE html><html lang='es'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width,initial-scale=1.0'><title>La Cabaña — Sesión no disponible</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f0f4f0;display:flex;align-items:center;justify-content:center;min-height:100vh}.box{background:white;max-width:440px;width:90%;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.12);text-align:center}.hdr{background:#2d5a27;padding:22px 20px}.hdr h1{color:white;font-size:20px}.hdr p{color:#a8d5a2;font-size:12px;margin-top:4px}.bod{padding:28px 24px}.ico{font-size:48px;margin-bottom:14px}h2{color:#333;margin-bottom:10px;font-size:18px}p{color:#666;font-size:14px;line-height:1.6}.wa{display:inline-block;background:#25D366;color:white;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:bold;margin-top:18px;font-size:15px}</style></head><body><div class='box'><div class='hdr'><h1>🌿 La Cabaña Eventos</h1><p>San Pedro Huaquilpan, Hidalgo</p></div><div class='bod'><div class='ico'>⏱️</div><h2>Este link ya no está disponible</h2><p>La sesión de selección ya fue utilizada o el enlace no es válido.<br><br>Si necesitas ayuda, contáctanos.</p><a href='https://wa.me/527711341559?text=Hola,%20necesito%20ayuda%20con%20mi%20selección%20de%20menú' class='wa'>💬 Contactar a La Cabaña</a></div></div></body></html>`;\n  return [{ json: { html } }];\n}\n\nconst paquete = clientData.paquete_asignado || '';\nconst isPremium = paquete.includes('Premium') || paquete.includes('5 tiempos');\nconst isGourmet = paquete.includes('Gourmet') || paquete.includes('Mayoral') || paquete.includes('4 tiempos');\n\nlet opts = '';\nif (isPremium) {\n  opts = `<p class='menu-sub'>Menú Premium — 5 tiempos · Elige la opción que más te guste:</p>\n  <div class='mopt' onclick='sel(this,\"Premium — Opción 1\")'><input type='radio' name='opcion_menu' value='Premium — Opción 1' required><div class='oh'><div class='oc'></div><b>Opción 1</b></div><div class='pl'><span class='l'>🥗 Entrada:</span><span>Carpaccio de res con alcaparras, parmesano y vinagreta de trufa negra</span></div><div class='pl'><span class='l'>🍲 Sopa:</span><span>Bisque de langostinos con crema, ciboulette y pan de masa madre</span></div><div class='pl'><span class='l'>🍧 Sorbete:</span><span>Sorbete de limón con menta para limpiar el paladar</span></div><div class='pl'><span class='l'>🍽️ Plato Fuerte:</span><span>Medallón de res en costra de hierbas con puré trufado y espárragos asados</span></div><div class='pl'><span class='l'>🎂 Postre:</span><span>Pastel de celebración + mesa de postres surtidos + brindis con champaña</span></div></div>\n  <div class='mopt' onclick='sel(this,\"Premium — Opción 2\")'><input type='radio' name='opcion_menu' value='Premium — Opción 2' required><div class='oh'><div class='oc'></div><b>Opción 2</b></div><div class='pl'><span class='l'>🥗 Entrada:</span><span>Ceviche de camarón con aguacate, pepino y chips de maíz morado</span></div><div class='pl'><span class='l'>🍲 Sopa:</span><span>Crema de aguacate con callo de hacha marinado y aceite de chile de árbol</span></div><div class='pl'><span class='l'>🍧 Sorbete:</span><span>Granita de maracuyá con hierbabuena</span></div><div class='pl'><span class='l'>🍽️ Plato Fuerte:</span><span>Lomo de cerdo en costra de mostaza con risotto de cuitlacoche y jícama</span></div><div class='pl'><span class='l'>🎂 Postre:</span><span>Pastel de celebración + coulant de chocolate con helado artesanal</span></div></div>\n  <div class='mopt' onclick='sel(this,\"Premium — Opción 3\")'><input type='radio' name='opcion_menu' value='Premium — Opción 3' required><div class='oh'><div class='oc'></div><b>Opción 3</b></div><div class='pl'><span class='l'>🥗 Entrada:</span><span>Tataki de atún con jengibre encurtido, sésamo y salsa ponzu</span></div><div class='pl'><span class='l'>🍲 Sopa:</span><span>Velouté de espárragos con jamón serrano y aceite de albahaca</span></div><div class='pl'><span class='l'>🍧 Sorbete:</span><span>Sorbete de mango con chile tajín y flor de sal</span></div><div class='pl'><span class='l'>🍽️ Plato Fuerte:</span><span>Rack de costilla de res en reducción de vino tinto con papas gratinadas y ejotes</span></div><div class='pl'><span class='l'>🎂 Postre:</span><span>Pastel de celebración + crepas suzette flambeadas + helado artesanal de temporada</span></div></div>`;\n} else if (isGourmet) {\n  opts = `<p class='menu-sub'>Menú Gourmet — 4 tiempos · Elige la opción que más te guste:</p>\n  <div class='mopt' onclick='sel(this,\"Gourmet — Opción 1\")'><input type='radio' name='opcion_menu' value='Gourmet — Opción 1' required><div class='oh'><div class='oc'></div><b>Opción 1</b></div><div class='pl'><span class='l'>🥗 Entrada:</span><span>Ensalada de pera con nuez garapiñada, queso manchego y vinagreta de miel</span></div><div class='pl'><span class='l'>🍲 Sopa:</span><span>Crema de champiñones con aceite de romero y pan artesanal</span></div><div class='pl'><span class='l'>🍽️ Plato Fuerte:</span><span>Filete de res en salsa azteca con papas al romero y vegetales salteados</span></div><div class='pl'><span class='l'>🎂 Postre:</span><span>Pastel de celebración + fondue de chocolate con fresas</span></div></div>\n  <div class='mopt' onclick='sel(this,\"Gourmet — Opción 2\")'><input type='radio' name='opcion_menu' value='Gourmet — Opción 2' required><div class='oh'><div class='oc'></div><b>Opción 2</b></div><div class='pl'><span class='l'>🥗 Entrada:</span><span>Carpaccio de res con rúcula, parmesano y aceite de oliva extra virgen</span></div><div class='pl'><span class='l'>🍲 Sopa:</span><span>Consomé de pollo con fideos finos, hierbabuena y limón</span></div><div class='pl'><span class='l'>🍽️ Plato Fuerte:</span><span>Pescado a la veracruzana con arroz blanco y ensalada fresca</span></div><div class='pl'><span class='l'>🎂 Postre:</span><span>Pastel de celebración + tiramisú de la casa</span></div></div>\n  <div class='mopt' onclick='sel(this,\"Gourmet — Opción 3\")'><input type='radio' name='opcion_menu' value='Gourmet — Opción 3' required><div class='oh'><div class='oc'></div><b>Opción 3</b></div><div class='pl'><span class='l'>🥗 Entrada:</span><span>Ensalada mixta con aderezo de frambuesa, queso de cabra y nueces</span></div><div class='pl'><span class='l'>🍲 Sopa:</span><span>Crema de flor de calabaza con huitlacoche y crema espesa</span></div><div class='pl'><span class='l'>🍽️ Plato Fuerte:</span><span>Lomo de cerdo en salsa de ciruela con puré de papa y zanahorias glaseadas</span></div><div class='pl'><span class='l'>🎂 Postre:</span><span>Pastel de celebración + panna cotta con coulis de frutos rojos</span></div></div>`;\n} else {\n  opts = `<p class='menu-sub'>Menú Clásico — 3 tiempos · Elige la opción que más te guste:</p>\n  <div class='mopt' onclick='sel(this,\"Clásico — Opción 1\")'><input type='radio' name='opcion_menu' value='Clásico — Opción 1' required><div class='oh'><div class='oc'></div><b>Opción 1</b></div><div class='pl'><span class='l'>🥗 Entrada:</span><span>Crema de cilantro con totopos artesanales y guarnición de crema</span></div><div class='pl'><span class='l'>🍽️ Plato Fuerte:</span><span>Pechuga rellena de espinaca y tocino en salsa de agave con pasta al pesto</span></div><div class='pl'><span class='l'>🎂 Postre:</span><span>Pastel de celebración + variedad de postres de la casa</span></div></div>\n  <div class='mopt' onclick='sel(this,\"Clásico — Opción 2\")'><input type='radio' name='opcion_menu' value='Clásico — Opción 2' required><div class='oh'><div class='oc'></div><b>Opción 2</b></div><div class='pl'><span class='l'>🥗 Entrada:</span><span>Ensalada César con pollo a la parrilla y aderezo artesanal</span></div><div class='pl'><span class='l'>🍽️ Plato Fuerte:</span><span>Pierna de cerdo en salsa de chile guajillo con arroz y frijoles de olla</span></div><div class='pl'><span class='l'>🎂 Postre:</span><span>Pastel de celebración + gelatinas artesanales de la casa</span></div></div>\n  <div class='mopt' onclick='sel(this,\"Clásico — Opción 3\")'><input type='radio' name='opcion_menu' value='Clásico — Opción 3' required><div class='oh'><div class='oc'></div><b>Opción 3</b></div><div class='pl'><span class='l'>🥗 Entrada:</span><span>Crema de elote con rajas de chile poblano y croutones de ajo</span></div><div class='pl'><span class='l'>🍽️ Plato Fuerte:</span><span>Barbacoa en platón por mesa con consomé, arroz y tortillas artesanales</span></div><div class='pl'><span class='l'>🎂 Postre:</span><span>Pastel de celebración + buñuelos con cajeta</span></div></div>`;\n}\n\nconst html = `<!DOCTYPE html><html lang='es'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width,initial-scale=1.0'><title>Selección de Menú — La Cabaña</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f0f4f0;color:#333}.hdr{background:#2d5a27;padding:22px 20px;text-align:center}.hdr h1{color:white;font-size:22px}.hdr p{color:#a8d5a2;font-size:13px;margin-top:4px}.wrap{max-width:680px;margin:0 auto;padding:16px}.card{background:white;border-radius:12px;padding:22px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.08)}.ct{color:#2d5a27;font-size:17px;font-weight:bold;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #e8f5e9}.ig{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px}.ii label{font-size:11px;color:#888;display:block;text-transform:uppercase;letter-spacing:.5px}.ii strong{font-size:15px;color:#222}.pkg{display:inline-block;background:#2d5a27;color:white;padding:5px 14px;border-radius:20px;font-size:13px;margin-top:6px}.menu-sub{color:#666;font-size:13px;margin-bottom:14px}.mopt{border:2px solid #ddd;border-radius:10px;padding:16px;margin-bottom:12px;cursor:pointer;transition:all .2s}.mopt.on{border-color:#2d5a27;background:#f0f7f0}.mopt input{display:none}.oh{display:flex;align-items:center;gap:10px;font-weight:bold;color:#2d5a27;margin-bottom:10px;font-size:15px}.oc{width:22px;height:22px;border-radius:50%;border:2px solid #2d5a27;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:white}.mopt.on .oc{background:#2d5a27}.pl{display:flex;gap:8px;margin-top:6px;font-size:14px;align-items:flex-start}.l{color:#2d5a27;font-weight:bold;min-width:112px;flex-shrink:0}.fg{margin-bottom:14px}.fg label{display:block;font-weight:bold;font-size:14px;margin-bottom:6px}.fg input,.fg textarea{width:100%;padding:10px 14px;border:2px solid #ddd;border-radius:8px;font-size:15px;font-family:inherit;transition:border-color .2s}.fg input:focus,.fg textarea:focus{outline:none;border-color:#2d5a27}.fg small{font-size:12px;color:#888;margin-top:4px;display:block}.ext{display:flex;align-items:flex-start;gap:12px;padding:14px;border:2px solid #ddd;border-radius:10px;cursor:pointer;margin-bottom:10px;transition:all .2s}.ext:hover{border-color:#2d5a27}.ext input{width:20px;height:20px;accent-color:#2d5a27;flex-shrink:0;margin-top:2px}.ext strong{display:block;font-size:15px;margin-bottom:2px}.ext span{font-size:13px;color:#666}.btn{width:100%;background:#2d5a27;color:white;border:none;padding:16px;font-size:17px;border-radius:10px;cursor:pointer;font-weight:bold}.btn:hover{background:#1e3d1a}.btn:disabled{background:#aaa;cursor:not-allowed}.alerta{background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:12px;font-size:13px;color:#856404;text-align:center;margin-top:12px;line-height:1.5}@media(max-width:480px){.ig{grid-template-columns:1fr}.l{min-width:90px}}</style></head><body><div class='hdr'><h1>🌿 La Cabaña Eventos</h1><p>Selección de menú para tu evento especial</p></div><div class='wrap'><div class='card'><div class='ct'>👤 Tu Evento</div><div class='ig'><div class='ii'><label>Cliente</label><strong>${clientData.nombre}</strong></div><div class='ii'><label>Tipo de evento</label><strong>${clientData.tipo_evento}</strong></div><div class='ii'><label>Fecha del evento</label><strong>${clientData.fecha_evento}</strong></div></div><div class='ii'><label>Paquete contratado</label><span class='pkg'>${clientData.paquete_asignado}</span></div></div><form id='frm' action='https://n8n.lacabanaeventos.com/webhook/seleccion-guardar' method='POST'><input type='hidden' name='token' value='${token}'><div class='card'><div class='ct'>🍽️ Elige tu Menú</div>${opts}</div><div class='card'><div class='ct'>👥 Número de Invitados</div><div class='fg'><label>¿Cuántos invitados confirmas? *</label><input type='number' name='num_invitados' min='80' max='250' placeholder='Ej: 150' required><small>Mínimo 80 · Máximo 250 personas</small></div></div><div class='card'><div class='ct'>🍹 Servicios Adicionales</div><label class='ext'><input type='checkbox' name='cocteleria' value='Sí'><div><strong>Coctelería Artesanal</strong><span>Carajillos, Piña Coladas, Mojitos, Margaritas Premium, Palomas y más</span></div></label><label class='ext'><input type='checkbox' name='cerveza_barril' value='Sí'><div><strong>Cerveza de Barril</strong><span>Desde $2,000 por 30 litros · Servida en tarros escarchados</span></div></label></div><div class='card'><div class='ct'>🌱 Dietas Especiales y Notas</div><div class='fg'><label>¿Algún invitado con dieta especial?</label><input type='text' name='dietas' placeholder='Ej: 5 vegetarianos, 2 sin gluten…'></div><div class='fg'><label>Notas adicionales para el chef</label><textarea name='notas' rows='3' placeholder='Alguna petición especial o detalle importante…'></textarea></div></div><div class='card'><button type='submit' class='btn' id='btn'>✅ Confirmar mi Selección</button><div class='alerta'>⚠️ Este link es de un solo uso. Una vez que confirmes no podrás modificar tu selección. Revisa bien antes de enviar.</div></div></form></div><script>function sel(el,v){document.querySelectorAll('.mopt').forEach(o=>{o.classList.remove('on');const c=o.querySelector('.oc');if(c)c.textContent='';});el.classList.add('on');const c=el.querySelector('.oc');if(c)c.textContent='✓';const r=el.querySelector('input[type=radio]');if(r)r.checked=true;}document.getElementById('frm').addEventListener('submit',function(e){const r=document.querySelector('input[name=opcion_menu]:checked');if(!r){e.preventDefault();alert('Por favor elige una opción de menú antes de continuar.');return;}const b=document.getElementById('btn');b.disabled=true;b.textContent='Enviando…';});</script></body></html>`;\n\nreturn [{ json: { html } }];"
+        "jsCode": "const token = ($('Webhook — Consulta cliente').first().json.query && $('Webhook — Consulta cliente').first().json.query.token)\n  ? $('Webhook — Consulta cliente').first().json.query.token\n  : '';\n\nif (!token) {\n  return [{ json: { ok: false, error: 'not_found' } }];\n}\n\nconst rows = $('Sheets — Leer selecciones').all();\nlet clientData = null;\nfor (const row of rows) {\n  if (row.json.token === token) {\n    clientData = row.json;\n    break;\n  }\n}\n\nif (!clientData || clientData.status !== 'pendiente') {\n  return [{ json: { ok: false, error: 'not_found' } }];\n}\n\nreturn [{ json: {\n  ok: true,\n  folio: clientData.folio || '',\n  nombre: clientData.nombre || '',\n  tipo_evento: clientData.tipo_evento || '',\n  fecha_evento: clientData.fecha_evento || '',\n  paquete_asignado: clientData.paquete_asignado || '',\n  status: clientData.status || 'pendiente'\n}}];"
       },
-      "id": "construir-html",
-      "name": "Construir formulario HTML",
+      "id": "buscar-token",
+      "name": "Buscar token en Sheets",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [680, 300]
     },
     {
       "parameters": {
-        "respondWith": "text",
-        "responseBody": "={{ $json.html }}",
-        "options": {
-          "responseHeaders": {
-            "values": [{ "name": "Content-Type", "value": "text/html; charset=utf-8" }]
-          }
-        }
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
       },
-      "id": "responder-html",
-      "name": "Responder con HTML",
+      "id": "responder-json",
+      "name": "Responder — JSON",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
       "position": [900, 300]
     }
   ],
   "connections": {
-    "Webhook — Abrir formulario": {
-      "main": [[{ "node": "Sheets — Leer selecciones", "type": "main", "index": 0 }]]
+    "Webhook — Consulta cliente": {
+      "main": [
+        [
+          { "node": "Sheets — Leer selecciones", "type": "main", "index": 0 }
+        ]
+      ]
     },
     "Sheets — Leer selecciones": {
-      "main": [[{ "node": "Construir formulario HTML", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          { "node": "Buscar token en Sheets", "type": "main", "index": 0 }
+        ]
+      ]
     },
-    "Construir formulario HTML": {
-      "main": [[{ "node": "Responder con HTML", "type": "main", "index": 0 }]]
+    "Buscar token en Sheets": {
+      "main": [
+        [
+          { "node": "Responder — JSON", "type": "main", "index": 0 }
+        ]
+      ]
     }
   },
-  "settings": { "executionOrder": "v1" }
+  "settings": {
+    "executionOrder": "v1"
+  }
 }

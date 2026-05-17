@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>La Cabaña - Selección</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 40px;
+    }
+    .card {
+      background: #1c1c1c;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 500px;
+      margin: auto;
+    }
+    button {
+      padding: 12px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .btn {
+      background: gold;
+      color: black;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>🎉 La Cabaña Eventos</h2>
+  <p id="info">Cargando datos...</p>
+
+  <h3>Selecciona tu paquete</h3>
+
+  <button class="btn" onclick="seleccionar('Básico')">Básico</button>
+  <button class="btn" onclick="seleccionar('Premium')">Premium</button>
+  <button class="btn" onclick="seleccionar('VIP')">VIP</button>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const token = params.get("token");
+
+document.getElementById("info").innerText =
+  "Token: " + token;
+
+function seleccionar(paquete) {
+  fetch("https://TU-N8N/webhook/guardar-seleccion", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      token: token,
+      paquete: paquete
+    })
+  });
+
+  alert("Paquete seleccionado: " + paquete);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,528 @@
+{
+  "updatedAt": "2026-05-12T02:27:44.161Z",
+  "createdAt": "2026-05-08T11:23:25.161Z",
+  "id": "flujo6-guardar-seleccion",
+  "name": "La Cabaña — Flujo 6: Guardar Selección de Menú",
+  "description": null,
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "seleccion-guardar",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-guardar",
+      "name": "Webhook — Recibir selección",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        304
+      ],
+      "webhookId": "lacabana-seleccion-guardar-001"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Selecciones",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "sheets-leer-validar",
+      "name": "Sheets — Leer para validar",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        464,
+        304
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $('Webhook — Recibir selección').first().json;\nconst body = raw.body || raw;\nconst token = String(body.token || '').trim();\nconst rows = $('Sheets — Leer para validar').all();\n\nlet clientData = null;\nfor (const row of rows) {\n  if (String(row.json.token || '').trim() === token) {\n    clientData = row.json;\n    break;\n  }\n}\n\nconst statusActual = String(clientData?.status || '').trim().toLowerCase();\nconst valid = Boolean(token && clientData && statusActual === 'pendiente');\n\nconst val = (name, fallback = '') => {\n  const value = body[name];\n  if (Array.isArray(value)) return value.filter(Boolean).join(', ');\n  return value === undefined || value === null || value === '' ? fallback : String(value);\n};\nconst yn = (name) => val(name, 'No') === 'No' ? 'No' : 'Si';\nconst esc = (value) => String(value ?? '').replace(/[&<>\"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;', \"'\": '&#39;' }[c]));\n\nconst nombre = valid ? String(clientData.nombre || '') : '';\nconst email = valid ? String(clientData.email || '') : '';\nconst telefono = valid ? String(clientData.telefono || '') : '';\nconst fecha_evento = valid ? String(clientData.fecha_evento || '') : '';\nconst tipo_evento = valid ? String(clientData.tipo_evento || '') : '';\nconst paquete_asignado = valid ? String(clientData.paquete_asignado || '') : '';\nconst menu_elegido = valid ? val('menu_elegido') : '';\nconst num_invitados = valid ? val('num_invitados') : '';\nconst cocteleria = valid ? yn('cocteleria') : '';\nconst cerveza_barril = valid ? yn('cerveza_barril') : '';\nconst dietas_especiales = valid ? val('dietas_especiales') : '';\nconst notas_cliente = valid ? val('notas_cliente') : '';\nconst fecha_seleccion = valid ? new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' }) : '';\n\nconst html_response = valid\n  ? '<html><body style=\"font-family:Arial;text-align:center;padding:40px;background:#f0f4f0\"><div style=\"background:white;max-width:520px;margin:auto;padding:28px;border-radius:16px\"><h1 style=\"color:#2d5a27\">Seleccion confirmada</h1><p>Tu eleccion fue registrada.</p><p><b>Menu:</b> ' + esc(menu_elegido) + '</p><p><b>Invitados:</b> ' + esc(num_invitados) + '</p><a href=\"https://wa.me/527711341559\">Hablar con La Cabana</a></div></body></html>'\n  : '<html><body><h1>Link no disponible</h1><p>La sesion ya fue utilizada o el token no es valido.</p></body></html>';\n\nconst email_html = valid\n  ? '<html><body><h1>La Cabana Eventos</h1><p>Hola <b>' + esc(nombre) + '</b>, tu seleccion fue recibida.</p><p><b>Menu:</b> ' + esc(menu_elegido) + '</p><p><b>Invitados:</b> ' + esc(num_invitados) + '</p><p><b>Cocteleria:</b> ' + esc(cocteleria) + '</p><p><b>Cerveza:</b> ' + esc(cerveza_barril) + '</p><p><b>Dietas:</b> ' + esc(dietas_especiales || 'Sin notas') + '</p><p><b>Notas:</b> ' + esc(notas_cliente || 'Sin notas') + '</p></body></html>'\n  : '';\n\nreturn [{\n  json: {\n    valid,\n    token,\n    nombre,\n    email,\n    telefono,\n    fecha_evento,\n    tipo_evento,\n    paquete_asignado,\n    status: valid ? 'completado' : statusActual,\n    menu_elegido,\n    num_invitados,\n    cocteleria,\n    cerveza_barril,\n    dietas_especiales,\n    notas_cliente,\n    fecha_seleccion,\n    html_response,\n    email_html\n  }\n}];\n"
+      },
+      "id": "validar-y-extraer",
+      "name": "Validar token y extraer datos",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        688,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "check-valid",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-valido",
+      "name": "IF — ¿Token válido?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        912,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Selecciones",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "token"
+          ],
+          "schema": [
+            {
+              "id": "valid",
+              "displayName": "valid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "token",
+              "displayName": "token",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "fecha_evento",
+              "displayName": "fecha_evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "tipo_evento",
+              "displayName": "tipo_evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "paquete_asignado",
+              "displayName": "paquete_asignado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "menu_elegido",
+              "displayName": "menu_elegido",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "num_invitados",
+              "displayName": "num_invitados",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "cocteleria",
+              "displayName": "cocteleria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "cerveza_barril",
+              "displayName": "cerveza_barril",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "dietas_especiales",
+              "displayName": "dietas_especiales",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "notas_cliente",
+              "displayName": "notas_cliente",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "fecha_seleccion",
+              "displayName": "fecha_seleccion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "html_response",
+              "displayName": "html_response",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email_html",
+              "displayName": "email_html",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "sheets-actualizar",
+      "name": "Sheets — Guardar selección",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        1120,
+        160
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "fromEmail": "evento.social.lacabana@gmail.com",
+        "toEmail": "={{ $('Validar token y extraer datos').first().json.email }}",
+        "subject": "✅ Tu selección de menú fue confirmada — La Cabaña Eventos",
+        "options": {}
+      },
+      "id": "email-confirmacion",
+      "name": "Email — Confirmación al cliente",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        304
+      ],
+      "webhookId": "f3338ea4-bc5f-418b-b4a4-4d0e357d5880",
+      "credentials": {
+        "smtp": {
+          "id": "GUuB0gffD5iBa139",
+          "name": "SMTP account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8676090287:AAFv7isGLDRiXaxU6o0gOOKeCd_exd7VaO0/sendMessage",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ chat_id: '7790296286', text: '✅ *SELECCIÓN DE MENÚ CONFIRMADA — La Cabaña*\\n\\n👤 ' + $('Validar token y extraer datos').first().json.nombre + '\\n📱 ' + $('Validar token y extraer datos').first().json.telefono + '\\n🎊 ' + $('Validar token y extraer datos').first().json.tipo_evento + '\\n📅 ' + $('Validar token y extraer datos').first().json.fecha_evento + '\\n📦 ' + $('Validar token y extraer datos').first().json.paquete_asignado + '\\n🍽️ ' + $('Validar token y extraer datos').first().json.menu_elegido + '\\n👥 Invitados: ' + $('Validar token y extraer datos').first().json.num_invitados + '\\n🍹 Coctelería: ' + $('Validar token y extraer datos').first().json.cocteleria + '\\n🍺 Cerveza barril: ' + $('Validar token y extraer datos').first().json.cerveza_barril + '\\n🌱 Dietas: ' + ($('Validar token y extraer datos').first().json.dietas_especiales || 'Ninguna') + '\\n📝 Notas: ' + ($('Validar token y extraer datos').first().json.notas_cliente || 'Sin notas'), parse_mode: 'Markdown' }) }}",
+        "options": {}
+      },
+      "id": "telegram-seleccion",
+      "name": "Telegram — Alerta selección",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1120,
+        448
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $('Validar token y extraer datos').first().json.html_response }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/html; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "id": "responder-exito",
+      "name": "Responder — Éxito",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1344,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "<!DOCTYPE html><html lang='es'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width,initial-scale=1.0'><title>Error</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f0f4f0;display:flex;align-items:center;justify-content:center;min-height:100vh}.box{background:white;max-width:440px;width:90%;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.12);text-align:center}.hdr{background:#2d5a27;padding:22px}.hdr h1{color:white;font-size:20px}.bod{padding:28px}.ico{font-size:48px;margin-bottom:14px}h2{color:#333;margin-bottom:10px}p{color:#666;font-size:14px;line-height:1.6}.wa{display:inline-block;background:#25D366;color:white;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:bold;margin-top:18px}</style></head><body><div class='box'><div class='hdr'><h1>🌿 La Cabaña Eventos</h1></div><div class='bod'><div class='ico'>⚠️</div><h2>Sesión no válida</h2><p>Este link ya fue utilizado o no es válido. Si crees que es un error, contáctanos.</p><a href='https://wa.me/527711341559?text=Hola,%20tuve%20un%20problema%20con%20mi%20selección%20de%20menú' class='wa'>💬 Contactar a La Cabaña</a></div></div></body></html>",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/html; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "id": "responder-error",
+      "name": "Responder — Token inválido",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        592
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook — Recibir selección": {
+      "main": [
+        [
+          {
+            "node": "Sheets — Leer para validar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sheets — Leer para validar": {
+      "main": [
+        [
+          {
+            "node": "Validar token y extraer datos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar token y extraer datos": {
+      "main": [
+        [
+          {
+            "node": "IF — ¿Token válido?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF — ¿Token válido?": {
+      "main": [
+        [
+          {
+            "node": "Sheets — Guardar selección",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Email — Confirmación al cliente",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Telegram — Alerta selección",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder — Token inválido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email — Confirmación al cliente": {
+      "main": [
+        [
+          {
+            "node": "Responder — Éxito",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "4794f9d0-2917-4153-b786-051c32c13d0e",
+  "activeVersionId": "5159f116-5258-4c4d-920e-79a6e97c68bf",
+  "versionCounter": 81,
+  "triggerCount": 1,
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2026-05-08T11:23:25.165Z",
+      "createdAt": "2026-05-08T11:23:25.165Z",
+      "role": "workflow:owner",
+      "workflowId": "flujo6-guardar-seleccion",
+      "projectId": "gb9Cs52RPG7BCVej",
+      "project": {
+        "updatedAt": "2026-05-09T03:38:40.683Z",
+        "createdAt": "2026-05-07T05:49:04.929Z",
+        "id": "gb9Cs52RPG7BCVej",
+        "name": "Angel Figueroa <figueroa.lera1@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "6723b938-929e-4498-b609-9807ac77b465"
+      }
+    }
+  ],
+  "versionMetadata": {
+    "name": "Correccion candado token pendiente flujo 6",
+    "description": "Quita token de prueba, normaliza status y usa los nombres reales del formulario."
+  }
+}

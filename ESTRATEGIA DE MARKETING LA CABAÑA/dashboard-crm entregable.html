@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM Dashboard — La Cabaña Eventos</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --g:#6B1223;--gd:#4d0c19;--gold:#C8960C;--gold-l:#f0b429;
+  --green:#15803d;--green-bg:#dcfce7;
+  --blue:#1e40af;--blue-bg:#dbeafe;
+  --purple:#6d28d9;--purple-bg:#ede9fe;
+  --red:#991b1b;--red-bg:#fee2e2;
+  --amber:#92400e;--amber-bg:#fef3c7;
+  --gray-50:#f9fafb;--gray-100:#f3f4f6;--gray-200:#e5e7eb;
+  --gray-400:#9ca3af;--gray-600:#4b5563;--gray-800:#1f2937;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--gray-50);color:var(--gray-800)}
+
+.hdr{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.hdr h1{font-family:'Playfair Display',serif;font-size:1.5rem}
+.hdr p{font-size:.8rem;color:rgba(255,255,255,.65);margin-top:.2rem}
+#estado{font-size:.75rem;padding:.3rem .85rem;border-radius:50px;font-weight:600;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25)}
+#estado.ok{background:rgba(74,222,128,.2);border-color:rgba(74,222,128,.4);color:#4ade80}
+#estado.err{background:rgba(248,113,113,.2);border-color:rgba(248,113,113,.4);color:#f87171}
+
+.wrap{max-width:1100px;margin:0 auto;padding:1.5rem 1.25rem}
+
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem}
+.kpi{background:#fff;border-radius:12px;border:1px solid var(--gray-200);padding:1.25rem;text-align:center;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.kpi-n{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;line-height:1;margin-bottom:.3rem}
+.kpi-l{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gray-400);font-weight:600}
+.kpi-s{font-size:.72rem;color:var(--gray-400);margin-top:.2rem}
+
+/* GRID 2 COL */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+@media(max-width:640px){.grid2{grid-template-columns:1fr}}
+
+/* CARD */
+.card{background:#fff;border-radius:12px;border:1px solid var(--gray-200);box-shadow:0 1px 6px rgba(0,0,0,.05);overflow:hidden}
+.card-hdr{padding:.85rem 1.25rem;border-bottom:1px solid var(--gray-100);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gray-400)}
+.card-body{padding:1.25rem}
+
+/* PIPELINE BARS */
+.pipe-item{margin-bottom:.85rem}
+.pipe-label{display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:.3rem}
+.pipe-label span:first-child{color:var(--gray-800);font-weight:500}
+.pipe-label span:last-child{color:var(--gray-400);font-size:.75rem}
+.pipe-bar{height:8px;border-radius:50px;background:var(--gray-100);overflow:hidden}
+.pipe-fill{height:100%;border-radius:50px;transition:width .6s ease}
+
+/* FUENTES TABLE */
+.ftable{width:100%;border-collapse:collapse;font-size:.83rem}
+.ftable td,.ftable th{padding:.6rem .75rem;text-align:left;border-bottom:1px solid var(--gray-100)}
+.ftable th{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-400);font-weight:700;background:var(--gray-50)}
+.ftable tr:last-child td{border-bottom:none}
+.pill{display:inline-block;padding:.15rem .55rem;border-radius:50px;font-size:.68rem;font-weight:700}
+
+/* ESTADO VACIO */
+.empty{text-align:center;padding:2rem;color:var(--gray-400);font-size:.85rem}
+
+/* LOADING */
+.loading{text-align:center;padding:3rem;color:var(--gray-400)}
+.spinner{display:inline-block;width:32px;height:32px;border:3px solid var(--gray-200);border-top-color:var(--g);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:1rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+#error-box{display:none;background:#fee2e2;border:1px solid #fca5a5;border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;font-size:.85rem;color:#991b1b}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div>
+    <h1>CRM Dashboard — La Cabaña Eventos</h1>
+    <p>Datos en tiempo real desde Google Sheets</p>
+  </div>
+  <span id="estado">⏳ Cargando…</span>
+</div>
+
+<div class="wrap">
+
+  <div id="error-box"></div>
+
+  <div id="loading" class="loading">
+    <div class="spinner"></div><br>Leyendo datos del CRM…
+  </div>
+
+  <div id="contenido" style="display:none">
+
+    <!-- KPIs -->
+    <div class="kpis">
+      <div class="kpi">
+        <div class="kpi-n" style="color:var(--g)" id="k-total">0</div>
+        <div class="kpi-l">Leads totales</div>
+        <div class="kpi-s">Acumulado</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-n" style="color:var(--blue)" id="k-cotizacion">0</div>
+        <div class="kpi-l">Cotizaciones enviadas</div>
+        <div class="kpi-s">Status = cotizacion</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-n" style="color:var(--purple)" id="k-anticipo">0</div>
+        <div class="kpi-l">Anticipos recibidos</div>
+        <div class="kpi-s">Status = anticipo</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-n" style="color:var(--green)" id="k-confirmado">0</div>
+        <div class="kpi-l">Fechas confirmadas</div>
+        <div class="kpi-s">Status = confirmado</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-n" style="color:var(--amber)" id="k-realizado">0</div>
+        <div class="kpi-l">Eventos realizados</div>
+        <div class="kpi-s">Status = realizado</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-n" style="color:var(--red)" id="k-frio">0</div>
+        <div class="kpi-l">Leads fríos</div>
+        <div class="kpi-s">+10 días sin respuesta</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-n" style="color:var(--gold)" id="k-tasa">0%</div>
+        <div class="kpi-l">Tasa de cierre</div>
+        <div class="kpi-s">Confirmados / Total</div>
+      </div>
+    </div>
+
+    <!-- PIPELINE + FUENTES -->
+    <div class="grid2">
+      <div class="card">
+        <div class="card-hdr">Pipeline — Leads por etapa</div>
+        <div class="card-body" id="pipeline-body"></div>
+      </div>
+      <div class="card">
+        <div class="card-hdr">Leads por fuente</div>
+        <div class="card-body" id="fuentes-body"></div>
+      </div>
+    </div>
+
+    <!-- TIPO EVENTO + TABLA RECIENTE -->
+    <div class="grid2">
+      <div class="card">
+        <div class="card-hdr">Tipo de evento más solicitado</div>
+        <div class="card-body" id="eventos-body"></div>
+      </div>
+      <div class="card">
+        <div class="card-hdr">Últimos 10 leads</div>
+        <div class="card-body" style="padding:0;overflow:auto">
+          <table class="ftable">
+            <thead><tr><th>Nombre</th><th>Evento</th><th>Status</th><th>Fuente</th></tr></thead>
+            <tbody id="recientes-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /contenido -->
+</div>
+
+<script>
+const SHEET_ID = '1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk';
+const PIPELINES = ['nuevo','contactado','cotizacion','anticipo','confirmado','realizado','frio'];
+const PIPE_COLORS = {
+  nuevo:'#0369a1', contactado:'#92400e', cotizacion:'#1e40af',
+  anticipo:'#6d28d9', confirmado:'#15803d', realizado:'#be185d', frio:'#991b1b'
+};
+const STATUS_LABELS = {
+  nuevo:'Nuevo', contactado:'Contactado', cotizacion:'Cotización',
+  anticipo:'Anticipo', confirmado:'Confirmado', realizado:'Realizado', frio:'Frío'
+};
+
+// Parsear respuesta JSONP de Google Sheets
+function parseGviz(raw) {
+  const json = raw.replace(/.*google\.visualization\.Query\.setResponse\(/, '').replace(/\);?\s*$/, '');
+  const data = JSON.parse(json);
+  if (data.status !== 'ok') throw new Error(data.errors?.[0]?.message || 'Error en respuesta');
+  const cols = data.table.cols.map(c => c.label);
+  const rows = data.table.rows.map(row => {
+    const obj = {};
+    row.c.forEach((cell, i) => { obj[cols[i]] = cell?.v ?? null; });
+    return obj;
+  });
+  return rows;
+}
+
+function count(arr, field, val) {
+  return arr.filter(r => (r[field] || '').toLowerCase() === val.toLowerCase()).length;
+}
+
+function renderPipeline(leads) {
+  const total = leads.length || 1;
+  const html = PIPELINES.map(s => {
+    const n = count(leads, 'status', s);
+    const pct = Math.round(n / total * 100);
+    return `<div class="pipe-item">
+      <div class="pipe-label"><span>${STATUS_LABELS[s]}</span><span>${n} leads (${pct}%)</span></div>
+      <div class="pipe-bar"><div class="pipe-fill" style="width:${pct}%;background:${PIPE_COLORS[s]}"></div></div>
+    </div>`;
+  }).join('');
+  document.getElementById('pipeline-body').innerHTML = html || '<div class="empty">Sin datos</div>';
+}
+
+function renderFuentes(leads) {
+  const map = {};
+  leads.forEach(r => {
+    const f = r.fuente || 'Desconocido';
+    map[f] = (map[f] || 0) + 1;
+  });
+  const sorted = Object.entries(map).sort((a,b) => b[1]-a[1]);
+  const total = leads.length || 1;
+  const html = sorted.map(([f, n]) => {
+    const pct = Math.round(n / total * 100);
+    return `<div class="pipe-item">
+      <div class="pipe-label"><span>${f}</span><span>${n} (${pct}%)</span></div>
+      <div class="pipe-bar"><div class="pipe-fill" style="width:${pct}%;background:var(--gold)"></div></div>
+    </div>`;
+  }).join('') || '<div class="empty">Sin datos</div>';
+  document.getElementById('fuentes-body').innerHTML = html;
+}
+
+function renderEventos(leads) {
+  const map = {};
+  leads.forEach(r => {
+    const e = (r.evento || 'No especificado').split('(')[0].trim();
+    map[e] = (map[e] || 0) + 1;
+  });
+  const sorted = Object.entries(map).sort((a,b) => b[1]-a[1]).slice(0,6);
+  const total = leads.length || 1;
+  const html = sorted.map(([e, n]) => {
+    const pct = Math.round(n / total * 100);
+    return `<div class="pipe-item">
+      <div class="pipe-label"><span>${e}</span><span>${n} (${pct}%)</span></div>
+      <div class="pipe-bar"><div class="pipe-fill" style="width:${pct}%;background:var(--purple)"></div></div>
+    </div>`;
+  }).join('') || '<div class="empty">Sin datos</div>';
+  document.getElementById('eventos-body').innerHTML = html;
+}
+
+function renderRecientes(leads) {
+  const COLORS = { nuevo:'#0369a1',contactado:'#92400e',cotizacion:'#1e40af',
+    anticipo:'#6d28d9',confirmado:'#15803d',realizado:'#be185d',frio:'#991b1b' };
+  const recientes = [...leads].reverse().slice(0, 10);
+  const rows = recientes.map(r => {
+    const s = (r.status || 'nuevo').toLowerCase();
+    const color = COLORS[s] || '#6b7280';
+    return `<tr>
+      <td>${r.nombre || '—'}</td>
+      <td>${(r.evento || '—').split('(')[0].trim()}</td>
+      <td><span class="pill" style="background:${color}20;color:${color}">${STATUS_LABELS[s] || s}</span></td>
+      <td>${r.fuente || '—'}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('recientes-body').innerHTML = rows || '<tr><td colspan="4" class="empty">Sin leads aún</td></tr>';
+}
+
+function renderDashboard(leads) {
+  // KPIs
+  document.getElementById('k-total').textContent = leads.length;
+  document.getElementById('k-cotizacion').textContent = count(leads,'status','cotizacion');
+  document.getElementById('k-anticipo').textContent   = count(leads,'status','anticipo');
+  document.getElementById('k-confirmado').textContent = count(leads,'status','confirmado');
+  document.getElementById('k-realizado').textContent  = count(leads,'status','realizado');
+  document.getElementById('k-frio').textContent       = count(leads,'status','frio');
+  const tasa = leads.length ? Math.round(count(leads,'status','confirmado') / leads.length * 100) : 0;
+  document.getElementById('k-tasa').textContent = tasa + '%';
+
+  renderPipeline(leads);
+  renderFuentes(leads);
+  renderEventos(leads);
+  renderRecientes(leads);
+
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('contenido').style.display = 'block';
+  const est = document.getElementById('estado');
+  est.textContent = `✓ ${leads.length} leads · Actualizado ${new Date().toLocaleTimeString('es-MX')}`;
+  est.className = 'ok';
+}
+
+function mostrarError(msg) {
+  document.getElementById('loading').style.display = 'none';
+  const box = document.getElementById('error-box');
+  box.style.display = 'block';
+  box.innerHTML = `<strong>No se pudo leer el Sheet</strong><br>${msg}<br><br>
+    <em>Asegúrate de que el Google Sheet esté compartido como "Cualquiera con el link puede ver".</em>`;
+  const est = document.getElementById('estado');
+  est.textContent = '✗ Error de conexión';
+  est.className = 'err';
+}
+
+// INTENTO 1: fetch directo
+async function cargarDatos() {
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Leads`;
+  try {
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const text = await resp.text();
+    const leads = parseGviz(text);
+    renderDashboard(leads);
+  } catch(e1) {
+    // INTENTO 2: JSONP via script tag
+    intentoJSONP();
+  }
+}
+
+function intentoJSONP() {
+  window.__sheetCallback = function(data) {
+    try {
+      if (data.status !== 'ok') throw new Error(data.errors?.[0]?.message || 'Error');
+      const cols = data.table.cols.map(c => c.label);
+      const leads = data.table.rows.map(row => {
+        const obj = {};
+        row.c.forEach((cell, i) => { obj[cols[i]] = cell?.v ?? null; });
+        return obj;
+      });
+      renderDashboard(leads);
+    } catch(e) {
+      mostrarError(e.message);
+    }
+  };
+  const script = document.createElement('script');
+  script.onerror = () => mostrarError('No fue posible conectar con Google Sheets. Verifica que el Sheet sea público.');
+  script.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json;responseHandler:__sheetCallback&sheet=Leads`;
+  document.head.appendChild(script);
+}
+
+cargarDatos();
+</script>
+</body>
+</html>

@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta 8 Paquetes — La Cabaña Eventos 2026</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: Arial, sans-serif; background: #f5f0e8; color: #333; }
+
+.header { background: #2d5a27; padding: 32px 40px; color: white; }
+.header h1 { font-size: 26px; margin-bottom: 6px; }
+.header p { color: #a8d5a2; font-size: 13px; }
+
+.contexto { background: #1a3d15; color: #d4edda; padding: 16px 40px; font-size: 13px; line-height: 1.7; }
+.contexto strong { color: #f9c846; }
+
+.container { max-width: 1000px; margin: 0 auto; padding: 30px 20px; }
+
+/* ANÁLISIS */
+.analisis { background: white; border-radius: 14px; padding: 24px; margin-bottom: 28px; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+.analisis h2 { color: #2d5a27; margin-bottom: 16px; font-size: 17px; border-bottom: 2px solid #e8f5e9; padding-bottom: 10px; }
+.comp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+.comp-item { padding: 12px 14px; border-radius: 8px; font-size: 12px; }
+.comp-item.bajo { background: #fff3e0; border-left: 4px solid #f57c00; }
+.comp-item.medio { background: #e3f2fd; border-left: 4px solid #1976d2; }
+.comp-item.alto { background: #e8f5e9; border-left: 4px solid #2d5a27; }
+.comp-item .nombre { font-weight: bold; font-size: 13px; margin-bottom: 4px; }
+.comp-item .precio { font-size: 15px; font-weight: bold; color: #333; }
+.comp-item .detalle { color: #666; margin-top: 2px; }
+.insight { background: #f9c84620; border: 2px solid #f9c846; border-radius: 8px; padding: 12px 16px; font-size: 13px; }
+.insight strong { color: #b8860b; }
+
+/* BANNER UNIVERSAL */
+.banner-universal { background: linear-gradient(135deg, #1a1a2e, #16213e); border-radius: 14px; padding: 22px 28px; margin-bottom: 22px; box-shadow: 0 4px 18px rgba(0,0,0,.18); }
+.banner-universal h3 { color: #f9c846; font-size: 15px; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.banner-items { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.banner-item { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 10px; padding: 14px 12px; text-align: center; }
+.banner-item .bi-icon { font-size: 26px; display: block; margin-bottom: 6px; }
+.banner-item .bi-label { color: white; font-size: 12px; font-weight: bold; line-height: 1.3; }
+.banner-item .bi-sub { color: rgba(255,255,255,.5); font-size: 10px; margin-top: 3px; }
+.banner-nota { color: rgba(255,255,255,.6); font-size: 11px; margin-top: 12px; font-style: italic; }
+
+/* ANÁLISIS ENTRE SEMANA */
+.analisis-costo { background: #e3f2fd; border: 2px solid #1976d2; border-radius: 10px; padding: 14px 16px; margin-top: 14px; font-size: 12px; }
+.analisis-costo strong { color: #0d47a1; }
+.analisis-costo table { width: 100%; margin-top: 8px; border-collapse: collapse; }
+.analisis-costo td { padding: 3px 8px; }
+.analisis-costo td:last-child { text-align: right; font-weight: bold; }
+
+/* PAQUETES */
+.paquetes-grid { display: flex; flex-direction: column; gap: 20px; }
+
+.paquete { background: white; border-radius: 16px; box-shadow: 0 3px 14px rgba(0,0,0,.09); overflow: hidden; }
+.paquete-header { padding: 20px 26px; display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.paquete-header.intimo      { background: linear-gradient(135deg, #5d4037, #8d6e63); color:white; }
+.paquete-header.intermedio  { background: linear-gradient(135deg, #4e342e, #bf360c); color:white; }
+.paquete-header.entresemana { background: linear-gradient(135deg, #1565c0, #42a5f5); color:white; }
+.paquete-header.herradura   { background: linear-gradient(135deg, #2d5a27, #4caf50); color:white; }
+.paquete-header.mayoral     { background: linear-gradient(135deg, #6a1520, #c62828); color:white; }
+.paquete-header.lacabana    { background: linear-gradient(135deg, #4a148c, #7b1fa2); color:white; }
+.paquete-header.boda        { background: linear-gradient(135deg, #880e4f, #e91e63); color:white; }
+.paquete-header.empresarial { background: linear-gradient(135deg, #263238, #546e7a); color:white; }
+
+.pkg-left h3 { font-size: 22px; margin-bottom: 4px; }
+.pkg-numero { font-size: 11px; opacity: .7; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 6px; }
+.pkg-tag { display: inline-block; background: rgba(255,255,255,.2); padding: 3px 10px; border-radius: 20px; font-size: 11px; margin-right: 6px; margin-top: 4px; }
+.pkg-tag.nuevo { background: #f9c846; color: #333; font-weight: bold; }
+.pkg-tag.renovado { background: rgba(255,255,255,.3); }
+.pkg-tag.fds { background: #ff7043; color: white; font-weight: bold; }
+.pkg-tag.lj { background: #29b6f6; color: white; font-weight: bold; }
+
+.pkg-precio { text-align: right; }
+.pkg-precio .monto { font-size: 32px; font-weight: bold; line-height: 1; }
+.pkg-precio .unidad { font-size: 12px; opacity: .8; margin-top: 4px; }
+.pkg-precio .minimo { font-size: 11px; opacity: .7; margin-top: 2px; }
+
+.paquete-body { padding: 22px 26px; }
+.pkg-desc { font-size: 13px; color: #555; margin-bottom: 16px; line-height: 1.6; font-style: italic; border-left: 3px solid #eee; padding-left: 12px; }
+
+.tres-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.dos-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.incluye h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: #888; margin-bottom: 10px; }
+.incluye ul { list-style: none; }
+.incluye ul li { padding: 4px 0; font-size: 13px; display: flex; gap: 8px; align-items: flex-start; border-bottom: 1px solid #f5f5f5; }
+.incluye ul li:last-child { border-bottom: none; }
+.incluye ul li .icon { flex-shrink: 0; font-size: 14px; }
+.no-incluye li .icon { opacity: .4; }
+.no-incluye li { color: #aaa; text-decoration: line-through; }
+
+/* Badge universal dentro de cada paquete */
+.base-universal { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+.base-badge { background: #1a1a2e; color: #f9c846; font-size: 10px; padding: 3px 9px; border-radius: 20px; font-weight: bold; white-space: nowrap; }
+
+.pkg-estrategia { background: #f9f9f9; border-radius: 8px; padding: 12px 14px; margin-top: 16px; font-size: 12px; color: #555; }
+.pkg-estrategia strong { color: #2d5a27; }
+
+.pkg-vs { background: #fff8e1; border-radius: 8px; padding: 10px 14px; margin-top: 10px; font-size: 12px; color: #b8860b; }
+
+.opcion-box { background: #fff3e0; border: 1px solid #ffb74d; border-radius: 8px; padding: 12px 14px; margin-top: 14px; font-size: 12px; }
+.opcion-box strong { color: #e65100; font-size: 13px; }
+.opcion-box ul { margin-top: 6px; list-style: none; }
+.opcion-box ul li { padding: 4px 0; display: flex; gap: 8px; border-bottom: 1px dashed #ffe0b2; }
+.opcion-box ul li:last-child { border-bottom: none; }
+
+/* RESUMEN FINAL */
+.resumen-final { background: white; border-radius: 14px; padding: 24px; margin-top: 28px; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+.resumen-final h2 { color: #2d5a27; margin-bottom: 16px; font-size: 17px; }
+.tabla-resumen { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tabla-resumen th { background: #2d5a27; color: white; padding: 10px 12px; text-align: left; }
+.tabla-resumen td { padding: 9px 12px; border-bottom: 1px solid #eee; vertical-align: middle; }
+.tabla-resumen tr:nth-child(even) td { background: #f9f9f9; }
+.tag-nuevo2 { background: #f9c846; color: #333; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: bold; }
+.tag-renovado2 { background: #e3f2fd; color: #1565c0; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: bold; }
+.tag-fds2 { background: #ff7043; color: white; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: bold; }
+
+.footer { text-align: center; padding: 24px; color: #999; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>La Cabaña Eventos — Propuesta 8 Paquetes 2026</h1>
+  <p>Basado en análisis de competidores reales en Pachuca e Hidalgo · Mayo 2026</p>
+</div>
+
+<div class="contexto">
+  <strong>Contexto del mercado:</strong> La Cabaña compite en el segmento <strong>medio-premium</strong> de Hidalgo. Los competidores sin servicio cobran $3,800 renta limpia. Los de premier (Quinta Diamante, GALLIA) llegan hasta $695/persona. La oportunidad está en posicionarse como la mejor relación calidad-precio con diferenciadores únicos: <strong>pista LED, iluminación galaxia, área de juegos y hospedaje</strong> — incluidos en TODOS los paquetes.
+</div>
+
+<div class="container">
+
+  <!-- ANÁLISIS COMPETIDORES -->
+  <div class="analisis">
+    <h2>Benchmarking de Competidores — Pachuca / Hidalgo</h2>
+    <div class="comp-grid">
+      <div class="comp-item bajo">
+        <div class="nombre">Renta simple (competidores FB)</div>
+        <div class="precio">$3,800 fijo</div>
+        <div class="detalle">Solo el salón, L-J, sin nada incluido</div>
+      </div>
+      <div class="comp-item bajo">
+        <div class="nombre">Villa Quintana</div>
+        <div class="precio">$155/persona</div>
+        <div class="detalle">Básico, sin diferenciadores</div>
+      </div>
+      <div class="comp-item bajo">
+        <div class="nombre">Las Fuentes</div>
+        <div class="precio">$220–$300/persona</div>
+        <div class="detalle">Hasta 100 personas, básico</div>
+      </div>
+      <div class="comp-item medio">
+        <div class="nombre">Festë Salón Jardín</div>
+        <div class="precio">$320/persona</div>
+        <div class="detalle">Pachuca, servicio estándar</div>
+      </div>
+      <div class="comp-item medio">
+        <div class="nombre">Salones Perla</div>
+        <div class="precio">$330/persona</div>
+        <div class="detalle">Pachuca, servicio medio</div>
+      </div>
+      <div class="comp-item medio">
+        <div class="nombre">Pachuca Celebrarte</div>
+        <div class="precio">$410/persona</div>
+        <div class="detalle">Pachuca, servicio completo</div>
+      </div>
+      <div class="comp-item alto">
+        <div class="nombre">Quinta Diamante</div>
+        <div class="precio">$390–$695/persona</div>
+        <div class="detalle">250 personas, Mineral de la Reforma</div>
+      </div>
+      <div class="comp-item alto">
+        <div class="nombre">GALLIA Salón y Jardín</div>
+        <div class="precio">Sin precio público</div>
+        <div class="detalle">Hasta 900 personas, Pachuca, premium</div>
+      </div>
+      <div class="comp-item alto">
+        <div class="nombre">La Cabaña (actual)</div>
+        <div class="precio">$400–$500/persona</div>
+        <div class="detalle">Posición actual en el mercado</div>
+      </div>
+    </div>
+    <div class="insight">
+      <strong>Oportunidad identificada:</strong> La Cabaña puede subir hasta $700–$850/persona en paquetes premium y seguir siendo competitiva frente a Quinta Diamante ($695) gracias a los diferenciadores exclusivos: pista LED única en la región + hospedaje en cabañas. El presupuesto promedio de boda en Hidalgo es $160,000–$170,000 MXN (~$850/persona en 200 pax).
+    </div>
+  </div>
+
+  <!-- BANNER UNIVERSAL: LO QUE INCLUYE CADA PAQUETE -->
+  <div class="banner-universal">
+    <h3>⭐ Incluido en TODOS los paquetes — sin excepción</h3>
+    <div class="banner-items">
+      <div class="banner-item">
+        <span class="bi-icon">✨</span>
+        <div class="bi-label">Pista de Baile Iluminada</div>
+        <div class="bi-sub">LED · única en la región</div>
+      </div>
+      <div class="banner-item">
+        <span class="bi-icon">🌌</span>
+        <div class="bi-label">Proyección Galaxia</div>
+        <div class="bi-sub">Iluminación ambiental premium</div>
+      </div>
+      <div class="banner-item">
+        <span class="bi-icon">🎮</span>
+        <div class="bi-label">Área de Juegos</div>
+        <div class="bi-sub">Billar · Futbolito · Xbox</div>
+      </div>
+      <div class="banner-item">
+        <span class="bi-icon">🔊</span>
+        <div class="bi-label">Bocina Ambiente</div>
+        <div class="bi-sub">Música en todo el espacio</div>
+      </div>
+    </div>
+    <p class="banner-nota">Estos 4 diferenciadores se incluyen desde el paquete más austero. Ningún competidor en la región ofrece esto por defecto.</p>
+  </div>
+
+  <!-- LOS 8 PAQUETES -->
+  <div class="paquetes-grid">
+
+    <!-- 1. ÍNTIMO -->
+    <div class="paquete">
+      <div class="paquete-header intimo">
+        <div class="pkg-left">
+          <div class="pkg-numero">Paquete 01</div>
+          <h3>🕯️ Íntimo</h3>
+          <div><span class="pkg-tag nuevo">NUEVO</span><span class="pkg-tag">Hasta 50 personas</span><span class="pkg-tag">Reuniones pequeñas</span></div>
+        </div>
+        <div class="pkg-precio">
+          <div class="monto">$14,900</div>
+          <div class="unidad">precio fijo hasta 50 pax</div>
+          <div class="minimo">$290 por persona adicional</div>
+        </div>
+      </div>
+      <div class="paquete-body">
+        <div class="pkg-desc">"Para quienes buscan un evento elegante y sin complicaciones, sin necesitar el salón completo."</div>
+        <div class="base-universal">
+          <span class="base-badge">✨ Pista LED</span>
+          <span class="base-badge">🌌 Galaxia</span>
+          <span class="base-badge">🎮 Área de juegos</span>
+          <span class="base-badge">🔊 Bocina ambiente</span>
+        </div>
+        <div class="dos-col">
+          <div class="incluye">
+            <h4>✅ Incluye</h4>
+            <ul>
+              <li><span class="icon">🏛️</span> Zona íntima del salón (privada)</li>
+              <li><span class="icon">🌿</span> Jardín</li>
+              <li><span class="icon">🍽️</span> Menú 2 tiempos + guarnición</li>
+              <li><span class="icon">👨‍🍳</span> Meseros (2 personas)</li>
+              <li><span class="icon">🪑</span> Montaje completo (mantel, silla, vajilla)</li>
+              <li><span class="icon">☕</span> Pan, café y té</li>
+              <li><span class="icon">⏰</span> 6 horas de servicio</li>
+            </ul>
+          </div>
+          <div class="incluye no-incluye">
+            <h4>❌ No incluye</h4>
+            <ul>
+              <li><span class="icon">🎵</span> DJ profesional</li>
+              <li><span class="icon">🍺</span> Barra libre</li>
+              <li><span class="icon">🎭</span> Show en vivo</li>
+              <li><span class="icon">🪞</span> Espejo decorativo</li>
+              <li><span class="icon">👑</span> Silla trono</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pkg-estrategia"><strong>Target:</strong> Bautizos, comuniones, cumpleaños íntimos, reuniones familiares, despedidas de soltera. Segmento que hoy no tiene opción en La Cabaña y se va a otro lado.</div>
+      </div>
+    </div>
+
+    <!-- 2. INTERMEDIO -->
+    <div class="paquete">
+      <div class="paquete-header intermedio">
+        <div class="pkg-left">
+          <div class="pkg-numero">Paquete 02</div>
+          <h3>🏡 Intermedio</h3>
+          <div><span class="pkg-tag nuevo">NUEVO</span><span class="pkg-tag fds">FIN DE SEMANA</span><span class="pkg-tag">Hasta 80 personas</span></div>
+        </div>
+        <div class="pkg-precio">
+          <div class="monto">$20,000</div>
+          <div class="unidad">precio fijo hasta 80 pax</div>
+          <div class="minimo">Disponible cuando la fecha no está apartada</div>
+        </div>
+      </div>
+      <div class="paquete-body">
+        <div class="pkg-desc">"Convierte tu evento en experiencia completa. El paquete de fin de semana que incluye todo lo que necesitas para una celebración memorable — disponible cuando la fecha lo permite."</div>
+        <div class="base-universal">
+          <span class="base-badge">✨ Pista LED</span>
+          <span class="base-badge">🌌 Galaxia</span>
+          <span class="base-badge">🎮 Área de juegos</span>
+          <span class="base-badge">🔊 Bocina ambiente</span>
+        </div>
+        <div class="dos-col">
+          <div class="incluye">
+            <h4>✅ Incluye siempre</h4>
+            <ul>
+              <li><span class="icon">🏛️</span> Salón completo · 8 horas</li>
+              <li><span class="icon">🌿</span> Jardín</li>
+              <li><span class="icon">🪑</span> Mobiliario completo para 80 personas</li>
+              <li><span class="icon">🪞</span> Espejo decorativo</li>
+              <li><span class="icon">👑</span> Silla trono</li>
+              <li><span class="icon">🍽️</span> Menú 2 tiempos + guarnición</li>
+              <li><span class="icon">👨‍🍳</span> Meseros + capitán</li>
+              <li><span class="icon">🥤</span> Refrescos de cortesía</li>
+            </ul>
+          </div>
+          <div class="incluye no-incluye">
+            <h4>❌ No incluye base</h4>
+            <ul>
+              <li><span class="icon">🍺</span> Barra libre (alcohol)</li>
+              <li><span class="icon">🌸</span> Decoración floral premium</li>
+              <li><span class="icon">📸</span> Fotógrafo</li>
+            </ul>
+          </div>
+        </div>
+        <div class="opcion-box">
+          <strong>+ Elige UNA de estas 3 opciones incluidas en el precio:</strong>
+          <ul>
+            <li><span class="icon">🎵</span> <strong>Opción A — DJ:</strong> DJ por 5 horas con equipo completo de sonido</li>
+            <li><span class="icon">🌮</span> <strong>Opción B — Taquiza + Hospedaje:</strong> Taquero en vivo toda la noche + 1 cabaña para los festejados ("Convierte tu evento en experiencia completa")</li>
+            <li><span class="icon">🪑</span> <strong>Opción C — Mobiliario extra:</strong> Montaje premium — mesas redondas + cubre sillas + centros de mesa básicos</li>
+          </ul>
+        </div>
+        <div class="pkg-estrategia"><strong>Disponibilidad:</strong> Solo fines de semana (V–D). Se reserva únicamente cuando la fecha no está ya apartada por otro evento mayor. Ideal para capturar las fechas "secundarias" sin bajar el precio ni saturar el calendario principal.</div>
+        <div class="pkg-vs">💡 Argumento de venta: "Aprovecha que la fecha está disponible — todo incluido, trono, espejo y tu elección de DJ, taquiza o mobiliario extra por $20,000."</div>
+      </div>
+    </div>
+
+    <!-- 3. ENTRE SEMANA -->
+    <div class="paquete">
+      <div class="paquete-header entresemana">
+        <div class="pkg-left">
+          <div class="pkg-numero">Paquete 03</div>
+          <h3>📅 Entre Semana</h3>
+          <div><span class="pkg-tag nuevo">NUEVO</span><span class="pkg-tag lj">LUNES A JUEVES</span><span class="pkg-tag">Hasta 60 personas</span></div>
+        </div>
+        <div class="pkg-precio">
+          <div class="monto">$12,900</div>
+          <div class="unidad">precio fijo hasta 60 pax</div>
+          <div class="minimo">$215/persona adicional</div>
+        </div>
+      </div>
+      <div class="paquete-body">
+        <div class="pkg-desc">"El paquete que destruye el argumento de la renta simple. Por $12,900 obtienes salón completo, mobiliario, menú y todos los diferenciadores de La Cabaña."</div>
+        <div class="base-universal">
+          <span class="base-badge">✨ Pista LED</span>
+          <span class="base-badge">🌌 Galaxia</span>
+          <span class="base-badge">🎮 Área de juegos</span>
+          <span class="base-badge">🔊 Bocina ambiente</span>
+        </div>
+        <div class="dos-col">
+          <div class="incluye">
+            <h4>✅ Incluye</h4>
+            <ul>
+              <li><span class="icon">🏛️</span> Salón completo · 8 horas</li>
+              <li><span class="icon">🌿</span> Jardín</li>
+              <li><span class="icon">🪑</span> Mobiliario completo para 60 personas</li>
+              <li><span class="icon">🍽️</span> Menú 2 tiempos + guarnición</li>
+              <li><span class="icon">👨‍🍳</span> 2 meseros</li>
+              <li><span class="icon">🥤</span> Refrescos de cortesía</li>
+              <li><span class="icon">☕</span> Café y agua ilimitada</li>
+            </ul>
+          </div>
+          <div class="incluye">
+            <h4>💰 Análisis vs competencia</h4>
+            <ul style="text-decoration:none!important;color:#333!important;">
+              <li style="text-decoration:none;color:#c62828;"><span class="icon">❌</span> Renta salón solo: $3,800</li>
+              <li style="text-decoration:none;color:#666;"><span class="icon">➕</span> Mobiliario externo: ~$4,000</li>
+              <li style="text-decoration:none;color:#666;"><span class="icon">➕</span> Catering 60 pax: ~$6,000</li>
+              <li style="text-decoration:none;color:#666;"><span class="icon">➕</span> Meseros externos: ~$2,500</li>
+              <li style="text-decoration:none;color:#c62828;"><span class="icon">💸</span> Total real: ~$16,300</li>
+              <li style="text-decoration:none;color:#2d5a27;font-weight:bold;"><span class="icon">✅</span> La Cabaña Entre Semana: $12,900</li>
+            </ul>
+          </div>
+        </div>
+        <div class="analisis-costo">
+          <strong>Análisis de costo interno (referencia para Angel):</strong>
+          <table>
+            <tr><td>Costo operativo estimado (60 pax, menú básico)</td><td>~$8,200</td></tr>
+            <tr><td>Amortización pista + galaxia + área juegos</td><td>~$600</td></tr>
+            <tr><td>Staff (2–3 personas)</td><td>~$1,800</td></tr>
+            <tr><td><strong>Costo total estimado</strong></td><td><strong>~$10,600</strong></td></tr>
+            <tr style="background:#c8e6c9;"><td><strong>Precio propuesto: $12,900 — margen ~18%</strong></td><td><strong>+$2,300</strong></td></tr>
+          </table>
+          <div style="margin-top:6px;color:#0d47a1;">El margen es conservador porque el objetivo de Entre Semana es LLENAR fechas vacías — volumen > margen. Ajusta si tus costos reales son menores.</div>
+        </div>
+        <div class="pkg-estrategia"><strong>Target:</strong> Eventos que no requieren fin de semana. Cumpleaños, graduaciones, eventos corporativos pequeños, despedidas, bautizos sencillos.</div>
+        <div class="pkg-vs">💡 Argumento: "Los demás te rentan 4 paredes por $3,800 sin nada. Nosotros te damos el evento completo — mobiliario, menú, pista LED, galaxia y área de juegos — por $12,900."</div>
+      </div>
+    </div>
+
+    <!-- 4. HERRADURA -->
+    <div class="paquete">
+      <div class="paquete-header herradura">
+        <div class="pkg-left">
+          <div class="pkg-numero">Paquete 04</div>
+          <h3>🌾 Herradura</h3>
+          <div><span class="pkg-tag renovado">RENOVADO</span><span class="pkg-tag">80–150 personas</span><span class="pkg-tag">El más popular</span></div>
+        </div>
+        <div class="pkg-precio">
+          <div class="monto">$480</div>
+          <div class="unidad">por persona</div>
+          <div class="minimo">Antes: $400 · +$80/pax</div>
+        </div>
+      </div>
+      <div class="paquete-body">
+        <div class="pkg-desc">"El equilibrio perfecto entre precio y experiencia. El paquete que más se vende y el que más recomienda la gente."</div>
+        <div class="base-universal">
+          <span class="base-badge">✨ Pista LED</span>
+          <span class="base-badge">🌌 Galaxia</span>
+          <span class="base-badge">🎮 Área de juegos</span>
+          <span class="base-badge">🔊 Bocina ambiente</span>
+        </div>
+        <div class="dos-col">
+          <div class="incluye">
+            <h4>✅ Incluye</h4>
+            <ul>
+              <li><span class="icon">🏛️</span> Salón completo + jardín</li>
+              <li><span class="icon">🍽️</span> Menú 3 tiempos a elegir del catálogo</li>
+              <li><span class="icon">🎵</span> DJ profesional (6 horas)</li>
+              <li><span class="icon">🪑</span> Montaje estándar (mantel + cubre silla)</li>
+              <li><span class="icon">👨‍🍳</span> Meseros + capitán</li>
+              <li><span class="icon">🥤</span> Barra de refrescos ilimitada</li>
+              <li><span class="icon">⏰</span> 10 horas de servicio</li>
+            </ul>
+          </div>
+          <div class="incluye no-incluye">
+            <h4>❌ No incluye</h4>
+            <ul>
+              <li><span class="icon">🍺</span> Barra libre (alcohol)</li>
+              <li><span class="icon">🎭</span> Show en vivo</li>
+              <li><span class="icon">🌸</span> Arreglos florales premium</li>
+              <li><span class="icon">🍰</span> Mesa de postres</li>
+              <li><span class="icon">👑</span> Silla trono / espejo</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pkg-estrategia"><strong>Target:</strong> XV años, graduaciones, cumpleaños 15–18 años, bodas civiles pequeñas. El $480 sigue siendo accesible y 17% más barato que Pachuca Celebrarte ($410 sin muchos de estos servicios).</div>
+      </div>
+    </div>
+
+    <!-- 5. MAYORAL -->
+    <div class="paquete">
+      <div class="paquete-header mayoral">
+        <div class="pkg-left">
+          <div class="pkg-numero">Paquete 05</div>
+          <h3>🥩 Mayoral</h3>
+          <div><span class="pkg-tag renovado">RENOVADO</span><span class="pkg-tag">100–200 personas</span><span class="pkg-tag">Mid-Premium</span></div>
+        </div>
+        <div class="pkg-precio">
+          <div class="monto">$580</div>
+          <div class="unidad">por persona</div>
+          <div class="minimo">Antes: $500 · +$80/pax</div>
+        </div>
+      </div>
+      <div class="paquete-body">
+        <div class="pkg-desc">"Para quien quiere una experiencia completa sin escatimar. Barra libre incluida y decoración enhanced que hace la diferencia en fotos."</div>
+        <div class="base-universal">
+          <span class="base-badge">✨ Pista LED</span>
+          <span class="base-badge">🌌 Galaxia</span>
+          <span class="base-badge">🎮 Área de juegos</span>
+          <span class="base-badge">🔊 Bocina ambiente</span>
+        </div>
+        <div class="dos-col">
+          <div class="incluye">
+            <h4>✅ Incluye</h4>
+            <ul>
+              <li><span class="icon">🏛️</span> Salón completo + jardín</li>
+              <li><span class="icon">🍽️</span> Menú 4 tiempos (incluye postre)</li>
+              <li><span class="icon">🎵</span> DJ premium (8 horas)</li>
+              <li><span class="icon">🪞</span> Espejo decorativo</li>
+              <li><span class="icon">👑</span> Silla trono</li>
+              <li><span class="icon">🌸</span> Centros florales de mesa</li>
+              <li><span class="icon">👨‍🍳</span> Meseros + capitán + supervisor</li>
+              <li><span class="icon">🍺</span> Barra libre básica (cerveza + agua + refresco)</li>
+              <li><span class="icon">🎂</span> Mesa de pastel</li>
+              <li><span class="icon">⏰</span> 12 horas de servicio</li>
+            </ul>
+          </div>
+          <div class="incluye no-incluye">
+            <h4>❌ No incluye</h4>
+            <ul>
+              <li><span class="icon">🍷</span> Open bar completo (vinos/cócteles)</li>
+              <li><span class="icon">🎭</span> Show en vivo</li>
+              <li><span class="icon">🍰</span> Mesa de postres</li>
+              <li><span class="icon">🏡</span> Hospedaje incluido</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pkg-estrategia"><strong>Target:</strong> Bodas medianas, XV años premium, graduaciones de preparatoria/universidad, aniversarios 25/50 años. Compite directamente con Quinta Diamante ($390–$695) pero con más diferenciadores. Trono y espejo incluidos desde este nivel.</div>
+      </div>
+    </div>
+
+    <!-- 6. LA CABAÑA -->
+    <div class="paquete">
+      <div class="paquete-header lacabana">
+        <div class="pkg-left">
+          <div class="pkg-numero">Paquete 06</div>
+          <h3>🌿 La Cabaña</h3>
+          <div><span class="pkg-tag renovado">RENOVADO</span><span class="pkg-tag">100–250 personas</span><span class="pkg-tag">All Inclusive</span></div>
+        </div>
+        <div class="pkg-precio">
+          <div class="monto">$680</div>
+          <div class="unidad">por persona</div>
+          <div class="minimo">El paquete insignia del salón</div>
+        </div>
+      </div>
+      <div class="paquete-body">
+        <div class="pkg-desc">"Nuestro paquete estrella. Todo incluido para que no tengas que preocuparte por absolutamente nada el día de tu evento."</div>
+        <div class="base-universal">
+          <span class="base-badge">✨ Pista LED</span>
+          <span class="base-badge">🌌 Galaxia</span>
+          <span class="base-badge">🎮 Área de juegos</span>
+          <span class="base-badge">🔊 Bocina ambiente</span>
+        </div>
+        <div class="dos-col">
+          <div class="incluye">
+            <h4>✅ Incluye TODO</h4>
+            <ul>
+              <li><span class="icon">🏛️</span> Salón completo + jardín · 250 pax</li>
+              <li><span class="icon">🍽️</span> Menú 5 tiempos a elegir</li>
+              <li><span class="icon">🎵</span> DJ premium (10 horas)</li>
+              <li><span class="icon">🪞</span> Espejo decorativo</li>
+              <li><span class="icon">👑</span> Silla trono</li>
+              <li><span class="icon">🌸</span> Decoración premium (arreglos florales)</li>
+              <li><span class="icon">👨‍🍳</span> Personal completo (meseros + capitán + supervisor)</li>
+              <li><span class="icon">🍷</span> Open bar completo</li>
+              <li><span class="icon">🎭</span> Show en vivo (1 hora)</li>
+              <li><span class="icon">🍰</span> Mesa de postres</li>
+              <li><span class="icon">📱</span> Invitación digital gratuita</li>
+              <li><span class="icon">⏰</span> 12 horas de servicio</li>
+            </ul>
+          </div>
+          <div class="incluye no-incluye">
+            <h4>❌ No incluye</h4>
+            <ul>
+              <li><span class="icon">📋</span> Coordinador de bodas</li>
+              <li><span class="icon">🏡</span> Hospedaje incluido</li>
+              <li><span class="icon">🥂</span> Cocktail de bienvenida</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pkg-estrategia"><strong>Target:</strong> Bodas y XV años que quieren lo mejor sin llegar al tier de lujo. En línea con el techo de Quinta Diamante pero con hospedaje como upgrade disponible.</div>
+      </div>
+    </div>
+
+    <!-- 7. BODA SOÑADA -->
+    <div class="paquete">
+      <div class="paquete-header boda">
+        <div class="pkg-left">
+          <div class="pkg-numero">Paquete 07</div>
+          <h3>💍 Boda Soñada</h3>
+          <div><span class="pkg-tag nuevo">NUEVO</span><span class="pkg-tag">100–250 personas</span><span class="pkg-tag">Exclusivo Bodas</span></div>
+        </div>
+        <div class="pkg-precio">
+          <div class="monto">$780</div>
+          <div class="unidad">por persona</div>
+          <div class="minimo">Solo disponible para bodas</div>
+        </div>
+      </div>
+      <div class="paquete-body">
+        <div class="pkg-desc">"El único paquete diseñado 100% para bodas. Coordinación incluida, suite nupcial y todo lo que convierte un evento en el día más memorable de tu vida."</div>
+        <div class="base-universal">
+          <span class="base-badge">✨ Pista LED</span>
+          <span class="base-badge">🌌 Galaxia</span>
+          <span class="base-badge">🎮 Área de juegos</span>
+          <span class="base-badge">🔊 Bocina ambiente</span>
+        </div>
+        <div class="dos-col">
+          <div class="incluye">
+            <h4>✅ Todo lo del paquete La Cabaña, más:</h4>
+            <ul>
+              <li><span class="icon">📋</span> Coordinador de bodas el día del evento</li>
+              <li><span class="icon">🏡</span> Suite nupcial la noche del evento</li>
+              <li><span class="icon">🥂</span> Cocktail de bienvenida (1 hora antes)</li>
+              <li><span class="icon">📸</span> Photo backdrop exclusivo para boda</li>
+              <li><span class="icon">🎊</span> Hora loca incluida</li>
+              <li><span class="icon">🎂</span> Mesa de pastel con decoración</li>
+              <li><span class="icon">🌙</span> Precio preferencial cabañas para invitados</li>
+              <li><span class="icon">⏰</span> 14 horas de servicio</li>
+            </ul>
+          </div>
+          <div class="incluye">
+            <h4>💡 Por qué funciona</h4>
+            <ul style="color:#555;text-decoration:none;">
+              <li style="text-decoration:none;color:#555;"><span class="icon">💰</span> Presupuesto promedio boda Hidalgo: $170,000 MXN</li>
+              <li style="text-decoration:none;color:#555;"><span class="icon">👥</span> En 200 pax = $156,000 total</li>
+              <li style="text-decoration:none;color:#555;"><span class="icon">📉</span> Ahorro vs contratar todo por separado: ~$40,000</li>
+              <li style="text-decoration:none;color:#555;"><span class="icon">🏆</span> Posicionado igual que Quinta Diamante premium</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pkg-estrategia"><strong>Target:</strong> Parejas que quieren todo resuelto en un solo contrato. El argumento: contratar foto, DJ, catering, decoración y coordinador por separado cuesta $200,000+.</div>
+      </div>
+    </div>
+
+    <!-- 8. EMPRESARIAL -->
+    <div class="paquete">
+      <div class="paquete-header empresarial">
+        <div class="pkg-left">
+          <div class="pkg-numero">Paquete 08</div>
+          <h3>💼 Empresarial</h3>
+          <div><span class="pkg-tag nuevo">NUEVO</span><span class="pkg-tag">30–150 personas</span><span class="pkg-tag">Eventos Corporativos</span></div>
+        </div>
+        <div class="pkg-precio">
+          <div class="monto">$380</div>
+          <div class="unidad">por persona</div>
+          <div class="minimo">O $21,900 fijo hasta 60 pax</div>
+        </div>
+      </div>
+      <div class="paquete-body">
+        <div class="pkg-desc">"Un mercado completamente sin explotar en la región. Las empresas de Pachuca e Hidalgo necesitan espacios para juntas, lanzamientos y team buildings fuera de la ciudad."</div>
+        <div class="base-universal">
+          <span class="base-badge">✨ Pista LED</span>
+          <span class="base-badge">🌌 Galaxia</span>
+          <span class="base-badge">🎮 Área de juegos</span>
+          <span class="base-badge">🔊 Bocina ambiente</span>
+        </div>
+        <div class="dos-col">
+          <div class="incluye">
+            <h4>✅ Incluye</h4>
+            <ul>
+              <li><span class="icon">🏛️</span> Salón en configuración corporativa</li>
+              <li><span class="icon">🍽️</span> Menú ejecutivo 3 tiempos (desayuno, comida o cena)</li>
+              <li><span class="icon">☕</span> 2 coffee breaks incluidos</li>
+              <li><span class="icon">📺</span> Pantalla + micrófono + proyector</li>
+              <li><span class="icon">👨‍🍳</span> Meseros</li>
+              <li><span class="icon">💧</span> Agua, café y refrescos ilimitados</li>
+              <li><span class="icon">🚗</span> Estacionamiento</li>
+              <li><span class="icon">⏰</span> 8 horas de servicio</li>
+            </ul>
+          </div>
+          <div class="incluye no-incluye">
+            <h4>❌ No incluye</h4>
+            <ul>
+              <li><span class="icon">🍺</span> Barra libre</li>
+              <li><span class="icon">🌸</span> Decoración de fiesta</li>
+              <li><span class="icon">📸</span> Fotógrafo</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pkg-estrategia"><strong>Target:</strong> Empresas de Pachuca, Mineral de la Reforma, Tizayuca y Ciudad Sahagún que buscan salir de la ciudad para team buildings, capacitaciones, lanzamientos de producto. <strong>Ningún competidor local tiene este paquete.</strong></div>
+        <div class="pkg-vs">💡 Canal B2B: LinkedIn Ads dirigido a gerentes y directores de RH en Hidalgo. Una empresa puede hacer 4–6 eventos al año — ticket recurrente.</div>
+      </div>
+    </div>
+
+  </div><!-- fin paquetes-grid -->
+
+  <!-- RESUMEN FINAL -->
+  <div class="resumen-final">
+    <h2>Resumen — Escalera de Precios</h2>
+    <table class="tabla-resumen">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Paquete</th>
+          <th>Precio</th>
+          <th>Capacidad</th>
+          <th>Disponibilidad</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>🕯️ Íntimo</td><td>$14,900 fijo</td><td>Hasta 50 pax</td><td>L–D</td><td><span class="tag-nuevo2">NUEVO</span></td></tr>
+        <tr><td>2</td><td>🏡 Intermedio</td><td>$20,000 fijo</td><td>Hasta 80 pax</td><td><span class="tag-fds2">V–D únicamente</span></td><td><span class="tag-nuevo2">NUEVO</span></td></tr>
+        <tr><td>3</td><td>📅 Entre Semana</td><td>$12,900 fijo</td><td>Hasta 60 pax</td><td>L–J únicamente</td><td><span class="tag-nuevo2">NUEVO</span></td></tr>
+        <tr><td>4</td><td>🌾 Herradura</td><td>$480/persona</td><td>80–150 pax</td><td>L–D</td><td><span class="tag-renovado2">RENOVADO</span></td></tr>
+        <tr><td>5</td><td>🥩 Mayoral</td><td>$580/persona</td><td>100–200 pax</td><td>L–D</td><td><span class="tag-renovado2">RENOVADO</span></td></tr>
+        <tr><td>6</td><td>🌿 La Cabaña</td><td>$680/persona</td><td>100–250 pax</td><td>L–D</td><td><span class="tag-renovado2">RENOVADO</span></td></tr>
+        <tr><td>7</td><td>💍 Boda Soñada</td><td>$780/persona</td><td>100–250 pax</td><td>V–D (bodas)</td><td><span class="tag-nuevo2">NUEVO</span></td></tr>
+        <tr><td>8</td><td>💼 Empresarial</td><td>$380/pax · $21,900 fijo</td><td>30–150 pax</td><td>L–V</td><td><span class="tag-nuevo2">NUEVO</span></td></tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:20px;padding:16px;background:#1a1a2e;border-radius:8px;font-size:13px;line-height:1.8;color:white;">
+      <strong style="color:#f9c846;font-size:14px;">Diferenciadores universales — en todos los paquetes:</strong><br>
+      <span style="color:#a8d5a2;">✨ Pista de baile iluminada (LED)</span> &nbsp;|&nbsp;
+      <span style="color:#a8d5a2;">🌌 Proyección galaxia</span> &nbsp;|&nbsp;
+      <span style="color:#a8d5a2;">🎮 Área de juegos (billar · futbolito · Xbox)</span> &nbsp;|&nbsp;
+      <span style="color:#a8d5a2;">🔊 Bocina ambiente</span>
+    </div>
+
+    <div style="margin-top:16px;padding:16px;background:#e8f5e9;border-radius:8px;font-size:13px;line-height:1.7;">
+      <strong style="color:#2d5a27;font-size:14px;">Próximos pasos:</strong><br>
+      1. <strong>Revisar precios</strong> — ajusta Entre Semana y el Intermedio según tus costos reales de operación<br>
+      2. <strong>Actualizar cotizar.html</strong> — los 8 paquetes al formulario de cotización del sitio web<br>
+      3. <strong>Actualizar index.html</strong> — sección de paquetes con nueva escalera de precios<br>
+      4. <strong>Asignar menús por paquete</strong> — definir qué platillos corresponden a cada nivel (para el sistema digital de selección)<br>
+      5. <strong>Fotografías</strong> — el Paquete Intermedio con espejo y trono, Boda Soñada y Empresarial necesitan fotos específicas para marketing
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  La Cabaña Eventos · San Pedro Huaquilpan, Hidalgo · Propuesta generada con Claude Code · Mayo 2026
+</div>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+https://n8n.lacabanaeventos.com/webhook/lacabana-track-click?utm_source=facebook&utm_medium=post&utm_campaign=bodas_mayo&utm_content=video1&url=https%3A%2F%2Flacabanaeventos.com%2Fcotizador.html
+Cambia estos valores según la publicación:
+
+utm_source=facebook
+utm_medium=post
+utm_campaign=bodas_mayo
+utm_content=video1
+Ejemplos:
+
+utm_source=instagram&utm_medium=reel&utm_campaign=xv_junio&utm_content=reel_vestido
+utm_source=tiktok&utm_medium=video&utm_campaign=bodas_2026&utm_content=video_pista
+utm_source=facebook&utm_medium=ad&utm_campaign=paquete_herradura&utm_content=anuncio1
+
+
+indicaciones de enlaces en post redes sociales 

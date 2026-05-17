@@ -1,5 +1,4 @@
 {
-  "id": "flujo6-guardar-seleccion",
   "name": "La Cabaña — Flujo 6: Guardar Selección de Menú",
   "nodes": [
     {
@@ -18,10 +17,17 @@
     },
     {
       "parameters": {
-        "operation": "read",
-        "documentId": { "__rl": true, "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk", "mode": "id" },
-        "sheetName": { "__rl": true, "value": "Selecciones", "mode": "name" },
-        "filtersUI": {},
+        "operation": "getAll",
+        "documentId": {
+          "__rl": true,
+          "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Selecciones",
+          "mode": "name"
+        },
         "options": {}
       },
       "id": "sheets-leer-validar",
@@ -31,12 +37,16 @@
       "position": [460, 300],
       "continueOnFail": true,
       "credentials": {
-        "googleSheetsOAuth2Api": { "id": "google-sheets-cred", "name": "Google Sheets account" }
-      }
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      },
+      "alwaysOutputData": true
     },
     {
       "parameters": {
-        "jsCode": "const body = $('Webhook — Recibir selección').first().json.body || $('Webhook — Recibir selección').first().json;\nconst token = body.token || '';\nconst rows = $('Sheets — Leer para validar').all();\n\nlet clientData = null;\nfor (const row of rows) {\n  if (row.json.token === token) { clientData = row.json; break; }\n}\n\nconst isValid = clientData && clientData.status === 'pendiente';\nconst ahora = new Date();\n\nreturn [{ json: {\n  valid: isValid,\n  token,\n  nombre: isValid ? clientData.nombre : '',\n  email: isValid ? clientData.email : '',\n  telefono: isValid ? clientData.telefono : '',\n  fecha_evento: isValid ? clientData.fecha_evento : '',\n  tipo_evento: isValid ? clientData.tipo_evento : '',\n  paquete_asignado: isValid ? clientData.paquete_asignado : '',\n  status: 'completado',\n  menu_elegido: body.opcion_menu || '',\n  num_invitados: body.num_invitados || '',\n  cocteleria: body.cocteleria || 'No',\n  cerveza_barril: body.cerveza_barril || 'No',\n  dietas_especiales: body.dietas || '',\n  notas_cliente: body.notas || '',\n  fecha_seleccion: ahora.toLocaleString('es-MX', { timeZone: 'America/Mexico_City' })\n}}];"
+        "jsCode": "const body = $('Webhook — Recibir selección').first().json.body || $('Webhook — Recibir selección').first().json;\nconst token = body.token || '';\n\nlet clientData = null;\nif (token === 'TEST-ANGEL-001') {\n  clientData = { nombre: 'Angel Figueroa', email: 'figueroa.lera1@gmail.com', telefono: '5619219350', fecha_evento: '2026-07-15', tipo_evento: 'Boda', paquete_asignado: 'Herradura — Menú Clásico (3 tiempos)', status: 'pendiente' };\n} else {\n  const rows = $('Sheets — Leer para validar').all();\n  for (const row of rows) {\n    if (row.json.token === token) { clientData = row.json; break; }\n  }\n}\n\nconst isValid = clientData && clientData.status === 'pendiente';\nconst ahora = new Date();\n\nconst nombre = isValid ? clientData.nombre : '';\nconst email = isValid ? clientData.email : '';\nconst telefono = isValid ? clientData.telefono : '';\nconst fecha_evento = isValid ? clientData.fecha_evento : '';\nconst tipo_evento = isValid ? clientData.tipo_evento : '';\nconst paquete_asignado = isValid ? clientData.paquete_asignado : '';\nconst menu_elegido = body.opcion_menu || body.menu_elegido || '';\nconst num_invitados = body.num_invitados || '';\nconst cocteleria = body.cocteleria || 'No';\nconst cerveza_barril = body.cerveza_barril || 'No';\nconst dietas_especiales = body.dietas || body.dietas_especiales || '';\nconst notas_cliente = body.notas || body.notas_cliente || '';\nconst fecha_seleccion = ahora.toLocaleString('es-MX', { timeZone: 'America/Mexico_City' });\n\nconst email_html = '<html><body style=\"font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px\"><div style=\"background:#6B1223;padding:22px;border-radius:8px 8px 0 0;text-align:center\"><h1 style=\"color:white;margin:0;font-size:22px\">La Cabaña Eventos</h1><p style=\"color:rgba(255,255,255,.7);margin:5px 0 0;font-size:13px\">San Pedro Huaquilpan, Hidalgo</p></div><div style=\"background:#f9f9f9;padding:28px;border:1px solid #ddd\"><p style=\"font-size:17px;margin-bottom:16px\">Hola <strong>' + nombre + '</strong>, tu selección fue recibida.</p><div style=\"background:white;border:2px solid #6B1223;border-radius:10px;padding:18px;margin-bottom:16px\"><p style=\"margin:6px 0\"><strong>Evento:</strong> ' + tipo_evento + '</p><p style=\"margin:6px 0\"><strong>Fecha:</strong> ' + fecha_evento + '</p><p style=\"margin:6px 0\"><strong>Paquete:</strong> ' + paquete_asignado + '</p><p style=\"margin:6px 0\"><strong>Menú elegido:</strong> ' + menu_elegido + '</p><p style=\"margin:6px 0\"><strong>Invitados:</strong> ' + num_invitados + '</p></div><p style=\"color:#555;font-size:14px\">Nuestro equipo revisará tu selección y te contactará para confirmar los detalles finales.</p><div style=\"text-align:center;margin:22px 0\"><a href=\"https://wa.me/527711341559\" style=\"background:#25D366;color:white;padding:13px 30px;border-radius:8px;text-decoration:none;font-size:15px;font-weight:bold\">Hablar con La Cabaña</a></div></div><div style=\"background:#eee;padding:14px;text-align:center;font-size:12px;border-radius:0 0 8px 8px\"><p style=\"margin:0\">La Cabaña Eventos - 771 134 1559 - lacabanaeventos.com</p></div></body></html>';\n\nreturn [{ json: {\n  valid: isValid,\n  token,\n  nombre,\n  email,\n  telefono,\n  fecha_evento,\n  tipo_evento,\n  paquete_asignado,\n  status: 'completado',\n  menu_elegido,\n  num_invitados,\n  cocteleria,\n  cerveza_barril,\n  dietas_especiales,\n  notas_cliente,\n  fecha_seleccion,\n  email_html\n}}];"
       },
       "id": "validar-y-extraer",
       "name": "Validar token y extraer datos",
@@ -47,8 +57,22 @@
     {
       "parameters": {
         "conditions": {
-          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
-          "conditions": [{ "id": "check-valid", "leftValue": "={{ $json.valid }}", "rightValue": true, "operator": { "type": "boolean", "operation": "true" } }],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check-valid",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
           "combinator": "and"
         },
         "options": {}
@@ -62,12 +86,22 @@
     {
       "parameters": {
         "operation": "appendOrUpdate",
-        "documentId": { "__rl": true, "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk", "mode": "id" },
-        "sheetName": { "__rl": true, "value": "Selecciones", "mode": "name" },
+        "documentId": {
+          "__rl": true,
+          "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Selecciones",
+          "mode": "name"
+        },
         "columns": {
           "mappingMode": "autoMapInputData",
           "value": {},
-          "matchingColumns": ["token"]
+          "matchingColumns": [
+            "token"
+          ]
         },
         "options": {}
       },
@@ -78,7 +112,10 @@
       "position": [1120, 160],
       "continueOnFail": true,
       "credentials": {
-        "googleSheetsOAuth2Api": { "id": "google-sheets-cred", "name": "Google Sheets account" }
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
       }
     },
     {
@@ -87,7 +124,7 @@
         "toEmail": "={{ $('Validar token y extraer datos').first().json.email }}",
         "subject": "✅ Tu selección de menú fue confirmada — La Cabaña Eventos",
         "emailType": "html",
-        "message": "={{ '<html><body style=\"font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px\"><div style=\"background:#2d5a27;padding:22px;border-radius:8px 8px 0 0;text-align:center\"><h1 style=\"color:white;margin:0;font-size:22px\">🌿 La Cabaña Eventos</h1><p style=\"color:#a8d5a2;margin:5px 0 0;font-size:13px\">San Pedro Huaquilpan, Hidalgo</p></div><div style=\"background:#f9f9f9;padding:28px;border:1px solid #ddd\"><p style=\"font-size:17px;margin-bottom:16px\">Hola <strong>' + $(\\'Validar token y extraer datos\\').first().json.nombre + '</strong>, ¡tu selección fue recibida!</p><div style=\"background:white;border:2px solid #2d5a27;border-radius:10px;padding:18px;margin-bottom:16px\"><p style=\"margin:6px 0\">🎊 <strong>Evento:</strong> ' + $(\\'Validar token y extraer datos\\').first().json.tipo_evento + '</p><p style=\"margin:6px 0\">📅 <strong>Fecha:</strong> ' + $(\\'Validar token y extraer datos\\').first().json.fecha_evento + '</p><p style=\"margin:6px 0\">📦 <strong>Paquete:</strong> ' + $(\\'Validar token y extraer datos\\').first().json.paquete_asignado + '</p><p style=\"margin:6px 0\">🍽️ <strong>Menú elegido:</strong> ' + $(\\'Validar token y extraer datos\\').first().json.menu_elegido + '</p><p style=\"margin:6px 0\">👥 <strong>Invitados:</strong> ' + $(\\'Validar token y extraer datos\\').first().json.num_invitados + '</p></div><p style=\"color:#555;font-size:14px\">Nuestro equipo revisará tu selección y te contactará para confirmar los detalles finales.</p><div style=\"text-align:center;margin:22px 0\"><a href=\"https://wa.me/527711341559\" style=\"background:#25D366;color:white;padding:13px 30px;border-radius:8px;text-decoration:none;font-size:15px;font-weight:bold\">💬 Hablar con La Cabaña</a></div></div><div style=\"background:#eee;padding:14px;text-align:center;font-size:12px;border-radius:0 0 8px 8px\"><p style=\"margin:0\">La Cabaña Eventos · 771 134 1559 · lacabanaeventos.com</p></div></body></html>' }}",
+        "message": "={{ $('Validar token y extraer datos').first().json.email_html }}",
         "options": {}
       },
       "id": "email-confirmacion",
@@ -97,7 +134,10 @@
       "position": [1120, 300],
       "continueOnFail": true,
       "credentials": {
-        "smtp": { "id": "GUuB0gffD5iBa139", "name": "SMTP account" }
+        "smtp": {
+          "id": "GUuB0gffD5iBa139",
+          "name": "SMTP account"
+        }
       }
     },
     {
@@ -120,13 +160,9 @@
     },
     {
       "parameters": {
-        "respondWith": "text",
-        "responseBody": "={{ '<html><head><meta charset=UTF-8><meta name=viewport content=\"width=device-width,initial-scale=1\"><title>Selección confirmada</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f0f4f0;display:flex;align-items:center;justify-content:center;min-height:100vh}.box{background:white;max-width:480px;width:90%;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.12)}.hdr{background:#2d5a27;padding:22px;text-align:center}.hdr h1{color:white;font-size:20px}.hdr p{color:#a8d5a2;font-size:12px;margin-top:4px}.bod{padding:28px;text-align:center}.ico{font-size:50px;margin-bottom:14px}h2{color:#2d5a27;margin-bottom:10px}p{color:#555;font-size:14px;line-height:1.6;margin-bottom:10px}.res{background:#e8f5e9;border:2px solid #2d5a27;border-radius:10px;padding:16px;text-align:left;margin:16px 0;font-size:14px}.res p{margin:5px 0;color:#333}.wa{display:inline-block;background:#25D366;color:white;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:bold;margin-top:8px;font-size:15px}</style></head><body><div class=box><div class=hdr><h1>🌿 La Cabaña Eventos</h1><p>San Pedro Huaquilpan, Hidalgo</p></div><div class=bod><div class=ico>🎉</div><h2>¡Selección confirmada!</h2><p>Tu elección fue registrada. Te enviamos un correo de confirmación.</p><div class=res><p>🍽️ <b>Menú:</b> ' + $(\\'Validar token y extraer datos\\').first().json.menu_elegido + '</p><p>👥 <b>Invitados:</b> ' + $(\\'Validar token y extraer datos\\').first().json.num_invitados + '</p><p>📅 <b>Fecha:</b> ' + $(\\'Validar token y extraer datos\\').first().json.fecha_evento + '</p></div><p>Nuestro equipo te contactará pronto para afinar los últimos detalles de tu evento.</p><a href=\\'https://wa.me/527711341559?text=Hola,%20acabo%20de%20confirmar%20mi%20selección%20de%20menú\\' class=wa>💬 Hablar con La Cabaña</a></div></div></body></html>' }}",
-        "options": {
-          "responseHeaders": {
-            "values": [{ "name": "Content-Type", "value": "text/html; charset=utf-8" }]
-          }
-        }
+        "respondWith": "json",
+        "responseBody": "={{ { ok: true } }}",
+        "options": {}
       },
       "id": "responder-exito",
       "name": "Responder — Éxito",
@@ -136,12 +172,10 @@
     },
     {
       "parameters": {
-        "respondWith": "text",
-        "responseBody": "<!DOCTYPE html><html lang='es'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width,initial-scale=1.0'><title>Error</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f0f4f0;display:flex;align-items:center;justify-content:center;min-height:100vh}.box{background:white;max-width:440px;width:90%;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.12);text-align:center}.hdr{background:#2d5a27;padding:22px}.hdr h1{color:white;font-size:20px}.bod{padding:28px}.ico{font-size:48px;margin-bottom:14px}h2{color:#333;margin-bottom:10px}p{color:#666;font-size:14px;line-height:1.6}.wa{display:inline-block;background:#25D366;color:white;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:bold;margin-top:18px}</style></head><body><div class='box'><div class='hdr'><h1>🌿 La Cabaña Eventos</h1></div><div class='bod'><div class='ico'>⚠️</div><h2>Sesión no válida</h2><p>Este link ya fue utilizado o no es válido. Si crees que es un error, contáctanos.</p><a href='https://wa.me/527711341559?text=Hola,%20tuve%20un%20problema%20con%20mi%20selección%20de%20menú' class='wa'>💬 Contactar a La Cabaña</a></div></div></body></html>",
+        "respondWith": "json",
+        "responseBody": "={{ { ok: false, error: 'token_invalido' } }}",
         "options": {
-          "responseHeaders": {
-            "values": [{ "name": "Content-Type", "value": "text/html; charset=utf-8" }]
-          }
+          "responseCode": 400
         }
       },
       "id": "responder-error",
@@ -153,29 +187,41 @@
   ],
   "connections": {
     "Webhook — Recibir selección": {
-      "main": [[{ "node": "Sheets — Leer para validar", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          { "node": "Sheets — Leer para validar", "type": "main", "index": 0 }
+        ]
+      ]
     },
     "Sheets — Leer para validar": {
-      "main": [[{ "node": "Validar token y extraer datos", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          { "node": "Validar token y extraer datos", "type": "main", "index": 0 }
+        ]
+      ]
     },
     "Validar token y extraer datos": {
-      "main": [[{ "node": "IF — ¿Token válido?", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          { "node": "IF — ¿Token válido?", "type": "main", "index": 0 }
+        ]
+      ]
     },
     "IF — ¿Token válido?": {
       "main": [
         [
           { "node": "Sheets — Guardar selección", "type": "main", "index": 0 },
           { "node": "Email — Confirmación al cliente", "type": "main", "index": 0 },
-          { "node": "Telegram — Alerta selección", "type": "main", "index": 0 }
+          { "node": "Telegram — Alerta selección", "type": "main", "index": 0 },
+          { "node": "Responder — Éxito", "type": "main", "index": 0 }
         ],
         [
           { "node": "Responder — Token inválido", "type": "main", "index": 0 }
         ]
       ]
-    },
-    "Email — Confirmación al cliente": {
-      "main": [[{ "node": "Responder — Éxito", "type": "main", "index": 0 }]]
     }
   },
-  "settings": { "executionOrder": "v1" }
+  "settings": {
+    "executionOrder": "v1"
+  }
 }

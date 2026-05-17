@@ -1,0 +1,364 @@
+Initializing n8n process
+n8n ready on ::, port 5678
+n8n Task Broker ready on 127.0.0.1, port 5679
+Failed to start Python task runner in internal mode. because its virtual environment is missing from this system. Launching a Python runner in internal mode is intended only for debugging and is not recommended for production. Users are encouraged to deploy in external mode. See: https://docs.n8n.io/hosting/configuration/task-runners/#setting-up-external-mode
+[license SDK] Skipping renewal on init: license cert is not initialized
+Registered runner "JS Task Runner" (KkvC8OSZxKCqOLxvWRjhD) 
+Version: 2.19.4
+Building workflow dependency index...
+Start Active Workflows:
+Activated workflow "La Cabaña — Flujo 3: Lead de Facebook Lead Ad" (ID: XXruEtS2Z2eSnXUm)
+Finished building workflow dependency index. Processed 4 draft workflows, 0 published workflows.
+Activated workflow "La Cabaña — Flujo 1: Lead desde sitio web" (ID: CczTsT1utoEPuicm)
+Activated workflow "La Cabaña — Flujo 2: Follow-up automático" (ID: kHbR7VEW6ZMN3EjE)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at ActiveWorkflowManager.activateWorkflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:549:29)
+    at C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:529:6
+    at async Promise.all (index 0)
+    at ActiveWorkflowManager.addActiveWorkflows (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:532:5)
+    at ActiveWorkflowManager.init (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:114:3)
+    at Start.run (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\commands\start.ts:392:3)
+
+Issue on initial workflow activation try of "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (ID: flujo4-generar-link) (startup)
+Activated workflow "TEMP — Insertar token de prueba" (ID: temp-insertar-token)
+
+Editor is now accessible via:
+http://localhost:5678
+Try to activate workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at Timeout.retryFunction [as _onTimeout] (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:915:16)
+    at listOnTimeout (node:internal/timers:605:17)
+    at processTimers (node:internal/timers:541:7)
+
+Activation of workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link) did fail with error: "Could not find property option" | retry in 2 seconds
+Try to activate workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at Timeout.retryFunction [as _onTimeout] (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:915:16)
+    at listOnTimeout (node:internal/timers:605:17)
+    at processTimers (node:internal/timers:541:7)
+
+Activation of workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link) did fail with error: "Could not find property option" | retry in 4 seconds
+Try to activate workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at Timeout.retryFunction [as _onTimeout] (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:915:16)
+    at listOnTimeout (node:internal/timers:605:17)
+    at processTimers (node:internal/timers:541:7)
+
+Activation of workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link) did fail with error: "Could not find property option" | retry in 8 seconds
+Try to activate workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at Timeout.retryFunction [as _onTimeout] (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:915:16)
+    at listOnTimeout (node:internal/timers:605:17)
+    at processTimers (node:internal/timers:541:7)
+
+Activation of workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link) did fail with error: "Could not find property option" | retry in 16 seconds
+Received request for unknown webhook: The requested webhook "GET seleccion" is not registered.
+[31m404 The requested webhook "GET seleccion" is not registered.[39m
+Try to activate workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at Timeout.retryFunction [as _onTimeout] (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:915:16)
+    at listOnTimeout (node:internal/timers:605:17)
+    at processTimers (node:internal/timers:541:7)
+
+Activation of workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link) did fail with error: "Could not find property option" | retry in 32 seconds
+Try to activate workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at Timeout.retryFunction [as _onTimeout] (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:915:16)
+    at listOnTimeout (node:internal/timers:605:17)
+    at processTimers (node:internal/timers:541:7)
+
+Activation of workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link) did fail with error: "Could not find property option" | retry in 64 seconds
+Try to activate workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at Timeout.retryFunction [as _onTimeout] (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:915:16)
+    at listOnTimeout (node:internal/timers:605:17)
+    at processTimers (node:internal/timers:541:7)
+
+Activation of workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link) did fail with error: "Could not find property option" | retry in 128 seconds
+Try to activate workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at Timeout.retryFunction [as _onTimeout] (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:915:16)
+    at listOnTimeout (node:internal/timers:605:17)
+    at processTimers (node:internal/timers:541:7)
+
+Activation of workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link) did fail with error: "Could not find property option" | retry in 256 seconds
+Try to activate workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at Timeout.retryFunction [as _onTimeout] (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:915:16)
+    at listOnTimeout (node:internal/timers:605:17)
+    at processTimers (node:internal/timers:541:7)
+
+Activation of workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link) did fail with error: "Could not find property option" | retry in 512 seconds
+Try to activate workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at Timeout.retryFunction [as _onTimeout] (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:915:16)
+    at listOnTimeout (node:internal/timers:605:17)
+    at processTimers (node:internal/timers:541:7)
+
+Activation of workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link) did fail with error: "Could not find property option" | retry in 1024 seconds
+Try to activate workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at Timeout.retryFunction [as _onTimeout] (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:915:16)
+    at listOnTimeout (node:internal/timers:605:17)
+    at processTimers (node:internal/timers:541:7)
+
+Activation of workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link) did fail with error: "Could not find property option" | retry in 2048 seconds
+Try to activate workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at Timeout.retryFunction [as _onTimeout] (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:915:16)
+    at listOnTimeout (node:internal/timers:605:17)
+    at processTimers (node:internal/timers:541:7)
+
+Activation of workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link) did fail with error: "Could not find property option" | retry in 4096 seconds
+Try to activate workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at Timeout.retryFunction [as _onTimeout] (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:915:16)
+    at listOnTimeout (node:internal/timers:605:17)
+    at processTimers (node:internal/timers:541:7)
+
+Activation of workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link) did fail with error: "Could not find property option" | retry in 8192 seconds
+Try to activate workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at Timeout.retryFunction [as _onTimeout] (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:915:16)
+    at listOnTimeout (node:internal/timers:605:17)
+    at processTimers (node:internal/timers:541:7)
+
+Activation of workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link) did fail with error: "Could not find property option" | retry in 16384 seconds
+(node:14800) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[31m401 Wrong username or password. Do you have caps lock on?[39m
+[31m401 Wrong username or password. Do you have caps lock on?[39m
+[31m401 Wrong username or password. Do you have caps lock on?[39m
+No encryption key found - Auto-generating and saving to: .\"C:\Users\studi\.n8n"\.n8n\config
+No encryption key found - Auto-generating and saving to: .\"C:\Users\studi\.n8n"\.n8n\config
+Error: ENOENT: no such file or directory, mkdir 'C:\Users\studi\Desktop\la-cabana\"C:\Users\studi\.n8n"\.n8n'
+    at mkdirSync (node:fs:1350:26)
+    at InstanceSettings.loadOrCreate (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-core\src\instance-settings\instance-settings.ts:294:12)
+    at new InstanceSettings (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-core\src\instance-settings\instance-settings.ts:74:24)
+    at ContainerClass.get (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\@n8n\di\src\di.ts:104:16)
+    at CommunityPackagesModule.loadDir (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\modules\community-packages\community-packages.module.ts:41:30)
+    at ModuleRegistry.loadModules (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\@n8n\backend-common\src\modules\module-registry.ts:122:20)
+    at CommandRegistry.execute (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\command-registry.ts:46:3)
+    at C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\bin\n8n:63:2
+Initializing n8n process
+n8n ready on ::, port 5678
+n8n Task Broker ready on 127.0.0.1, port 5679
+Failed to start Python task runner in internal mode. because its virtual environment is missing from this system. Launching a Python runner in internal mode is intended only for debugging and is not recommended for production. Users are encouraged to deploy in external mode. See: https://docs.n8n.io/hosting/configuration/task-runners/#setting-up-external-mode
+[license SDK] Skipping renewal on init: license cert is not initialized
+Registered runner "JS Task Runner" (G4GtDuHWFukQVlDa69MSx) 
+Version: 2.19.4
+Building workflow dependency index...
+Finished building workflow dependency index. Processed 0 draft workflows, 0 published workflows.
+
+Editor is now accessible via:
+http://localhost:5678
+Received request for unknown webhook: The requested webhook "GET seleccion" is not registered.
+[31m404 The requested webhook "GET seleccion" is not registered.[39m
+Received request for unknown webhook: The requested webhook "GET seleccion" is not registered.
+[31m404 The requested webhook "GET seleccion" is not registered.[39m
+Initializing n8n process
+n8n ready on ::, port 5678
+n8n Task Broker ready on 127.0.0.1, port 5679
+Failed to start Python task runner in internal mode. because its virtual environment is missing from this system. Launching a Python runner in internal mode is intended only for debugging and is not recommended for production. Users are encouraged to deploy in external mode. See: https://docs.n8n.io/hosting/configuration/task-runners/#setting-up-external-mode
+[license SDK] Skipping renewal on init: license cert is not initialized
+Registered runner "JS Task Runner" (489ZiHwPj9hifANHcxN8Q) 
+Version: 2.19.4
+Building workflow dependency index...
+Start Active Workflows:
+Activated workflow "La Cabaña — Flujo 3: Lead de Facebook Lead Ad" (ID: XXruEtS2Z2eSnXUm)
+Activated workflow "La Cabaña — Flujo 1: Lead desde sitio web" (ID: CczTsT1utoEPuicm)
+Activated workflow "La Cabaña — Flujo 2: Follow-up automático" (ID: kHbR7VEW6ZMN3EjE)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at ActiveWorkflowManager.activateWorkflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:549:29)
+    at C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:529:6
+    at async Promise.all (index 0)
+    at ActiveWorkflowManager.addActiveWorkflows (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:532:5)
+    at ActiveWorkflowManager.init (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:114:3)
+    at Start.run (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\commands\start.ts:392:3)
+
+Issue on initial workflow activation try of "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (ID: flujo4-generar-link) (startup)
+Activated workflow "La Cabaña — Flujo 5: Servir Formulario de Selección" (ID: flujo5-formulario-cliente)
+Activated workflow "La Cabaña — Flujo 6: Guardar Selección de Menú" (ID: flujo6-guardar-seleccion)
+Activated workflow "TEMP — Insertar token de prueba" (ID: temp-insertar-token)
+Activated workflow "La Cabaña — Ficha de Cliente" (ID: Y9ZraF4JlOHHVyGI)
+Finished building workflow dependency index. Processed 17 draft workflows, 0 published workflows.
+Activated workflow "La Cabana - Flujo 7: Marketing Ads Intake + Tracking" (ID: flujo7-marketing-intake)
+Activated workflow "La Cabana - Flujo 8: CRM Automatico desde Leads" (ID: flujo8-crm-automatico)
+Activated workflow "SETUP - Crear hoja CRM" (ID: setup-crear-crm)
+Activated workflow "SETUP - Formato visual CRM" (ID: setup-formato-crm)
+Activated workflow "SETUP - Crear hoja WhatsApp Leads" (ID: setup-whatsapp-leads)
+Activated workflow "La Cabana - Flujo 9: WhatsApp manual a CRM" (ID: flujo9-whatsapp-crm)
+
+Editor is now accessible via:
+http://localhost:5678
+Try to activate workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at Timeout.retryFunction [as _onTimeout] (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:915:16)
+    at listOnTimeout (node:internal/timers:605:17)
+    at processTimers (node:internal/timers:541:7)
+
+Activation of workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link) did fail with error: "Could not find property option" | retry in 2 seconds
+Try to activate workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at Timeout.retryFunction [as _onTimeout] (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:915:16)
+    at listOnTimeout (node:internal/timers:605:17)
+    at processTimers (node:internal/timers:541:7)
+
+Activation of workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link) did fail with error: "Could not find property option" | retry in 4 seconds
+Task (UahLhHay) rejected by Runner with reason "Offer expired - not accepted within validity window"
+Task (I4vjh52q) rejected by Runner with reason "Offer expired - not accepted within validity window"
+Task (-HpNdEuc) rejected by Runner with reason "Offer expired - not accepted within validity window"
+Task (p69mQm3i) rejected by Runner with reason "Offer expired - not accepted within validity window"
+Task (A4SbYeZx) rejected by Runner with reason "Offer expired - not accepted within validity window"
+Try to activate workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at Timeout.retryFunction [as _onTimeout] (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:915:16)
+    at listOnTimeout (node:internal/timers:605:17)
+    at processTimers (node:internal/timers:541:7)
+
+Activation of workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link) did fail with error: "Could not find property option" | retry in 8 seconds
+Try to activate workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at Timeout.retryFunction [as _onTimeout] (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:915:16)
+    at listOnTimeout (node:internal/timers:605:17)
+    at processTimers (node:internal/timers:541:7)
+
+Activation of workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link) did fail with error: "Could not find property option" | retry in 16 seconds
+Try to activate workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link)
+Could not find property option
+Error: Could not find property option
+    at getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:941:14)
+    at Object.getNodeParameters (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\node-helpers.ts:865:32)
+    at new Workflow (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\node_modules\n8n-workflow\src\workflow.ts:110:39)
+    at ActiveWorkflowManager.add (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:696:15)
+    at Timeout.retryFunction [as _onTimeout] (C:\Users\studi\AppData\Roaming\npm\node_modules\n8n\src\active-workflow-manager.ts:915:16)
+    at listOnTimeout (node:internal/timers:605:17)
+    at processTimers (node:internal/timers:541:7)
+
+Activation of workflow "La Cabaña — Flujo 4: Generar Link de Selección de Menú" (flujo4-generar-link) did fail with error: "Could not find property option" | retry in 32 seconds
+Initializing n8n process
+n8n ready on ::, port 5678
+n8n Task Broker ready on 127.0.0.1, port 5679
+Failed to start Python task runner in internal mode. because its virtual environment is missing from this system. Launching a Python runner in internal mode is intended only for debugging and is not recommended for production. Users are encouraged to deploy in external mode. See: https://docs.n8n.io/hosting/configuration/task-runners/#setting-up-external-mode
+[license SDK] Skipping renewal on init: license cert is not initialized
+Registered runner "JS Task Runner" (wbTw2694h6WDiom7q-bQc) 
+Version: 2.19.4
+Building workflow dependency index...
+Start Active Workflows:
+Activated workflow "La Cabaña — Flujo 3: Lead de Facebook Lead Ad" (ID: XXruEtS2Z2eSnXUm)
+Activated workflow "La Cabaña — Flujo 1: Lead desde sitio web" (ID: CczTsT1utoEPuicm)
+Activated workflow "La Cabaña — Flujo 2: Follow-up automático" (ID: kHbR7VEW6ZMN3EjE)
+Activated workflow "La Cabaña — Flujo 5: Servir Formulario de Selección" (ID: flujo5-formulario-cliente)
+Activated workflow "La Cabaña — Flujo 6: Guardar Selección de Menú" (ID: flujo6-guardar-seleccion)
+Activated workflow "TEMP — Insertar token de prueba" (ID: temp-insertar-token)
+Activated workflow "La Cabaña — Ficha de Cliente" (ID: Y9ZraF4JlOHHVyGI)
+Finished building workflow dependency index. Processed 15 draft workflows, 0 published workflows.
+Activated workflow "La Cabana - Flujo 7: Marketing Ads Intake + Tracking" (ID: flujo7-marketing-intake)
+Activated workflow "La Cabana - Flujo 8: CRM Automatico desde Leads" (ID: flujo8-crm-automatico)
+Activated workflow "SETUP - Crear hoja CRM" (ID: setup-crear-crm)
+Activated workflow "SETUP - Formato visual CRM" (ID: setup-formato-crm)
+Activated workflow "SETUP - Crear hoja WhatsApp Leads" (ID: setup-whatsapp-leads)
+Activated workflow "La Cabana - Flujo 9: WhatsApp manual a CRM" (ID: flujo9-whatsapp-crm)
+
+Editor is now accessible via:
+http://localhost:5678

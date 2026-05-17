@@ -1,0 +1,139 @@
+{
+  "id": "flujo7-ficha-cliente",
+  "name": "La Cabaña — Flujo 7: Ficha de Evento",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lacabana-ficha",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-ficha",
+      "name": "Webhook — Recibir Ficha",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "lacabana-ficha-001"
+    },
+    {
+      "parameters": {
+        "jsCode": "const b = $input.first().json.body || $input.first().json;\nconst ahora = new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' });\n\nreturn [{ json: {\n  fecha_registro: ahora,\n  folio: b.folio || '',\n  nombre_responsable: b.nombre_responsable || '',\n  telefono: b.telefono || '',\n  email: b.email || '',\n  nombre_festejado: b.nombre_festejado || '',\n  tipo_evento: b.tipo_evento || '',\n  fecha_evento: b.fecha_evento || '',\n  hora_inicio: b.hora_inicio || '',\n  paquete_contratado: b.paquete_contratado || '',\n  num_personas: b.num_personas || '',\n  menu_primer_tiempo: b.menu_primer_tiempo || '',\n  menu_segundo_tiempo: b.menu_segundo_tiempo || '',\n  menu_plato_fuerte: b.menu_plato_fuerte || '',\n  menu_guarnicion: b.menu_guarnicion || '',\n  menu_postre: b.menu_postre || '',\n  menu_bebidas: b.menu_bebidas || '',\n  sabores_agua: b.sabores_agua || '',\n  restricciones_alimentarias: b.restricciones_alimentarias || '',\n  vegetarianos: b.vegetarianos || '0',\n  servicios_adicionales: b.servicios_adicionales || '',\n  notas_generales: b.notas_generales || '',\n  firma_autorizacion: b.firma_autorizacion || ''\n}}];"
+      },
+      "id": "extraer-datos",
+      "name": "Extraer datos",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Fichas",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "fecha_registro": "={{ $json.fecha_registro }}",
+            "folio": "={{ $json.folio }}",
+            "nombre_responsable": "={{ $json.nombre_responsable }}",
+            "telefono": "={{ $json.telefono }}",
+            "email": "={{ $json.email }}",
+            "nombre_festejado": "={{ $json.nombre_festejado }}",
+            "tipo_evento": "={{ $json.tipo_evento }}",
+            "fecha_evento": "={{ $json.fecha_evento }}",
+            "hora_inicio": "={{ $json.hora_inicio }}",
+            "paquete_contratado": "={{ $json.paquete_contratado }}",
+            "num_personas": "={{ $json.num_personas }}",
+            "menu_primer_tiempo": "={{ $json.menu_primer_tiempo }}",
+            "menu_segundo_tiempo": "={{ $json.menu_segundo_tiempo }}",
+            "menu_plato_fuerte": "={{ $json.menu_plato_fuerte }}",
+            "menu_guarnicion": "={{ $json.menu_guarnicion }}",
+            "menu_postre": "={{ $json.menu_postre }}",
+            "menu_bebidas": "={{ $json.menu_bebidas }}",
+            "sabores_agua": "={{ $json.sabores_agua }}",
+            "restricciones_alimentarias": "={{ $json.restricciones_alimentarias }}",
+            "vegetarianos": "={{ $json.vegetarianos }}",
+            "servicios_adicionales": "={{ $json.servicios_adicionales }}",
+            "notas_generales": "={{ $json.notas_generales }}",
+            "firma_autorizacion": "={{ $json.firma_autorizacion }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "sheets-guardar",
+      "name": "Sheets — Guardar ficha",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [680, 200],
+      "continueOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "7790296286",
+        "text": "=📋 *NUEVA FICHA DE EVENTO*\n\n👤 *Responsable:* {{ $('Extraer datos').first().json.nombre_responsable }}\n📞 *Teléfono:* {{ $('Extraer datos').first().json.telefono }}\n🎉 *Festejado/a:* {{ $('Extraer datos').first().json.nombre_festejado }}\n🎊 *Tipo:* {{ $('Extraer datos').first().json.tipo_evento }}\n📅 *Fecha:* {{ $('Extraer datos').first().json.fecha_evento }} · {{ $('Extraer datos').first().json.hora_inicio }} hrs\n📦 *Paquete:* {{ $('Extraer datos').first().json.paquete_contratado }}\n👥 *Personas:* {{ $('Extraer datos').first().json.num_personas }}\n📄 *Folio:* {{ $('Extraer datos').first().json.folio || 'Sin folio' }}\n\n🍽️ *Menú:*\n• 1er tiempo: {{ $('Extraer datos').first().json.menu_primer_tiempo }}\n• 2do tiempo: {{ $('Extraer datos').first().json.menu_segundo_tiempo }}\n• Fuerte: {{ $('Extraer datos').first().json.menu_plato_fuerte }}\n• Guarnición: {{ $('Extraer datos').first().json.menu_guarnicion }}\n• Postre: {{ $('Extraer datos').first().json.menu_postre }}\n• Bebidas: {{ $('Extraer datos').first().json.menu_bebidas }}\n\n⭐ *Servicios:* {{ $('Extraer datos').first().json.servicios_adicionales || 'Sin adicionales' }}\n\n📝 *Notas:* {{ $('Extraer datos').first().json.notas_generales || 'Sin notas' }}\n\n✅ Ficha guardada en Google Sheets → Fichas",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "telegram-notif",
+      "name": "Telegram — Notificar ficha",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [680, 400],
+      "continueOnFail": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "telegram-cred",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"ok\": true, \"message\": \"Ficha recibida\" }",
+        "options": {}
+      },
+      "id": "responder-ok",
+      "name": "Responder OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "Webhook — Recibir Ficha": {
+      "main": [[{ "node": "Extraer datos", "type": "main", "index": 0 }]]
+    },
+    "Extraer datos": {
+      "main": [[
+        { "node": "Sheets — Guardar ficha", "type": "main", "index": 0 },
+        { "node": "Telegram — Notificar ficha", "type": "main", "index": 0 }
+      ]]
+    },
+    "Sheets — Guardar ficha": {
+      "main": [[{ "node": "Responder OK", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "pinData": {}
+}

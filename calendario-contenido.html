@@ -1,0 +1,969 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Cabaña — Entregable: Calendario + Operativo</title>
+<style>
+  :root{
+    --guinda:#6B1223;--guinda-dark:#4d0d1a;--ocre:#C8960C;--ocre-light:#fef7e0;
+    --verde:#1a7a35;--verde-light:#e6f4ea;--azul:#1a73e8;--azul-light:#e8f0fe;
+    --rosa:#c2185b;--rosa-light:#fce4ec;--morado:#7b1fa2;--morado-light:#f3e5f5;
+    --naranja:#e65100;--naranja-light:#fff3e0;
+    --gris:#f7f4f0;--gris-med:#e8e0d8;--texto:#1a1a1a;--suave:#555;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gris);color:var(--texto);line-height:1.65;}
+
+  /* HEADER */
+  .header{background:var(--guinda);color:white;padding:38px 48px 30px;position:relative;overflow:hidden;}
+  .header::before{content:'';position:absolute;top:-50px;right:-50px;width:240px;height:240px;border-radius:50%;background:rgba(200,150,12,.10);}
+  .htag{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ocre);margin-bottom:8px;}
+  .header h1{font-size:24px;font-weight:800;margin-bottom:5px;}
+  .header p{font-size:13px;opacity:.8;max-width:720px;}
+  .chips{display:flex;gap:9px;margin-top:16px;flex-wrap:wrap;}
+  .chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:4px 13px;font-size:12px;color:rgba(255,255,255,.9);}
+  .chip strong{color:var(--ocre);}
+
+  .strip{background:var(--guinda-dark);display:flex;flex-wrap:wrap;gap:18px;padding:11px 48px;}
+  .ley{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.85);}
+  .dot{width:10px;height:10px;border-radius:3px;flex-shrink:0;}
+
+  .wrap{max-width:1100px;margin:0 auto;padding:0 32px 80px;}
+
+  /* SECCIÓN */
+  .sec{margin-top:42px;}
+  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid var(--gris-med);}
+  .sec-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+  .sec-head h2{font-size:18px;font-weight:700;color:var(--guinda);}
+  .sec-head p{font-size:12px;color:var(--suave);margin-top:2px;}
+
+  /* ACCESO REQUERIDO — banner prominente */
+  .acceso-banner{background:var(--naranja);color:white;border-radius:10px;padding:16px 22px;display:flex;align-items:flex-start;gap:16px;margin-bottom:22px;}
+  .acceso-banner .big{font-size:32px;flex-shrink:0;}
+  .acceso-banner h3{font-size:16px;font-weight:900;margin-bottom:4px;}
+  .acceso-banner p{font-size:13px;opacity:.9;line-height:1.6;}
+  .acceso-tag{display:inline-block;background:var(--naranja);color:white;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:3px;margin-left:6px;vertical-align:middle;}
+
+  /* ENTREGABLE BADGE */
+  .entregable-badge{background:var(--guinda-dark);color:white;border-radius:8px;padding:10px 18px;font-size:13px;margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+  .entregable-badge strong{color:var(--ocre);}
+
+  /* CALLOUTS */
+  .callout{background:var(--azul-light);border-left:4px solid var(--azul);border-radius:0 6px 6px 0;padding:12px 16px;font-size:13px;color:#174ea6;margin-top:12px;}
+  .callout-o{background:var(--ocre-light);border-left:4px solid var(--ocre);border-radius:0 6px 6px 0;padding:12px 16px;font-size:13px;color:#7a5200;margin-top:12px;}
+  .callout-v{background:var(--verde-light);border-left:4px solid var(--verde);border-radius:0 6px 6px 0;padding:12px 16px;font-size:13px;color:#0d4d1f;margin-top:12px;}
+  .callout-r{background:var(--rosa-light);border-left:4px solid var(--rosa);border-radius:0 6px 6px 0;padding:12px 16px;font-size:13px;color:#880e4f;margin-top:12px;}
+  .callout-n{background:var(--naranja-light);border-left:4px solid var(--naranja);border-radius:0 6px 6px 0;padding:12px 16px;font-size:13px;color:#7a3000;margin-top:12px;}
+
+  /* BANCO POSTS */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+  .pcard{background:white;border-radius:10px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.07);}
+  .pcard-h{padding:11px 15px;color:white;display:flex;gap:10px;align-items:flex-start;}
+  .pcard-h .emoji{font-size:20px;flex-shrink:0;}
+  .pcard-tipo{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.8;}
+  .pcard-title{font-size:13px;font-weight:800;line-height:1.25;margin-top:2px;}
+  .pcard-b{padding:12px 15px;}
+  .hook{font-size:12.5px;font-style:italic;color:var(--guinda);border-left:3px solid var(--ocre);padding-left:9px;margin-bottom:8px;line-height:1.5;}
+  .det{font-size:12px;color:var(--suave);line-height:1.5;}
+  .tags{margin-top:8px;display:flex;gap:5px;flex-wrap:wrap;}
+  .tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;padding:2px 7px;border-radius:3px;}
+  .tv{background:var(--azul-light);color:var(--azul);}
+  .th{background:var(--rosa-light);color:var(--rosa);}
+  .tp{background:var(--ocre-light);color:#7a5200;}
+  .tvl{background:var(--morado-light);color:var(--morado);}
+  .ts{background:var(--verde-light);color:var(--verde);}
+  .tacc{background:var(--naranja-light);color:var(--naranja);}
+
+  /* PUBLICACIONES SEMANA 1 */
+  .pub-card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:20px;}
+  .pub-head{padding:13px 20px;color:white;display:flex;align-items:center;gap:14px;}
+  .pub-head .dia-badge{background:rgba(255,255,255,.18);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;}
+  .pub-head .fmt-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.8;}
+  .pub-head .fmt-title{font-size:15px;font-weight:800;line-height:1.2;}
+  .pub-body{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .pub-col{padding:16px 20px;border-right:1px solid var(--gris-med);}
+  .pub-col:last-child{border-right:none;}
+  .pub-col-title{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--suave);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+  .pub-col-title span{background:var(--guinda);color:white;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;}
+
+  .guion{display:flex;flex-direction:column;gap:8px;}
+  .g-step{display:flex;gap:10px;align-items:flex-start;}
+  .g-time{background:var(--guinda);color:white;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;white-space:nowrap;margin-top:1px;flex-shrink:0;}
+  .g-text{font-size:12.5px;color:var(--texto);line-height:1.5;}
+  .g-text em{color:var(--suave);font-style:italic;}
+  .g-nota{background:var(--gris);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--suave);margin-top:8px;}
+
+  .caption-box{background:var(--gris);border-radius:8px;padding:13px 15px;font-size:12.5px;line-height:1.7;white-space:pre-wrap;font-family:'Segoe UI',Arial,sans-serif;margin-bottom:8px;}
+  .caption-tags{font-size:11px;color:var(--azul);line-height:1.8;}
+
+  /* ACCIÓN PAUTA */
+  .accion-box{background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:20px;}
+  .accion-head{padding:13px 20px;display:flex;align-items:center;gap:12px;}
+  .accion-body{padding:16px 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .accion-item{border-left:3px solid var(--ocre);padding-left:10px;}
+  .accion-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--suave);margin-bottom:4px;}
+  .accion-val{font-size:13px;font-weight:600;}
+  .accion-note{grid-column:1/-1;background:var(--gris);border-radius:6px;padding:12px 14px;font-size:12.5px;color:var(--suave);}
+  .accion-note strong{color:var(--texto);}
+  .paso-list{display:flex;flex-direction:column;gap:6px;margin-top:10px;}
+  .paso{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;}
+  .paso-n{background:var(--guinda);color:white;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px;}
+
+  /* OPERATIVO */
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;}
+  .cal-dia{background:white;border-radius:10px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.07);}
+  .cal-dia-head{padding:9px 10px;color:white;text-align:center;}
+  .dname{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.85;}
+  .dfecha{font-size:20px;font-weight:900;line-height:1.1;}
+  .drole{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(255,255,255,.2);border-radius:3px;padding:2px 6px;margin-top:4px;display:inline-block;}
+  .cal-dia-body{padding:9px 10px;display:flex;flex-direction:column;gap:6px;}
+  .task{display:flex;gap:6px;align-items:flex-start;font-size:11px;}
+  .task-icon{font-size:12px;flex-shrink:0;margin-top:1px;}
+  .task-text{line-height:1.4;color:var(--texto);}
+  .task-time{font-size:9px;font-weight:700;color:var(--suave);display:block;margin-bottom:1px;}
+  .task-badge{display:inline-block;font-size:9px;font-weight:700;text-transform:uppercase;padding:1px 5px;border-radius:2px;margin-left:3px;vertical-align:middle;}
+  .tb-pub{background:var(--azul-light);color:var(--azul);}
+  .tb-crm{background:var(--verde-light);color:var(--verde);}
+  .tb-ads{background:#fce8e6;color:#b71c1c;}
+  .tb-sys{background:var(--morado-light);color:var(--morado);}
+  .tb-con{background:var(--ocre-light);color:#7a5200;}
+  .tb-gbp{background:#e8f5e9;color:#1b5e20;}
+  .tb-web{background:#e3f2fd;color:#0d47a1;}
+  .tb-wa{background:#e8f5e9;color:#1a7a35;}
+  .tb-acc{background:var(--naranja-light);color:var(--naranja);}
+  .divider{height:1px;background:var(--gris-med);margin:3px 0;}
+
+  /* CIERRE/ANALISIS highlight */
+  .rol-cierre{background:linear-gradient(135deg,#37474f 0%,#263238 100%)!important;}
+  .rol-analisis{background:linear-gradient(135deg,var(--guinda) 0%,#9c1a2e 100%)!important;}
+
+  /* AREAS TABLA */
+  .areas-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .area-card{background:white;border-radius:10px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.07);}
+  .area-head{padding:11px 16px;color:white;display:flex;align-items:center;gap:10px;}
+  .area-head h4{font-size:14px;font-weight:800;}
+  .area-head small{font-size:11px;opacity:.8;}
+  .area-body{padding:13px 16px;}
+  .area-item{display:flex;justify-content:space-between;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--gris);font-size:12.5px;gap:10px;}
+  .area-item:last-child{border-bottom:none;}
+  .area-label{color:var(--suave);flex-shrink:0;min-width:100px;}
+  .area-val{font-weight:600;text-align:right;}
+  .area-freq{display:inline-block;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;}
+  .freq-d{background:#fce8e6;color:#b71c1c;}
+  .freq-s{background:var(--azul-light);color:var(--azul);}
+  .freq-m{background:var(--verde-light);color:var(--verde);}
+  .freq-1{background:var(--ocre-light);color:#7a5200;}
+
+  /* SESION FOTOS */
+  .foto-sesion{background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08);}
+  .foto-sesion-head{background:var(--naranja);padding:14px 20px;color:white;}
+  .foto-sesion-head h3{font-size:16px;font-weight:900;margin-bottom:4px;}
+  .foto-sesion-head p{font-size:12px;opacity:.9;}
+  .foto-sesion-body{padding:18px 20px;}
+  .shots-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;}
+  .shot-item{background:var(--gris);border-radius:8px;padding:12px 14px;}
+  .shot-num{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--suave);margin-bottom:4px;}
+  .shot-name{font-size:13px;font-weight:700;margin-bottom:3px;}
+  .shot-det{font-size:11.5px;color:var(--suave);}
+  .shot-req{font-size:10px;font-weight:700;color:var(--naranja);margin-top:4px;}
+
+  /* RITMO SEMANAL */
+  .ritmo-box{background:var(--guinda-dark);border-radius:12px;padding:24px 28px;color:white;}
+  .ritmo-box h3{font-size:16px;font-weight:800;color:var(--ocre);margin-bottom:16px;}
+  .ritmo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+  .ritmo-dia{background:rgba(255,255,255,.08);border-radius:8px;padding:12px;}
+  .ritmo-dia.highlight{background:rgba(200,150,12,.2);border:1px solid rgba(200,150,12,.4);}
+  .ritmo-dia h4{font-size:12px;font-weight:800;color:var(--ocre);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;}
+  .ritmo-dia p{font-size:11.5px;color:rgba(255,255,255,.8);line-height:1.5;}
+
+  .footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--gris-med);font-size:12px;color:var(--suave);text-align:center;}
+
+  .label-sec{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--suave);font-weight:700;margin-bottom:11px;margin-top:22px;}
+
+  @media print{
+    body{background:white;}
+    .header,.strip,.pub-head,.accion-head,.cal-dia-head,.area-head,.foto-sesion-head,.ritmo-box,.acceso-banner{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .pub-card,.accion-box,.cal-dia,.area-card,.foto-sesion{page-break-inside:avoid;}
+    .wrap{padding:0 16px 40px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="htag">Entregable — Mayo 2026</div>
+  <h1>La Cabaña Eventos — Calendario de Contenido + Operativo Completo</h1>
+  <p>Banco de posts de valor y humor · Semana 1 con guiones completos · Operativo diario: redes, CRM, sistema, Google Business, Search Console, web y WhatsApp Business</p>
+  <div class="chips">
+    <span class="chip">Semana <strong>1 de N</strong> — siguiente semana se define con métricas</span>
+    <span class="chip">Cierre: <strong>miércoles</strong></span>
+    <span class="chip">Análisis + planificación: <strong>jueves</strong></span>
+    <span class="chip">Pauta: <strong>$2,000 MXN/mes</strong></span>
+  </div>
+</div>
+
+<div class="strip">
+  <div class="ley"><div class="dot" style="background:#b71c1c"></div> Pauta</div>
+  <div class="ley"><div class="dot" style="background:#1a73e8"></div> Reel / Video</div>
+  <div class="ley"><div class="dot" style="background:#1a7a35"></div> Foto estática</div>
+  <div class="ley"><div class="dot" style="background:#7b1fa2"></div> Story</div>
+  <div class="ley"><div class="dot" style="background:#c2185b"></div> Humor / Meme</div>
+  <div class="ley"><div class="dot" style="background:#e65100"></div> Requiere acceso a La Cabaña</div>
+</div>
+
+<div class="wrap">
+
+  <!-- ENTREGABLE BADGE -->
+  <div class="sec">
+    <div class="entregable-badge">
+      📄 <strong>Entregable 1:</strong> Plan de contenido + calendario operativo · La calendarización de la semana entrante se realizará a razón del estudio de métricas reales — no se planea en vacío.
+    </div>
+
+    <!-- RITMO SEMANAL -->
+    <div class="ritmo-box">
+      <h3>Ritmo de trabajo semanal — Cómo funciona el ciclo</h3>
+      <div class="ritmo-grid">
+        <div class="ritmo-dia">
+          <h4>Lun–Mar</h4>
+          <p>Publicaciones en feed. Seguimiento de leads. Revisión Meta Ads primeros días.</p>
+        </div>
+        <div class="ritmo-dia">
+          <h4>Miércoles</h4>
+          <p>⬛ <strong style="color:var(--ocre)">CIERRE</strong> — Todo el contenido de la semana se entrega listo. Reporte de métricas preliminar.</p>
+        </div>
+        <div class="ritmo-dia highlight">
+          <h4>Jueves</h4>
+          <p>📊 <strong style="color:var(--ocre)">ANÁLISIS</strong> — Se estudian métricas: CPL, alcance, engagement, leads. Se calendariza la semana siguiente con fundamento en datos.</p>
+        </div>
+        <div class="ritmo-dia">
+          <h4>Viernes</h4>
+          <p>Story urgencia. Verificación de sistema. Cotizaciones pendientes. Preparar contenido de fin de semana.</p>
+        </div>
+        <div class="ritmo-dia">
+          <h4>Sáb–Dom</h4>
+          <p>Publicaciones principales (reel + carrusel). Monitoreo de pauta y WhatsApp. Sistema activo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCESO REQUERIDO -->
+  <div class="sec">
+    <div class="acceso-banner">
+      <div class="big">📸</div>
+      <div>
+        <h3>REQUIERE ACCESO FÍSICO A LA CABAÑA — Sesión de fotografía</h3>
+        <p>Mis primeras semanas de contenido dependen de tener fotos reales del salón. Sin material visual propio, publico con imágenes genéricas que pierden autenticidad. <strong>Voy a agendar la sesión entre semana al mediodía</strong>, cuando la luz natural entra mejor. El salón tiene que estar limpio y ordenado — idealmente con mesas montadas aunque sea de muestra. Para las tomas de pista LED necesito ir también al anochecer el mismo día.</p>
+      </div>
+    </div>
+
+    <div class="foto-sesion">
+      <div class="foto-sesion-head">
+        <h3>Lista de tomas necesarias — Sesión de fotografía y video</h3>
+        <p>Llevar: celular con cámara buena o Sony A6400 · Trípode o estabilizador</p>
+      </div>
+      <div class="foto-sesion-body">
+        <div class="callout-n" style="margin-top:0;margin-bottom:14px;"><strong>Horario ideal: 12:00 – 2:00 pm.</strong> A esa hora la luz entra lateralmente y da profundidad. Antes de las 10am es muy dura; después de las 3pm se pierde. Para la pista LED voy también al anochecer (7:00 pm) el mismo día.</div>
+        <div class="shots-grid">
+          <div class="shot-item">
+            <div class="shot-num">Toma 1</div>
+            <div class="shot-name">Entrada / fachada exterior</div>
+            <div class="shot-det">Foto y video corto (10s) de la entrada principal. Con letrero visible si hay. Luz natural al mediodía.</div>
+            <div class="shot-req">⏰ Mediodía</div>
+          </div>
+          <div class="shot-item">
+            <div class="shot-num">Toma 2</div>
+            <div class="shot-name">Salón vacío — vista completa</div>
+            <div class="shot-det">Foto desde el fondo del salón mostrando todo el espacio. Mesa lista o solo el salón vacío con sillas en su lugar.</div>
+            <div class="shot-req">⏰ Mediodía · salón limpio</div>
+          </div>
+          <div class="shot-item">
+            <div class="shot-num">Toma 3</div>
+            <div class="shot-name">Pista LED encendida</div>
+            <div class="shot-det">La más importante. Encender la pista con efecto galaxia. Toma desde arriba si es posible, o desde el borde del salón. Necesita oscuridad para que el efecto se vea.</div>
+            <div class="shot-req">🌆 Tarde/noche · LED encendida</div>
+          </div>
+          <div class="shot-item">
+            <div class="shot-num">Toma 4</div>
+            <div class="shot-name">Detalle de mesas montadas</div>
+            <div class="shot-det">Si es posible montar aunque sea 2–3 mesas de muestra con mantel, centro de mesa y vajilla. Foto editorial de detalle.</div>
+            <div class="shot-req">🪑 Requiere montaje</div>
+          </div>
+          <div class="shot-item">
+            <div class="shot-num">Toma 5</div>
+            <div class="shot-name">Hospedaje</div>
+            <div class="shot-det">Habitaciones, área común del hospedaje, baños limpios. Camas tendidas. Luz natural con ventanas abiertas.</div>
+            <div class="shot-req">⏰ Mediodía · habitación limpia</div>
+          </div>
+          <div class="shot-item">
+            <div class="shot-num">Toma 6</div>
+            <div class="shot-name">Exterior / jardín / área verde</div>
+            <div class="shot-det">Vista del jardín o área natural alrededor. Punto de diferencia vs. salones urbanos. Foto y video panorámico.</div>
+            <div class="shot-req">⏰ Cualquier hora</div>
+          </div>
+          <div class="shot-item">
+            <div class="shot-num">Video 1</div>
+            <div class="shot-name">Reel de recorrido (45s)</div>
+            <div class="shot-det">Caminata continua: entrada → salón → pista → hospedaje. Sin cortes bruscos. Este video es el creativo del ad de pauta.</div>
+            <div class="shot-req">⏰ Mediodía + tarde para LED</div>
+          </div>
+          <div class="shot-item">
+            <div class="shot-num">Video 2</div>
+            <div class="shot-name">Pista LED en movimiento</div>
+            <div class="shot-det">10–15 segundos de la pista encendida, cámara moviéndose lentamente de lado a lado. Para reels cortos y stories.</div>
+            <div class="shot-req">🌆 Tarde/noche</div>
+          </div>
+          <div class="shot-item">
+            <div class="shot-num">Logo</div>
+            <div class="shot-name">Logo en fachada o interior</div>
+            <div class="shot-det">Si hay letrero con el nombre del salón, foto limpia de ese letrero. Se usa en stories y como imagen de perfil.</div>
+            <div class="shot-req">⏰ Cualquier hora</div>
+          </div>
+        </div>
+        <div class="callout-o" style="margin-top:14px;"><strong>Antes de la sesión:</strong> Limpiar el salón completamente · Quitar objetos fuera de lugar · Si hay polvo en la pista LED, limpiarla para que el efecto salga nítido · Tener las llaves de acceso a hospedaje y todos los espacios · Confirmar que la pista LED está funcionando al 100%.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BANCO DE CONTENIDO -->
+  <div class="sec">
+    <div class="sec-head">
+      <div class="sec-icon" style="background:var(--guinda)">✍️</div>
+      <div>
+        <h2>Banco de Contenido — Posts listos para producir</h2>
+        <p>Usar cuando se tenga el material fotográfico. Los marcados con 🟠 requieren fotos propias de La Cabaña.</p>
+      </div>
+    </div>
+
+    <div class="label-sec">Posts de Valor — Educación + Confianza</div>
+    <div class="grid3">
+
+      <div class="pcard">
+        <div class="pcard-h" style="background:var(--azul)">
+          <div class="emoji">📋</div>
+          <div><div class="pcard-tipo">Carrusel · Valor</div><div class="pcard-title">8 cosas que debe tener tu contrato de salón</div></div>
+        </div>
+        <div class="pcard-b">
+          <div class="hook">"Slide 1: ¿El DJ está en el contrato o te lo cobran aparte? El checklist que nadie te da antes de firmar."</div>
+          <div class="det">8 slides: DJ incluido · pista propia · estacionamiento · horario máximo · política de anticipo · menú degustación · cancelación · foto del salón montado. Cierre: "Aquí todo esto está en el contrato. Sin letra chica."</div>
+          <div class="tags"><span class="tag tv">Valor</span><span class="tag tvl">Guardados</span></div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pcard-h" style="background:var(--verde)">
+          <div class="emoji">💰</div>
+          <div><div class="pcard-tipo">Carrusel · Educación</div><div class="pcard-title">¿Cuánto cuesta realmente una boda en Hidalgo?</div></div>
+        </div>
+        <div class="pcard-b">
+          <div class="hook">"Te voy a decir lo que ningún salón te dice: los costos ocultos de una boda. Y cómo evitarlos."</div>
+          <div class="det">Desglose real: salón 40% / catering 25% / flores 15% / fotos 10% / DJ 10%. Último slide: "El DJ y la pista ya vienen incluidos. Nuestro precio no tiene sorpresas."</div>
+          <div class="tags"><span class="tag tv">Valor</span><span class="tag tvl">Viral</span></div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pcard-h" style="background:#0277bd">
+          <div class="emoji">❓</div>
+          <div><div class="pcard-tipo">Reel · Educación</div><div class="pcard-title">5 preguntas antes de firmar con un salón</div></div>
+        </div>
+        <div class="pcard-b">
+          <div class="hook">"¿Tu salón incluye DJ? ¿La pista LED es propia o rentada? Si no sabes esto, escucha antes de firmar."</div>
+          <div class="det">Reel 30–45s en cámara, tono amigable. Preguntas: pista propia / DJ incluido / estacionamiento / hospedaje / cancelación. Cierre: "Nosotros respondemos SÍ a las 5. Sin letra chica."</div>
+          <div class="tags"><span class="tag tv">Valor</span><span class="tag tp">Leads</span></div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pcard-h" style="background:#558b2f">
+          <div class="emoji">🏠</div>
+          <div><div class="pcard-tipo">Foto · Diferenciador <span class="acceso-tag">🟠 Acceso</span></div><div class="pcard-title">Por qué el hospedaje lo cambia todo en una boda</div></div>
+        </div>
+        <div class="pcard-b">
+          <div class="hook">"Que la familia no tenga que manejar de regreso a Pachuca a la 1am. Eso lo cambia todo."</div>
+          <div class="det">Foto cálida del hospedaje. Copy sobre valor emocional: novios y familia se quedan. Ningún competidor en el rango de precio lo tiene. Menciona La Triple Corona. <strong>Requiere foto real del hospedaje.</strong></div>
+          <div class="tags"><span class="tag tv">Valor</span><span class="tag tacc">🟠 Acceso</span></div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pcard-h" style="background:#00838f">
+          <div class="emoji">📅</div>
+          <div><div class="pcard-tipo">Foto · Urgencia <span class="acceso-tag">🟠 Acceso</span></div><div class="pcard-title">Por qué los diciembre se agotan en mayo</div></div>
+        </div>
+        <div class="pcard-b">
+          <div class="hook">"Los sábados de diciembre 2026 ya tienen lista de espera. Si tienes un evento en mente, este es el momento."</div>
+          <div class="det">Foto del salón iluminado de noche. Copy explica disponibilidad. CTA: "Agenda tu visita. No tiene costo conocer el salón." <strong>Requiere foto del salón bien iluminado.</strong></div>
+          <div class="tags"><span class="tag tv">Valor</span><span class="tag tp">Urgencia</span><span class="tag tacc">🟠 Acceso</span></div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pcard-h" style="background:#6a1b9a">
+          <div class="emoji">💡</div>
+          <div><div class="pcard-tipo">Carrusel · Tips <span class="acceso-tag">🟠 Acceso</span></div><div class="pcard-title">Pista LED vs. pista normal: ¿vale la diferencia?</div></div>
+        </div>
+        <div class="pcard-b">
+          <div class="hook">"En fotos y video, la pista LED hace que tu evento parezca el doble de grande. Aquí te explico por qué."</div>
+          <div class="det">Slide 1: foto pista normal. Slide 2: foto pista LED encendida. Slide 3: comparativa. Cierre: "La nuestra es propia, incluida desde el paquete Herradura." <strong>Requiere foto pista LED encendida.</strong></div>
+          <div class="tags"><span class="tag tv">Valor</span><span class="tag tvl">Guardados</span><span class="tag tacc">🟠 Acceso</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="label-sec">Posts de Humor — Viralidad del Nicho</div>
+    <div class="grid3">
+
+      <div class="pcard">
+        <div class="pcard-h" style="background:var(--rosa)">
+          <div class="emoji">😂</div>
+          <div><div class="pcard-tipo">Meme · Humor</div><div class="pcard-title">Mamá vs. "familia cercana"</div></div>
+        </div>
+        <div class="pcard-b">
+          <div class="hook">"Tu mamá: 'Solo familia cercana, 50 personas.' — 2 meses después:"</div>
+          <div class="det">Meme 2 paneles. Panel 2: foto del salón lleno. Caption: "Y así fue como el evento íntimo se volvió el del año. 😅 Para los 50 íntimos que se vuelven 200, tenemos espacio." <strong>El panel 2 mejora mucho con foto real del salón lleno.</strong></div>
+          <div class="tags"><span class="tag th">Humor</span><span class="tag tvl">Viral</span></div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pcard-h" style="background:#e91e63">
+          <div class="emoji">💃</div>
+          <div><div class="pcard-tipo">Reel · Humor</div><div class="pcard-title">La quinceañera: ensayo vs. día del evento</div></div>
+        </div>
+        <div class="pcard-b">
+          <div class="hook">"Ensayo del vals: seria, coordinada, perfecta. — El vals el día del evento con 3 chambelanes tropezados:"</div>
+          <div class="det">Reel 2 partes. Primera: clip serio con música clásica. Segunda: caos total. Caption cierra emotivo. Usar audio viral de IG. No requiere fotos propias — funciona con material de stock o meme.</div>
+          <div class="tags"><span class="tag th">Humor</span><span class="tag tvl">Viral</span></div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pcard-h" style="background:#ad1457">
+          <div class="emoji">📸</div>
+          <div><div class="pcard-tipo">Meme · Humor</div><div class="pcard-title">El fotógrafo: "una más que salió borrosa"</div></div>
+        </div>
+        <div class="pcard-b">
+          <div class="hook">"El fotógrafo: 'Una más que salió borrosa.' — Llevamos 4 horas y 800 fotos."</div>
+          <div class="det">Meme 3 paneles. Caption conecta con la galería digital: "Por eso incluimos galería digital para que todos descarguen sus fotos. Sin que el fotógrafo mande a 200 personas por WhatsApp. 😂"</div>
+          <div class="tags"><span class="tag th">Humor</span><span class="tag tvl">Viral</span></div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pcard-h" style="background:#c62828">
+          <div class="emoji">🎵</div>
+          <div><div class="pcard-tipo">Meme · Humor</div><div class="pcard-title">El DJ cuando al fin puede poner reggaetón</div></div>
+        </div>
+        <div class="pcard-b">
+          <div class="hook">"El DJ cuando al fin puede poner reggaetón después de 3 horas de baladas por petición de la abuela:"</div>
+          <div class="det">GIF del DJ feliz + la abuela también bailando. Caption: "Spoiler: la abuela terminó bailando más que nadie. 🕺 Nuestro DJ siempre termina con la pista llena."</div>
+          <div class="tags"><span class="tag th">Humor</span><span class="tag tvl">Viral</span></div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pcard-h" style="background:#880e4f">
+          <div class="emoji">🍰</div>
+          <div><div class="pcard-tipo">Meme · Humor</div><div class="pcard-title">El novio en la mesa de dulces a las 2am</div></div>
+        </div>
+        <div class="pcard-b">
+          <div class="hook">"El novio cuando ya se fueron todos y la mesa de dulces sigue con la mitad:"</div>
+          <div class="det">Foto cómica. Caption conecta al hospedaje: "Por eso los novios se quedan a dormir aquí. La bolsa de dulces también." Suave CTA a La Triple Corona.</div>
+          <div class="tags"><span class="tag th">Humor</span><span class="tag tp">Promo</span></div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pcard-h" style="background:#4a148c">
+          <div class="emoji">🎂</div>
+          <div><div class="pcard-tipo">Story · Humor interactivo</div><div class="pcard-title">¿Cuántas veces has llorado en una boda ajena?</div></div>
+        </div>
+        <div class="pcard-b">
+          <div class="hook">"Encuesta: A) Nunca soy de piedra B) Solo una C) Siempre D) Estoy llorando ahora"</div>
+          <div class="det">Story con slider de llanto 😭. Segunda story: "El X% lloran en bodas ajenas. Imagínense en la propia. 🥲 Si ya tienes fecha, escríbenos." Convierte engagement en leads suavemente.</div>
+          <div class="tags"><span class="tag th">Humor</span><span class="tag ts">Engagement</span></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="callout-n"><strong>Nota sobre el banco de contenido:</strong> Los posts marcados con 🟠 requieren fotos reales de La Cabaña y deben esperar a la sesión fotográfica. Los posts sin esa marca (memes, humor, carruseles educativos) se pueden publicar antes con material genérico o de referencia. Empezar con lo que no requiere acceso.</div>
+  </div>
+
+  <!-- SEMANA 1 -->
+  <div class="sec">
+    <div class="sec-head">
+      <div class="sec-icon" style="background:var(--azul)">📅</div>
+      <div>
+        <h2>Semana 1 — Sábado 16 al Viernes 22 de mayo</h2>
+        <p>Guiones completos para video · Captions listos para copiar · Pasos exactos para la pauta</p>
+      </div>
+    </div>
+
+    <!-- PAUTA -->
+    <div class="accion-box">
+      <div class="accion-head" style="background:linear-gradient(135deg,#b71c1c 0%,#e53935 100%);">
+        <div style="font-size:26px;">🚀</div>
+        <div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.8);">Sábado 16 de mayo — Acción 1 (9:00 am)</div>
+          <div style="font-size:15px;font-weight:800;color:white;">Lanzar Campaña Lead Generation — Meta Ads Manager</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.75);margin-top:2px;">No es publicación orgánica · Se configura en Meta Ads Manager · $1,200 MXN/mes · $40/día</div>
+        </div>
+      </div>
+      <div class="accion-body">
+        <div class="accion-item"><div class="accion-label">Tipo de campaña</div><div class="accion-val">Clientes potenciales (Lead Generation)</div></div>
+        <div class="accion-item"><div class="accion-label">Presupuesto</div><div class="accion-val">$40 MXN/día · $1,200 MXN/mes</div></div>
+        <div class="accion-item"><div class="accion-label">CTA del anuncio</div><div class="accion-val">Formulario nativo de Meta (4 campos)</div></div>
+        <div class="accion-note">
+          <strong>Pasos exactos en Meta Ads Manager:</strong>
+          <div class="paso-list">
+            <div class="paso"><div class="paso-n">1</div><span>Crear campaña → Objetivo: "Clientes potenciales" → Nombre: "LasCabaña_LeadGen_May2026"</span></div>
+            <div class="paso"><div class="paso-n">2</div><span>Conjunto de anuncios → Ubicación: Hidalgo + Pachuca + Mineral de la Reforma → Edad: 22–42 → Intereses: bodas, quinceañeras, decoración de eventos, planificación de bodas</span></div>
+            <div class="paso"><div class="paso-n">3</div><span>Anuncio → subir el video del Reel del mismo sábado → Titular: <em>"La boda que imaginaste, al precio que mereces"</em></span></div>
+            <div class="paso"><div class="paso-n">4</div><span>Texto del anuncio: <em>"¿Buscas salón para tu boda, XV años o graduación cerca de Pachuca? Pista LED galaxia · DJ incluido · Menú gourmet · Hasta 250 invitados. Desde $400/persona. Déjanos tus datos y te contactamos en menos de 1 hora. 📩"</em></span></div>
+            <div class="paso"><div class="paso-n">5</div><span>Formulario instantáneo → 4 campos: Nombre completo · Teléfono · Tipo de evento · Fecha tentativa → Mensaje final: <em>"¡Gracias! Te contactamos en menos de 1 hora por WhatsApp."</em></span></div>
+            <div class="paso"><div class="paso-n">6</div><span>Verificar que el Píxel de Facebook esté activo en lacabanaeventos.com antes de publicar</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REEL SABADO -->
+    <div class="pub-card">
+      <div class="pub-head" style="background:linear-gradient(135deg,#1a73e8 0%,#0d47a1 100%);">
+        <div style="font-size:26px;">🎬</div>
+        <div style="flex:1;">
+          <div class="dia-badge">Sábado 16 · 10:00 am</div>
+          <div class="fmt-label" style="margin-top:6px;">Reel — Video 30–45 segundos · FB + IG · También va como creativo del ad</div>
+          <div class="fmt-title">Tour del salón de noche — "Así se ve La Cabaña" <span class="acceso-tag">🟠 Requiere sesión fotográfica</span></div>
+        </div>
+      </div>
+      <div class="pub-body">
+        <div class="pub-col">
+          <div class="pub-col-title"><span>G</span>Guión — escena por escena</div>
+          <div class="guion">
+            <div class="g-step"><div class="g-time">0:00–0:03</div><div class="g-text"><strong>Pantalla oscura + texto:</strong> "¿Buscas salón para tu evento en Hidalgo?" <em>(fade in, letras blancas)</em></div></div>
+            <div class="g-step"><div class="g-time">0:03–0:10</div><div class="g-text"><strong>Entrada exterior:</strong> caminata lenta hacia la puerta principal con luces encendidas.</div></div>
+            <div class="g-step"><div class="g-time">0:10–0:18</div><div class="g-text"><strong>Salón completo:</strong> recorrido lento. Texto en pantalla: <strong>"250 invitados"</strong></div></div>
+            <div class="g-step"><div class="g-time">0:18–0:26</div><div class="g-text"><strong>Close-up pista LED galaxia encendida.</strong> Texto: <strong>"Pista LED propia · incluida"</strong>. Toma fija 5 seg para ver el efecto.</div></div>
+            <div class="g-step"><div class="g-time">0:26–0:33</div><div class="g-text"><strong>Mesas o decoración.</strong> Texto: <strong>"DJ incluido · Menú gourmet"</strong></div></div>
+            <div class="g-step"><div class="g-time">0:33–0:40</div><div class="g-text"><strong>Exterior o jardín.</strong> Texto: <strong>"A 30 min de Pachuca · Zapotlán de Juárez, Hgo."</strong></div></div>
+            <div class="g-step"><div class="g-time">0:40–0:45</div><div class="g-text"><strong>Pantalla final con logo.</strong> Texto: <strong>"Desde $400/persona · lacabanaeventos.com · Cotiza hoy 👆"</strong></div></div>
+          </div>
+          <div class="g-nota"><strong>Música:</strong> Audio trending elegante de IG (buscar "luxury event" o "salon de bodas"). Sin voz en off — el texto en pantalla es suficiente. Este mismo video va como creativo del anuncio de pauta.</div>
+        </div>
+        <div class="pub-col">
+          <div class="pub-col-title"><span>C</span>Caption para FB e IG</div>
+          <div class="caption-box">Así es por dentro la noche de tu evento. 🌟
+
+Pista LED galaxia propia. DJ incluido. Menú gourmet.
+Tenemos espacio para hasta 250 invitados.
+
+Sin costos ocultos. Sin sorpresas.
+Solo tu evento, exactamente como lo imaginaste.
+
+📍 Zapotlán de Juárez, Hidalgo — 30 min de Pachuca
+💰 Desde $400 por persona · paquetes desde $13,900
+
+👉 Cotiza tu fecha:
+📲 wa.me/52[TU NÚMERO]
+🌐 lacabanaeventos.com</div>
+          <div class="caption-tags">#SalónDeEventos #EventosHidalgo #BodasHidalgo #XVAñosHidalgo #PistaLED #SalónDeBodas #GraduacionesPachuca #LasCabañaEventos #EventosCercaDePachuca #QuinceañerasHidalgo</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LUNES STORY -->
+    <div class="pub-card">
+      <div class="pub-head" style="background:linear-gradient(135deg,var(--morado) 0%,#4a148c 100%);">
+        <div style="font-size:26px;">📱</div>
+        <div style="flex:1;">
+          <div class="dia-badge">Lunes 18 · 7:00 pm</div>
+          <div class="fmt-label" style="margin-top:6px;">Story interactiva — Solo Stories FB + IG · 24 horas</div>
+          <div class="fmt-title">Poll: ¿Para qué evento estás planeando?</div>
+        </div>
+      </div>
+      <div class="pub-body">
+        <div class="pub-col">
+          <div class="pub-col-title"><span>D</span>Diseño en Canva</div>
+          <div class="guion">
+            <div class="g-step"><div class="g-time">Fondo</div><div class="g-text">Foto del salón o pista LED como fondo, oscurecida al 40%.</div></div>
+            <div class="g-step"><div class="g-time">Texto</div><div class="g-text"><strong>"¿Para qué estás planeando tu evento?"</strong> — blanco, centrado, grande.</div></div>
+            <div class="g-step"><div class="g-time">Sticker</div><div class="g-text">Encuesta IG: 💍 Boda / 🎀 XV años / 🎓 Graduación / 🎉 Otro</div></div>
+            <div class="g-step"><div class="g-time">Día siguiente</div><div class="g-text">Martes 8am: segunda story con resultado del poll + CTA a WhatsApp.</div></div>
+          </div>
+        </div>
+        <div class="pub-col">
+          <div class="pub-col-title"><span>C</span>Texto — copiar y pegar</div>
+          <div class="caption-box">STORY 1 — Lunes 7pm:
+
+"¿Para qué estás planeando tu evento?"
+[Sticker de encuesta con las 4 opciones]
+
+Cuéntanos 👇 y te mandamos info
+de paquetes a tu DM.</div>
+          <div class="caption-box">STORY 2 — Martes 8am:
+
+"¡Gracias por participar! 🎉
+El [X]% está planeando [opción].
+
+👉 ¿Ya tienes fecha en mente?
+Escríbenos hoy mismo.
+[Botón enlace → wa.me/52NÚMERO]"</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MARTES FOTO -->
+    <div class="pub-card">
+      <div class="pub-head" style="background:linear-gradient(135deg,var(--verde) 0%,#1b5e20 100%);">
+        <div style="font-size:26px;">📸</div>
+        <div style="flex:1;">
+          <div class="dia-badge">Martes 19 · 12:00 pm</div>
+          <div class="fmt-label" style="margin-top:6px;">Foto estática — Feed FB + IG <span class="acceso-tag">🟠 Requiere foto de pista LED</span></div>
+          <div class="fmt-title">Pista LED galaxia + precio visible</div>
+        </div>
+      </div>
+      <div class="pub-body">
+        <div class="pub-col">
+          <div class="pub-col-title"><span>I</span>Instrucciones para la imagen</div>
+          <div class="guion">
+            <div class="g-step"><div class="g-time">Foto</div><div class="g-text">Mejor foto de la pista LED encendida. Preferentemente con el efecto galaxia visible. Si no hay foto propia aún, usar temporalmente una imagen de referencia y actualizar al tener la sesión.</div></div>
+            <div class="g-step"><div class="g-time">Formato</div><div class="g-text">Cuadrada 1:1 o vertical 4:5 para mayor espacio en feed.</div></div>
+            <div class="g-step"><div class="g-time">Sin texto</div><div class="g-text">No poner texto sobre la foto — el copy hace el trabajo. La foto sola debe detener el scroll.</div></div>
+          </div>
+        </div>
+        <div class="pub-col">
+          <div class="pub-col-title"><span>C</span>Caption completo — copiar y pegar</div>
+          <div class="caption-box">250 invitados. Pista LED galaxia propia.
+DJ incluido. Todo en un solo lugar. 💫
+
+— Herradura: desde $400/persona (mín. 80p)
+— Mayoral: desde $500/persona (mín. 100p)
+— Premium: desde $700/persona (mín. 120p)
+— Solo Salón: $13,900 fijo
+
+Todos incluyen: pista LED · DJ · menú
+· estacionamiento · mobiliario.
+
+📍 Zapotlán de Juárez, Hidalgo
+📲 wa.me/52[TU NÚMERO]
+🌐 lacabanaeventos.com</div>
+          <div class="caption-tags">#BodasHidalgo #SalónDeEventos #XVAñosHidalgo #PistaLED #GraduacionesPachuca #EventosHidalgo #LasCabañaEventos #Pachuca #BodaCampestre</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JUEVES HUMOR -->
+    <div class="pub-card">
+      <div class="pub-head" style="background:linear-gradient(135deg,var(--rosa) 0%,#880e4f 100%);">
+        <div style="font-size:26px;">😂</div>
+        <div style="flex:1;">
+          <div class="dia-badge">Jueves 21 · 6:00 pm</div>
+          <div class="fmt-label" style="margin-top:6px;">Humor / Meme — Feed FB + IG · Mejor día para viralidad</div>
+          <div class="fmt-title">Mamá vs. "familia cercana" — el evento íntimo que creció</div>
+        </div>
+      </div>
+      <div class="pub-body">
+        <div class="pub-col">
+          <div class="pub-col-title"><span>D</span>Cómo armarlo en Canva</div>
+          <div class="guion">
+            <div class="g-step"><div class="g-time">Formato</div><div class="g-text">2 paneles horizontales. Plantilla "expectativa vs. realidad" en Canva.</div></div>
+            <div class="g-step"><div class="g-time">Panel 1</div><div class="g-text">Texto: <strong>"Tu mamá: 'Solo familia cercana, máx. 50 personas'"</strong> · Imagen: foto de mesa pequeña o salón semi vacío.</div></div>
+            <div class="g-step"><div class="g-time">Panel 2</div><div class="g-text">Texto: <strong>"2 meses después:"</strong> · Imagen: foto del salón La Cabaña completamente lleno con pista LED encendida.</div></div>
+            <div class="g-step"><div class="g-time">Logo</div><div class="g-text">Logo La Cabaña pequeño en esquina inferior derecha. Colores guinda y ocre.</div></div>
+          </div>
+        </div>
+        <div class="pub-col">
+          <div class="pub-col-title"><span>C</span>Caption completo — copiar y pegar</div>
+          <div class="caption-box">Y así fue como el "evento íntimo"
+se convirtió en la boda del año. 😅
+
+Pasó en enero.
+Va a volver a pasar.
+
+Pero está bien — para eso tenemos
+paquetes desde 50 hasta 250 invitados.
+Para todos los "íntimos" de la familia.
+
+¿Ya sabes cuántos son los tuyos? 👇
+Cuéntanos en comentarios y te decimos
+qué paquete te queda perfecto.
+
+📲 wa.me/52[TU NÚMERO]
+🌐 lacabanaeventos.com</div>
+          <div class="caption-tags">#EventosHidalgo #BodasHidalgo #XVAños #SalónDeEventos #BodaMéxico #LasCabañaEventos #MemeBoda #EventosFamiliares #Pachuca</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIERNES STORY -->
+    <div class="pub-card">
+      <div class="pub-head" style="background:linear-gradient(135deg,var(--guinda) 0%,#9c1a2e 100%);">
+        <div style="font-size:26px;">⏳</div>
+        <div style="flex:1;">
+          <div class="dia-badge">Viernes 22 · 7:00 pm</div>
+          <div class="fmt-label" style="margin-top:6px;">Story urgencia — Repetir cada viernes hasta el 30 jun · Solo Stories</div>
+          <div class="fmt-title">Countdown La Triple Corona — "Quedan 39 días para congelar tu precio"</div>
+        </div>
+      </div>
+      <div class="pub-body">
+        <div class="pub-col">
+          <div class="pub-col-title"><span>D</span>Diseño en Canva</div>
+          <div class="guion">
+            <div class="g-step"><div class="g-time">Fondo</div><div class="g-text">Color guinda #6B1223 sólido.</div></div>
+            <div class="g-step"><div class="g-time">Número</div><div class="g-text"><strong>"39"</strong> gigante en ocre #C8960C. Debajo: "días restantes".</div></div>
+            <div class="g-step"><div class="g-time">Sticker</div><div class="g-text">Cuenta regresiva de IG → fecha: 30 junio 2026.</div></div>
+            <div class="g-step"><div class="g-time">CTA</div><div class="g-text">Botón de enlace: "Cotizar ahora →" → wa.me/52[NÚMERO]</div></div>
+            <div class="g-step"><div class="g-time">Cada viernes</div><div class="g-text">Solo actualizar el número de días. Guardar plantilla en Canva.</div></div>
+          </div>
+        </div>
+        <div class="pub-col">
+          <div class="pub-col-title"><span>C</span>Texto de la story</div>
+          <div class="caption-box">⏳ Quedan 39 días
+
+Para apartar tu fecha y activar
+LA TRIPLE CORONA:
+
+✅ Precio congelado en contrato
+✅ Hospedaje la noche del evento
+✅ Galería digital QR + NFC
+   para todos tus invitados
+
+Solo hasta el 30 de junio 2026.
+
+[Sticker cuenta regresiva]
+[Botón "Quiero cotizar" → wa.me/52NÚMERO]</div>
+          <div class="callout-o" style="margin-top:8px;"><strong>Si alguien pregunta qué es La Triple Corona:</strong> "Contratas hoy, congelas el precio aunque en 2027 suban tarifas, los novios y familia duermen aquí la noche del evento, y todos los invitados descargan sus fotos solo acercando el celular."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout-v"><strong>Resumen semana 1:</strong> Sáb → Pauta lanzada + Reel · Lun → Story poll · Mar → Foto con precio + Story respuesta · Jue → Meme viral · Vie → Story countdown. La calendarización de la Semana 2 se define el <strong>jueves 21</strong> con base en métricas reales de los primeros 5 días.</div>
+  </div>
+
+  <!-- CALENDARIO OPERATIVO -->
+  <div class="sec">
+    <div class="sec-head">
+      <div class="sec-icon" style="background:var(--ocre)">🗓️</div>
+      <div>
+        <h2>Calendario Operativo Semanal — Todas las áreas del proyecto</h2>
+        <p>Redes · CRM · Meta Ads · Google Business Profile · Search Console · Web · WhatsApp Business · Sistema n8n</p>
+      </div>
+    </div>
+
+    <div class="cal-grid">
+
+      <div class="cal-dia">
+        <div class="cal-dia-head" style="background:#546e7a">
+          <div class="dname">Domingo</div>
+          <div class="dfecha">D</div>
+          <div class="drole">Seguimiento</div>
+        </div>
+        <div class="cal-dia-body">
+          <div class="task"><div class="task-icon">📋</div><div class="task-text">Revisar CRM — leads del fin de semana <span class="task-badge tb-crm">CRM</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">💬</div><div class="task-text">Responder comentarios IG/FB <span class="task-badge tb-pub">Redes</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">🎨</div><div class="task-text">Diseñar post del martes en Canva <span class="task-badge tb-con">Contenido</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">🔧</div><div class="task-text">Verificar n8n + Cloudflare <span class="task-badge tb-sys">Sistema</span></div></div>
+        </div>
+      </div>
+
+      <div class="cal-dia">
+        <div class="cal-dia-head" style="background:var(--azul)">
+          <div class="dname">Lunes</div>
+          <div class="dfecha">L</div>
+          <div class="drole">CRM + Ads</div>
+        </div>
+        <div class="cal-dia-body">
+          <div class="task"><div class="task-icon">📋</div><div class="task-text">CRM: contactar leads sin respuesta del fin de semana <span class="task-badge tb-crm">CRM</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">📊</div><div class="task-text">Meta Ads: CPL, alcance, ajuste si es necesario <span class="task-badge tb-ads">Pauta</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">⭐</div><div class="task-text">GBP: responder reseñas nuevas en Google Maps <span class="task-badge tb-gbp">GBP</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">📲</div><div class="task-text">WhatsApp Business: revisar mensajes automáticos y catálogo <span class="task-badge tb-wa">WA</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">📱</div><div class="task-text">Publicar Story poll en IG + FB <span class="task-badge tb-pub">Redes</span></div></div>
+        </div>
+      </div>
+
+      <div class="cal-dia">
+        <div class="cal-dia-head" style="background:var(--verde)">
+          <div class="dname">Martes</div>
+          <div class="dfecha">M</div>
+          <div class="drole">Publicación</div>
+        </div>
+        <div class="cal-dia-body">
+          <div class="task"><div class="task-icon">📱</div><div class="task-text">Story 2: resultado del poll + CTA WhatsApp <span class="task-badge tb-pub">Redes</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">📸</div><div class="task-text">Publicar foto + copy en FB + IG <span class="task-badge tb-pub">Redes</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">📲</div><div class="task-text">Contactar leads nuevos (máx 1h de respuesta) <span class="task-badge tb-crm">CRM</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">🌐</div><div class="task-text">Revisar Search Console: clics, impresiones, errores de indexación <span class="task-badge tb-web">Web</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">🔧</div><div class="task-text">Verificar formularios del sitio web funcionando <span class="task-badge tb-web">Web</span></div></div>
+        </div>
+      </div>
+
+      <div class="cal-dia">
+        <div class="cal-dia-head class="rol-cierre"" style="background:linear-gradient(135deg,#37474f 0%,#263238 100%)">
+          <div class="dname">Miércoles</div>
+          <div class="dfecha">X</div>
+          <div class="drole">⬛ CIERRE</div>
+        </div>
+        <div class="cal-dia-body">
+          <div class="task"><div class="task-icon">📤</div><div class="task-text">Enviar cotizaciones pendientes a leads <span class="task-badge tb-crm">CRM</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">📷</div><div class="task-text">GBP: subir fotos nuevas si hay de la semana <span class="task-badge tb-gbp">GBP</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">📲</div><div class="task-text">WhatsApp Business: actualizar horario, mensaje de bienvenida, respuestas rápidas <span class="task-badge tb-wa">WA</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">🎨</div><div class="task-text">Cerrar todo el contenido listo para la siguiente semana <span class="task-badge tb-con">Contenido</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">📊</div><div class="task-text">Exportar métricas: Meta Ads + Google Analytics + CRM para análisis del jueves <span class="task-badge tb-ads">Métricas</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">🔧</div><div class="task-text">n8n + Cloudflare: revisión completa de flujos, logs de errores <span class="task-badge tb-sys">Sistema</span></div></div>
+        </div>
+      </div>
+
+      <div class="cal-dia">
+        <div class="cal-dia-head" style="background:linear-gradient(135deg,var(--guinda) 0%,#9c1a2e 100%)">
+          <div class="dname">Jueves</div>
+          <div class="dfecha">J</div>
+          <div class="drole">📊 ANÁLISIS</div>
+        </div>
+        <div class="cal-dia-body">
+          <div class="task"><div class="task-icon">📊</div><div class="task-text">Analizar métricas: CPL real, alcance, leads captados, tasa respuesta <span class="task-badge tb-ads">Métricas</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">📈</div><div class="task-text">Comparar qué contenido funcionó mejor (reel vs foto vs meme) <span class="task-badge tb-pub">Redes</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">📅</div><div class="task-text">Calendarizar semana siguiente con base en datos reales <span class="task-badge tb-con">Planificación</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">😂</div><div class="task-text">Publicar post de humor en FB + IG <span class="task-badge tb-pub">Redes</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">🔍</div><div class="task-text">Search Console: revisar palabras clave con impresiones, optimizar meta descriptions <span class="task-badge tb-web">Web</span></div></div>
+        </div>
+      </div>
+
+      <div class="cal-dia">
+        <div class="cal-dia-head" style="background:#5d4037">
+          <div class="dname">Viernes</div>
+          <div class="dfecha">V</div>
+          <div class="drole">Urgencia</div>
+        </div>
+        <div class="cal-dia-body">
+          <div class="task"><div class="task-icon">📤</div><div class="task-text">Follow-up final a leads de la semana <span class="task-badge tb-crm">CRM</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">⭐</div><div class="task-text">GBP: verificar que la ficha tenga horarios correctos y fotos actualizadas <span class="task-badge tb-gbp">GBP</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">🎬</div><div class="task-text">Grabar o editar contenido del sábado <span class="task-badge tb-con">Contenido</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">⏳</div><div class="task-text">Story countdown Triple Corona <span class="task-badge tb-pub">Redes</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">🔧</div><div class="task-text">Verificar n8n + Cloudflare antes del fin de semana <span class="task-badge tb-sys">Sistema</span></div></div>
+        </div>
+      </div>
+
+      <div class="cal-dia">
+        <div class="cal-dia-head" style="background:var(--guinda)">
+          <div class="dname">Sábado</div>
+          <div class="dfecha">S</div>
+          <div class="drole">Publicación</div>
+        </div>
+        <div class="cal-dia-body">
+          <div class="task"><div class="task-icon">📊</div><div class="task-text">Revisar Meta Ads: ajuste de presupuesto si aplica <span class="task-badge tb-ads">Pauta</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">🎬</div><div class="task-text">Publicar Reel principal en FB + IG <span class="task-badge tb-pub">Redes</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">📲</div><div class="task-text">Monitorear WhatsApp — leads que llegan por el ad <span class="task-badge tb-crm">CRM</span></div></div>
+          <div class="divider"></div>
+          <div class="task"><div class="task-icon">🔧</div><div class="task-text">Verificar n8n corriendo + Cloudflare Tunnel activo <span class="task-badge tb-sys">Sistema</span></div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ÁREAS ESPECIALES -->
+    <div style="margin-top:22px;">
+      <div class="label-sec">Mantenimiento por áreas — Frecuencia y tareas específicas</div>
+      <div class="areas-grid">
+
+        <div class="area-card">
+          <div class="area-head" style="background:#1b5e20">
+            <div style="font-size:22px;">📍</div>
+            <div><h4>Google Business Profile (Maps)</h4><small>Aparecer en búsquedas locales "salón de eventos cerca de Pachuca"</small></div>
+          </div>
+          <div class="area-body">
+            <div class="area-item"><span class="area-label">Configuración inicial</span><span class="area-val">Verificar ficha en business.google.com · Categoría: "Salón de eventos" · Dirección exacta · Teléfono + WhatsApp · Horarios <span class="area-freq freq-1">Una sola vez</span></span></div>
+            <div class="area-item"><span class="area-label">Fotos nuevas</span><span class="area-val">Subir mínimo 2 fotos del salón por semana. Fotos de eventos reales cuando hay. <span class="area-freq freq-s">Semanal</span></span></div>
+            <div class="area-item"><span class="area-label">Responder reseñas</span><span class="area-val">Responder TODAS las reseñas (positivas y negativas) en máx. 48h. Las positivas con agradecimiento + invitación. <span class="area-freq freq-s">Semanal</span></span></div>
+            <div class="area-item"><span class="area-label">Publicaciones GBP</span><span class="area-val">Publicar 1 novedad/oferta por semana directamente en la ficha de Google. Mencionar La Triple Corona. <span class="area-freq freq-s">Semanal</span></span></div>
+            <div class="area-item"><span class="area-label">Preguntas y respuestas</span><span class="area-val">Revisar si hay preguntas sin responder en el perfil y contestarlas. <span class="area-freq freq-s">Semanal</span></span></div>
+          </div>
+        </div>
+
+        <div class="area-card">
+          <div class="area-head" style="background:#0d47a1">
+            <div style="font-size:22px;">🔍</div>
+            <div><h4>Google Search Console + Web</h4><small>Visibilidad orgánica del sitio lacabanaeventos.com</small></div>
+          </div>
+          <div class="area-body">
+            <div class="area-item"><span class="area-label">Search Console inicial</span><span class="area-val">Verificar dominio en Search Console · Enviar sitemap.xml · Revisar errores de indexación <span class="area-freq freq-1">Una sola vez</span></span></div>
+            <div class="area-item"><span class="area-label">Palabras clave</span><span class="area-val">Revisar qué términos generan clics. Ajustar meta descriptions de páginas con impresiones altas pero clics bajos. <span class="area-freq freq-s">Semanal</span></span></div>
+            <div class="area-item"><span class="area-label">Velocidad del sitio</span><span class="area-val">Verificar en PageSpeed Insights. Las imágenes deben pesar menos de 200kb. <span class="area-freq freq-m">Mensual</span></span></div>
+            <div class="area-item"><span class="area-label">Formularios web</span><span class="area-val">Probar que todos los formularios de contacto del sitio llegan correctamente al CRM vía n8n. <span class="area-freq freq-s">Semanal</span></span></div>
+            <div class="area-item"><span class="area-label">Contenido SEO</span><span class="area-val">Agregar 1 página o sección nueva al mes orientada a búsquedas locales ("salón bodas Zapotlán de Juárez"). <span class="area-freq freq-m">Mensual</span></span></div>
+          </div>
+        </div>
+
+        <div class="area-card">
+          <div class="area-head" style="background:#1a7a35">
+            <div style="font-size:22px;">💬</div>
+            <div><h4>WhatsApp Business</h4><small>Canal principal de conversión — toda la pauta dirige aquí</small></div>
+          </div>
+          <div class="area-body">
+            <div class="area-item"><span class="area-label">Configuración inicial</span><span class="area-val">Perfil de empresa completo · Horario de atención · Mensaje de bienvenida · Mensaje de ausencia <span class="area-freq freq-1">Una sola vez</span></span></div>
+            <div class="area-item"><span class="area-label">Respuesta rápida</span><span class="area-val">Configurar mínimo 5 respuestas rápidas: cotización / precios / disponibilidad / ubicación / Triple Corona <span class="area-freq freq-1">Una sola vez</span></span></div>
+            <div class="area-item"><span class="area-label">Catálogo de paquetes</span><span class="area-val">Actualizar catálogo de productos con los 10 paquetes, precios y fotos cuando haya material. <span class="area-freq freq-m">Mensual</span></span></div>
+            <div class="area-item"><span class="area-label">Tiempo de respuesta</span><span class="area-val">MÁXIMO 1 hora en horario hábil. El primer contacto define si el lead se convierte. <span class="area-freq freq-d">Diario</span></span></div>
+            <div class="area-item"><span class="area-label">Etiquetas de leads</span><span class="area-val">Etiquetar conversaciones: Nuevo / Cotización enviada / Visita agendada / Anticipo / Archivado. <span class="area-freq freq-d">Diario</span></span></div>
+          </div>
+        </div>
+
+        <div class="area-card">
+          <div class="area-head" style="background:var(--morado)">
+            <div style="font-size:22px;">⚙️</div>
+            <div><h4>Sistema n8n + Cloudflare Tunnel</h4><small>El cerebro de la automatización — debe estar 24/7</small></div>
+          </div>
+          <div class="area-body">
+            <div class="area-item"><span class="area-label">Verificación diaria</span><span class="area-val">Confirmar que n8n responde en n8n.lacabanaeventos.com y que el Cloudflare Tunnel está activo. <span class="area-freq freq-d">Diario</span></span></div>
+            <div class="area-item"><span class="area-label">Flujos de leads</span><span class="area-val">Revisar que los leads de Meta Forms lleguen al CRM Google Sheets correctamente. Probar con un lead de prueba si hay dudas. <span class="area-freq freq-s">Semanal</span></span></div>
+            <div class="area-item"><span class="area-label">Logs de errores</span><span class="area-val">Revisar el historial de ejecuciones en n8n. Si algún flujo falló, identificar causa y corregir. <span class="area-freq freq-s">Semanal miérc.</span></span></div>
+            <div class="area-item"><span class="area-label">Reinicio preventivo</span><span class="area-val">Si la PC lleva más de 7 días encendida, reiniciar n8n manualmente y verificar que el Tunnel reconecta. <span class="area-freq freq-s">Semanal</span></span></div>
+            <div class="area-item"><span class="area-label">Respaldo CRM</span><span class="area-val">Descargar copia del Google Sheets (Leads + Selecciones) una vez al mes como respaldo local. <span class="area-freq freq-m">Mensual</span></span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:18px;"><strong>Tareas mínimas diarias (15 min total):</strong> Revisar WhatsApp Business → responder en máx 1h · Actualizar status de leads en CRM · Verificar que n8n sigue corriendo · Responder comentarios de publicaciones activas. Estas 4 acciones previenen leads perdidos y mantienen el sistema funcionando.</div>
+    <div class="callout-o"><strong>La calendarización de la semana entrante se realizará a razón del estudio de métricas.</strong> Cierre: miércoles. Análisis y planificación de la siguiente semana con fundamento en datos: jueves. No se planea sin métricas.</div>
+  </div>
+
+  <div class="footer">
+    La Cabaña Eventos · San Pedro Huaquilpan, Zapotlán de Juárez, Hidalgo · Entregable Mayo 2026<br>
+    Para PDF: Chrome o Edge → Ctrl+P → Guardar como PDF → A4 · márgenes mínimos · activar gráficos de fondo
+  </div>
+
+</div>
+</body>
+</html>

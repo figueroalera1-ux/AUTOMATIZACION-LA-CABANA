@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Flujo - La Cabaña</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+}
+.box {
+  background: #1e293b;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+.arrow {
+  font-size: 24px;
+}
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+.small {
+  font-size: 13px;
+  color: #94a3b8;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="box">📥 Meta Ads + Web Form</div>
+  <div class="arrow">⬇️</div>
+
+  <div class="box">⚙️ n8n - LEADS MASTER (unifica datos)</div>
+  <div class="arrow">⬇️</div>
+
+  <div class="box">🧠 Normalización de datos</div>
+  <div class="arrow">⬇️</div>
+
+  <div class="box">🎯 Clasificación: HOT / WARM / COLD</div>
+  <div class="arrow">⬇️</div>
+
+  <div class="row">
+    <div class="box">
+      💾 Google Sheets CRM
+      <div class="small">Registro completo de leads</div>
+    </div>
+
+    <div class="box">
+      🔔 Notificaciones
+      <div class="small">Slack + Gmail + WhatsApp</div>
+    </div>
+  </div>
+
+  <div class="arrow">⬇️</div>
+
+  <div class="box">💰 Seguimiento / Remarketing</div>
+
+</div>
+
+</body>
+</html>

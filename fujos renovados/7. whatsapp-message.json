@@ -1,0 +1,15 @@
+const lead = $input.first().json;
+
+const message =
+`Hola ${lead.nombre} 👋
+
+Vi tu evento de ${lead.tipo_evento}.
+
+¿Quieres que te pase disponibilidad y paquetes para tu fecha?`;
+
+return [{
+  json:{
+    to:lead.telefono,
+    message
+  }
+}];

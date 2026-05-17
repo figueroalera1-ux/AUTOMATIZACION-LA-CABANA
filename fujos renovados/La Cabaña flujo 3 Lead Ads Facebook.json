@@ -1,0 +1,125 @@
+{
+  "id": "XXruEtS2Z2eSnXUm",
+  "name": "La Cabaña — Flujo 3 OPTIMIZADO Facebook Leads",
+  "nodes": [
+    {
+      "id": "webhook-facebook",
+      "name": "Webhook Facebook Lead",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [200, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lacabana-facebook-lead",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "webhookId": "lacabana-facebook-lead"
+    },
+    {
+      "id": "normalize",
+      "name": "Normalizar Lead",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [420, 300],
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body || $input.first().json;\nlet data = {};\n\nif (body.entry?.[0]?.changes?.[0]?.value?.field_data) {\n  body.entry[0].changes[0].value.field_data.forEach(f => data[f.name] = f.values[0]);\n} else {\n  data = body;\n}\n\nconst now = new Date();\n\nreturn [{ json: {\n  id: 'FB-' + now.getTime(),\n  nombre: data.full_name || data.name || data.nombre || '',\n  email: data.email || '',\n  telefono: data.phone_number || data.phone || data.telefono || '',\n  evento: data.tipo_evento || data.evento || 'No especificado',\n  fecha_evento: data.fecha_evento || data.event_date || '',\n  personas: data.personas || data.guests || '',\n  fuente: 'Facebook Ads',\n  status: 'nuevo',\n  score: (data.tipo_evento || '').toLowerCase().includes('boda') ? 'HOT' : 'WARM',\n  fecha_captura: now.toISOString(),\n  ultimo_contacto: ''\n}}];"
+      }
+    },
+    {
+      "id": "sheets",
+      "name": "Guardar CRM",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [650, 300],
+      "parameters": {
+        "operation": "append",
+        "documentId": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk",
+        "sheetName": "Leads",
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {}
+        },
+        "options": {}
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "id": "telegram",
+      "name": "Telegram Notificación",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [880, 250],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/botTOKEN/sendMessage",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ chat_id: 'CHAT_ID', text: '🔥 NUEVO LEAD FB\\n\\n👤 ' + $json.nombre + '\\n📱 ' + $json.telefono + '\\n🎉 ' + $json.evento + '\\n📅 ' + $json.fecha_evento + '\\n👥 ' + $json.personas + '\\n\\n⚡ SCORE: ' + $json.score }) }}"
+      }
+    },
+    {
+      "id": "email",
+      "name": "Email Auto",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [880, 420],
+      "parameters": {
+        "fromEmail": "eventos@lacabana.com",
+        "toEmail": "={{ $json.email }}",
+        "subject": "Recibimos tu solicitud — La Cabaña",
+        "emailType": "html",
+        "message": "={{ '<h2>Hola ' + $json.nombre + '</h2><p>Recibimos tu solicitud para ' + $json.evento + '</p><p>Te contactaremos pronto.</p>' }}"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook Facebook Lead": {
+      "main": [
+        [
+          {
+            "node": "Normalizar Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizar Lead": {
+      "main": [
+        [
+          {
+            "node": "Guardar CRM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar CRM": {
+      "main": [
+        [
+          {
+            "node": "Telegram Notificación",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Email Auto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

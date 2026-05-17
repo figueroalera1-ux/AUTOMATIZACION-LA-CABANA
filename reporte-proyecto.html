@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte del Proyecto — La Cabaña Eventos</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5;color:#1a1a1a;font-size:14px}
+  .header{background:linear-gradient(135deg,#6B1223,#4d0c19);padding:40px 32px;text-align:center;color:#fff}
+  .header h1{font-size:28px;font-weight:700;margin-bottom:8px}
+  .header p{color:rgba(255,255,255,.75);font-size:14px}
+  .badge{display:inline-block;background:#C8960C;color:#fff;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:700;margin-top:12px}
+  .container{max-width:900px;margin:0 auto;padding:32px 20px}
+  .section{background:#fff;border-radius:12px;padding:28px;margin-bottom:24px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+  .section-title{font-size:18px;font-weight:700;color:#6B1223;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid #f0e8e8;display:flex;align-items:center;gap:10px}
+  .tag{display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700}
+  .tag-ok{background:#e8f5e9;color:#2e7d32}
+  .tag-pend{background:#fff8e1;color:#7a5000}
+  .tag-imp{background:#fce8ec;color:#6B1223}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{background:#6B1223;color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+  td{padding:10px 14px;border-bottom:1px solid #f0f0f0;vertical-align:top}
+  tr:nth-child(even) td{background:#fafafa}
+  .flow-box{background:#f8f5f2;border-radius:8px;padding:16px;margin-bottom:12px;border-left:4px solid #C8960C}
+  .flow-box h4{font-size:13px;font-weight:700;margin-bottom:8px;color:#333}
+  .flow-nodes{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px}
+  .node{background:#fff;border:1px solid #ddd;border-radius:6px;padding:6px 12px;font-weight:600;color:#333}
+  .arrow{color:#C8960C;font-weight:700}
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:24px}
+  .stat{background:#6B1223;color:#fff;border-radius:10px;padding:20px;text-align:center}
+  .stat .num{font-size:32px;font-weight:700}
+  .stat .label{font-size:12px;opacity:.8;margin-top:4px}
+  .file-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f0f0f0}
+  .file-item:last-child{border-bottom:none}
+  .file-name{font-size:13px;font-family:monospace;color:#333}
+  .file-desc{font-size:12px;color:#666;margin-top:2px}
+  .pend-item{background:#fff8e1;border-radius:8px;padding:14px;margin-bottom:10px;border-left:3px solid #C8960C}
+  .pend-item h4{font-size:13px;font-weight:700;color:#7a5000;margin-bottom:4px}
+  .pend-item p{font-size:13px;color:#555}
+  .success-banner{background:#e8f5e9;border:1px solid #4caf50;border-radius:8px;padding:16px;text-align:center;margin-bottom:24px}
+  .success-banner h3{color:#2e7d32;font-size:16px}
+  .success-banner p{color:#555;font-size:13px;margin-top:4px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Reporte de Avance del Proyecto</h1>
+  <p>Automatización · Diseño Web · n8n · Google Sheets</p>
+  <div class="badge">La Cabaña Eventos — 9 de Mayo 2026</div>
+</div>
+
+<div class="container">
+
+  <!-- RESUMEN EJECUTIVO -->
+  <div class="stat-grid">
+    <div class="stat"><div class="num">3</div><div class="label">Flujos n8n operativos</div></div>
+    <div class="stat"><div class="num">5</div><div class="label">Páginas web creadas</div></div>
+    <div class="stat"><div class="num">1</div><div class="label">Sistema end-to-end activo</div></div>
+    <div class="stat"><div class="num">✅</div><div class="label">Webhook + Sheets + Email</div></div>
+  </div>
+
+  <div class="success-banner">
+    <h3>🎉 Sistema de Ficha de Cliente: OPERATIVO</h3>
+    <p>Webhook → Google Sheets → Email funciona correctamente. Prueba TEST-FINAL exitosa el 9 de mayo 2026.</p>
+  </div>
+
+  <!-- SISTEMA n8n -->
+  <div class="section">
+    <div class="section-title"><span>⚙️</span> Sistema n8n — Estado Actual</div>
+
+    <table style="margin-bottom:20px">
+      <thead><tr><th>Componente</th><th>Estado</th><th>Detalle</th></tr></thead>
+      <tbody>
+        <tr><td>n8n local</td><td><span class="tag tag-ok">✅ Activo</span></td><td>localhost:5678</td></tr>
+        <tr><td>Cloudflare Tunnel</td><td><span class="tag tag-ok">✅ Activo</span></td><td>n8n.lacabanaeventos.com</td></tr>
+        <tr><td>Email SMTP</td><td><span class="tag tag-ok">✅ Configurado</span></td><td>Brevo · smtp-relay.brevo.com:587</td></tr>
+        <tr><td>Google Sheets</td><td><span class="tag tag-ok">✅ Conectado</span></td><td>ID: 1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk</td></tr>
+        <tr><td>Facebook Pixel</td><td><span class="tag tag-ok">✅ Instalado</span></td><td>ID: 4510279802585543</td></tr>
+      </tbody>
+    </table>
+
+    <div class="flow-box">
+      <h4>Flujo 1 — Lead desde sitio web (cotizar.html)</h4>
+      <div class="flow-nodes">
+        <div class="node">🔗 Webhook /lacabana-lead</div>
+        <div class="arrow">→</div>
+        <div class="node">📋 Preparar datos</div>
+        <div class="arrow">→</div>
+        <div class="node">📊 Google Sheets</div>
+        <div class="arrow">→</div>
+        <div class="node">📧 Notificación Email</div>
+      </div>
+    </div>
+
+    <div class="flow-box">
+      <h4>Flujo 2 — Ficha de Cliente (ficha-cliente.html) ✅ NUEVO</h4>
+      <div class="flow-nodes">
+        <div class="node">🔗 Webhook /lacabana-ficha POST</div>
+        <div class="arrow">→</div>
+        <div class="node">📋 Preparar datos (23 campos)</div>
+        <div class="arrow">→</div>
+        <div class="node">📊 Sheets "FICHA DEL CLIENTE"</div>
+        <div class="arrow">+</div>
+        <div class="node">✅ Responder OK</div>
+        <div class="arrow">→</div>
+        <div class="node">📧 Email Brevo SMTP</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARCHIVOS CREADOS -->
+  <div class="section">
+    <div class="section-title"><span>📁</span> Archivos Creados / Modificados</div>
+
+    <h3 style="margin-bottom:12px;font-size:13px;color:#666;text-transform:uppercase;letter-spacing:.5px">Rediseño Web /</h3>
+
+    <div class="file-item">
+      <div><div class="file-name">index.html</div><div class="file-desc">Página principal — colores actualizados a guinda #6B1223</div></div>
+      <span class="tag tag-ok">Modificado</span>
+    </div>
+    <div class="file-item">
+      <div><div class="file-name">cotizar.html</div><div class="file-desc">Cotizador con 8 paquetes visuales, selector interactivo, form → webhook</div></div>
+      <span class="tag tag-ok">Creado</span>
+    </div>
+    <div class="file-item">
+      <div><div class="file-name">ficha-cliente.html</div><div class="file-desc">Formulario digital 6 pasos: datos, menú (3 pasos), bebidas, servicios, firma</div></div>
+      <span class="tag tag-ok">Creado</span>
+    </div>
+
+    <h3 style="margin-top:20px;margin-bottom:12px;font-size:13px;color:#666;text-transform:uppercase;letter-spacing:.5px">n8n-flows /</h3>
+
+    <div class="file-item">
+      <div><div class="file-name">flujo-ficha-cliente.json</div><div class="file-desc">Webhook POST → Set (23 campos) → Sheets autoMap → Email SMTP Brevo</div></div>
+      <span class="tag tag-ok">Creado</span>
+    </div>
+
+    <h3 style="margin-top:20px;margin-bottom:12px;font-size:13px;color:#666;text-transform:uppercase;letter-spacing:.5px">Raíz del proyecto /</h3>
+
+    <div class="file-item">
+      <div><div class="file-name">guia-meta-ads.html</div><div class="file-desc">Guía completa de campañas Meta Ads para La Cabaña</div></div>
+      <span class="tag tag-ok">Creado</span>
+    </div>
+    <div class="file-item">
+      <div><div class="file-name">reporte-proyecto.html</div><div class="file-desc">Este documento</div></div>
+      <span class="tag tag-ok">Creado</span>
+    </div>
+  </div>
+
+  <!-- LO QUE FUNCIONA -->
+  <div class="section">
+    <div class="section-title"><span>✅</span> Lo que Funciona Hoy</div>
+    <table>
+      <thead><tr><th>Funcionalidad</th><th>Cómo probarlo</th></tr></thead>
+      <tbody>
+        <tr><td>Cotizador con selector de paquetes</td><td>Abrir cotizar.html → seleccionar paquete → llenar form → enviar</td></tr>
+        <tr><td>Ficha de cliente multi-paso (6 pasos)</td><td>Abrir ficha-cliente.html (desde servidor local o HostGator)</td></tr>
+        <tr><td>Webhook recibe datos del formulario</td><td>POST a /webhook/lacabana-ficha con JSON</td></tr>
+        <tr><td>Datos se guardan en Google Sheets</td><td>Hoja "FICHA DEL CLIENTE" en el spreadsheet configurado</td></tr>
+        <tr><td>Email de notificación a Angel</td><td>Llega a figueroa.lera1@gmail.com desde Brevo SMTP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PENDIENTES -->
+  <div class="section">
+    <div class="section-title"><span>⏳</span> Pendientes del Proyecto</div>
+
+    <div class="pend-item">
+      <h4>🌐 Despliegue en HostGator <span class="tag tag-imp" style="margin-left:8px">Prioritario</span></h4>
+      <p>Subir todos los archivos de /Rediseño Web/ via cPanel File Manager. Una vez en HTTPS, el formulario funcionará sin CORS. Dirección: lacabanaeventos.com</p>
+    </div>
+
+    <div class="pend-item">
+      <h4>📄 Páginas web pendientes de crear</h4>
+      <p>bodas.html, xv-anos.html, graduaciones.html, contacto.html, menu.html, eventos.html — todas deben seguir el mismo sistema de diseño (guinda #6B1223, Playfair Display + Inter).</p>
+    </div>
+
+    <div class="pend-item">
+      <h4>🍽️ Verificar menú en ficha-cliente.html</h4>
+      <p>Las opciones de menú (primer tiempo, plato fuerte, etc.) son placeholder. Angel debe verificar y actualizar con el catálogo real de La Cabaña.</p>
+    </div>
+
+    <div class="pend-item">
+      <h4>📊 Agregar encabezados en fila 1 del Google Sheet</h4>
+      <p>Si la columna "E-mail" no coincide exactamente, puede fallar el mapeo. Verificar que la fila 1 tenga: Fecha_Llenado, Folio, Nombre_Responsable, Telefono, Email, Festejado, Tipo_Evento, Fecha_Evento, Hora, Paquete, Personas, Primer_Tiempo, Segundo_Tiempo, Plato_Fuerte, Guarnicion, Postre, Bebidas, Sabores_Agua, Restricciones, Vegetariano, Servicios, Nota, Firma</p>
+    </div>
+
+    <div class="pend-item">
+      <h4>📱 Campaña Meta Ads</h4>
+      <p>Ver guia-meta-ads.html para instrucciones completas. Requiere: fotos del salón 1080×1350, Reel 1080×1920, configurar Pixel 4510279802585543 en administrador de Meta.</p>
+    </div>
+
+    <div class="pend-item">
+      <h4>🔔 n8n debe estar encendido siempre</h4>
+      <p>El sistema depende de que la PC esté encendida y n8n corriendo. Solución a futuro: migrar n8n a un VPS o servidor cloud para que funcione 24/7 sin depender de la computadora local.</p>
+    </div>
+  </div>
+
+  <!-- CREDENCIALES CLAVE -->
+  <div class="section">
+    <div class="section-title"><span>🔑</span> Credenciales y URLs Clave del Sistema</div>
+    <table>
+      <thead><tr><th>Recurso</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>n8n local</td><td>http://localhost:5678</td></tr>
+        <tr><td>n8n público</td><td>https://n8n.lacabanaeventos.com</td></tr>
+        <tr><td>Webhook Lead</td><td>/webhook/lacabana-lead</td></tr>
+        <tr><td>Webhook Ficha</td><td>/webhook/lacabana-ficha (POST)</td></tr>
+        <tr><td>Google Sheet ID</td><td>1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk</td></tr>
+        <tr><td>Sheet tab</td><td>FICHA DEL CLIENTE</td></tr>
+        <tr><td>Email notif. destino</td><td>figueroa.lera1@gmail.com</td></tr>
+        <tr><td>SMTP remitente</td><td>Brevo · smtp-relay.brevo.com:587</td></tr>
+        <tr><td>Facebook Pixel</td><td>4510279802585543</td></tr>
+        <tr><td>WhatsApp negocio</td><td>771 134 1559</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section" style="text-align:center;background:linear-gradient(135deg,#6B1223,#4d0c19);color:#fff">
+    <h2 style="margin-bottom:8px">La Cabaña Eventos</h2>
+    <p style="opacity:.8;font-size:13px">Zapotlán de Juárez, Hidalgo · 771 134 1559</p>
+    <p style="opacity:.6;font-size:11px;margin-top:12px">Reporte generado el 9 de Mayo 2026</p>
+  </div>
+
+</div>
+</body>
+</html>

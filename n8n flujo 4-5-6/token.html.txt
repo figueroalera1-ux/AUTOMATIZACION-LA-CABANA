@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Control interno de cliente - La Cabana Eventos</title>
+  <style>
+    :root {
+      --forest: #3a0714;
+      --green: #7f0019;
+      --leaf: #a0142f;
+      --gold: #ffe42a;
+      --cream: #f6f3ea;
+      --paper: #ffffff;
+      --ink: #17231c;
+      --muted: #647268;
+      --line: #d7ded8;
+      --soft: #fff8dc;
+      --bad: #9a3026;
+      --ok: #1f6f45;
+      --shadow: 0 14px 34px rgba(58, 7, 20, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+    }
+    .top {
+      color: #fff;
+      background: linear-gradient(rgba(127, 0, 25, 0.96), rgba(58, 7, 20, 0.98));
+      border-bottom: 5px solid var(--gold);
+    }
+    .top-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 22px 18px 34px;
+    }
+    .bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 34px;
+    }
+    .logo-slot {
+      width: 210px;
+      min-height: 76px;
+      border: 2px dashed rgba(255, 255, 255, 0.72);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.35;
+      color: #f2ead6;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .logo-slot img {
+      max-width: 100%;
+      max-height: 64px;
+      display: block;
+    }
+    .site-link {
+      color: #fff;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 999px;
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .hero {
+      max-width: 720px;
+    }
+    .eyebrow {
+      display: inline-block;
+      color: #fff;
+      background: rgba(201, 154, 60, 0.24);
+      border: 1px solid rgba(201, 154, 60, 0.72);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 38px;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+    .hero p {
+      margin: 12px 0 0;
+      color: #e7efe8;
+      font-size: 16px;
+      max-width: 620px;
+    }
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 24px 18px 42px;
+    }
+    .search-panel {
+      margin-top: -48px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 12px;
+      align-items: end;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 18px;
+      margin-top: 18px;
+      align-items: start;
+    }
+    .panel, aside {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 8px 22px rgba(58, 7, 20, 0.08);
+    }
+    .panel { padding: 22px; }
+    aside { padding: 18px; }
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 12px;
+    }
+    h2 {
+      margin: 0;
+      color: var(--forest);
+      font-size: 21px;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--forest);
+      background: var(--soft);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .field.full { grid-column: 1 / -1; }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--forest);
+      margin: 0 0 6px;
+    }
+    input, select, textarea {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 10px 12px;
+      color: var(--ink);
+      font-size: 15px;
+      background: #fff;
+      outline: none;
+    }
+    textarea {
+      min-height: 104px;
+      resize: vertical;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(127, 0, 25, 0.14);
+    }
+    input[type="file"] {
+      padding: 9px;
+      min-height: auto;
+      background: #fbfcfb;
+    }
+    .hint {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 6px;
+    }
+    .actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 18px;
+    }
+    .mobile-submit-top {
+      display: none;
+      margin: 0 0 14px;
+    }
+    button {
+      min-height: 46px;
+      border: 0;
+      border-radius: 7px;
+      padding: 0 18px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .primary {
+      background: var(--green);
+      color: #fff;
+      flex: 1;
+    }
+    .primary:hover { background: var(--forest); }
+    .secondary {
+      background: #edf3ee;
+      color: var(--green);
+      border: 1px solid var(--line);
+    }
+    .gold {
+      background: var(--gold);
+      color: #21180a;
+    }
+    .status {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 7px;
+      font-size: 14px;
+      display: none;
+    }
+    .status.ok {
+      display: block;
+      background: #e7f4ea;
+      border: 1px solid #b9ddc3;
+      color: var(--ok);
+    }
+    .status.bad {
+      display: block;
+      background: #fdecea;
+      border: 1px solid #efb5ae;
+      color: var(--bad);
+    }
+    .summary {
+      display: grid;
+      gap: 10px;
+    }
+    .summary div {
+      border-bottom: 1px solid #edf1ee;
+      padding-bottom: 9px;
+    }
+    .summary span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+    .summary strong {
+      display: block;
+      font-size: 14px;
+      min-height: 18px;
+      word-break: break-word;
+    }
+    .preview {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .thumb {
+      aspect-ratio: 1 / 1;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      overflow: hidden;
+      background: var(--soft);
+    }
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .note {
+      margin-top: 14px;
+      border: 1px solid #ead8a8;
+      background: #fff9e8;
+      border-radius: 8px;
+      padding: 12px;
+      color: #5d4a1d;
+      font-size: 13px;
+    }
+    .fine {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    @media (max-width: 860px) {
+      .search-panel { grid-template-columns: 1fr; }
+      .layout { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      h1 { font-size: 30px; }
+      .bar { align-items: flex-start; }
+      .site-link { display: none; }
+    }
+    @media (max-width: 620px) {
+      body { background: var(--cream); }
+      .top {
+        background: linear-gradient(rgba(127, 0, 25, 0.95), rgba(58, 7, 20, 0.98));
+      }
+      .top-inner { padding: 14px 12px 22px; }
+      .bar {
+        display: block;
+        margin-bottom: 18px;
+      }
+      .logo-slot {
+        width: 100%;
+        min-height: 60px;
+      }
+      .hero { max-width: none; }
+      .eyebrow {
+        font-size: 11px;
+        margin-bottom: 9px;
+      }
+      h1 {
+        font-size: 24px;
+        line-height: 1.15;
+      }
+      .hero p {
+        font-size: 14px;
+        line-height: 1.45;
+      }
+      .wrap {
+        padding: 12px 10px 28px;
+      }
+      .search-panel {
+        margin-top: 0;
+        padding: 14px;
+        gap: 10px;
+      }
+      .panel, aside {
+        padding: 14px;
+      }
+      .section-title {
+        display: block;
+      }
+      .section-title .chip {
+        margin-top: 8px;
+      }
+      input, select, textarea {
+        font-size: 16px;
+      }
+      .actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        position: sticky;
+        bottom: 0;
+        z-index: 20;
+        background: var(--paper);
+        border-top: 1px solid var(--line);
+        padding-top: 10px;
+      }
+      button {
+        width: 100%;
+      }
+      .mobile-submit-top {
+        display: block;
+      }
+      .preview {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="top-inner">
+      <div class="bar">
+        <div class="logo-slot">
+          <!-- ESPACIO PARA TU LOGO:
+               Reemplaza este texto por:
+               <img src="logo-la-cabana.png" alt="La Cabana Eventos">
+          -->
+          COLOCA AQUI EL LOGO
+        </div>
+        <a class="site-link" href="https://lacabanaeventos.com/" target="_blank" rel="noopener">lacabanaeventos.com</a>
+      </div>
+      <div class="hero">
+        <span class="eyebrow">Control interno</span>
+        <h1>Generar link de seleccion y agregar evidencia del cliente</h1>
+        <p>Busca por ID interno, completa los datos necesarios para el token, agrega observaciones, servicios adicionales e imagenes JPG de notas o transferencias.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <noscript>
+      <div style="background:#fff3cd;border:1px solid #ffe42a;color:#3a0714;padding:14px;border-radius:8px;margin-bottom:12px">
+        Esta pagina necesita JavaScript activado para buscar ID y enviar el formulario.
+      </div>
+    </noscript>
+    <section class="search-panel" aria-label="Buscar cliente">
+      <div class="field">
+        <label for="cliente_id_buscar">ID interno del cliente</label>
+        <input id="cliente_id_buscar" name="cliente_id_buscar" placeholder="Ej. LC-2026-0015" autocomplete="off">
+      </div>
+      <button id="buscarBtn" class="gold" type="button">Buscar ID</button>
+      <button id="nuevoBtn" class="secondary" type="button">Nuevo registro</button>
+    </section>
+
+    <div class="layout">
+      <form id="tokenForm" class="panel" enctype="multipart/form-data">
+        <div class="section-title">
+          <h2>Datos para generar token</h2>
+          <span class="chip">7 u 8 datos clave</span>
+        </div>
+        <button class="primary mobile-submit-top" type="submit">Guardar y generar link</button>
+
+        <div class="grid">
+          <div class="field">
+            <label for="cliente_id">ID interno</label>
+            <input id="cliente_id" name="cliente_id" placeholder="El ID que ustedes generen" required>
+          </div>
+          <div class="field">
+            <label for="nombre">Nombre del cliente</label>
+            <input id="nombre" name="nombre" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="telefono">WhatsApp / telefono</label>
+            <input id="telefono" name="telefono" autocomplete="tel" required>
+          </div>
+          <div class="field">
+            <label for="email">Correo electronico</label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="fecha_evento">Fecha del evento</label>
+            <input id="fecha_evento" name="fecha_evento" type="date" required>
+          </div>
+          <div class="field">
+            <label for="tipo_evento">Tipo de evento</label>
+            <select id="tipo_evento" name="tipo_evento" required>
+              <option value="">Seleccionar</option>
+              <option>Boda</option>
+              <option>XV Anos</option>
+              <option>Graduacion</option>
+              <option>Bautizo</option>
+              <option>Fiesta infantil</option>
+              <option>Corporativo</option>
+              <option>Aniversario</option>
+              <option>Espectaculo</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="paquete_asignado">Paquete contratado</label>
+            <select id="paquete_asignado" name="paquete_asignado" required>
+              <option value="">Seleccionar</option>
+              <option>Campestre</option>
+              <option>Herradura</option>
+              <option>Mayoral</option>
+              <option>La Cabana</option>
+              <option>Solo Salon</option>
+              <option>Salon Essential</option>
+              <option>Salon Plus</option>
+              <option>Personalizado</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="num_invitados_estimado">Invitados estimados</label>
+            <input id="num_invitados_estimado" name="num_invitados_estimado" type="number" min="1" max="500" placeholder="Ej. 120">
+          </div>
+
+          <div class="field full">
+            <label for="servicio_adicional">Servicio adicional agregado</label>
+            <input id="servicio_adicional" name="servicio_adicional" placeholder="Ej. cocteleria, hospedaje, pista LED, menu extra, decoracion...">
+          </div>
+          <div class="field full">
+            <label for="observaciones">Observaciones internas</label>
+            <textarea id="observaciones" name="observaciones" placeholder="Notas de venta, acuerdos, pagos, pendientes o instrucciones para operacion."></textarea>
+          </div>
+          <div class="field full">
+            <label for="evidencias">Imagenes JPG de notas o evidencias</label>
+            <input id="evidencias" name="evidencias" type="file" accept="image/jpeg,image/jpg,image/png" multiple>
+            <div class="hint">Puedes subir varias imagenes. Recomendado: JPG o PNG de transferencias, notas o acuerdos.</div>
+            <div id="preview" class="preview"></div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="primary" type="submit">Guardar y generar link</button>
+          <button class="secondary" type="reset">Limpiar</button>
+        </div>
+        <div id="status" class="status"></div>
+        <p class="fine">Este formulario envia datos e imagenes al Flujo 4 de n8n. El Flujo 4 debe guardar el cliente, subir evidencias y crear el token.</p>
+      </form>
+
+      <aside>
+        <div class="section-title">
+          <h2>Resumen</h2>
+          <span class="chip">Revisar antes</span>
+        </div>
+        <div class="summary">
+          <div><span>ID interno</span><strong id="sClienteId"></strong></div>
+          <div><span>Cliente</span><strong id="sNombre"></strong></div>
+          <div><span>Telefono</span><strong id="sTelefono"></strong></div>
+          <div><span>Email</span><strong id="sEmail"></strong></div>
+          <div><span>Fecha</span><strong id="sFecha"></strong></div>
+          <div><span>Evento</span><strong id="sEvento"></strong></div>
+          <div><span>Paquete</span><strong id="sPaquete"></strong></div>
+          <div><span>Invitados</span><strong id="sInvitados"></strong></div>
+          <div><span>Servicio adicional</span><strong id="sServicio"></strong></div>
+          <div><span>Imagenes</span><strong id="sImagenes"></strong></div>
+        </div>
+        <div class="note">
+          Para subirla a tu web, deja este archivo como pagina privada o protegida. Es una herramienta interna, no una pagina publica para clientes.
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    /*
+      CAMBIA ESTAS URLS SI TUS WEBHOOKS EN N8N TIENEN OTRO PATH.
+
+      Flujo 4 debe recibir multipart/form-data porque aqui se mandan imagenes.
+      WEBHOOK_BUSCAR_CLIENTE puede regresar JSON con los campos del cliente.
+    */
+    const WEBHOOK_FLUJO_4 = 'https://n8n.lacabanaeventos.com/webhook/generar-link-seleccion';
+    const WEBHOOK_BUSCAR_CLIENTE = 'https://n8n.lacabanaeventos.com/webhook/buscar-cliente-id';
+
+    const form = document.getElementById('tokenForm');
+    const statusBox = document.getElementById('status');
+    const buscarBtn = document.getElementById('buscarBtn');
+    const nuevoBtn = document.getElementById('nuevoBtn');
+    const buscarInput = document.getElementById('cliente_id_buscar');
+    const preview = document.getElementById('preview');
+    const evidencias = document.getElementById('evidencias');
+
+    const fields = [
+      'cliente_id',
+      'nombre',
+      'telefono',
+      'email',
+      'fecha_evento',
+      'tipo_evento',
+      'paquete_asignado',
+      'num_invitados_estimado',
+      'servicio_adicional'
+    ];
+
+    const summary = {
+      cliente_id: document.getElementById('sClienteId'),
+      nombre: document.getElementById('sNombre'),
+      telefono: document.getElementById('sTelefono'),
+      email: document.getElementById('sEmail'),
+      fecha_evento: document.getElementById('sFecha'),
+      tipo_evento: document.getElementById('sEvento'),
+      paquete_asignado: document.getElementById('sPaquete'),
+      num_invitados_estimado: document.getElementById('sInvitados'),
+      servicio_adicional: document.getElementById('sServicio'),
+      imagenes: document.getElementById('sImagenes')
+    };
+
+    const showStatus = (type, text) => {
+      statusBox.className = type ? `status ${type}` : 'status';
+      statusBox.textContent = text || '';
+    };
+
+    const showGeneratedLink = (result) => {
+      const link = result && result.link ? String(result.link) : '';
+      const token = result && result.token ? String(result.token) : '';
+
+      statusBox.className = 'status ok';
+      statusBox.innerHTML = link
+        ? `Listo. Token generado: ${token}. Link: <a href="${link}" target="_blank" rel="noopener">${link}</a>`
+        : 'Listo. El Flujo 4 recibio los datos y genero el token.';
+    };
+
+    const updateSummary = () => {
+      for (const name of fields) {
+        summary[name].textContent = form.elements[name].value || '-';
+      }
+      const count = evidencias.files.length;
+      summary.imagenes.textContent = count ? `${count} archivo(s)` : '-';
+    };
+
+    const renderPreview = () => {
+      preview.innerHTML = '';
+      Array.from(evidencias.files).slice(0, 6).forEach((file) => {
+        const box = document.createElement('div');
+        box.className = 'thumb';
+        const img = document.createElement('img');
+        img.alt = file.name;
+        img.src = URL.createObjectURL(file);
+        img.onload = () => URL.revokeObjectURL(img.src);
+        box.appendChild(img);
+        preview.appendChild(box);
+      });
+      updateSummary();
+    };
+
+    const fillForm = (data) => {
+      for (const name of fields) {
+        if (data[name] !== undefined && form.elements[name]) {
+          form.elements[name].value = data[name] || '';
+        }
+      }
+      if (data.observaciones !== undefined) form.elements.observaciones.value = data.observaciones || '';
+      updateSummary();
+    };
+
+    form.addEventListener('input', updateSummary);
+    evidencias.addEventListener('change', renderPreview);
+
+    form.addEventListener('reset', () => {
+      setTimeout(() => {
+        preview.innerHTML = '';
+        showStatus('', '');
+        updateSummary();
+      }, 0);
+    });
+
+    nuevoBtn.addEventListener('click', () => {
+      form.reset();
+      buscarInput.value = '';
+      form.elements.cliente_id.focus();
+    });
+
+    buscarBtn.addEventListener('click', async () => {
+      const id = buscarInput.value.trim();
+      if (!id) {
+        showStatus('bad', 'Escribe primero el ID interno del cliente.');
+        return;
+      }
+
+      buscarBtn.disabled = true;
+      buscarBtn.textContent = 'Buscando...';
+      showStatus('', '');
+
+      try {
+        const response = await fetch(`${WEBHOOK_BUSCAR_CLIENTE}?cliente_id=${encodeURIComponent(id)}`, {
+          method: 'GET'
+        });
+
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+
+        if (!data || data.found === false) {
+          form.elements.cliente_id.value = id;
+          updateSummary();
+          showStatus('bad', 'No encontre ese ID. Puedes capturarlo como nuevo registro.');
+          return;
+        }
+
+        fillForm(data);
+        showStatus('ok', 'Cliente encontrado. Revisa o agrega observaciones antes de guardar.');
+      } catch (error) {
+        form.elements.cliente_id.value = id;
+        updateSummary();
+        showStatus('bad', 'No se pudo buscar el ID. Revisa el webhook de busqueda en n8n.');
+      } finally {
+        buscarBtn.disabled = false;
+        buscarBtn.textContent = 'Buscar ID';
+      }
+    });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      showStatus('', '');
+
+      const data = new FormData(form);
+      data.set('origen', 'landing_control_interno');
+
+      const buttons = Array.from(form.querySelectorAll('button[type="submit"]'));
+      buttons.forEach((button) => {
+        button.disabled = true;
+        button.dataset.originalText = button.textContent;
+        button.textContent = 'Guardando...';
+      });
+
+      try {
+        const response = await fetch(WEBHOOK_FLUJO_4, {
+          method: 'POST',
+          body: data
+        });
+
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const result = await response.json().catch(() => ({}));
+
+        showGeneratedLink(result);
+      } catch (error) {
+        showStatus('bad', `No se pudo enviar al Flujo 4: ${error.message}. Revisa webhook, CORS y mapeo a Selecciones.`);
+      } finally {
+        buttons.forEach((button) => {
+          button.disabled = false;
+          button.textContent = button.dataset.originalText || 'Guardar y generar link';
+          delete button.dataset.originalText;
+        });
+      }
+    });
+
+    updateSummary();
+  </script>
+</body>
+</html>

@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendario de Contenido — La Cabaña Eventos | Semana 9–15 Mayo 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Inter', sans-serif; background: #0f0f14; color: #e8e8e8; min-height: 100vh; }
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, #0f0f14 0%, #1a1a2e 50%, #16213e 100%);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  padding: 36px 40px 28px;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content:'';
+  position:absolute; top:-60px; right:-60px;
+  width:300px; height:300px;
+  background: radial-gradient(circle, rgba(249,200,70,.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.header-top { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+.logo-area h1 { font-family:'Playfair Display',serif; font-size:26px; color:white; margin-bottom:4px; }
+.logo-area p { color:rgba(255,255,255,.5); font-size:13px; }
+.semana-badge {
+  background: rgba(249,200,70,.15);
+  border: 1px solid rgba(249,200,70,.4);
+  color: #f9c846;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+
+.plataformas-legend { display:flex; gap:20px; margin-top:22px; flex-wrap:wrap; }
+.plat-badge { display:flex; align-items:center; gap:8px; padding:6px 14px; border-radius:20px; font-size:12px; font-weight:600; }
+.plat-badge.fb { background:rgba(24,119,242,.2); border:1px solid rgba(24,119,242,.5); color:#6aacff; }
+.plat-badge.ig { background:rgba(225,48,108,.2); border:1px solid rgba(225,48,108,.5); color:#ff8ab3; }
+.plat-badge.tt { background:rgba(255,0,80,.2); border:1px solid rgba(255,0,80,.5); color:#ff6b6b; }
+.plat-badge .dot { width:8px; height:8px; border-radius:50%; }
+.plat-badge.fb .dot { background:#1877f2; }
+.plat-badge.ig .dot { background:#e1306c; }
+.plat-badge.tt .dot { background:#ff0050; }
+
+/* STATS BAR */
+.stats-bar {
+  background: rgba(255,255,255,.04);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  padding: 14px 40px;
+  display: flex; gap: 32px; flex-wrap: wrap;
+}
+.stat-item { text-align:center; }
+.stat-num { font-size: 20px; font-weight: 700; color: #f9c846; }
+.stat-lbl { font-size: 10px; color: rgba(255,255,255,.4); text-transform: uppercase; letter-spacing: .08em; margin-top: 2px; }
+
+/* CONTENIDO PRINCIPAL */
+.container { max-width: 1100px; margin: 0 auto; padding: 30px 20px 60px; }
+
+/* DÍA CARD */
+.dia-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.dia-card:hover { border-color: rgba(249,200,70,.3); }
+
+.dia-header {
+  display: flex; align-items: center; gap: 16px;
+  padding: 16px 24px;
+  background: rgba(255,255,255,.03);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.dia-numero {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-weight: 700;
+}
+.dia-numero.fds { background: linear-gradient(135deg, #f9c846, #f59e0b); color: #0f0f14; }
+.dia-numero.lun { background: linear-gradient(135deg, #6366f1, #4f46e5); color: white; }
+.dia-numero.mar { background: linear-gradient(135deg, #ec4899, #db2777); color: white; }
+.dia-numero.mie { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+.dia-numero.jue { background: linear-gradient(135deg, #f97316, #ea580c); color: white; }
+.dia-numero.vie { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; }
+.dia-numero .num { font-size: 20px; line-height: 1; }
+.dia-numero .mes { font-size: 9px; text-transform: uppercase; opacity: .8; }
+
+.dia-info h3 { font-size: 17px; font-weight: 600; color: white; margin-bottom: 2px; }
+.dia-info p { font-size: 12px; color: rgba(255,255,255,.4); }
+.dia-tema {
+  margin-left: auto;
+  background: rgba(249,200,70,.1);
+  border: 1px solid rgba(249,200,70,.25);
+  color: #f9c846;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* POSTS GRID */
+.posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,.05); }
+.post-col { padding: 20px; background: #0f0f14; }
+.post-col:first-child { background: rgba(24,119,242,.04); }
+.post-col:nth-child(2) { background: rgba(225,48,108,.04); }
+.post-col:last-child { background: rgba(255,0,80,.04); }
+
+.post-plat-header { display:flex; align-items:center; gap:8px; margin-bottom:14px; }
+.plat-icon { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+.plat-icon.fb-icon { background: #1877f2; }
+.plat-icon.ig-icon { background: linear-gradient(135deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
+.plat-icon.tt-icon { background: #000; border:1px solid rgba(255,0,80,.5); position:relative; }
+.plat-icon.tt-icon::after { content:'♪'; color:#ff0050; font-size:12px; }
+.plat-name { font-size:12px; font-weight:700; }
+.plat-name.fb-name { color:#6aacff; }
+.plat-name.ig-name { color:#ff8ab3; }
+.plat-name.tt-name { color:#ff6b6b; }
+.plat-tipo { font-size:10px; color:rgba(255,255,255,.35); margin-left:auto; padding:2px 8px; border-radius:10px; background:rgba(255,255,255,.06); }
+
+.post-contenido { font-size:12px; line-height:1.65; color:rgba(255,255,255,.75); margin-bottom:12px; }
+.post-caption {
+  background: rgba(255,255,255,.05);
+  border-left: 2px solid rgba(255,255,255,.15);
+  border-radius: 0 6px 6px 0;
+  padding: 10px 12px;
+  font-size:11.5px;
+  line-height:1.7;
+  color:rgba(255,255,255,.65);
+  margin-bottom:10px;
+  white-space: pre-line;
+}
+.post-caption.fb-cap { border-left-color: #1877f2; }
+.post-caption.ig-cap { border-left-color: #e1306c; }
+.post-caption.tt-cap { border-left-color: #ff0050; }
+
+.hashtags { font-size:10px; color:rgba(255,255,255,.3); line-height:1.6; margin-bottom:10px; }
+.hashtags.fb-ht { color:rgba(106,172,255,.5); }
+.hashtags.ig-ht { color:rgba(255,138,179,.5); }
+.hashtags.tt-ht { color:rgba(255,107,107,.5); }
+
+.post-meta { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
+.meta-tag { font-size:10px; padding:2px 8px; border-radius:10px; font-weight:500; }
+.meta-hora { background:rgba(255,255,255,.08); color:rgba(255,255,255,.5); }
+.meta-formato { background:rgba(249,200,70,.1); color:#f9c846; }
+.meta-tip { background:rgba(16,185,129,.1); color:#6ee7b7; }
+
+/* TikTok especial */
+.tt-hook {
+  background: linear-gradient(135deg, rgba(255,0,80,.15), rgba(0,242,234,.08));
+  border: 1px solid rgba(255,0,80,.25);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  font-size: 11px;
+}
+.tt-hook .hook-label { color:#ff6b6b; font-weight:700; font-size:10px; text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px; }
+.tt-hook .hook-text { color:white; font-size:12px; font-weight:600; line-height:1.4; }
+
+.tt-guion {
+  background: rgba(0,0,0,.4);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom:10px;
+}
+.tt-guion .guion-label { color:rgba(255,255,255,.4); font-size:10px; text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.tt-step { display:flex; gap:8px; align-items:flex-start; padding:3px 0; font-size:11px; color:rgba(255,255,255,.6); }
+.tt-step .ts { color:#f9c846; font-weight:700; min-width:28px; font-size:10px; }
+
+.sonido-badge {
+  display:flex; align-items:center; gap:6px;
+  background:rgba(255,0,80,.1);
+  border:1px solid rgba(255,0,80,.2);
+  border-radius:6px;
+  padding:6px 10px;
+  font-size:10px;
+  color:#ff6b6b;
+  margin-bottom:8px;
+}
+
+/* FOOTER */
+.footer-cal {
+  margin-top:40px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;
+  padding:24px;
+}
+.footer-cal h3 { color:#f9c846; font-size:14px; margin-bottom:16px; }
+.tips-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.tip-box { background:rgba(0,0,0,.3); border-radius:10px; padding:14px; }
+.tip-box h4 { font-size:12px; font-weight:700; margin-bottom:8px; }
+.tip-box.fb-box h4 { color:#6aacff; }
+.tip-box.ig-box h4 { color:#ff8ab3; }
+.tip-box.tt-box h4 { color:#ff6b6b; }
+.tip-box ul { list-style:none; }
+.tip-box ul li { font-size:11px; color:rgba(255,255,255,.55); padding:3px 0; border-bottom:1px solid rgba(255,255,255,.05); }
+.tip-box ul li:last-child { border:none; }
+
+@media(max-width:768px){
+  .posts-grid { grid-template-columns:1fr; }
+  .tips-grid { grid-template-columns:1fr; }
+  .header { padding:20px; }
+  .stats-bar { padding:12px 20px; gap:16px; }
+  .dia-tema { display:none; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="logo-area">
+      <h1>La Cabaña Eventos</h1>
+      <p>Calendario de Contenido Digital · San Pedro Huaquilpan, Hidalgo</p>
+    </div>
+    <div class="semana-badge">Semana 9–15 Mayo 2026</div>
+  </div>
+  <div class="plataformas-legend">
+    <div class="plat-badge fb"><div class="dot"></div>Facebook</div>
+    <div class="plat-badge ig"><div class="dot"></div>Instagram</div>
+    <div class="plat-badge tt"><div class="dot"></div>TikTok</div>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num">21</div><div class="stat-lbl">Posts totales</div></div>
+  <div class="stat-item"><div class="stat-num">7</div><div class="stat-lbl">Días cubiertos</div></div>
+  <div class="stat-item"><div class="stat-num">3</div><div class="stat-lbl">Plataformas</div></div>
+  <div class="stat-item"><div class="stat-num">7</div><div class="stat-lbl">Videos TikTok</div></div>
+  <div class="stat-item"><div class="stat-num">2</div><div class="stat-lbl">Promos activas</div></div>
+</div>
+
+<div class="container">
+
+  <!-- SÁBADO 9 -->
+  <div class="dia-card">
+    <div class="dia-header">
+      <div class="dia-numero fds"><div class="num">9</div><div class="mes">Mayo</div></div>
+      <div class="dia-info"><h3>Sábado</h3><p>Día de evento · Máxima energía</p></div>
+      <div class="dia-tema">Showcase del salón en vivo</div>
+    </div>
+    <div class="posts-grid">
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon fb-icon">f</div>
+          <span class="plat-name fb-name">Facebook</span>
+          <span class="plat-tipo">Foto + texto</span>
+        </div>
+        <div class="post-caption fb-cap">✨ ¡Hoy hay evento en La Cabaña!
+
+El salón ya está listo para recibir a los invitados. Así se ve antes de que empiece la magia... 🌟
+
+¿Ya tienes reservada tu fecha? Escríbenos y te contamos todo 👇
+
+📍 Zapotlán de Juárez, Hidalgo
+📞 771-134-1559</div>
+        <div class="hashtags fb-ht">#LasCabañaEventos #SalónDeEventos #Hidalgo #Pachuca #EventosHidalgo #MiEvento</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 10:00 am</span>
+          <span class="meta-tag meta-formato">📷 1 foto del salón montado</span>
+        </div>
+      </div>
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon ig-icon">📷</div>
+          <span class="plat-name ig-name">Instagram</span>
+          <span class="plat-tipo">Reel + Story</span>
+        </div>
+        <div class="post-caption ig-cap">Así luce La Cabaña lista para tu evento ✨🌿
+
+Cada detalle tiene un propósito. Cada espacio, una historia.
+
+¿El tuyo cuándo será?
+
+👇 Link en bio para cotizar</div>
+        <div class="hashtags ig-ht">#SalónDeEventos #EventosHidalgo #BodasHidalgo #XVAños #GraduacionesMéxico #PistaLED #LasCabañas #Pachuca</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 11:00 am</span>
+          <span class="meta-tag meta-formato">🎬 Reel 15 seg recorrido salón</span>
+          <span class="meta-tag meta-tip">+ Story con encuesta</span>
+        </div>
+      </div>
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon tt-icon"></div>
+          <span class="plat-name tt-name">TikTok</span>
+          <span class="plat-tipo">Video 30 seg</span>
+        </div>
+        <div class="tt-hook">
+          <div class="hook-label">Hook (primeros 3 seg)</div>
+          <div class="hook-text">"¿Quieres ver cómo se ve un salón de eventos en Hidalgo ANTES de que lleguen los invitados?"</div>
+        </div>
+        <div class="tt-guion">
+          <div class="guion-label">Guión rápido</div>
+          <div class="tt-step"><span class="ts">0–3s</span>Texto en pantalla: "POV: eres el fotógrafo y llegas 1 hora antes" · salón vacío y montado</div>
+          <div class="tt-step"><span class="ts">3–15s</span>Recorrido: mesas, pista LED apagada, área de juegos, jardín</div>
+          <div class="tt-step"><span class="ts">15–25s</span>Enciende la pista LED + galaxia → impacto visual</div>
+          <div class="tt-step"><span class="ts">25–30s</span>Texto: "La Cabaña Eventos · Hidalgo · Link en bio"</div>
+        </div>
+        <div class="sonido-badge">🎵 Sonido tendencia: "Aesthetic" o "Calm Lo-fi" — busca en Trending sounds esta semana</div>
+        <div class="hashtags tt-ht">#SalónDeEventos #Hidalgo #EventosHidalgo #PistaLED #MiEvento #fyp #parati #México</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 8:00 pm</span>
+          <span class="meta-tag meta-formato">📱 Vertical 9:16</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOMINGO 10 -->
+  <div class="dia-card">
+    <div class="dia-header">
+      <div class="dia-numero fds"><div class="num">10</div><div class="mes">Mayo</div></div>
+      <div class="dia-info"><h3>Domingo · Día de las Madres 🌸</h3><p>Emocional · Familia · Festejo</p></div>
+      <div class="dia-tema">Contenido especial Día de Madres</div>
+    </div>
+    <div class="posts-grid">
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon fb-icon">f</div>
+          <span class="plat-name fb-name">Facebook</span>
+          <span class="plat-tipo">Foto emotiva</span>
+        </div>
+        <div class="post-caption fb-cap">🌸 Feliz Día de las Madres 🌸
+
+Porque ella merece el mejor festejo, y en La Cabaña sabemos cómo hacer que ese día sea perfecto.
+
+¿Ya le organizaste algo especial? 🥰
+
+Cotiza tu evento de mayo o junio y recibe un descuento sorpresa.
+📞 771-134-1559</div>
+        <div class="hashtags fb-ht">#DíaDeLasMadres #FelizDíaMamá #EventosMamá #LasCabañaEventos #Hidalgo</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 9:00 am</span>
+          <span class="meta-tag meta-formato">🌸 Imagen festiva del salón o floral</span>
+        </div>
+      </div>
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon ig-icon">📷</div>
+          <span class="plat-name ig-name">Instagram</span>
+          <span class="plat-tipo">Carrusel 4 slides</span>
+        </div>
+        <div class="post-caption ig-cap">Para la mamá que lo da todo, un evento que lo tiene todo 🌸
+
+Slide 1: Portada Día de Madres
+Slide 2: El salón
+Slide 3: El menú especial
+Slide 4: CTA → cotizar ahora
+
+Porque el mejor regalo es una experiencia que nunca olvidará. ✨</div>
+        <div class="hashtags ig-ht">#DíaDeLasMadres #FestejaMamá #EventosFamiliares #SalónHidalgo #BodasYEventos #fyp</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 10:00 am</span>
+          <span class="meta-tag meta-formato">🖼️ Carrusel 4 slides</span>
+        </div>
+      </div>
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon tt-icon"></div>
+          <span class="plat-name tt-name">TikTok</span>
+          <span class="plat-tipo">Video emocional 20 seg</span>
+        </div>
+        <div class="tt-hook">
+          <div class="hook-label">Hook</div>
+          <div class="hook-text">"¿Qué le regalas a una mamá que ya lo tiene todo? 🌸"</div>
+        </div>
+        <div class="tt-guion">
+          <div class="guion-label">Guión</div>
+          <div class="tt-step"><span class="ts">0–3s</span>Texto: "¿Qué le regalas a una mamá que ya lo tiene todo?"</div>
+          <div class="tt-step"><span class="ts">3–12s</span>Clips del salón: mesas elegantes, flores, pista encendida, área de juegos con familia</div>
+          <div class="tt-step"><span class="ts">12–18s</span>Texto: "Una experiencia que nunca olvidará"</div>
+          <div class="tt-step"><span class="ts">18–20s</span>"La Cabaña Eventos · Hidalgo · 771-134-1559"</div>
+        </div>
+        <div class="sonido-badge">🎵 Tendencia: canción romántica/emotiva del Día de Madres · usa las que estén en For You esta semana</div>
+        <div class="hashtags tt-ht">#DíaDeLasMadres #FestejaMamá #EventosMéxico #fyp #parati #SalónDeEventos</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 12:00 pm</span>
+          <span class="meta-tag meta-formato">📱 Vertical · Subtítulos en video</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LUNES 11 -->
+  <div class="dia-card">
+    <div class="dia-header">
+      <div class="dia-numero lun"><div class="num">11</div><div class="mes">Mayo</div></div>
+      <div class="dia-info"><h3>Lunes</h3><p>Arranque de semana · Educacional</p></div>
+      <div class="dia-tema">¿Cuánto cuesta un evento?</div>
+    </div>
+    <div class="posts-grid">
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon fb-icon">f</div>
+          <span class="plat-name fb-name">Facebook</span>
+          <span class="plat-tipo">Texto + infografía</span>
+        </div>
+        <div class="post-caption fb-cap">💡 ¿Sabías que entre semana tienes todo esto desde $12,900?
+
+✅ Salón completo 8 horas
+✅ Jardín
+✅ Mobiliario 60 personas
+✅ Menú 2 tiempos
+✅ Pista LED iluminada
+✅ Área de juegos
+✅ Bocina ambiente
+
+Los que solo rentan el salón te cobran $3,800... por cuatro paredes.
+
+¿La diferencia? Pregúntanos 👇
+📞 771-134-1559</div>
+        <div class="hashtags fb-ht">#EntreSemanaCabaña #EventosEconómicos #SalónHidalgo #PrecioJusto #LasCabañaEventos</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 9:00 am</span>
+          <span class="meta-tag meta-formato">📊 Imagen comparativa / lista visual</span>
+          <span class="meta-tag meta-tip">Promo Entre Semana</span>
+        </div>
+      </div>
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon ig-icon">📷</div>
+          <span class="plat-name ig-name">Instagram</span>
+          <span class="plat-tipo">Story encuesta</span>
+        </div>
+        <div class="post-caption ig-cap">Story 1:
+"¿Para qué tipo de evento nos contactarías?"
+🗳️ Boda | XV Años | Graduación | Otro
+
+Story 2 (si votan "Boda"):
+"¿Sabías que tenemos el Paquete Boda Soñada desde $780/persona con coordinadora incluida?"
+
+Story 3:
+CTA → "Cotiza hoy, fechas disponibles junio y julio"</div>
+        <div class="hashtags ig-ht">#EventosHidalgo #BodasMéxico #XVAños #SalónDeEventos #Stories</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 11:00 am</span>
+          <span class="meta-tag meta-formato">📱 3 Stories secuenciales</span>
+        </div>
+      </div>
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon tt-icon"></div>
+          <span class="plat-name tt-name">TikTok</span>
+          <span class="plat-tipo">Video educacional 45 seg</span>
+        </div>
+        <div class="tt-hook">
+          <div class="hook-label">Hook — máximo impacto</div>
+          <div class="hook-text">"¿Cuánto cuesta un salón de eventos en Hidalgo? Te sorprenderás 👀"</div>
+        </div>
+        <div class="tt-guion">
+          <div class="guion-label">Guión "Storytime" hablando a cámara</div>
+          <div class="tt-step"><span class="ts">0–3s</span>Hook en pantalla · cara sorprendida o seria</div>
+          <div class="tt-step"><span class="ts">3–15s</span>"La gente cree que un salón cuesta muchísimo... y sí, algunos cobran hasta $700 por persona. Pero nosotros tenemos algo diferente."</div>
+          <div class="tt-step"><span class="ts">15–30s</span>Mostrar el salón mientras hablas: "Entre semana tienes pista LED, área de juegos, jardín, mobiliario y menú por $12,900 fijos. No por persona. FIJOS."</div>
+          <div class="tt-step"><span class="ts">30–42s</span>"¿Y los que solo rentan el salón? Te cobran $3,800 por cuatro paredes vacías sin nada."</div>
+          <div class="tt-step"><span class="ts">42–45s</span>CTA: "Link en bio para cotizar · La Cabaña Eventos, Hidalgo"</div>
+        </div>
+        <div class="sonido-badge">🎵 Sin música o con sonido ambiental suave — el audio del creador debe escucharse claro</div>
+        <div class="hashtags tt-ht">#SalónDeEventos #EventosHidalgo #CuántoCuesta #fyp #parati #México #Pachuca #TipsEventos</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 7:00 pm</span>
+          <span class="meta-tag meta-formato">📱 Hablando a cámara · subtítulos</span>
+          <span class="meta-tag meta-tip">Alto potencial viral</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARTES 12 -->
+  <div class="dia-card">
+    <div class="dia-header">
+      <div class="dia-numero mar"><div class="num">12</div><div class="mes">Mayo</div></div>
+      <div class="dia-info"><h3>Martes</h3><p>Diferenciadores · "Solo aquí tienes esto"</p></div>
+      <div class="dia-tema">Pista LED + Galaxia + Juegos</div>
+    </div>
+    <div class="posts-grid">
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon fb-icon">f</div>
+          <span class="plat-name fb-name">Facebook</span>
+          <span class="plat-tipo">Video corto + texto</span>
+        </div>
+        <div class="post-caption fb-cap">🎮 Billar, futbolito, Xbox... y pista LED con proyección galaxia.
+
+¿Cuántos salones de eventos en Hidalgo tienen todo esto? Uno.
+
+En La Cabaña tus invitados nunca se aburren. Hay algo para todos: los que bailan, los que juegan y los que solo quieren platicar bajo las estrellas.
+
+¡Ven a conocernos! 📍 Zapotlán de Juárez, Hidalgo
+🗺️ https://maps.app.goo.gl/4n817j43riAUnxjNA</div>
+        <div class="hashtags fb-ht">#ÁreaDeJuegos #PistaLED #LasCabañaEventos #SalónHidalgo #DifernteALosDemás</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 12:00 pm</span>
+          <span class="meta-tag meta-formato">🎬 Video 20 seg del área de juegos</span>
+        </div>
+      </div>
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon ig-icon">📷</div>
+          <span class="plat-name ig-name">Instagram</span>
+          <span class="plat-tipo">Reel impacto visual</span>
+        </div>
+        <div class="post-caption ig-cap">Esto NO lo tiene ningún otro salón en Hidalgo 👀✨
+
+🎮 Área de juegos · Billar · Futbolito · Xbox
+💡 Pista LED iluminada
+🌌 Proyección Galaxia
+
+En La Cabaña, el entretenimiento está incluido en todos los paquetes.
+
+¿Ya cotizaste? 👇 Link en bio</div>
+        <div class="hashtags ig-ht">#SalónDeEventos #PistaLED #GalaxiaLights #ÁreaDeJuegos #EventosHidalgo #WOW #fyp</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 7:00 pm</span>
+          <span class="meta-tag meta-formato">🎬 Reel: pista OFF → ON → galaxia → juegos</span>
+          <span class="meta-tag meta-tip">Efecto wow garantizado</span>
+        </div>
+      </div>
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon tt-icon"></div>
+          <span class="plat-name tt-name">TikTok</span>
+          <span class="plat-tipo">Video "Reveal" 20 seg</span>
+        </div>
+        <div class="tt-hook">
+          <div class="hook-label">Hook Visual — sin palabras</div>
+          <div class="hook-text">Texto en pantalla: "Esto NO lo tiene ningún otro salón en Hidalgo 👀"</div>
+        </div>
+        <div class="tt-guion">
+          <div class="guion-label">Secuencia de reveal visual</div>
+          <div class="tt-step"><span class="ts">0–2s</span>Texto del hook sobre imagen oscura del salón</div>
+          <div class="tt-step"><span class="ts">2–7s</span>Pista LED enciende · efecto de luz explosiva al ritmo del beat</div>
+          <div class="tt-step"><span class="ts">7–12s</span>Proyección galaxia encendiéndose en el techo</div>
+          <div class="tt-step"><span class="ts">12–18s</span>Paneo rápido: billar → futbolito → Xbox · texto overlay con cada uno</div>
+          <div class="tt-step"><span class="ts">18–20s</span>"Y esto está incluido en TODOS los paquetes · La Cabaña, Hidalgo"</div>
+        </div>
+        <div class="sonido-badge">🎵 Beat con drop fuerte en segundo 2 · busca "Bass Boosted Trending" o sonido de impacto en TikTok</div>
+        <div class="hashtags tt-ht">#PistaLED #GalaxiaSalon #SalónDeEventos #Hidalgo #fyp #parati #WOW #EventosMéxico</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 8:00 pm</span>
+          <span class="meta-tag meta-formato">📱 Cortes rápidos al ritmo · subtítulos</span>
+          <span class="meta-tag meta-tip">Máximo potencial viral</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MIÉRCOLES 13 -->
+  <div class="dia-card">
+    <div class="dia-header">
+      <div class="dia-numero mie"><div class="num">13</div><div class="mes">Mayo</div></div>
+      <div class="dia-info"><h3>Miércoles</h3><p>Gastronomía · ASMR · Apetito visual</p></div>
+      <div class="dia-tema">El menú de La Cabaña</div>
+    </div>
+    <div class="posts-grid">
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon fb-icon">f</div>
+          <span class="plat-name fb-name">Facebook</span>
+          <span class="plat-tipo">Foto del menú</span>
+        </div>
+        <div class="post-caption fb-cap">🍽️ El menú también es parte de la experiencia.
+
+En La Cabaña, cada platillo se prepara con ingredientes frescos y se sirve con el mismo cuidado que el resto de tu evento.
+
+Desde el primer tiempo hasta el postre — todo tiene un nivel.
+
+¿Quieres ver las opciones de menú de cada paquete?
+📞 771-134-1559 | Escríbenos hoy</div>
+        <div class="hashtags fb-ht">#MenuGourmet #CateringHidalgo #SalónDeEventos #BodaHidalgo #LasCabañaEventos #Gastronomía</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 1:00 pm</span>
+          <span class="meta-tag meta-formato">📷 Foto apetitosa de platillo principal</span>
+        </div>
+      </div>
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon ig-icon">📷</div>
+          <span class="plat-name ig-name">Instagram</span>
+          <span class="plat-tipo">Carrusel menú</span>
+        </div>
+        <div class="post-caption ig-cap">El menú que hace que tus invitados hablen del evento semanas después 🍽️✨
+
+Desliza para ver algunas de nuestras opciones →
+
+Slide 1: Portada elegante "Nuestro Menú"
+Slide 2: Sopa / crema de temporada
+Slide 3: Plato fuerte (carne o pollo)
+Slide 4: Postre
+Slide 5: "Personaliza tu menú · cotiza hoy"</div>
+        <div class="hashtags ig-ht">#MenuBoda #CateringMéxico #GastronomíaHidalgo #XVAños #EventosPachuca #Foodie</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 2:00 pm</span>
+          <span class="meta-tag meta-formato">🖼️ Carrusel 5 slides · fotos HD</span>
+        </div>
+      </div>
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon tt-icon"></div>
+          <span class="plat-name tt-name">TikTok</span>
+          <span class="plat-tipo">ASMR / Food video 30 seg</span>
+        </div>
+        <div class="tt-hook">
+          <div class="hook-label">Hook Visual — hambre garantizada</div>
+          <div class="hook-text">Primer plano del platillo siendo servido · sonido ASMR del plato</div>
+        </div>
+        <div class="tt-guion">
+          <div class="guion-label">Sin texto hablado — solo visual + ASMR + música suave</div>
+          <div class="tt-step"><span class="ts">0–5s</span>Primer plano: mesero sirve el caldo / sopa con elegancia</div>
+          <div class="tt-step"><span class="ts">5–15s</span>Plato fuerte siendo colocado en mesa elegantemente montada</div>
+          <div class="tt-step"><span class="ts">15–22s</span>Postre / pastel siendo cortado o decorado</div>
+          <div class="tt-step"><span class="ts">22–28s</span>Vista del salón lleno con gente disfrutando la cena</div>
+          <div class="tt-step"><span class="ts">28–30s</span>Texto final: "Así se come en La Cabaña Eventos · Hidalgo"</div>
+        </div>
+        <div class="sonido-badge">🎵 Música lo-fi o jazz suave · el ASMR del plato debe escucharse al inicio</div>
+        <div class="hashtags tt-ht">#FoodTikTok #CateringMéxico #ASMR #BodaComida #EventosHidalgo #fyp #parati #Gastro</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 6:00 pm</span>
+          <span class="meta-tag meta-formato">📱 Macro shots + slow motion si es posible</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JUEVES 14 -->
+  <div class="dia-card">
+    <div class="dia-header">
+      <div class="dia-numero jue"><div class="num">14</div><div class="mes">Mayo</div></div>
+      <div class="dia-info"><h3>Jueves</h3><p>Promo activa · Entre Semana · Conversión</p></div>
+      <div class="dia-tema">Oferta Entre Semana $12,900</div>
+    </div>
+    <div class="posts-grid">
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon fb-icon">f</div>
+          <span class="plat-name fb-name">Facebook</span>
+          <span class="plat-tipo">Post promo + CTA directo</span>
+        </div>
+        <div class="post-caption fb-cap">📅 ENTRE SEMANA EN LA CABAÑA
+
+Evento completo para 60 personas: $12,900 fijos.
+
+¿Qué incluye?
+✅ Salón 8 horas + jardín
+✅ Mobiliario completo
+✅ Menú 2 tiempos
+✅ Pista LED iluminada
+✅ Proyección galaxia
+✅ Área de juegos (billar, futbolito, Xbox)
+✅ Bocina ambiente
+✅ Meseros
+
+De lunes a jueves. Fechas disponibles junio y julio.
+
+👉 Escríbenos HOY al 771-134-1559
+(WhatsApp disponible)</div>
+        <div class="hashtags fb-ht">#EntreSemanaCabaña #EventoEconómico #SalónHidalgo #OfertaEventos #LasCabañaEventos</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 10:00 am</span>
+          <span class="meta-tag meta-formato">🖼️ Imagen con precio destacado</span>
+          <span class="meta-tag meta-tip">Ancla: mencionar el $3,800 de competencia</span>
+        </div>
+      </div>
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon ig-icon">📷</div>
+          <span class="plat-name ig-name">Instagram</span>
+          <span class="plat-tipo">Story + Reel promo</span>
+        </div>
+        <div class="post-caption ig-cap">💥 $12,900 · Evento completo · L–J
+
+Sí, lo leíste bien.
+
+No es el salón vacío. Es TODO: salón, jardín, mobiliario, menú, pista LED, galaxia, juegos y meseros.
+
+Para 60 personas. Entre semana. Precio fijo.
+
+👆 Story con link directo a WhatsApp para cotizar</div>
+        <div class="hashtags ig-ht">#OfertaEventos #EntreSemanaCabaña #EventoCompleto #SalónHidalgo #fyp #PrecioEspecial</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 12:00 pm</span>
+          <span class="meta-tag meta-formato">📱 Story con sticker "Cotizar" → WhatsApp</span>
+        </div>
+      </div>
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon tt-icon"></div>
+          <span class="plat-name tt-name">TikTok</span>
+          <span class="plat-tipo">Video "¿Lo creías imposible?" 40 seg</span>
+        </div>
+        <div class="tt-hook">
+          <div class="hook-label">Hook de alto impacto</div>
+          <div class="hook-text">"Evento completo para 60 personas. $12,900. Sí, EN SERIO. 😳"</div>
+        </div>
+        <div class="tt-guion">
+          <div class="guion-label">Hablando a cámara · tono de "te estoy contando un secreto"</div>
+          <div class="tt-step"><span class="ts">0–3s</span>Hook en pantalla con cara de sorpresa</div>
+          <div class="tt-step"><span class="ts">3–15s</span>"Los que rentan salón vacío cobran $3,800 por las 4 paredes. Sin nada más. Y tú tienes que poner meseros, comida, mobiliario... terminas gastando $16,000 o más."</div>
+          <div class="tt-step"><span class="ts">15–30s</span>"En La Cabaña, entre semana tienes TODO esto" · mostrar cada elemento mientras lo nombras: salón, jardín, pista LED, galaxia, juegos, menú</div>
+          <div class="tt-step"><span class="ts">30–38s</span>"Por $12,900 fijos. Para 60 personas. De lunes a jueves."</div>
+          <div class="tt-step"><span class="ts">38–40s</span>"Link en bio · La Cabaña Eventos · Hidalgo 📍"</div>
+        </div>
+        <div class="sonido-badge">🎵 Sin música de fondo o muy baja — el mensaje hablado debe ser claro</div>
+        <div class="hashtags tt-ht">#EventoEconómico #SalónHidalgo #12900 #fyp #parati #EventosMéxico #Pachuca #TipsEvento</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 7:00 pm</span>
+          <span class="meta-tag meta-formato">📱 Vertical · subtítulos en video</span>
+          <span class="meta-tag meta-tip">Menciona el precio en los primeros 3 seg</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIERNES 15 -->
+  <div class="dia-card">
+    <div class="dia-header">
+      <div class="dia-numero vie"><div class="num">15</div><div class="mes">Mayo</div></div>
+      <div class="dia-info"><h3>Viernes</h3><p>Anticipación del fin de semana · Energía</p></div>
+      <div class="dia-tema">Behind the scenes · Montaje del evento</div>
+    </div>
+    <div class="posts-grid">
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon fb-icon">f</div>
+          <span class="plat-name fb-name">Facebook</span>
+          <span class="plat-tipo">Video de preparación</span>
+        </div>
+        <div class="post-caption fb-cap">🎉 ¡Ya es viernes y en La Cabaña estamos listos para el fin de semana!
+
+Detrás de cada evento perfecto hay horas de preparación. Esto es lo que pasa antes de que llegue el primer invitado 👇
+
+[Video del montaje del salón]
+
+¿Quieres que tu evento sea el próximo?
+📞 771-134-1559 · Fechas disponibles junio 📅</div>
+        <div class="hashtags fb-ht">#BehindTheScenes #MontajeSalón #LasCabañaEventos #Hidalgo #FinDeSemana</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 11:00 am</span>
+          <span class="meta-tag meta-formato">🎬 Video del montaje del salón</span>
+        </div>
+      </div>
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon ig-icon">📷</div>
+          <span class="plat-name ig-name">Instagram</span>
+          <span class="plat-tipo">Reel behind the scenes</span>
+        </div>
+        <div class="post-caption ig-cap">Todo empieza mucho antes de que llegue el primer invitado 🌿
+
+El montaje, los detalles, la luz... nada pasa por accidente.
+
+Esto es La Cabaña preparándose para el fin de semana ✨
+
+¿Cuándo es tu evento? → link en bio para cotizar</div>
+        <div class="hashtags ig-ht">#BehindTheScenes #EventWedding #MontajeBoda #SalónDeEventos #Reels #fyp #EventosHidalgo</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 7:00 pm</span>
+          <span class="meta-tag meta-formato">🎬 Reel montaje acelerado · música energética</span>
+        </div>
+      </div>
+      <div class="post-col">
+        <div class="post-plat-header">
+          <div class="plat-icon tt-icon"></div>
+          <span class="plat-name tt-name">TikTok</span>
+          <span class="plat-tipo">Timelapse / Get Ready 30 seg</span>
+        </div>
+        <div class="tt-hook">
+          <div class="hook-label">Hook</div>
+          <div class="hook-text">"Get ready with us: así preparamos un evento en La Cabaña 🌿✨"</div>
+        </div>
+        <div class="tt-guion">
+          <div class="guion-label">Formato "Get Ready With Me" adaptado a eventos</div>
+          <div class="tt-step"><span class="ts">0–3s</span>Texto: "Get ready with us: evento en La Cabaña" sobre salón vacío</div>
+          <div class="tt-step"><span class="ts">3–10s</span>Timelapse o cortes rápidos: colocar mesas, sillas, manteles</div>
+          <div class="tt-step"><span class="ts">10–18s</span>Acomodo de centros de mesa, decoración, iluminación encendiéndose</div>
+          <div class="tt-step"><span class="ts">18–25s</span>Pista LED + galaxia encendiéndose en salón ya montado</div>
+          <div class="tt-step"><span class="ts">25–30s</span>Salón listo y hermoso · texto: "¿El siguiente evento es el tuyo? 👇 link en bio"</div>
+        </div>
+        <div class="sonido-badge">🎵 Trending sound semanal de TikTok · usa "Get Ready With Me" o "transformation sound" que esté en tendencia</div>
+        <div class="hashtags tt-ht">#GetReadyWithMe #SalónDeEventos #BehindTheScenes #Hidalgo #fyp #parati #EventosMéxico #Transformación</div>
+        <div class="post-meta">
+          <span class="meta-tag meta-hora">⏰ 8:00 pm</span>
+          <span class="meta-tag meta-formato">📱 Cortes rápidos al ritmo · texto overlay</span>
+          <span class="meta-tag meta-tip">Formato GRWM = alto alcance orgánico</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIPS Y MEJORES PRÁCTICAS -->
+  <div class="footer-cal">
+    <h3>Mejores prácticas por plataforma esta semana</h3>
+    <div class="tips-grid">
+      <div class="tip-box fb-box">
+        <h4>Facebook</h4>
+        <ul>
+          <li>Publica entre 9–11 am o 6–8 pm</li>
+          <li>Siempre incluye el teléfono en el post</li>
+          <li>Incluye el link de Maps en posts de ubicación</li>
+          <li>Responde comentarios en la primera hora</li>
+          <li>Mínimo 3 posts por semana</li>
+          <li>Usa "Boost" de $50–100 MXN en el post de promo</li>
+        </ul>
+      </div>
+      <div class="tip-box ig-box">
+        <h4>Instagram</h4>
+        <ul>
+          <li>Reels tienen 6x más alcance que fotos</li>
+          <li>Publica entre 7–9 pm para mayor engagement</li>
+          <li>Stories diarias aunque no publiques en feed</li>
+          <li>Agrega ubicación "Zapotlán de Juárez" en cada post</li>
+          <li>Usa máximo 10–15 hashtags (no 30)</li>
+          <li>Responde DMs en menos de 1 hora</li>
+        </ul>
+      </div>
+      <div class="tip-box tt-box">
+        <h4>TikTok — Reglas clave</h4>
+        <ul>
+          <li>Los primeros 3 segundos son TODO · el hook lo es todo</li>
+          <li>Publica entre 7–9 pm · máxima audiencia activa</li>
+          <li>Subtítulos siempre · 85% ve sin sonido</li>
+          <li>1 video por día mínimo esta semana</li>
+          <li>Responde comentarios con videos · aumenta alcance</li>
+          <li>No borres videos con pocas vistas · el algoritmo los relanza</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

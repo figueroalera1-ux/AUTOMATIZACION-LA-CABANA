@@ -1,0 +1,65 @@
+{
+  "id": "temp-insertar-token",
+  "name": "TEMP — Insertar token de prueba",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "insertar-token-prueba",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-temp",
+      "name": "Webhook TEMP",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "lacabana-temp-token-001"
+    },
+    {
+      "parameters": {
+        "jsCode": "const ahora = new Date();\nconst token = 'LC-' + ahora.getTime() + '-PRUEBA';\nreturn [{ json: {\n  token,\n  link: 'https://n8n.lacabanaeventos.com/webhook/seleccion?token=' + token,\n  nombre: 'Angel Figueroa (PRUEBA)',\n  email: 'figueroa.lera1@gmail.com',\n  telefono: '5619219350',\n  fecha_evento: '2026-07-15',\n  tipo_evento: 'Boda',\n  paquete_asignado: 'Herradura — Menú Clásico (3 tiempos)',\n  status: 'pendiente',\n  fecha_generacion: ahora.toLocaleString('es-MX', { timeZone: 'America/Mexico_City' }),\n  menu_elegido: '', opcion_elegida: '', num_invitados: '',\n  cocteleria: '', cerveza_barril: '', dietas_especiales: '',\n  notas_cliente: '', fecha_seleccion: ''\n}}];"
+      },
+      "id": "code-token",
+      "name": "Generar token prueba",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": { "__rl": true, "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk", "mode": "id" },
+        "sheetName": { "__rl": true, "value": "Selecciones", "mode": "name" },
+        "columns": { "mappingMode": "autoMapInputData", "value": {} },
+        "options": {}
+      },
+      "id": "sheets-insertar",
+      "name": "Sheets — Insertar token",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [680, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": { "id": "google-sheets-cred", "name": "Google Sheets account" }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $('Generar token prueba').first().json.token + '|||' + $('Generar token prueba').first().json.link }}",
+        "options": {}
+      },
+      "id": "responder-token",
+      "name": "Responder token",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "Webhook TEMP": { "main": [[{ "node": "Generar token prueba", "type": "main", "index": 0 }]] },
+    "Generar token prueba": { "main": [[{ "node": "Sheets — Insertar token", "type": "main", "index": 0 }]] },
+    "Sheets — Insertar token": { "main": [[{ "node": "Responder token", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

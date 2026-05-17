@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema Completo de Flujos — La Cabaña Eventos</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --g:     #6B1223; --gd: #4d0c19; --gl: #8f1a2f;
+  --gold:  #C8960C; --gold-l: #f0b429; --gold-bg: #fef9ec;
+  --org:   #15803d; --org-bg: #dcfce7; --org-bd: #86efac;
+  --paid:  #6d28d9; --paid-bg: #ede9fe; --paid-bd: #c4b5fd;
+  --auto:  #0369a1; --auto-bg: #e0f2fe; --auto-bd: #7dd3fc;
+  --post:  #92400e; --post-bg: #fef3c7; --post-bd: #fcd34d;
+  --crm:   #be185d; --crm-bg:  #fce7f3; --crm-bd:  #f9a8d4;
+  --dash:  #1e40af; --dash-bg: #dbeafe; --dash-bd: #93c5fd;
+  --gray-50:#f9fafb; --gray-100:#f3f4f6; --gray-200:#e5e7eb;
+  --gray-400:#9ca3af; --gray-600:#4b5563; --gray-800:#1f2937;
+  --r: 12px; --sh: 0 2px 12px rgba(0,0,0,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--gray-50);color:var(--gray-800);line-height:1.5}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:99;background:var(--gd);display:flex;flex-wrap:wrap;gap:0;padding:0 1rem;height:48px;align-items:center;overflow-x:auto}
+nav a{color:rgba(255,255,255,.7);font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;padding:0 .9rem;height:48px;display:flex;align-items:center;white-space:nowrap;border-bottom:2px solid transparent;transition:.2s}
+nav a:hover{color:var(--gold-l);border-color:var(--gold)}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,var(--gd),var(--g) 55%,var(--gl));color:#fff;padding:3rem 2rem 2.5rem;text-align:center;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='.03'%3E%3Cpath d='M20 20h20v20H20zM0 0h20v20H0z'/%3E%3C/g%3E%3C/svg%3E")}
+.hdr h1{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.4rem);margin-bottom:.4rem;position:relative}
+.hdr p{font-size:.9rem;color:rgba(255,255,255,.65);position:relative}
+.hdr-stats{display:flex;flex-wrap:wrap;justify-content:center;gap:2rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.12);position:relative}
+.hdr-stat-n{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:var(--gold-l);display:block}
+.hdr-stat-l{font-size:.7rem;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.1em}
+
+/* LEYENDA */
+.leyenda{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;padding:1.25rem;background:#fff;border-bottom:1px solid var(--gray-200)}
+.leg{display:inline-flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:600;padding:.25rem .75rem;border-radius:50px;border:1px solid}
+
+/* CONTAINER */
+.wrap{max-width:980px;margin:0 auto;padding:0 1.25rem}
+
+/* SECCIÓN */
+.sec{padding:2.5rem 0}
+.sec-tag{display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .8rem;border-radius:50px;margin-bottom:.6rem;border:1px solid}
+.sec h2{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3vw,1.8rem);color:var(--g);margin-bottom:.35rem}
+.sec-sub{font-size:.87rem;color:var(--gray-400);margin-bottom:1.75rem}
+
+/* ECOSISTEMA — mapa visual */
+.eco{background:#fff;border-radius:var(--r);border:1px solid var(--gray-200);box-shadow:var(--sh);padding:1.75rem;overflow-x:auto}
+.eco-row{display:flex;align-items:center;gap:0;justify-content:center;flex-wrap:nowrap;min-width:700px}
+.eco-box{border-radius:10px;padding:.7rem 1rem;font-size:.78rem;font-weight:600;text-align:center;min-width:110px;line-height:1.35;border:1.5px solid}
+.eco-arrow{font-size:1.1rem;color:var(--gray-400);padding:0 .5rem;flex-shrink:0}
+.eco-split{display:flex;flex-direction:column;gap:.45rem}
+.eco-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gray-400);text-align:center;margin-bottom:.3rem}
+
+/* FLUJO CARD */
+.fc{background:#fff;border-radius:var(--r);border:1px solid var(--gray-200);box-shadow:var(--sh);margin-bottom:1.1rem;overflow:hidden}
+.fc-top{display:flex;align-items:center;gap:.9rem;padding:.95rem 1.25rem;border-bottom:1px solid var(--gray-100)}
+.fc-num{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:#fff;flex-shrink:0}
+.fc-top h3{font-size:.95rem;font-weight:700;line-height:1.3}
+.fc-top .sub{font-size:.72rem;color:var(--gray-400);margin-top:.1rem}
+.badge-tipo{margin-left:auto;flex-shrink:0;font-size:.63rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .65rem;border-radius:50px;border:1px solid}
+
+/* DIAGRAMA */
+.diag{display:flex;align-items:flex-start;gap:0;padding:1.1rem 1.25rem;overflow-x:auto}
+.dc{display:flex;flex-direction:column;align-items:center;flex:1;min-width:0}
+.dc-lbl{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-400);margin-bottom:.5rem;white-space:nowrap}
+.dn{width:100%;border-radius:8px;padding:.5rem .65rem;font-size:.75rem;font-weight:500;text-align:center;line-height:1.3;border:1.5px solid;background:#fff;border-color:var(--gray-200);color:var(--gray-600)}
+.dn.src{font-weight:700}
+.dn.dst{font-weight:700}
+.darr{color:var(--gray-400);font-size:.85rem;padding:0 .3rem;padding-top:1.4rem;flex-shrink:0;font-weight:700}
+.darr.top{padding-top:0;align-self:flex-start;margin-top:1.4rem}
+.multi-dst{display:flex;flex-direction:column;gap:.4rem;flex:1}
+.multi-dst .dc-lbl{text-align:center}
+
+/* colores por tipo en src */
+.c-org  .dn.src{background:var(--org-bg);border-color:var(--org-bd);color:var(--org)}
+.c-paid .dn.src{background:var(--paid-bg);border-color:var(--paid-bd);color:var(--paid)}
+.c-auto .dn.src{background:var(--auto-bg);border-color:var(--auto-bd);color:var(--auto)}
+.c-post .dn.src{background:var(--post-bg);border-color:var(--post-bd);color:var(--post)}
+.c-trk  .dn.src{background:var(--gold-bg);border-color:#fcd34d;color:var(--gold)}
+.c-crm  .dn.src{background:var(--crm-bg);border-color:var(--crm-bd);color:var(--crm)}
+/* colores destinos */
+.d-sheets{background:#e8f5e9;border-color:#a5d6a7;color:#1b5e20}
+.d-email {background:#e3f2fd;border-color:#90caf9;color:#0d47a1}
+.d-tg    {background:#e8eaf6;border-color:#9fa8da;color:#1a237e}
+.d-crm   {background:var(--crm-bg);border-color:var(--crm-bd);color:var(--crm)}
+.d-web   {background:var(--org-bg);border-color:var(--org-bd);color:var(--org)}
+.d-click {background:var(--gold-bg);border-color:#fcd34d;color:var(--gold)}
+
+/* NOTA */
+.nota{padding:.85rem 1.25rem;background:var(--gray-50);border-top:1px solid var(--gray-100);font-size:.8rem;color:var(--gray-600);line-height:1.6}
+.nota strong{color:var(--g)}
+
+/* PIPELINE CRM */
+.pipeline{display:flex;align-items:stretch;gap:0;overflow-x:auto;padding-bottom:.5rem}
+.pip-step{flex:1;min-width:120px;border-radius:10px;overflow:hidden;border:1.5px solid var(--gray-200);margin:0 4px}
+.pip-head{padding:.6rem .75rem;text-align:center;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.pip-body{padding:.75rem;font-size:.75rem;color:var(--gray-600);background:#fff;line-height:1.5}
+.pip-body li{padding:.2rem 0;border-bottom:1px solid var(--gray-100);list-style:none;display:flex;gap:.4rem}
+.pip-body li::before{content:'·';color:var(--gold);font-weight:900;font-size:1.1rem;margin-top:-.1em}
+.pip-body li:last-child{border-bottom:none}
+.pip-arrow{display:flex;align-items:center;color:var(--gray-400);font-size:1.1rem;margin:0 -2px;z-index:1;flex-shrink:0}
+
+/* DASHBOARD */
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem}
+.kpi{background:#fff;border-radius:var(--r);border:1px solid var(--gray-200);box-shadow:var(--sh);padding:1.25rem;text-align:center}
+.kpi-icon{font-size:1.6rem;margin-bottom:.5rem}
+.kpi-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gray-400);font-weight:600;margin-bottom:.25rem}
+.kpi-val{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--g)}
+.kpi-sub{font-size:.72rem;color:var(--gray-400);margin-top:.2rem}
+
+.dash-table{width:100%;border-collapse:collapse;font-size:.84rem}
+.dash-table th{background:var(--gd);color:#fff;padding:.75rem 1rem;text-align:left;font-weight:600;font-size:.75rem}
+.dash-table td{padding:.7rem 1rem;border-bottom:1px solid var(--gray-100)}
+.dash-table tr:nth-child(even) td{background:var(--gray-50)}
+.dash-table tr:last-child td{border-bottom:none}
+.pill{display:inline-block;padding:.18rem .55rem;border-radius:50px;font-size:.68rem;font-weight:700}
+
+/* ENTREGABLE SEMANAL */
+.entr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+.entr{background:#fff;border-radius:var(--r);border:1px solid var(--gray-200);box-shadow:var(--sh);overflow:hidden}
+.entr-head{padding:.8rem 1.1rem;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--gray-100)}
+.entr-body{padding:1rem 1.1rem}
+.entr-body li{font-size:.8rem;color:var(--gray-600);padding:.3rem 0;border-bottom:1px solid var(--gray-50);list-style:none;display:flex;gap:.5rem;align-items:flex-start;line-height:1.4}
+.entr-body li::before{content:'→';color:var(--g);font-weight:700;flex-shrink:0}
+.entr-body li:last-child{border-bottom:none}
+.entr-evid{margin-top:.85rem;padding:.65rem .85rem;background:var(--gray-50);border-radius:8px;font-size:.75rem;color:var(--gray-400)}
+.entr-evid strong{color:var(--g)}
+
+/* RESUMEN TABLE */
+.res-table{width:100%;border-collapse:collapse;font-size:.82rem;background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+.res-table th{background:var(--gd);color:#fff;padding:.8rem 1rem;text-align:left;font-weight:600;font-size:.73rem;letter-spacing:.03em}
+.res-table td{padding:.75rem 1rem;border-bottom:1px solid var(--gray-100);vertical-align:middle}
+.res-table tr:last-child td{border-bottom:none}
+.res-table tr:nth-child(even) td{background:var(--gray-50)}
+
+@media(max-width:640px){
+  .eco-row{min-width:500px}
+  .pipeline{flex-direction:column}
+  .pip-arrow{transform:rotate(90deg);margin:4px auto}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#ecosistema">Ecosistema</a>
+  <a href="#tracking">Tracking Links</a>
+  <a href="#captacion">Captación</a>
+  <a href="#crm-flujo">Lead → CRM</a>
+  <a href="#postcontrato">Post-Contrato</a>
+  <a href="#dashboard">Dashboard</a>
+  <a href="#entregable">Entregable Semanal</a>
+</nav>
+
+<!-- HEADER -->
+<div class="hdr">
+  <h1>Sistema Completo de Flujos<br>La Cabaña Eventos</h1>
+  <p>Desde el primer click en redes hasta el expediente del evento — todo conectado y medible.</p>
+  <div class="hdr-stats">
+    <div><span class="hdr-stat-n">10</span><span class="hdr-stat-l">Flujos activos</span></div>
+    <div><span class="hdr-stat-n">6</span><span class="hdr-stat-l">Redes con tracking</span></div>
+    <div><span class="hdr-stat-n">7</span><span class="hdr-stat-l">Etapas en el CRM</span></div>
+    <div><span class="hdr-stat-n">18+</span><span class="hdr-stat-l">Métricas medibles</span></div>
+  </div>
+</div>
+
+<!-- LEYENDA -->
+<div class="leyenda">
+  <span class="leg" style="background:var(--gold-bg);border-color:#fcd34d;color:var(--gold)">🔗 Tracking de clicks</span>
+  <span class="leg" style="background:var(--org-bg);border-color:var(--org-bd);color:var(--org)">🌿 Orgánico</span>
+  <span class="leg" style="background:var(--paid-bg);border-color:var(--paid-bd);color:var(--paid)">💰 Pagado · Meta Ads</span>
+  <span class="leg" style="background:var(--auto-bg);border-color:var(--auto-bd);color:var(--auto)">⚙️ Automático</span>
+  <span class="leg" style="background:var(--post-bg);border-color:var(--post-bd);color:var(--post)">📋 Post-contrato</span>
+  <span class="leg" style="background:var(--crm-bg);border-color:var(--crm-bd);color:var(--crm)">🗃️ CRM / Pipeline</span>
+</div>
+
+<!-- ─── ECOSISTEMA ─── -->
+<section class="sec" id="ecosistema">
+<div class="wrap">
+  <span class="sec-tag" style="background:var(--gray-100);border-color:var(--gray-200);color:var(--gray-600)">Visión general</span>
+  <h2>El Ecosistema Completo</h2>
+  <p class="sec-sub">Así se conectan todos los flujos desde el primer click hasta el evento realizado.</p>
+  <div class="eco">
+    <div class="eco-row">
+      <!-- REDES -->
+      <div class="dc" style="flex:0 0 auto;min-width:110px">
+        <div class="eco-label">Redes sociales</div>
+        <div class="eco-box" style="background:var(--gold-bg);border-color:#fcd34d;color:var(--gold)">📱 FB · IG · TikTok<br>WhatsApp · Google<br>YouTube</div>
+      </div>
+      <div class="eco-arrow">→</div>
+      <!-- TRACKING -->
+      <div class="dc" style="flex:0 0 auto;min-width:110px">
+        <div class="eco-label">F0 · Tracking</div>
+        <div class="eco-box" style="background:var(--gold-bg);border-color:#fcd34d;color:var(--gold)">🔗 Link registra<br>el click + fuente</div>
+      </div>
+      <div class="eco-arrow">→</div>
+      <!-- COTIZADOR -->
+      <div class="dc" style="flex:0 0 auto;min-width:105px">
+        <div class="eco-label">Sitio web</div>
+        <div class="eco-box" style="background:var(--org-bg);border-color:var(--org-bd);color:var(--org)">💻 Cotizador<br>lacabanaeventos.com</div>
+      </div>
+      <div class="eco-arrow">→</div>
+      <!-- LEAD -->
+      <div class="dc" style="flex:0 0 auto;min-width:105px">
+        <div class="eco-label">F1 · F3</div>
+        <div class="eco-box" style="background:var(--g);border-color:var(--g);color:#fff">📥 Lead capturado<br>Google Sheets</div>
+      </div>
+      <div class="eco-arrow">→</div>
+      <!-- CRM -->
+      <div class="dc" style="flex:0 0 auto;min-width:110px">
+        <div class="eco-label">F2 · Pipeline</div>
+        <div class="eco-box" style="background:var(--crm-bg);border-color:var(--crm-bd);color:var(--crm)">🗃️ CRM<br>Status → cotización<br>→ anticipo</div>
+      </div>
+      <div class="eco-arrow">→</div>
+      <!-- POST CONTRATO -->
+      <div class="dc" style="flex:0 0 auto;min-width:110px">
+        <div class="eco-label">F4 · F5 · F6 · F7</div>
+        <div class="eco-box" style="background:var(--post-bg);border-color:var(--post-bd);color:var(--post)">✅ Cliente activo<br>Menú · Ficha<br>Expediente</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ─── TRACKING LINKS ─── -->
+<section class="sec" id="tracking" style="background:#fff">
+<div class="wrap">
+  <span class="sec-tag" style="background:var(--gold-bg);border-color:#fcd34d;color:var(--gold)">F0 · Tracking</span>
+  <h2>Flujo de Tracking — Links de Redes Sociales</h2>
+  <p class="sec-sub">Cada link que se publica en redes registra de dónde viene el click antes de llevar al usuario al cotizador. Esto mide qué canal genera más tráfico real.</p>
+
+  <div class="fc c-trk">
+    <div class="fc-top">
+      <div class="fc-num" style="background:var(--gold)">F0</div>
+      <div>
+        <h3>Links de Tracking por Red Social y Campaña</h3>
+        <div class="sub">Webhook /ir — n8n.lacabanaeventos.com · Flujo activo en todas las redes</div>
+      </div>
+      <span class="badge-tipo" style="background:var(--gold-bg);border-color:#fcd34d;color:var(--gold)">Orgánico + Pagado</span>
+    </div>
+    <div class="diag">
+      <div class="dc">
+        <div class="dc-lbl">Origen</div>
+        <div class="dn src" style="background:var(--gold-bg);border-color:#fcd34d;color:var(--gold)">
+          📱 Usuario ve post<br>en red social y<br>da clic al link
+        </div>
+      </div>
+      <div class="darr">→</div>
+      <div class="dc">
+        <div class="dc-lbl">Webhook n8n</div>
+        <div class="dn">Registra:<br>· Red social (r=)<br>· Tipo campaña (c=)<br>· Fecha + hora</div>
+      </div>
+      <div class="darr top">→</div>
+      <div class="multi-dst">
+        <div class="dc-lbl">Destino</div>
+        <div class="dn dst d-click">📊 Sheets — pestaña <strong>Click</strong><br><small>Red · campaña · fecha · hora</small></div>
+        <div class="dn dst d-web" style="margin-top:.4rem">🌐 Redirige al cotizador<br><small>lacabanaeventos.com</small></div>
+      </div>
+    </div>
+    <div class="nota">
+      <strong>Links disponibles por red:</strong><br>
+      Facebook: bio · post orgánico · anuncio (ads) &nbsp;|&nbsp;
+      Instagram: bio · story · reel · anuncio &nbsp;|&nbsp;
+      TikTok: bio · video orgánico · anuncio &nbsp;|&nbsp;
+      WhatsApp: mensaje directo · status &nbsp;|&nbsp;
+      Google Ads: búsqueda · display &nbsp;|&nbsp;
+      YouTube: descripción de video<br><br>
+      <strong>Parámetros del link:</strong> <code style="background:var(--gray-100);padding:.1rem .4rem;border-radius:4px;font-size:.78rem">n8n.lacabanaeventos.com/webhook/ir?r=<em>RED</em>&c=<em>CAMPAÑA</em></code><br>
+      <strong>Qué mide:</strong> cuántos clicks llegaron de cada red, de qué tipo de publicación (bio vs post vs ads) y en qué fecha. Con esto sabes qué canal y qué tipo de contenido genera más tráfico real al sitio web.
+    </div>
+  </div>
+
+  <!-- Tabla de links -->
+  <div style="background:#fff;border-radius:var(--r);border:1px solid var(--gray-200);box-shadow:var(--sh);overflow:hidden;margin-top:1rem">
+    <table class="dash-table">
+      <thead><tr><th>Red Social</th><th>Tipo de link</th><th>Parámetros</th><th>Se registra en Sheets</th></tr></thead>
+      <tbody>
+        <tr><td>📘 Facebook</td><td>Bio de página</td><td>r=facebook&c=bio</td><td>✓ Pestaña Click</td></tr>
+        <tr><td>📘 Facebook</td><td>Post orgánico</td><td>r=facebook&c=post</td><td>✓ Pestaña Click</td></tr>
+        <tr><td>📘 Facebook</td><td>Anuncio (Ads)</td><td>r=facebook&c=ads</td><td>✓ Pestaña Click</td></tr>
+        <tr><td>📸 Instagram</td><td>Bio / Perfil</td><td>r=instagram&c=bio</td><td>✓ Pestaña Click</td></tr>
+        <tr><td>📸 Instagram</td><td>Story</td><td>r=instagram&c=story</td><td>✓ Pestaña Click</td></tr>
+        <tr><td>📸 Instagram</td><td>Reel</td><td>r=instagram&c=reel</td><td>✓ Pestaña Click</td></tr>
+        <tr><td>📸 Instagram</td><td>Anuncio (Ads)</td><td>r=instagram&c=ads</td><td>✓ Pestaña Click</td></tr>
+        <tr><td>🎵 TikTok</td><td>Bio / Perfil</td><td>r=tiktok&c=bio</td><td>✓ Pestaña Click</td></tr>
+        <tr><td>🎵 TikTok</td><td>Video orgánico</td><td>r=tiktok&c=video</td><td>✓ Pestaña Click</td></tr>
+        <tr><td>💬 WhatsApp</td><td>Mensaje directo</td><td>r=whatsapp&c=directo</td><td>✓ Pestaña Click</td></tr>
+        <tr><td>💬 WhatsApp</td><td>Status</td><td>r=whatsapp&c=status</td><td>✓ Pestaña Click</td></tr>
+        <tr><td>🔍 Google Ads</td><td>Búsqueda</td><td>r=google&c=busqueda</td><td>✓ Pestaña Click</td></tr>
+        <tr><td>▶️ YouTube</td><td>Descripción video</td><td>r=youtube&c=video</td><td>✓ Pestaña Click</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ─── CAPTACIÓN ─── -->
+<section class="sec" id="captacion">
+<div class="wrap">
+  <span class="sec-tag" style="background:var(--org-bg);border-color:var(--org-bd);color:var(--org)">F1 · F2 · F3 — Captación</span>
+  <h2>Flujos de Captación de Leads</h2>
+  <p class="sec-sub">Los flujos que convierten un visitante en un registro en el CRM.</p>
+
+  <!-- F1 -->
+  <div class="fc c-org">
+    <div class="fc-top">
+      <div class="fc-num" style="background:var(--org)">F1</div>
+      <div><h3>Lead desde el Sitio Web</h3><div class="sub">flujo1-web-lead.json · Formulario lacabanaeventos.com</div></div>
+      <span class="badge-tipo" style="background:var(--org-bg);border-color:var(--org-bd);color:var(--org)">Orgánico</span>
+    </div>
+    <div class="diag">
+      <div class="dc"><div class="dc-lbl">Origen</div><div class="dn src">🌐 Usuario llena<br>formulario en<br>lacabanaeventos.com</div></div>
+      <div class="darr">→</div>
+      <div class="dc"><div class="dc-lbl">Webhook</div><div class="dn">Recibe datos<br>del formulario</div></div>
+      <div class="darr">→</div>
+      <div class="dc"><div class="dc-lbl">Normalización</div><div class="dn">Estandariza campos<br>nombre · tel · email<br>evento · fecha · personas<br>fuente: "Sitio Web"</div></div>
+      <div class="darr top">→</div>
+      <div class="multi-dst">
+        <div class="dc-lbl">Destino</div>
+        <div class="dn dst d-sheets">📊 Sheets — pestaña Leads<br><small>status: "nuevo"</small></div>
+        <div class="dn dst d-tg" style="margin-top:.4rem">📨 Alerta al admin<br><small>datos del lead en tiempo real</small></div>
+      </div>
+    </div>
+    <div class="nota"><strong>Datos que captura:</strong> nombre · teléfono · email · tipo de evento · fecha deseada · número de personas · paquete de interés · mensaje · fuente. El ID del lead se genera como WEB-[timestamp].</div>
+  </div>
+
+  <!-- F2 -->
+  <div class="fc c-auto">
+    <div class="fc-top">
+      <div class="fc-num" style="background:var(--auto)">F2</div>
+      <div><h3>Follow-up Automático — Retomar leads sin respuesta</h3><div class="sub">flujo2-remarketing-followup.json · Se ejecuta cada 6 horas sin intervención</div></div>
+      <span class="badge-tipo" style="background:var(--auto-bg);border-color:var(--auto-bd);color:var(--auto)">Automático</span>
+    </div>
+    <div class="diag">
+      <div class="dc"><div class="dc-lbl">Trigger</div><div class="dn src">⏱ Temporizador<br>cada 6 horas<br>(sin activación manual)</div></div>
+      <div class="darr">→</div>
+      <div class="dc"><div class="dc-lbl">Lee CRM</div><div class="dn">Lee todos los leads<br>de Google Sheets<br>— pestaña Leads</div></div>
+      <div class="darr">→</div>
+      <div class="dc"><div class="dc-lbl">Clasificación</div><div class="dn">Calcula días<br>desde captura:<br>2 días → recordatorio<br>5 días → urgencia<br>10 días → frío</div></div>
+      <div class="darr top">→</div>
+      <div class="multi-dst">
+        <div class="dc-lbl">Destino</div>
+        <div class="dn dst d-email">📧 Email automático al lead<br><small>Plantilla según días (recordatorio / urgencia)</small></div>
+        <div class="dn dst d-sheets" style="margin-top:.4rem">📊 Sheets — actualiza status<br><small>"contactado" o "frio" automáticamente</small></div>
+      </div>
+    </div>
+    <div class="nota"><strong>Qué hace sin que nadie lo active:</strong> revisa cada lead, calcula cuántos días llevan sin respuesta y manda el email correcto. Actualiza el status en Sheets para que el pipeline del CRM refleje el estado real de cada lead.</div>
+  </div>
+
+  <!-- F3 -->
+  <div class="fc c-paid">
+    <div class="fc-top">
+      <div class="fc-num" style="background:var(--paid)">F3</div>
+      <div><h3>Lead desde Facebook / Instagram Ads</h3><div class="sub">flujo3-facebook-lead-ad.json · Meta Lead Ads</div></div>
+      <span class="badge-tipo" style="background:var(--paid-bg);border-color:var(--paid-bd);color:var(--paid)">Pagado · Meta Ads</span>
+    </div>
+    <div class="diag">
+      <div class="dc"><div class="dc-lbl">Origen</div><div class="dn src">📱 Usuario llena<br>Lead Form de Meta<br>(sin salir de la app)</div></div>
+      <div class="darr">→</div>
+      <div class="dc"><div class="dc-lbl">Webhook</div><div class="dn">Recibe formato<br>de Facebook<br>(entry.changes)</div></div>
+      <div class="darr">→</div>
+      <div class="dc"><div class="dc-lbl">Procesamiento</div><div class="dn">Extrae campos<br>Segmenta evento:<br>Boda / XV / Bautizo<br>Corporativo / Graduación<br>fuente: "Facebook Lead Ad"</div></div>
+      <div class="darr top">→</div>
+      <div class="multi-dst">
+        <div class="dc-lbl">Destino</div>
+        <div class="dn dst d-sheets">📊 Sheets — pestaña Leads<br><small>ID: FB-[timestamp] · fuente trazable</small></div>
+        <div class="dn dst d-tg" style="margin-top:.4rem">📨 Alerta inmediata al admin<br><small>lead de anuncio: responder en &lt;5 min</small></div>
+      </div>
+    </div>
+    <div class="nota"><strong>Por qué la fuente importa:</strong> al guardar "Facebook Lead Ad" en el campo fuente, el CRM puede separar qué leads vienen de pauta y cuánto costó cada uno. Eso calcula el ROI de los anuncios semana a semana.</div>
+  </div>
+</div>
+</section>
+
+<!-- ─── CRM PIPELINE ─── -->
+<section class="sec" id="crm-flujo" style="background:#fff">
+<div class="wrap">
+  <span class="sec-tag" style="background:var(--crm-bg);border-color:var(--crm-bd);color:var(--crm)">Pipeline</span>
+  <h2>Cómo los Leads se Mueven en el CRM</h2>
+  <p class="sec-sub">Cada lead entra como "nuevo" y avanza de etapa según las acciones del admin o del sistema. El Flujo 2 actualiza automáticamente las etapas de tiempo.</p>
+
+  <div class="pipeline">
+    <div class="pip-step">
+      <div class="pip-head" style="background:var(--auto-bg);color:var(--auto)">NUEVO</div>
+      <div class="pip-body">
+        <ul>
+          <li>Llega por F1 (web) o F3 (Meta)</li>
+          <li>Datos guardados en Sheets</li>
+          <li>Admin recibe alerta</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pip-arrow">→</div>
+    <div class="pip-step">
+      <div class="pip-head" style="background:#fef3c7;color:#92400e">CONTACTADO</div>
+      <div class="pip-body">
+        <ul>
+          <li>Admin le escribió o llamó</li>
+          <li>F2 actualiza si pasan 2+ días</li>
+          <li>Primer seguimiento activo</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pip-arrow">→</div>
+    <div class="pip-step">
+      <div class="pip-head" style="background:#dbeafe;color:#1e40af">COTIZACIÓN</div>
+      <div class="pip-body">
+        <ul>
+          <li>Se le envió propuesta con precio</li>
+          <li>Paquete y fecha definidos</li>
+          <li>Lead calificado confirmado</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pip-arrow">→</div>
+    <div class="pip-step">
+      <div class="pip-head" style="background:#ede9fe;color:#5b21b6">ANTICIPO</div>
+      <div class="pip-body">
+        <ul>
+          <li>Pagó anticipo para apartar</li>
+          <li>Fecha bloqueada en calendario</li>
+          <li>Se activa el flujo F4 (link menú)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pip-arrow">→</div>
+    <div class="pip-step">
+      <div class="pip-head" style="background:var(--org-bg);color:var(--org)">CONFIRMADO</div>
+      <div class="pip-body">
+        <ul>
+          <li>Contrato firmado</li>
+          <li>Cliente llena menú (F5 + F6)</li>
+          <li>Ficha de evento generada (F7)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pip-arrow">→</div>
+    <div class="pip-step">
+      <div class="pip-head" style="background:var(--crm-bg);color:var(--crm)">REALIZADO</div>
+      <div class="pip-body">
+        <ul>
+          <li>Evento completado</li>
+          <li>Pedir reseña al cliente</li>
+          <li>Dato para reportes de cierre</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pip-arrow">→</div>
+    <div class="pip-step" style="border-color:#fecaca">
+      <div class="pip-head" style="background:#fee2e2;color:#991b1b">FRÍO</div>
+      <div class="pip-body">
+        <ul>
+          <li>F2 asigna si +10 días sin resp.</li>
+          <li>Candidato a retargeting</li>
+          <li>No se descarta, se reactiva</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:1.25rem;background:var(--gray-50);border-radius:var(--r);padding:1.1rem 1.25rem;border:1px solid var(--gray-200)">
+    <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-400);margin-bottom:.75rem">Pestañas del Google Sheet CRM</div>
+    <div style="display:flex;flex-wrap:wrap;gap:.75rem">
+      <div style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.65rem 1rem;font-size:.8rem"><strong style="color:var(--g)">Leads</strong><br><span style="color:var(--gray-400);font-size:.73rem">id · nombre · tel · email · evento · fecha<br>personas · fuente · status · fecha_captura</span></div>
+      <div style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.65rem 1rem;font-size:.8rem"><strong style="color:var(--gold)">Click</strong><br><span style="color:var(--gray-400);font-size:.73rem">red social · campaña · fecha · hora<br>registra cada clic desde redes sociales</span></div>
+      <div style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.65rem 1rem;font-size:.8rem"><strong style="color:var(--paid)">Selecciones</strong><br><span style="color:var(--gray-400);font-size:.73rem">folio · cliente · paquete · menú elegido<br>generado por F6 post-contrato</span></div>
+      <div style="background:#fff;border:1px solid var(--gray-200);border-radius:8px;padding:.65rem 1rem;font-size:.8rem"><strong style="color:var(--crm)">Expedientes</strong><br><span style="color:var(--gray-400);font-size:.73rem">ficha completa del evento · generado por F7<br>para cocina, servicio y coordinación</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ─── POST-CONTRATO ─── -->
+<section class="sec" id="postcontrato">
+<div class="wrap">
+  <span class="sec-tag" style="background:var(--post-bg);border-color:var(--post-bd);color:var(--post)">F4 · F5 · F6 · F7 — Post-Contrato</span>
+  <h2>Flujos Post-Contrato — Cliente Activo</h2>
+  <p class="sec-sub">Una vez que el lead se convierte en cliente confirmado, estos flujos gestionan la experiencia hasta el día del evento.</p>
+
+  <!-- F4 -->
+  <div class="fc c-post">
+    <div class="fc-top">
+      <div class="fc-num" style="background:var(--g)">F4</div>
+      <div><h3>Generar Link Personalizado de Selección de Menú</h3><div class="sub">flujo4-generar-link.json · Lo activa el admin una sola vez por cliente</div></div>
+      <span class="badge-tipo" style="background:var(--post-bg);border-color:var(--post-bd);color:var(--post)">Post-contrato</span>
+    </div>
+    <div class="diag">
+      <div class="dc"><div class="dc-lbl">Trigger</div><div class="dn src">👤 Admin activa<br>manualmente<br>(cliente firmó contrato)</div></div>
+      <div class="darr">→</div>
+      <div class="dc"><div class="dc-lbl">Proceso</div><div class="dn">Genera folio único<br>+ token de acceso<br>para ese cliente</div></div>
+      <div class="darr top">→</div>
+      <div class="multi-dst">
+        <div class="dc-lbl">Destino</div>
+        <div class="dn dst d-sheets">📊 Sheets — guarda folio + token<br><small>identifica al cliente en los flujos siguientes</small></div>
+        <div class="dn dst d-tg" style="margin-top:.4rem">🔗 Link único por Telegram al admin<br><small>admin lo reenvía al cliente por WhatsApp</small></div>
+      </div>
+    </div>
+    <div class="nota"><strong>El link generado contiene:</strong> el token del cliente, su paquete y sus opciones de menú válidas. El cliente solo puede elegir lo que le corresponde — nada más.</div>
+  </div>
+
+  <!-- F5 -->
+  <div class="fc c-post">
+    <div class="fc-top">
+      <div class="fc-num" style="background:var(--g)">F5</div>
+      <div><h3>API del Formulario — Vista del Cliente</h3><div class="sub">flujo5-formulario-cliente.json · El cliente abre su link desde WhatsApp</div></div>
+      <span class="badge-tipo" style="background:var(--post-bg);border-color:var(--post-bd);color:var(--post)">Post-contrato</span>
+    </div>
+    <div class="diag">
+      <div class="dc"><div class="dc-lbl">Origen</div><div class="dn src">📱 Cliente abre<br>link en WhatsApp<br>(su link único)</div></div>
+      <div class="darr">→</div>
+      <div class="dc"><div class="dc-lbl">Webhook</div><div class="dn">Recibe solicitud<br>con el token<br>del cliente</div></div>
+      <div class="darr">→</div>
+      <div class="dc"><div class="dc-lbl">Validación</div><div class="dn">Busca el token<br>en Sheets<br>¿Existe y es válido?</div></div>
+      <div class="darr">→</div>
+      <div class="dc"><div class="dc-lbl">Destino</div><div class="dn dst d-web">✅ Muestra formulario<br>personalizado con<br>opciones de su paquete</div></div>
+    </div>
+    <div class="nota"><strong>Seguridad:</strong> si el token no existe en Sheets, el formulario no se muestra. Nadie puede acceder al formulario de otro cliente ni seleccionar opciones que no le corresponden.</div>
+  </div>
+
+  <!-- F6 -->
+  <div class="fc c-post">
+    <div class="fc-top">
+      <div class="fc-num" style="background:var(--g)">F6</div>
+      <div><h3>Guardar Selección de Menú</h3><div class="sub">flujo6-guardar-seleccion.json · El más completo — 3 destinos simultáneos</div></div>
+      <span class="badge-tipo" style="background:var(--post-bg);border-color:var(--post-bd);color:var(--post)">Post-contrato</span>
+    </div>
+    <div class="diag">
+      <div class="dc"><div class="dc-lbl">Origen</div><div class="dn src">✅ Cliente confirma<br>su selección<br>de menú</div></div>
+      <div class="darr">→</div>
+      <div class="dc"><div class="dc-lbl">Validación</div><div class="dn">Verifica token<br>¿Link legítimo?<br>Sí → continúa<br>No → rechaza</div></div>
+      <div class="darr">→</div>
+      <div class="dc"><div class="dc-lbl">Proceso</div><div class="dn">Guarda la selección<br>completa por platillo<br>y tiempo de menú</div></div>
+      <div class="darr top">→</div>
+      <div class="multi-dst">
+        <div class="dc-lbl">3 Destinos</div>
+        <div class="dn dst d-sheets">📊 Sheets — pestaña Selecciones</div>
+        <div class="dn dst d-email" style="margin-top:.4rem">📧 Email de confirmación al cliente</div>
+        <div class="dn dst d-tg" style="margin-top:.4rem">📨 Alerta Telegram al admin</div>
+      </div>
+    </div>
+    <div class="nota"><strong>Lo que guarda en Sheets:</strong> cada platillo seleccionado por tiempo (1er tiempo, 2do tiempo, bebidas, extras). El admin ve en la hoja de Selecciones qué escogió cada cliente sin hacer nada.</div>
+  </div>
+
+  <!-- F7 -->
+  <div class="fc c-post">
+    <div class="fc-top">
+      <div class="fc-num" style="background:var(--g)">F7</div>
+      <div><h3>Ficha de Evento — Expediente Digital</h3><div class="sub">flujo7-ficha-cliente.json · El documento que usan cocina, servicio y coordinación</div></div>
+      <span class="badge-tipo" style="background:var(--crm-bg);border-color:var(--crm-bd);color:var(--crm)">CRM / Coordinación</span>
+    </div>
+    <div class="diag">
+      <div class="dc"><div class="dc-lbl">Origen</div><div class="dn src">📋 Sistema / menú<br>confirmado activa<br>la generación</div></div>
+      <div class="darr">→</div>
+      <div class="dc"><div class="dc-lbl">Proceso</div><div class="dn">Compila: folio · responsable<br>festejado · tipo evento<br>fecha · paquete · personas<br>menú seleccionado<br>servicios adicionales</div></div>
+      <div class="darr top">→</div>
+      <div class="multi-dst">
+        <div class="dc-lbl">Destino</div>
+        <div class="dn dst d-sheets">📊 Sheets — pestaña Expedientes<br><small>Ficha completa del evento</small></div>
+        <div class="dn dst d-tg" style="margin-top:.4rem">📨 Telegram — resumen al admin<br><small>notificación de ficha lista</small></div>
+      </div>
+    </div>
+    <div class="nota"><strong>Quiénes usan este documento:</strong> cocina (qué platillos preparar), servicio (cuántos meseros, protocolo), coordinación (qué decoración, horario). Un solo documento elimina la comunicación por WhatsApp entre áreas.</div>
+  </div>
+</div>
+</section>
+
+<!-- ─── DASHBOARD ─── -->
+<section class="sec" id="dashboard" style="background:#fff">
+<div class="wrap">
+  <span class="sec-tag" style="background:var(--dash-bg);border-color:var(--dash-bd);color:var(--dash)">CRM Dashboard</span>
+  <h2>Dashboard del CRM — Métricas Medibles</h2>
+  <p class="sec-sub">Todo lo que se puede extraer del Google Sheets para el reporte semanal. Estos son los números que se entregan cada lunes en ClickUp.</p>
+
+  <!-- KPIs PRINCIPALES -->
+  <div class="dash-grid">
+    <div class="kpi">
+      <div class="kpi-icon">📥</div>
+      <div class="kpi-label">Leads totales</div>
+      <div class="kpi-val">—</div>
+      <div class="kpi-sub">Semana / Mes / Acumulado</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon">📋</div>
+      <div class="kpi-label">Cotizaciones enviadas</div>
+      <div class="kpi-val">—</div>
+      <div class="kpi-sub">Status = "cotizacion"</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon">📅</div>
+      <div class="kpi-label">Fechas agendadas</div>
+      <div class="kpi-val">—</div>
+      <div class="kpi-sub">Status = "confirmado"</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon">💰</div>
+      <div class="kpi-label">Anticipo capturado</div>
+      <div class="kpi-val">—</div>
+      <div class="kpi-sub">Status = "anticipo"</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon">🎯</div>
+      <div class="kpi-label">Tasa cierre</div>
+      <div class="kpi-val">—%</div>
+      <div class="kpi-sub">Confirmados / Leads totales</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon">🔗</div>
+      <div class="kpi-label">Clicks desde redes</div>
+      <div class="kpi-val">—</div>
+      <div class="kpi-sub">Pestaña Click de Sheets</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon">❄️</div>
+      <div class="kpi-label">Leads fríos</div>
+      <div class="kpi-val">—</div>
+      <div class="kpi-sub">Status = "frio" (retargeting)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon">💸</div>
+      <div class="kpi-label">Costo por lead</div>
+      <div class="kpi-val">—</div>
+      <div class="kpi-sub">Inversión pauta / Leads Meta Ads</div>
+    </div>
+  </div>
+
+  <!-- TABLA DE MÉTRICAS COMPLETAS -->
+  <div style="background:#fff;border-radius:var(--r);border:1px solid var(--gray-200);box-shadow:var(--sh);overflow:hidden;margin-bottom:1.5rem">
+    <table class="dash-table">
+      <thead>
+        <tr>
+          <th>Métrica</th>
+          <th>De dónde se obtiene</th>
+          <th>Frecuencia</th>
+          <th>Qué mide</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Leads totales nuevos</strong></td><td>Sheets · pestaña Leads · status=nuevo</td><td>Semanal</td><td>Volumen de captación</td></tr>
+        <tr><td><strong>Leads por fuente</strong></td><td>Columna "fuente" en Leads</td><td>Semanal</td><td>Qué canal genera más leads</td></tr>
+        <tr><td><strong>Clicks por red social</strong></td><td>Sheets · pestaña Click · columna r=</td><td>Semanal</td><td>Qué red genera más tráfico</td></tr>
+        <tr><td><strong>Clicks por tipo de contenido</strong></td><td>Sheets · pestaña Click · columna c=</td><td>Semanal</td><td>Bio vs post vs reel vs ads</td></tr>
+        <tr><td><strong>Tasa click → lead</strong></td><td>Leads / Clicks × 100</td><td>Semanal</td><td>Qué % del tráfico convierte</td></tr>
+        <tr><td><strong>Cotizaciones enviadas</strong></td><td>Conteo de status = "cotizacion"</td><td>Semanal</td><td>Propuestas formales activas</td></tr>
+        <tr><td><strong>Anticipos recibidos</strong></td><td>Conteo de status = "anticipo"</td><td>Semanal</td><td>Fechas en proceso de cierre</td></tr>
+        <tr><td><strong>Fechas confirmadas</strong></td><td>Conteo de status = "confirmado"</td><td>Semanal</td><td>El número más importante</td></tr>
+        <tr><td><strong>Eventos realizados</strong></td><td>Conteo de status = "realizado"</td><td>Mensual</td><td>Historial de eventos completados</td></tr>
+        <tr><td><strong>Leads fríos activos</strong></td><td>Conteo de status = "frio"</td><td>Semanal</td><td>Base para retargeting</td></tr>
+        <tr><td><strong>Tipo de evento más solicitado</strong></td><td>Columna "evento" — más frecuente</td><td>Mensual</td><td>Dónde enfocar el contenido</td></tr>
+        <tr><td><strong>Paquete más cotizado</strong></td><td>Columna "paquete_interes"</td><td>Mensual</td><td>Qué paquete tiene más demanda</td></tr>
+        <tr><td><strong>Tiempo promedio cierre</strong></td><td>fecha_captura → fecha confirmado</td><td>Mensual</td><td>Cuántos días tarda en firmar</td></tr>
+        <tr><td><strong>Costo por lead (Meta Ads)</strong></td><td>Inversión / Leads con fuente=Facebook</td><td>Semanal</td><td>ROI de la pauta</td></tr>
+        <tr><td><strong>Tasa de cierre global</strong></td><td>Confirmados / Leads totales × 100</td><td>Mensual</td><td>Eficiencia del sistema completo</td></tr>
+        <tr><td><strong>Ingresos proyectados</strong></td><td>Confirmados × precio promedio paquete</td><td>Mensual</td><td>Proyección financiera</td></tr>
+        <tr><td><strong>Menús seleccionados</strong></td><td>Sheets · pestaña Selecciones</td><td>Por evento</td><td>Operaciones · cocina</td></tr>
+        <tr><td><strong>Expedientes activos</strong></td><td>Sheets · pestaña Expedientes</td><td>Por evento</td><td>Eventos con ficha completa lista</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- VISIÓN DEL DASHBOARD -->
+  <div style="background:var(--gd);border-radius:var(--r);padding:1.75rem 2rem;color:#fff">
+    <div style="font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-l);margin-bottom:1rem">Estructura del Dashboard — Reporte Visual</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem">
+      <div style="background:rgba(255,255,255,.08);border-radius:10px;padding:1rem">
+        <div style="font-size:.72rem;font-weight:700;color:var(--gold-l);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.08em">Bloque 1 — Volumen</div>
+        <div style="font-size:.82rem;color:rgba(255,255,255,.8);line-height:1.8">Leads nuevos esta semana<br>vs semana anterior<br>▲▼ variación porcentual</div>
+      </div>
+      <div style="background:rgba(255,255,255,.08);border-radius:10px;padding:1rem">
+        <div style="font-size:.72rem;font-weight:700;color:var(--gold-l);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.08em">Bloque 2 — Fuentes</div>
+        <div style="font-size:.82rem;color:rgba(255,255,255,.8);line-height:1.8">Leads por canal<br>Clicks por red social<br>Tasa click → lead</div>
+      </div>
+      <div style="background:rgba(255,255,255,.08);border-radius:10px;padding:1rem">
+        <div style="font-size:.72rem;font-weight:700;color:var(--gold-l);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.08em">Bloque 3 — Pipeline</div>
+        <div style="font-size:.82rem;color:rgba(255,255,255,.8);line-height:1.8">Leads por etapa<br>Cotizaciones enviadas<br>Anticipos · Confirmados</div>
+      </div>
+      <div style="background:rgba(255,255,255,.08);border-radius:10px;padding:1rem">
+        <div style="font-size:.72rem;font-weight:700;color:var(--gold-l);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.08em">Bloque 4 — ROI</div>
+        <div style="font-size:.82rem;color:rgba(255,255,255,.8);line-height:1.8">Costo por lead<br>Tasa de cierre<br>Ingresos proyectados</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ─── ENTREGABLE SEMANAL ─── -->
+<section class="sec" id="entregable">
+<div class="wrap">
+  <span class="sec-tag" style="background:var(--gray-100);border-color:var(--gray-200);color:var(--gray-600)">ClickUp</span>
+  <h2>Entregable Semanal — Para ClickUp</h2>
+  <p class="sec-sub">Cada lunes se entrega este reporte con datos reales del CRM y las acciones de la semana. Es la evidencia que sube Angel a ClickUp.</p>
+
+  <div class="entr-grid">
+    <div class="entr">
+      <div class="entr-head" style="background:var(--auto-bg);color:var(--auto)">📊 Bloque 1 · Volumen de Leads</div>
+      <div class="entr-body">
+        <ul>
+          <li>Leads nuevos esta semana (total)</li>
+          <li>Leads por fuente: web · Meta Ads · otro</li>
+          <li>Clicks por red social (de Sheets pestaña Click)</li>
+          <li>Clicks por tipo: bio · post · reel · story · ads</li>
+          <li>Variación vs semana anterior ▲ / ▼</li>
+        </ul>
+        <div class="entr-evid"><strong>Evidencia:</strong> Captura de Google Sheets mostrando los registros de la semana</div>
+      </div>
+    </div>
+
+    <div class="entr">
+      <div class="entr-head" style="background:var(--crm-bg);color:var(--crm)">🗃️ Bloque 2 · Estado del Pipeline</div>
+      <div class="entr-body">
+        <ul>
+          <li>Leads en status "nuevo" acumulados</li>
+          <li>Cotizaciones enviadas esta semana</li>
+          <li>Anticipos recibidos esta semana</li>
+          <li>Fechas confirmadas (el número más importante)</li>
+          <li>Leads fríos activos (para retargeting)</li>
+        </ul>
+        <div class="entr-evid"><strong>Evidencia:</strong> Tabla de pipeline con conteo por status</div>
+      </div>
+    </div>
+
+    <div class="entr">
+      <div class="entr-head" style="background:var(--dash-bg);color:var(--dash)">💸 Bloque 3 · Métricas de Pauta</div>
+      <div class="entr-body">
+        <ul>
+          <li>Inversión en Meta Ads esta semana</li>
+          <li>Leads generados por Meta Ads</li>
+          <li>Costo por lead (inversión / leads)</li>
+          <li>Alcance total de anuncios activos</li>
+          <li>Comparación: costo real vs meta (&lt;$80 MXN)</li>
+        </ul>
+        <div class="entr-evid"><strong>Evidencia:</strong> Captura del Ads Manager de Meta</div>
+      </div>
+    </div>
+
+    <div class="entr">
+      <div class="entr-head" style="background:var(--post-bg);color:var(--post)">📋 Bloque 4 · Operaciones (post-contrato)</div>
+      <div class="entr-body">
+        <ul>
+          <li>Clientes que llenaron su menú esta semana</li>
+          <li>Fichas de evento generadas</li>
+          <li>Eventos próximos con expediente listo</li>
+          <li>Eventos realizados (para solicitar reseña)</li>
+        </ul>
+        <div class="entr-evid"><strong>Evidencia:</strong> Captura de pestaña Selecciones y Expedientes</div>
+      </div>
+    </div>
+
+    <div class="entr">
+      <div class="entr-head" style="background:var(--org-bg);color:var(--org)">📣 Bloque 5 · Acciones de Contenido</div>
+      <div class="entr-body">
+        <ul>
+          <li>Publicaciones realizadas esta semana</li>
+          <li>Alcance e interacciones por plataforma</li>
+          <li>Publicaciones en grupos de Facebook</li>
+          <li>Mejor pieza de contenido (más alcance)</li>
+        </ul>
+        <div class="entr-evid"><strong>Evidencia:</strong> Capturas de métricas de Facebook, Instagram, TikTok</div>
+      </div>
+    </div>
+
+    <div class="entr">
+      <div class="entr-head" style="background:var(--gray-100);color:var(--gray-600)">💡 Bloque 6 · Análisis y Próxima Semana</div>
+      <div class="entr-body">
+        <ul>
+          <li>Qué funcionó esta semana (y por qué)</li>
+          <li>Qué no funcionó (y qué se ajusta)</li>
+          <li>Canal con mejor rendimiento</li>
+          <li>Plan concreto semana siguiente</li>
+          <li>Decisiones que requieren acción de Angel</li>
+        </ul>
+        <div class="entr-evid"><strong>Evidencia:</strong> Documento de texto con observaciones y plan semanal</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESUMEN TABLA FINAL -->
+  <div style="margin-top:2rem">
+    <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--g);margin-bottom:1rem">Resumen de todos los flujos</div>
+    <div style="background:#fff;border-radius:var(--r);border:1px solid var(--gray-200);box-shadow:var(--sh);overflow:hidden">
+      <table class="res-table">
+        <thead><tr><th>Flujo</th><th>Nombre</th><th>Trigger / Origen</th><th>Destino de los datos</th><th>Tipo</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>F0</strong></td>
+            <td>Tracking de clicks</td>
+            <td>Clic en link de red social</td>
+            <td>Sheets pestaña Click → redirige al sitio web</td>
+            <td><span class="pill" style="background:var(--gold-bg);color:var(--gold)">Tracking</span></td>
+          </tr>
+          <tr>
+            <td><strong>F1</strong></td>
+            <td>Lead desde sitio web</td>
+            <td>Formulario lacabanaeventos.com</td>
+            <td>Sheets Leads + Alerta admin</td>
+            <td><span class="pill" style="background:var(--org-bg);color:var(--org)">Orgánico</span></td>
+          </tr>
+          <tr>
+            <td><strong>F2</strong></td>
+            <td>Follow-up automático</td>
+            <td>Temporizador cada 6 horas</td>
+            <td>Email al lead + actualiza status en Sheets</td>
+            <td><span class="pill" style="background:var(--auto-bg);color:var(--auto)">Automático</span></td>
+          </tr>
+          <tr>
+            <td><strong>F3</strong></td>
+            <td>Lead desde Meta Ads</td>
+            <td>Facebook / Instagram Lead Ad</td>
+            <td>Sheets Leads (fuente: FB) + Alerta admin</td>
+            <td><span class="pill" style="background:var(--paid-bg);color:var(--paid)">Pagado</span></td>
+          </tr>
+          <tr>
+            <td><strong>F4</strong></td>
+            <td>Generar link de menú</td>
+            <td>Admin activa (cliente firmó)</td>
+            <td>Sheets token + Link por Telegram al admin</td>
+            <td><span class="pill" style="background:var(--post-bg);color:var(--post)">Post-contrato</span></td>
+          </tr>
+          <tr>
+            <td><strong>F5</strong></td>
+            <td>Formulario del cliente</td>
+            <td>Cliente abre su link</td>
+            <td>Muestra formulario personalizado en pantalla</td>
+            <td><span class="pill" style="background:var(--post-bg);color:var(--post)">Post-contrato</span></td>
+          </tr>
+          <tr>
+            <td><strong>F6</strong></td>
+            <td>Guardar selección de menú</td>
+            <td>Cliente confirma su selección</td>
+            <td>Sheets Selecciones + Email cliente + Telegram admin</td>
+            <td><span class="pill" style="background:var(--post-bg);color:var(--post)">Post-contrato</span></td>
+          </tr>
+          <tr>
+            <td><strong>F7</strong></td>
+            <td>Ficha de evento</td>
+            <td>Menú confirmado / sistema</td>
+            <td>Sheets Expedientes + Telegram admin</td>
+            <td><span class="pill" style="background:var(--crm-bg);color:var(--crm)">CRM</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</section>
+
+<footer style="background:var(--gd);color:rgba(255,255,255,.5);text-align:center;padding:1.75rem;font-size:.8rem">
+  <strong style="color:var(--gold-l)">La Cabaña Eventos</strong> · Sistema de flujos v1.0 · Mayo 2026
+</footer>
+
+</body>
+</html>

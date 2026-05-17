@@ -1,0 +1,40 @@
+como abrir la automatizacion 
+
+  PASO 1 — Abrir n8n
+
+  Abre PowerShell. Presiona Win + X y elige Windows PowerShell o Terminal.                                              
+  Escribe esto y presiona Enter:                                                                                          npx n8n
+                                                                                     
+ npx n8n
+
+
+  PASO 2 — Verificar que n8n abre en el navegador
+
+  Abre tu navegador (Chrome, Edge, lo que uses) y escribe en la barra de direcciones:                                   
+  http://localhost:5678   
+
+
+figueroa.lera1@gmail.com
+t@9c62J7vJ8TtKq
+
+
+ 1. Doble clic en:
+  Escritorio → la-cabana → INICIAR LA CABANA.bat
+  Espera a que diga "SISTEMA LISTO" y presiona Enter para cerrar.                                                                                                       
+  ---                                                                                                                                                                     2. Abre n8n en el navegador:
+  http://localhost:5678
+  Entra con tu email y contraseña.
+
+
+
+591794348819-l2pp86aijaau2ojtm7e6fjp1tjvkcfrl.apps.googleusercontent.com
+
+Secreto del cliente
+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
+Fecha de creación
+8 de mayo de 2026, 10:51:35 p.m. GMT-6
+Estado
+Habilitada
+
+
+ID SHEET 1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk

@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Token - La Cabana Eventos</title>
+  <style>
+    :root {
+      --vino: #7f0019;
+      --vino-oscuro: #3a0714;
+      --amarillo: #ffe42a;
+      --fondo: #f6f3ea;
+      --texto: #17231c;
+      --linea: #ded6c8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--fondo);
+      color: var(--texto);
+    }
+    header {
+      background: var(--vino);
+      color: white;
+      padding: 18px 14px;
+      border-bottom: 5px solid var(--amarillo);
+    }
+    .logo {
+      border: 2px dashed rgba(255,255,255,.7);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+      margin-bottom: 16px;
+      font-size: 13px;
+    }
+    .logo img { max-width: 100%; max-height: 70px; }
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.15;
+    }
+    p {
+      margin: 8px 0 0;
+      line-height: 1.45;
+    }
+    main {
+      padding: 12px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    section, form, aside {
+      background: white;
+      border: 1px solid var(--linea);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    h2 {
+      color: var(--vino-oscuro);
+      font-size: 20px;
+      margin: 0 0 12px;
+    }
+    label {
+      display: block;
+      color: var(--vino-oscuro);
+      font-weight: 700;
+      font-size: 13px;
+      margin: 0 0 6px;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      min-height: 46px;
+      border-radius: 7px;
+      font-size: 16px;
+    }
+    input, select, textarea {
+      border: 1px solid var(--linea);
+      padding: 10px 12px;
+      background: white;
+      color: var(--texto);
+      margin-bottom: 12px;
+    }
+    textarea { min-height: 96px; resize: vertical; }
+    button {
+      border: 0;
+      padding: 10px 14px;
+      font-weight: 700;
+      margin-top: 4px;
+      display: block;
+    }
+    .primary {
+      background: var(--vino);
+      color: white;
+    }
+    .secondary {
+      background: var(--amarillo);
+      color: var(--vino-oscuro);
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .status {
+      display: none;
+      padding: 12px;
+      border-radius: 7px;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+    .ok { display: block; background: #e7f4ea; color: #1f6f45; border: 1px solid #b9ddc3; }
+    .bad { display: block; background: #fdecea; color: #9a3026; border: 1px solid #efb5ae; }
+    .hint { color: #666; font-size: 12px; margin: -6px 0 12px; }
+    .sticky-actions {
+      position: sticky;
+      bottom: 0;
+      background: white;
+      border-top: 1px solid var(--linea);
+      padding-top: 10px;
+      z-index: 20;
+    }
+    @media (min-width: 720px) {
+      .row {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      COLOCA AQUI EL LOGO
+    </div>
+    <h1>Generar link de seleccion</h1>
+    <p>Control interno de cliente, token, observaciones e imagenes.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Buscar cliente</h2>
+      <label for="cliente_id_buscar">ID interno del cliente</label>
+      <input id="cliente_id_buscar" placeholder="Ej. LC-2026-0015">
+      <button id="buscarBtn" class="secondary" type="button">Buscar ID</button>
+    </section>
+
+    <form id="tokenForm" enctype="multipart/form-data">
+      <h2>Datos para token</h2>
+      <button class="primary" type="submit">Guardar y generar link</button>
+      <div class="row">
+        <div>
+          <label for="cliente_id">ID interno</label>
+          <input id="cliente_id" name="cliente_id" required>
+        </div>
+        <div>
+          <label for="nombre">Nombre del cliente</label>
+          <input id="nombre" name="nombre" required>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="telefono">WhatsApp / telefono</label>
+          <input id="telefono" name="telefono" required>
+        </div>
+        <div>
+          <label for="email">Correo electronico</label>
+          <input id="email" name="email" type="email" required>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="fecha_evento">Fecha del evento</label>
+          <input id="fecha_evento" name="fecha_evento" type="date" required>
+        </div>
+        <div>
+          <label for="tipo_evento">Tipo de evento</label>
+          <select id="tipo_evento" name="tipo_evento" required>
+            <option value="">Seleccionar</option>
+            <option>Boda</option>
+            <option>XV Anos</option>
+            <option>Graduacion</option>
+            <option>Bautizo</option>
+            <option>Corporativo</option>
+            <option>Otro</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="paquete_asignado">Paquete contratado</label>
+          <select id="paquete_asignado" name="paquete_asignado" required>
+            <option value="">Seleccionar</option>
+            <option>Campestre</option>
+            <option>Herradura</option>
+            <option>Mayoral</option>
+            <option>La Cabana</option>
+            <option>Personalizado</option>
+          </select>
+        </div>
+        <div>
+          <label for="num_invitados_estimado">Invitados estimados</label>
+          <input id="num_invitados_estimado" name="num_invitados_estimado" type="number" min="1">
+        </div>
+      </div>
+      <label for="servicio_adicional">Servicio adicional agregado</label>
+      <input id="servicio_adicional" name="servicio_adicional">
+
+      <label for="observaciones">Observaciones internas</label>
+      <textarea id="observaciones" name="observaciones"></textarea>
+
+      <label for="evidencias">Imagenes JPG/PNG</label>
+      <input id="evidencias" name="evidencias" type="file" accept="image/jpeg,image/jpg,image/png" multiple>
+      <div class="hint">Sube fotos de notas, acuerdos o transferencias.</div>
+
+      <div class="sticky-actions">
+        <button class="primary" type="submit">Guardar y generar link</button>
+        <button id="limpiarBtn" class="secondary" type="reset">Limpiar</button>
+      </div>
+      <div id="status" class="status"></div>
+    </form>
+  </main>
+
+  <script>
+    const WEBHOOK_FLUJO_4 = 'https://n8n.lacabanaeventos.com/webhook/generar-link-seleccion';
+    const WEBHOOK_BUSCAR_CLIENTE = 'https://n8n.lacabanaeventos.com/webhook/buscar-cliente-id';
+
+    const form = document.getElementById('tokenForm');
+    const statusBox = document.getElementById('status');
+    const buscarBtn = document.getElementById('buscarBtn');
+    const buscarInput = document.getElementById('cliente_id_buscar');
+
+    const showStatus = (type, text) => {
+      statusBox.className = `status ${type}`;
+      statusBox.textContent = text;
+    };
+
+    buscarBtn.addEventListener('click', async () => {
+      const id = buscarInput.value.trim();
+      if (!id) {
+        showStatus('bad', 'Escribe primero el ID interno.');
+        return;
+      }
+      try {
+        const response = await fetch(`${WEBHOOK_BUSCAR_CLIENTE}?cliente_id=${encodeURIComponent(id)}`);
+        const data = await response.json();
+        if (!response.ok || !data || data.found === false) {
+          form.elements.cliente_id.value = id;
+          showStatus('bad', 'No encontre ese ID. Puedes capturarlo como nuevo.');
+          return;
+        }
+        for (const key of Object.keys(data)) {
+          if (form.elements[key]) form.elements[key].value = data[key] || '';
+        }
+        showStatus('ok', 'Cliente encontrado.');
+      } catch (error) {
+        form.elements.cliente_id.value = id;
+        showStatus('bad', 'No se pudo buscar el ID.');
+      }
+    });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const button = form.querySelector('button[type="submit"]');
+      button.disabled = true;
+      button.textContent = 'Guardando...';
+      try {
+        const data = new FormData(form);
+        data.set('origen', 'token_movil_basico');
+        const response = await fetch(WEBHOOK_FLUJO_4, { method: 'POST', body: data });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        showStatus('ok', 'Enviado. Revisa Telegram para el link.');
+      } catch (error) {
+        showStatus('bad', 'No se pudo enviar: el webhook del Flujo 4 no existe o no esta publicado en n8n.');
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Guardar y generar link';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,95 +1,61 @@
 {
   "id": "flujo4-generar-link",
-  "name": "La Cabaña — Flujo 4: Generar Link de Selección de Menú",
+  "name": "La Cabaña — Flujo 4: Generar Link de Selección",
   "nodes": [
     {
       "parameters": {
-        "formTitle": "Nuevo cliente — Generar link de selección",
-        "formDescription": "Llena los datos del cliente que firmó contrato para generarle su link de selección de menú",
-        "formFields": {
-          "values": [
-            { "fieldLabel": "Nombre completo del cliente", "fieldType": "text", "requiredField": true },
-            { "fieldLabel": "Email del cliente", "fieldType": "email", "requiredField": true },
-            { "fieldLabel": "Teléfono del cliente", "fieldType": "text", "requiredField": true },
-            { "fieldLabel": "Fecha del evento", "fieldType": "date", "requiredField": true },
-            {
-              "fieldLabel": "Tipo de evento",
-              "fieldType": "dropdown",
-              "fieldOptions": { "values": [
-                { "option": "Boda" }, { "option": "XV Años" }, { "option": "Graduación" },
-                { "option": "Cumpleaños" }, { "option": "Bautizo" }, { "option": "Corporativo" }, { "option": "Otro" }
-              ]},
-              "requiredField": true
-            },
-            {
-              "fieldLabel": "Paquete contratado",
-              "fieldType": "dropdown",
-              "fieldOptions": { "values": [
-                { "option": "Herradura — Menú Clásico (3 tiempos)" },
-                { "option": "Mayoral — Menú Gourmet (4 tiempos)" },
-                { "option": "La Cabaña Premium — Menú Premium (5 tiempos)" }
-              ]},
-              "requiredField": true
-            }
-          ]
-        },
+        "httpMethod": "POST",
+        "path": "lacabana-generar-link",
         "responseMode": "responseNode",
         "options": {}
       },
-      "id": "form-datos-cliente",
-      "name": "Formulario — Datos del cliente",
-      "type": "n8n-nodes-base.formTrigger",
+      "id": "webhook-generar-link",
+      "name": "Webhook — Recibir datos admin",
+      "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [240, 300],
       "webhookId": "lacabana-generar-link-001"
     },
     {
       "parameters": {
-        "jsCode": "const data = $input.first().json;\nconst ahora = new Date();\nconst token = 'LC-' + ahora.getTime() + '-' + Math.random().toString(36).substr(2, 6).toUpperCase();\nconst link = 'https://n8n.lacabanaeventos.com/webhook/seleccion?token=' + token;\n\nreturn [{ json: {\n  token,\n  link,\n  nombre: data['Nombre completo del cliente'] || '',\n  email: data['Email del cliente'] || '',\n  telefono: data['Teléfono del cliente'] || '',\n  fecha_evento: data['Fecha del evento'] || '',\n  tipo_evento: data['Tipo de evento'] || '',\n  paquete_asignado: data['Paquete contratado'] || '',\n  status: 'pendiente',\n  fecha_generacion: ahora.toLocaleString('es-MX', { timeZone: 'America/Mexico_City' }),\n  menu_elegido: '',\n  opcion_elegida: '',\n  num_invitados: '',\n  cocteleria: '',\n  cerveza_barril: '',\n  dietas_especiales: '',\n  notas_cliente: '',\n  fecha_seleccion: ''\n}}];"
+        "jsCode": "const body = $input.first().json.body || $input.first().json;\n\nconst nombre = body.nombre || '';\nconst email = body.email || '';\nconst telefono = body.telefono || '';\nconst fecha_evento = body.fecha_evento || '';\nconst tipo_evento = body.tipo_evento || '';\nconst paquete_asignado = body.paquete_asignado || '';\n\n// Generar folio LC-DDMM-XXX\nconst now = new Date();\nconst dd = String(now.getDate()).padStart(2,'0');\nconst mm = String(now.getMonth() + 1).padStart(2,'0');\nconst chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';\nlet suffix = '';\nfor (let i = 0; i < 3; i++) {\n  suffix += chars[Math.floor(Math.random() * chars.length)];\n}\nconst folio = 'LC-' + dd + mm + '-' + suffix;\n\n// Generar token UUID v4\nconst token = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n  const r = Math.random() * 16 | 0;\n  const v = c === 'x' ? r : (r & 0x3 | 0x8);\n  return v.toString(16);\n});\n\nconst link = 'https://lacabanaeventos.com/seleccion-menu.html?token=' + token;\nconst fecha_generacion = now.toLocaleString('es-MX', { timeZone: 'America/Mexico_City' });\n\nreturn [{ json: {\n  folio,\n  token,\n  link,\n  nombre,\n  email,\n  telefono,\n  fecha_evento,\n  tipo_evento,\n  paquete_asignado,\n  status: 'pendiente',\n  fecha_generacion,\n  menu_elegido: '',\n  num_invitados: '',\n  cocteleria: '',\n  cerveza_barril: '',\n  dietas_especiales: '',\n  notas_cliente: '',\n  fecha_seleccion: ''\n}}];"
       },
-      "id": "generar-token",
-      "name": "Generar token único",
+      "id": "generar-folio-token",
+      "name": "Generar folio y token",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [460, 300]
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "https://sheets.googleapis.com/v4/spreadsheets/1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk:batchUpdate",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "googleSheetsOAuth2Api",
-        "sendBody": true,
-        "contentType": "json",
-        "body": "{\"requests\":[{\"addSheet\":{\"properties\":{\"title\":\"Selecciones\"}}}]}",
-        "options": {}
-      },
-      "id": "crear-hoja-selecciones",
-      "name": "Crear hoja Selecciones",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4,
-      "position": [680, 300],
-      "continueOnFail": true,
-      "credentials": {
-        "googleSheetsOAuth2Api": { "id": "google-sheets-cred", "name": "Google Sheets account" }
-      }
-    },
-    {
-      "parameters": {
         "operation": "append",
-        "documentId": { "__rl": true, "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk", "mode": "id" },
-        "sheetName": { "__rl": true, "value": "Selecciones", "mode": "name" },
-        "columns": { "mappingMode": "autoMapInputData", "value": {} },
+        "documentId": {
+          "__rl": true,
+          "value": "1D2T7mC9xgLvfINQCUuHb_kWbsfFeVkr22OvWKqNkDCk",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Selecciones",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {}
+        },
         "options": {}
       },
       "id": "sheets-guardar-token",
-      "name": "Sheets — Guardar token",
+      "name": "Sheets — Guardar en hoja",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
       "position": [680, 300],
       "continueOnFail": true,
       "credentials": {
-        "googleSheetsOAuth2Api": { "id": "google-sheets-cred", "name": "Google Sheets account" }
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
       }
     },
     {
@@ -100,49 +66,57 @@
         "sendBody": true,
         "contentType": "raw",
         "rawContentType": "application/json",
-        "body": "={{ JSON.stringify({ chat_id: '7790296286', text: '🔗 *LINK DE MENÚ GENERADO — La Cabaña*\\n\\n👤 ' + $('Generar token único').first().json.nombre + '\\n📱 ' + $('Generar token único').first().json.telefono + '\\n🎊 ' + $('Generar token único').first().json.tipo_evento + '\\n📅 ' + $('Generar token único').first().json.fecha_evento + '\\n📦 ' + $('Generar token único').first().json.paquete_asignado + '\\n\\n🔗 Link para el cliente:\\n' + $('Generar token único').first().json.link + '\\n\\n📋 Cópialo y envíalo por WhatsApp.', parse_mode: 'Markdown' }) }}",
+        "body": "={{ JSON.stringify({ chat_id: '7790296286', text: '🔗 *NUEVO LINK GENERADO — La Cabaña*\\n\\n🎫 Folio: ' + $('Generar folio y token').first().json.folio + '\\n👤 Cliente: ' + $('Generar folio y token').first().json.nombre + '\\n📱 Tel: ' + $('Generar folio y token').first().json.telefono + '\\n🎊 Evento: ' + $('Generar folio y token').first().json.tipo_evento + '\\n📅 Fecha: ' + $('Generar folio y token').first().json.fecha_evento + '\\n📦 Paquete: ' + $('Generar folio y token').first().json.paquete_asignado + '\\n\\n🔗 Link del cliente:\\n' + $('Generar folio y token').first().json.link, parse_mode: 'Markdown' }) }}",
         "options": {}
       },
       "id": "telegram-link",
       "name": "Telegram — Enviar link",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4,
-      "position": [900, 180],
+      "position": [680, 460],
       "continueOnFail": true
     },
     {
       "parameters": {
         "respondWith": "text",
-        "responseBody": "={{ '<html><head><meta charset=UTF-8><meta name=viewport content=\"width=device-width,initial-scale=1\"><title>Link generado</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f0f4f0;display:flex;align-items:center;justify-content:center;min-height:100vh}.box{background:white;max-width:480px;width:90%;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.12)}.hdr{background:#2d5a27;padding:22px;text-align:center}.hdr h1{color:white;font-size:20px}.hdr p{color:#a8d5a2;font-size:12px;margin-top:4px}.bod{padding:28px}.ico{text-align:center;font-size:46px;margin-bottom:14px}h2{color:#2d5a27;text-align:center;margin-bottom:12px}p{color:#555;font-size:14px;line-height:1.6;text-align:center}.link-box{background:#e8f5e9;border:1px solid #2d5a27;border-radius:8px;padding:14px;margin:16px 0;word-break:break-all;font-size:13px}.info{background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:12px;font-size:13px;color:#856404;margin-top:12px}</style></head><body><div class=box><div class=hdr><h1>🌿 La Cabaña Eventos</h1><p>Sistema de gestión de eventos</p></div><div class=bod><div class=ico>✅</div><h2>Link generado con éxito</h2><p>El link fue enviado a tu Telegram. Cópialo y mándalo al cliente por WhatsApp.</p><div class=link-box><b>Cliente:</b> ' + $(\\'Generar token único\\').first().json.nombre + '<br><b>Link:</b><br>' + $(\\'Generar token único\\').first().json.link + '</div><div class=info>⚠️ Este link es de un solo uso. Una vez que el cliente confirme, queda bloqueado automáticamente.</div></div></div></body></html>' }}",
+        "responseBody": "={{ JSON.stringify({ ok: true, folio: $('Generar folio y token').first().json.folio, token: $('Generar folio y token').first().json.token, link: $('Generar folio y token').first().json.link, nombre: $('Generar folio y token').first().json.nombre }) }}",
         "options": {
+          "responseCode": 200,
           "responseHeaders": {
-            "values": [{ "name": "Content-Type", "value": "text/html; charset=utf-8" }]
+            "values": [
+              { "name": "Content-Type", "value": "application/json" },
+              { "name": "Access-Control-Allow-Origin", "value": "*" }
+            ]
           }
         }
       },
-      "id": "responder-exito",
-      "name": "Mostrar confirmación",
+      "id": "responder-json",
+      "name": "Responder — JSON",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
-      "position": [900, 380]
+      "position": [900, 300]
     }
   ],
   "connections": {
-    "Formulario — Datos del cliente": {
-      "main": [[{ "node": "Generar token único", "type": "main", "index": 0 }]]
+    "Webhook — Recibir datos admin": {
+      "main": [
+        [
+          { "node": "Generar folio y token", "type": "main", "index": 0 }
+        ]
+      ]
     },
-    "Generar token único": {
-      "main": [[{ "node": "Crear hoja Selecciones", "type": "main", "index": 0 }]]
-    },
-    "Crear hoja Selecciones": {
-      "main": [[{ "node": "Sheets — Guardar token", "type": "main", "index": 0 }]]
-    },
-    "Sheets — Guardar token": {
-      "main": [[
-        { "node": "Telegram — Enviar link", "type": "main", "index": 0 },
-        { "node": "Mostrar confirmación", "type": "main", "index": 0 }
-      ]]
+    "Generar folio y token": {
+      "main": [
+        [
+          { "node": "Sheets — Guardar en hoja", "type": "main", "index": 0 },
+          { "node": "Telegram — Enviar link", "type": "main", "index": 0 },
+          { "node": "Responder — JSON", "type": "main", "index": 0 }
+        ]
+      ]
     }
   },
-  "settings": { "executionOrder": "v1" }
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": true
 }

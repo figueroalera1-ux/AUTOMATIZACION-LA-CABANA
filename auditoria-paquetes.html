@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Cabaña Eventos — Auditoría Competitiva + Propuesta de Paquetes</title>
+<style>
+  :root {
+    --guinda: #6B1223;
+    --guinda-dark: #4d0d1a;
+    --ocre: #C8960C;
+    --blanco: #ffffff;
+    --gris-claro: #f7f4f0;
+    --gris-medio: #e8e0d8;
+    --texto: #1a1a1a;
+    --texto-suave: #555;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--gris-claro); color: var(--texto); line-height: 1.6; }
+
+  .header {
+    background: var(--guinda);
+    color: white;
+    padding: 40px 48px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(200,150,12,0.15);
+  }
+  .header-badge {
+    display: inline-block;
+    background: var(--ocre);
+    color: var(--guinda-dark);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 12px;
+  }
+  .header h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .header p { font-size: 15px; opacity: 0.85; }
+  .header-meta { margin-top: 20px; display: flex; gap: 32px; flex-wrap: wrap; }
+  .header-meta span { font-size: 13px; opacity: 0.75; }
+  .header-meta strong { opacity: 1; color: var(--ocre); }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px 60px; }
+
+  .seccion { margin-top: 40px; }
+  .seccion-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--gris-medio);
+  }
+  .seccion-num {
+    background: var(--guinda);
+    color: white;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .seccion h2 { font-size: 20px; font-weight: 700; color: var(--guinda); }
+  .seccion-sub { font-size: 13px; color: var(--texto-suave); margin-left: auto; }
+
+  .resumen-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+  .resumen-card {
+    background: white;
+    border-radius: 8px;
+    padding: 18px 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    border-top: 3px solid var(--guinda);
+  }
+  .resumen-card.gold { border-top-color: var(--ocre); }
+  .resumen-card.verde { border-top-color: #34a853; }
+  .resumen-num { font-size: 30px; font-weight: 800; color: var(--guinda); line-height: 1; }
+  .resumen-card.gold .resumen-num { color: var(--ocre); }
+  .resumen-card.verde .resumen-num { color: #1a7a35; }
+  .resumen-label { font-size: 12px; color: var(--texto-suave); margin-top: 4px; }
+  .resumen-desc { font-size: 13px; margin-top: 8px; font-weight: 600; }
+
+  .competidores-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .comp-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    border-left: 4px solid var(--gris-medio);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .comp-card.amenaza-alta { border-left-color: #d93025; }
+  .comp-card.amenaza-media { border-left-color: var(--ocre); }
+  .comp-card.amenaza-baja { border-left-color: #34a853; }
+  .comp-card.segmento-alto { border-left-color: #9c27b0; }
+  .comp-nombre { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .comp-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+  }
+  .tag-rojo { background: #fce8e6; color: #d93025; }
+  .tag-ocre { background: #fef7e0; color: #9a6c00; }
+  .tag-verde { background: #e6f4ea; color: #1a7a35; }
+  .tag-morado { background: #f3e5f5; color: #7b1fa2; }
+  .comp-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    padding: 3px 0;
+    border-bottom: 1px solid var(--gris-claro);
+    gap: 8px;
+  }
+  .comp-row:last-of-type { border-bottom: none; }
+  .comp-label { color: var(--texto-suave); flex-shrink: 0; }
+  .comp-val { font-weight: 600; text-align: right; }
+  .comp-ventaja {
+    margin-top: 12px;
+    background: var(--gris-claro);
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-size: 12px;
+    color: var(--guinda);
+    font-weight: 600;
+  }
+  .comp-ventaja::before { content: '▲ '; }
+
+  .tabla-wrap { overflow-x: auto; margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  th { background: var(--guinda); color: white; padding: 10px 14px; text-align: left; font-size: 11.5px; letter-spacing: 0.5px; font-weight: 600; }
+  td { padding: 9px 14px; border-bottom: 1px solid var(--gris-claro); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fafaf8; }
+  tr.yo td { background: #fff8f0; font-weight: 700; }
+  tr.yo td:first-child { color: var(--guinda); }
+  .check { color: #34a853; font-size: 15px; }
+  .cross { color: #bbb; font-size: 15px; }
+  .maybe { color: var(--ocre); font-size: 13px; }
+  .precio-dest { color: var(--guinda); font-weight: 700; }
+
+  .paquetes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
+  .paquete-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    position: relative;
+  }
+  .paquete-card.destacado { box-shadow: 0 4px 20px rgba(107,18,35,0.2); border: 2px solid var(--guinda); }
+  .paquete-header { background: var(--guinda); padding: 18px 20px; color: white; position: relative; }
+  .paquete-badge {
+    position: absolute;
+    top: 12px; right: 12px;
+    background: rgba(255,255,255,0.2);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+  .paquete-badge.gold { background: var(--ocre); color: var(--guinda-dark); }
+  .paquete-badge.nuevo { background: #34a853; color: white; }
+  .paquete-nombre { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+  .paquete-subtitulo { font-size: 12px; opacity: 0.85; }
+  .paquete-precio-wrap {
+    background: rgba(0,0,0,0.15);
+    padding: 10px 20px;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .paquete-precio { font-size: 26px; font-weight: 900; color: white; }
+  .paquete-precio-nota { font-size: 12px; color: rgba(255,255,255,0.8); }
+  .paquete-body { padding: 20px; }
+  .paquete-includes { list-style: none; margin-bottom: 14px; }
+  .paquete-includes li {
+    font-size: 13px;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--gris-claro);
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .paquete-includes li:last-child { border-bottom: none; }
+  .paquete-includes li::before { content: '✓'; color: var(--guinda); font-weight: 700; flex-shrink: 0; }
+  .rationale { background: var(--gris-claro); border-radius: 6px; padding: 12px 14px; margin-top: 4px; }
+  .rationale-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+    margin-bottom: 6px;
+  }
+  .rationale p { font-size: 12.5px; color: var(--texto-suave); line-height: 1.5; }
+  .rationale .vs {
+    display: inline-block;
+    background: var(--guinda);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 2px;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+  .paquete-num {
+    position: absolute;
+    top: 0; left: 0;
+    background: rgba(0,0,0,0.2);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+  }
+
+  .precio-mapa { background: white; border-radius: 8px; padding: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+
+  .alerta {
+    background: #fce8e6;
+    border-left: 4px solid #d93025;
+    border-radius: 0 6px 6px 0;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    font-size: 13.5px;
+  }
+  .alerta strong { color: #d93025; }
+  .callout {
+    background: #e8f0fe;
+    border-left: 4px solid #1a73e8;
+    border-radius: 0 6px 6px 0;
+    padding: 14px 18px;
+    margin-top: 16px;
+    font-size: 13px;
+    color: #174ea6;
+  }
+
+  .zona-titulo {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--texto-suave);
+    margin-bottom: 12px;
+  }
+
+  .footer-note {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--gris-medio);
+    font-size: 12px;
+    color: var(--texto-suave);
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .header { padding: 28px 24px; }
+    .header-meta { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-badge">Auditoría Competitiva · Mayo 2026</div>
+  <h1>La Cabaña Eventos — Auditoría + Propuesta de Paquetes</h1>
+  <p>Scouting corregido · 11 competidores reales · 10 paquetes con justificación de precio</p>
+  <div class="header-meta">
+    <span><strong>Salón:</strong> San Pedro Huaquilpan, Zapotlán de Juárez, Hidalgo</span>
+    <span><strong>Radio:</strong> 20 km</span>
+    <span><strong>Competidores auditados:</strong> 11</span>
+    <span><strong>Paquetes propuestos:</strong> 10</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="seccion" style="margin-top:32px;">
+    <div class="alerta">
+      <strong>Corrección aplicada:</strong> Salón de Fiestas Maia Fernanda fue eliminado del análisis. No existe como salón de eventos — el local fue una mueblería. El análisis actualizado refleja los competidores reales en el radio de 20 km.
+    </div>
+  </div>
+
+  <!-- SECCIÓN 1: RESUMEN EJECUTIVO -->
+  <div class="seccion">
+    <div class="seccion-header">
+      <div class="seccion-num">1</div>
+      <h2>Resumen Ejecutivo del Scouting</h2>
+      <div class="seccion-sub">11 competidores reales · radio 20 km</div>
+    </div>
+    <div class="resumen-grid">
+      <div class="resumen-card">
+        <div class="resumen-num">11</div>
+        <div class="resumen-label">Competidores auditados en el radio</div>
+        <div class="resumen-desc">0 con presencia SEO fuerte en Zapotlán. Tú dominas localmente.</div>
+      </div>
+      <div class="resumen-card gold">
+        <div class="resumen-num" style="color:var(--ocre);">$0</div>
+        <div class="resumen-label">Competidores directos en tu rango precio + capacidad</div>
+        <div class="resumen-desc">Nadie en $400–$700/pp con 250 personas en zona cercana.</div>
+      </div>
+      <div class="resumen-card verde">
+        <div class="resumen-num" style="color:#1a7a35;">250</div>
+        <div class="resumen-label">Tu capacidad máxima</div>
+        <div class="resumen-desc">Solo haciendas y recintos de lujo te superan. A un precio 2–3x menor.</div>
+      </div>
+      <div class="resumen-card">
+        <div class="resumen-num">8K+</div>
+        <div class="resumen-label">Seguidores en Instagram del rival más fuerte</div>
+        <div class="resumen-desc">Celebrarte Pachuca: 8,966. Ese es el benchmark digital a alcanzar.</div>
+      </div>
+      <div class="resumen-card gold">
+        <div class="resumen-num" style="color:var(--ocre);">$280</div>
+        <div class="resumen-label">Precio mínimo del mercado (/persona)</div>
+        <div class="resumen-desc">HAUZ Pachuca. Menor que tu Herradura ($400) pero con 100 personas menos de cap.</div>
+      </div>
+      <div class="resumen-card verde">
+        <div class="resumen-num" style="color:#1a7a35;">20p</div>
+        <div class="resumen-label">Hospedaje disponible en sitio</div>
+        <div class="resumen-desc">Ningún competidor del segmento medio lo tiene. Solo haciendas de lujo.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 2: MAPA DE COMPETIDORES -->
+  <div class="seccion">
+    <div class="seccion-header">
+      <div class="seccion-num">2</div>
+      <h2>Mapa de Competidores</h2>
+      <div class="seccion-sub">Radio 20 km — 3 zonas auditadas</div>
+    </div>
+
+    <h3 class="zona-titulo" style="margin-bottom:12px;">Zona inmediata — Zapotlán de Juárez / San Pedro Huaquilpan</h3>
+    <div class="competidores-grid" style="margin-bottom:28px;">
+
+      <div class="comp-card amenaza-baja">
+        <div class="comp-nombre">Hacienda Huitepec</div>
+        <span class="comp-tag tag-verde">Segmento alto — no compite directo</span>
+        <div class="comp-row"><span class="comp-label">Capacidad</span><span class="comp-val">50–3,000 personas</span></div>
+        <div class="comp-row"><span class="comp-label">Precio</span><span class="comp-val">$890–$1,280/persona</span></div>
+        <div class="comp-row"><span class="comp-label">Anticipo</span><span class="comp-val">20% para apartar fecha</span></div>
+        <div class="comp-row"><span class="comp-label">Estilo</span><span class="comp-val">Capilla siglo XIX, jardín</span></div>
+        <div class="comp-row"><span class="comp-label">Digital</span><span class="comp-val">Solo Facebook</span></div>
+        <div class="comp-ventaja">Tu precio es 2–3x más accesible. Quien no puede pagar hacienda, te busca. Esto es demanda que desborda hacia abajo y que debes capturar.</div>
+      </div>
+
+      <div class="comp-card segmento-alto">
+        <div class="comp-nombre">Hacienda Zontecomate</div>
+        <span class="comp-tag tag-morado">Lujo — segmento alto claro</span>
+        <div class="comp-row"><span class="comp-label">Ubicación</span><span class="comp-val">Carretera Zempoala (~18 km)</span></div>
+        <div class="comp-row"><span class="comp-label">Capacidad</span><span class="comp-val">50–1,500 personas</span></div>
+        <div class="comp-row"><span class="comp-label">Renta del salón</span><span class="comp-val">$40,000–$100,000</span></div>
+        <div class="comp-row"><span class="comp-label">Hospedaje</span><span class="comp-val">$12,000–$16,000/noche por hab.</span></div>
+        <div class="comp-row"><span class="comp-label">Extras</span><span class="comp-val">Capilla INAH, alberca, spa, caballos</span></div>
+        <div class="comp-ventaja">No compiten contigo en precio. Son el aspiracional. Úsalos como referencia narrativa: "La experiencia de hacienda sin pagar $60k de renta."</div>
+      </div>
+
+    </div>
+
+    <h3 class="zona-titulo" style="margin-bottom:12px;">Mineral de la Reforma (~8–12 km)</h3>
+    <div class="competidores-grid" style="margin-bottom:28px;">
+
+      <div class="comp-card amenaza-media">
+        <div class="comp-nombre">Salón Los Portales ⭐</div>
+        <span class="comp-tag tag-ocre">Competidor real — popular-medio</span>
+        <div class="comp-row"><span class="comp-label">Capacidad</span><span class="comp-val">30–160 personas</span></div>
+        <div class="comp-row"><span class="comp-label">Precio</span><span class="comp-val">No publicado</span></div>
+        <div class="comp-row"><span class="comp-label">Incluye</span><span class="comp-val">7 hrs, DJ + luces, batucada, descorche</span></div>
+        <div class="comp-row"><span class="comp-label">Digital</span><span class="comp-val">FB + IG activos</span></div>
+        <div class="comp-ventaja">Techo de 160 personas. Cualquier evento de 161+ invitados es tuyo si estás posicionado. Enfoca contenido en "para más de 150 invitados."</div>
+      </div>
+
+      <div class="comp-card amenaza-baja">
+        <div class="comp-nombre">Castelo Salón de Eventos</div>
+        <span class="comp-tag tag-verde">Segmento popular</span>
+        <div class="comp-row"><span class="comp-label">Capacidad</span><span class="comp-val">hasta 120 personas</span></div>
+        <div class="comp-row"><span class="comp-label">Precio</span><span class="comp-val">No publicado</span></div>
+        <div class="comp-row"><span class="comp-label">Digital</span><span class="comp-val">IG + FB activos</span></div>
+        <div class="comp-ventaja">130 personas menos que tú. Segmento económico. No es rival directo pero comparte clientes de Mineral.</div>
+      </div>
+
+      <div class="comp-card amenaza-baja">
+        <div class="comp-nombre">Salón Sol y Luna</div>
+        <span class="comp-tag tag-verde">Baja amenaza — sin web</span>
+        <div class="comp-row"><span class="comp-label">Digital</span><span class="comp-val">Solo Facebook</span></div>
+        <div class="comp-row"><span class="comp-label">Precio</span><span class="comp-val">No publicado</span></div>
+        <div class="comp-ventaja">Sin presencia web ni SEO. Invisible en Google. No representa amenaza digital.</div>
+      </div>
+
+      <div class="comp-card amenaza-baja">
+        <div class="comp-nombre">Salón Prismas</div>
+        <span class="comp-tag tag-verde">Sin información suficiente</span>
+        <div class="comp-row"><span class="comp-label">Digital</span><span class="comp-val">Solo Facebook</span></div>
+        <div class="comp-ventaja">Sin sitio web. No representan amenaza digital.</div>
+      </div>
+
+      <div class="comp-card amenaza-media">
+        <div class="comp-nombre">Quinta Paraíso + Acuatic Paradise</div>
+        <span class="comp-tag tag-ocre">Diferenciador — jardín + alberca</span>
+        <div class="comp-row"><span class="comp-label">Diferenciador</span><span class="comp-val">Invernadero + alberca</span></div>
+        <div class="comp-row"><span class="comp-label">Eventos</span><span class="comp-val">XV, bodas, bautizos, corporativos</span></div>
+        <div class="comp-row"><span class="comp-label">Precio</span><span class="comp-val">No publicado</span></div>
+        <div class="comp-ventaja">Su diferenciador es la alberca (verano). El tuyo es la pista LED y el hospedaje. Motivadores de compra distintos.</div>
+      </div>
+
+      <div class="comp-card amenaza-media">
+        <div class="comp-nombre">Hacienda Santa Cecilia</div>
+        <span class="comp-tag tag-ocre">Gigante de capacidad</span>
+        <div class="comp-row"><span class="comp-label">Capacidad total</span><span class="comp-val">~1,920 personas (4 salones)</span></div>
+        <div class="comp-row"><span class="comp-label">Salón más pequeño</span><span class="comp-val">120 personas (Vitrales)</span></div>
+        <div class="comp-row"><span class="comp-label">Precio</span><span class="comp-val">No publicado</span></div>
+        <div class="comp-ventaja">Para eventos de 80–250 personas tu precio es probablemente más accesible y el trato más personalizado.</div>
+      </div>
+
+    </div>
+
+    <h3 class="zona-titulo" style="margin-bottom:12px;">Pachuca de Soto (~12–15 km)</h3>
+    <div class="competidores-grid">
+
+      <div class="comp-card amenaza-alta">
+        <div class="comp-nombre">GALLIA Salón y Jardín ⭐⭐</div>
+        <span class="comp-tag tag-rojo">Competidor fuerte — medio-alto</span>
+        <div class="comp-row"><span class="comp-label">Capacidad</span><span class="comp-val">60–900 personas</span></div>
+        <div class="comp-row"><span class="comp-label">Precio</span><span class="comp-val">No publicado (solo cotización)</span></div>
+        <div class="comp-row"><span class="comp-label">Incluye</span><span class="comp-val">7 hrs, 4 tiempos, sax/violín 1hr, DJ, pista LED, descorche</span></div>
+        <div class="comp-row"><span class="comp-label">Hospedaje</span><span class="comp-val">No tiene</span></div>
+        <div class="comp-ventaja">Precio más accesible + hospedaje que ellos no tienen. GALLIA es el estándar de calidad a superar en servicio.</div>
+      </div>
+
+      <div class="comp-card amenaza-alta">
+        <div class="comp-nombre">HAUZ Salón de Eventos ⭐⭐</div>
+        <span class="comp-tag tag-rojo">Precio más bajo del mercado</span>
+        <div class="comp-row"><span class="comp-label">Capacidad</span><span class="comp-val">50–150 personas</span></div>
+        <div class="comp-row"><span class="comp-label">Precio</span><span class="comp-val">$280–$390/persona (4 tiempos)</span></div>
+        <div class="comp-row"><span class="comp-label">Reputación</span><span class="comp-val">83% recomendación</span></div>
+        <div class="comp-row"><span class="comp-label">Digital</span><span class="comp-val">IG @hauz.pachuca + FB activo</span></div>
+        <div class="comp-ventaja">Más económicos que tu Herradura ($400). Pero máximo 150 personas. Clientes con más invitados o que buscan pista LED vienen a ti.</div>
+      </div>
+
+      <div class="comp-card amenaza-alta">
+        <div class="comp-nombre">Celebrarte Pachuca ⭐⭐⭐</div>
+        <span class="comp-tag tag-rojo">El más fuerte en redes — benchmark digital</span>
+        <div class="comp-row"><span class="comp-label">Capacidad</span><span class="comp-val">144 personas (interior + jardín)</span></div>
+        <div class="comp-row"><span class="comp-label">Precio</span><span class="comp-val">Desde $410/persona</span></div>
+        <div class="comp-row"><span class="comp-label">Instagram</span><span class="comp-val"><strong>8,966 seguidores</strong></span></div>
+        <div class="comp-row"><span class="comp-label">Facebook</span><span class="comp-val">Activo y constante</span></div>
+        <div class="comp-ventaja">106 personas más de capacidad que ellos. Su poder es digital — hay que igualarlo en 6–12 meses. Meta: 8,966 followers en IG.</div>
+      </div>
+
+      <div class="comp-card amenaza-baja">
+        <div class="comp-nombre">Salón Jardín Nando's</div>
+        <span class="comp-tag tag-verde">Segmento medio</span>
+        <div class="comp-row"><span class="comp-label">Capacidad</span><span class="comp-val">No publicada</span></div>
+        <div class="comp-row"><span class="comp-label">Precio</span><span class="comp-val">No publicado</span></div>
+        <div class="comp-row"><span class="comp-label">Digital</span><span class="comp-val">Solo Facebook</span></div>
+        <div class="comp-ventaja">Sin presencia web suficiente. Oferta sin detalle público. No representa amenaza digital significativa.</div>
+      </div>
+
+      <div class="comp-card amenaza-baja">
+        <div class="comp-nombre">Centala</div>
+        <span class="comp-tag tag-morado">Segmento alto — gastronomía gourmet</span>
+        <div class="comp-row"><span class="comp-label">Estilo</span><span class="comp-val">Diseño vanguardista, chef internacional</span></div>
+        <div class="comp-row"><span class="comp-label">Precio</span><span class="comp-val">No publicado (segmento alto)</span></div>
+        <div class="comp-row"><span class="comp-label">Digital</span><span class="comp-val">IG @centalamx (2,207 seguidores)</span></div>
+        <div class="comp-ventaja">No compiten contigo. Segmento diferente. Referencia útil para el diseño visual de tu contenido.</div>
+      </div>
+
+      <div class="comp-card amenaza-baja">
+        <div class="comp-nombre">Benevento Banquetería</div>
+        <span class="comp-tag tag-verde">62 años en el mercado — Pachuca central</span>
+        <div class="comp-row"><span class="comp-label">Capacidad</span><span class="comp-val">Hasta 2,000 personas</span></div>
+        <div class="comp-row"><span class="comp-label">Fundado</span><span class="comp-val">1964</span></div>
+        <div class="comp-row"><span class="comp-label">Incluye</span><span class="comp-val">Welcome cocktail, quesos, postres, coordinadores</span></div>
+        <div class="comp-row"><span class="comp-label">Digital</span><span class="comp-val">FB + IG + TikTok</span></div>
+        <div class="comp-ventaja">Para clientes de Zapotlán y Mineral, ir a Pachuca central es inconveniente. Tu cercanía y precio son ventaja real.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECCIÓN 3: TABLA COMPARATIVA -->
+  <div class="seccion">
+    <div class="seccion-header">
+      <div class="seccion-num">3</div>
+      <h2>Tabla Comparativa Directa</h2>
+    </div>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Salón</th>
+            <th>Capacidad</th>
+            <th>Precio mín./pp</th>
+            <th>DJ</th>
+            <th>Comida</th>
+            <th>Bar</th>
+            <th>Hospedaje</th>
+            <th>Pista LED</th>
+            <th>Exterior</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="yo">
+            <td>La Cabaña ← tú</td>
+            <td class="precio-dest">250</td>
+            <td class="precio-dest">$400 (Herradura)</td>
+            <td><span class="check">✓</span> Herradura+</td>
+            <td><span class="check">✓</span> Herradura+</td>
+            <td><span class="check">✓</span> Plus+</td>
+            <td><span class="check">✓</span> 20p</td>
+            <td><span class="check">✓</span> Galaxia</td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>HAUZ Pachuca</td>
+            <td>150</td>
+            <td>$280–$390</td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="maybe">?</span></td>
+          </tr>
+          <tr>
+            <td>Celebrarte Pachuca</td>
+            <td>144</td>
+            <td>$410</td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Los Portales</td>
+            <td>160</td>
+            <td>No publicado</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span> Descorche</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="maybe">?</span></td>
+          </tr>
+          <tr>
+            <td>GALLIA Salón</td>
+            <td>900</td>
+            <td>No publicado</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span> Descorche</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Quinta Paraíso</td>
+            <td>N/D</td>
+            <td>No publicado</td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Castelo</td>
+            <td>120</td>
+            <td>No publicado</td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="maybe">?</span></td>
+          </tr>
+          <tr>
+            <td>Hacienda Huitepec</td>
+            <td>3,000</td>
+            <td>$890–$1,280</td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Hacienda Zontecomate</td>
+            <td>1,500</td>
+            <td>$40,000 renta</td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span> Cuartos</td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Hacienda Santa Cecilia</td>
+            <td>1,920</td>
+            <td>No publicado</td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Benevento</td>
+            <td>2,000</td>
+            <td>No publicado</td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="maybe">?</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <strong>Lectura clave:</strong> En el rango de $400–$700/persona con 250 personas de capacidad + pista LED galaxia + hospedaje en sitio, <strong>no hay competidor directo</strong> en Zapotlán ni en Mineral de la Reforma. La competencia real está a 12–15 km en Pachuca, y aun así tienes 90–106 personas más de capacidad.
+    </div>
+  </div>
+
+  <!-- SECCIÓN 4: PROPUESTA DE PAQUETES -->
+  <div class="seccion">
+    <div class="seccion-header">
+      <div class="seccion-num">4</div>
+      <h2>Propuesta de 10 Paquetes — Con Justificación de Precio</h2>
+      <div class="seccion-sub">5 base + 5 nuevos</div>
+    </div>
+
+    <div class="precio-mapa" style="margin-bottom:24px;">
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:8px;">Contexto del mercado — Por qué estos precios</h3>
+      <p style="font-size:13px;color:var(--texto-suave);margin-bottom:14px;">
+        El mercado en Hidalgo tiene dos acantilados de precio: el segmento popular (salones sin todo incluido, $5k–$15k el espacio) y el lujo (haciendas, $890–$1,280/persona). La Cabaña vive en el <strong>puente entre ambos mundos</strong>: experiencia completa y memorable sin vaciar la cuenta del cliente. Cada paquete existe para capturar un perfil de cliente específico identificado en el scouting.
+      </p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+        <div style="background:#e8f5e9;border-radius:6px;padding:12px;font-size:12.5px;">
+          <strong style="color:#1a7a35;">Segmento popular</strong><br>
+          Salones espacio puro: $5k–$15k<br>
+          <em>Tu Solo Salón ($13,900) compite aquí con 250p de capacidad.</em>
+        </div>
+        <div style="background:#fff8e1;border-radius:6px;padding:12px;font-size:12.5px;">
+          <strong style="color:#9a6c00;">Segmento medio</strong><br>
+          $280–$410/persona, techo de 160p<br>
+          <em>Tu Herradura ($400) domina aquí con 90 personas más de capacidad.</em>
+        </div>
+        <div style="background:#fce4ec;border-radius:6px;padding:12px;font-size:12.5px;">
+          <strong style="color:#880e4f;">Segmento medio-alto</strong><br>
+          Haciendas desde $890/persona<br>
+          <em>Tu Premium ($700) es 20–40% más barato con el mismo feeling aspiracional.</em>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--guinda);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--gris-medio);">Paquetes Base — Los 5 existentes</h3>
+    <div class="paquetes-grid" style="margin-bottom:28px;">
+
+      <div class="paquete-card">
+        <div class="paquete-num">01</div>
+        <div class="paquete-header">
+          <div class="paquete-nombre">Solo Salón</div>
+          <div class="paquete-subtitulo">Tú traes todo, nosotros ponemos el espacio</div>
+          <div class="paquete-precio-wrap">
+            <div class="paquete-precio">$13,900</div>
+            <div class="paquete-precio-nota">precio fijo · hasta 250 personas</div>
+          </div>
+        </div>
+        <div class="paquete-body">
+          <ul class="paquete-includes">
+            <li>Salón completo hasta 250 personas</li>
+            <li>Sillas y mesas básicas</li>
+            <li>Baños, estacionamiento, luz y agua</li>
+            <li>Sin restricción de proveedor externo</li>
+          </ul>
+          <div class="rationale">
+            <div class="rationale-title">Por qué este precio — respaldo del scouting</div>
+            <p><span class="vs">VS</span> Salones populares de la zona (Castelo, Sol y Luna, Prismas) no publican precios pero operan en el rango $5k–$18k por espacio. Con $13,900 y 250 personas de capacidad, estás ofreciendo el espacio más grande del corredor Zapotlán–Mineral a precio competitivo. Captura familias que tienen proveedores propios y no quieren paquete cerrado.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="paquete-card">
+        <div class="paquete-num">02</div>
+        <div class="paquete-header">
+          <div class="paquete-nombre">Campestre</div>
+          <div class="paquete-subtitulo">La esencia del campo con comodidad</div>
+          <div class="paquete-precio-wrap">
+            <div class="paquete-precio">$15,900</div>
+            <div class="paquete-precio-nota">precio fijo · hasta 100 personas</div>
+          </div>
+        </div>
+        <div class="paquete-body">
+          <ul class="paquete-includes">
+            <li>Salón + área campestre</li>
+            <li>Mobiliario rústico completo</li>
+            <li>Iluminación ambiental</li>
+            <li>Ideal para bautizos, reuniones familiares</li>
+          </ul>
+          <div class="rationale">
+            <div class="rationale-title">Por qué este precio — respaldo del scouting</div>
+            <p><span class="vs">VS</span> Castelo (120p, precio desconocido), Sol y Luna (sin info). Por $15,900 con mobiliario incluido estás dando lo que otros cobran aparte. Para 100 personas es el punto de entrada más elegante disponible en la zona inmediata. La competencia no tiene página web — tú sí.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="paquete-card destacado">
+        <div class="paquete-num">03</div>
+        <div class="paquete-header">
+          <div class="paquete-badge gold">BESTSELLER</div>
+          <div class="paquete-nombre">Herradura</div>
+          <div class="paquete-subtitulo">El paquete que mueve el mercado</div>
+          <div class="paquete-precio-wrap">
+            <div class="paquete-precio">$400</div>
+            <div class="paquete-precio-nota">/persona · mínimo 80 invitados</div>
+          </div>
+        </div>
+        <div class="paquete-body">
+          <ul class="paquete-includes">
+            <li>Salón completo con decoración básica</li>
+            <li>3 tiempos de menú servidos en mesa</li>
+            <li>Open bar (cervezas, refrescos, agua)</li>
+            <li>DJ con equipo de sonido e iluminación</li>
+            <li>Invitación digital gratis</li>
+            <li>1 mesero por cada 20 personas</li>
+          </ul>
+          <div class="rationale">
+            <div class="rationale-title">Por qué este precio — respaldo del scouting</div>
+            <p><span class="vs">VS</span> HAUZ: $280–$390 (tope 150p) · Celebrarte: $410 (tope 144p). Tu $400 está al centro del mercado pero con 100 personas más de capacidad. Para 80 personas el evento total es $32,000 — a años luz de cualquier hacienda. El cliente que sale de HAUZ o Los Portales por exceder su capacidad, llega directo a tu Herradura.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="paquete-card">
+        <div class="paquete-num">04</div>
+        <div class="paquete-header">
+          <div class="paquete-nombre">Mayoral</div>
+          <div class="paquete-subtitulo">La boda que siempre soñaron</div>
+          <div class="paquete-precio-wrap">
+            <div class="paquete-precio">$500</div>
+            <div class="paquete-precio-nota">/persona · mínimo 100 invitados</div>
+          </div>
+        </div>
+        <div class="paquete-body">
+          <ul class="paquete-includes">
+            <li>Salón con decoración intermedia</li>
+            <li>4 tiempos gourmet servidos en mesa</li>
+            <li>Bar premium (licores, cocteles)</li>
+            <li>DJ profesional</li>
+            <li>Coordinador de evento</li>
+            <li>Invitación digital + save the date</li>
+          </ul>
+          <div class="rationale">
+            <div class="rationale-title">Por qué este precio — respaldo del scouting</div>
+            <p><span class="vs">VS</span> Hacienda Huitepec: $890 mínimo · GALLIA: no publica precio (estimado $600–$900/pp por su nivel de inclusiones). Tu Mayoral ($500 × 100 = $50,000) entrega un evento completo por la mitad del precio de la hacienda más cercana. El coordinador incluido es el diferenciador clave que HAUZ y Celebrarte no ofrecen.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="paquete-card destacado">
+        <div class="paquete-num">05</div>
+        <div class="paquete-header">
+          <div class="paquete-badge">PREMIUM</div>
+          <div class="paquete-nombre">La Cabaña Premium</div>
+          <div class="paquete-subtitulo">La experiencia de hacienda sin el precio</div>
+          <div class="paquete-precio-wrap">
+            <div class="paquete-precio">$700</div>
+            <div class="paquete-precio-nota">/persona · mínimo 120 invitados</div>
+          </div>
+        </div>
+        <div class="paquete-body">
+          <ul class="paquete-includes">
+            <li>Salón principal con montaje premium</li>
+            <li>5 tiempos ejecutivos (chef especializado)</li>
+            <li>Bar premium ilimitado</li>
+            <li>Decoración floral profesional</li>
+            <li>DJ + pista LED efecto galaxia</li>
+            <li>Staff completo: meseros, bartenders, coordinador</li>
+            <li>Invitaciones físicas + digitales</li>
+          </ul>
+          <div class="rationale">
+            <div class="rationale-title">Por qué este precio — respaldo del scouting</div>
+            <p><span class="vs">VS</span> Huitepec: $890–$1,280 · Zontecomate: $40k–$100k solo de renta. Tu Premium ($700 × 120 = $84,000) es un evento completo 22–44% más barato que la hacienda más económica. La pista LED galaxia y el hospedaje disponible son diferenciadores que ninguna hacienda de precio comparable ofrece en el mismo paquete.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <h3 style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--guinda);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--gris-medio);">Paquetes Nuevos — 5 propuestas adicionales detectadas por el scouting</h3>
+    <div class="paquetes-grid">
+
+      <div class="paquete-card">
+        <div class="paquete-num">06</div>
+        <div class="paquete-header">
+          <div class="paquete-badge nuevo">NUEVO</div>
+          <div class="paquete-nombre">Essential</div>
+          <div class="paquete-subtitulo">Servicio básico sin pagar de más</div>
+          <div class="paquete-precio-wrap">
+            <div class="paquete-precio">$18,900</div>
+            <div class="paquete-precio-nota">precio fijo · hasta 200 personas</div>
+          </div>
+        </div>
+        <div class="paquete-body">
+          <ul class="paquete-includes">
+            <li>Salón con mobiliario completo</li>
+            <li>Iluminación básica programable</li>
+            <li>1 mesero por cada 20 personas</li>
+            <li>Agua, hielo y refrescos ilimitados</li>
+          </ul>
+          <div class="rationale">
+            <div class="rationale-title">Por qué este precio — respaldo del scouting</div>
+            <p>El scouting reveló un hueco entre los salones tipo espacio puro ($5k–$15k) y los paquetes por persona (desde $32k para 80 invitados). El Essential llena ese hueco: el cliente quiere servicio básico sin compromiso de menú completo. Útil para eventos corporativos, graduaciones pequeñas, reuniones de asociaciones. No existe en la competencia local.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="paquete-card">
+        <div class="paquete-num">07</div>
+        <div class="paquete-header">
+          <div class="paquete-badge nuevo">NUEVO</div>
+          <div class="paquete-nombre">Plus</div>
+          <div class="paquete-subtitulo">Un paso arriba, sin pasarse</div>
+          <div class="paquete-precio-wrap">
+            <div class="paquete-precio">$19,900</div>
+            <div class="paquete-precio-nota">precio fijo · hasta 250 personas</div>
+          </div>
+        </div>
+        <div class="paquete-body">
+          <ul class="paquete-includes">
+            <li>Salón completo con mobiliario premium</li>
+            <li>Iluminación decorativa</li>
+            <li>Bar básico incluido</li>
+            <li>Coordinador de evento</li>
+            <li>Capacidad total del salón: 250 personas</li>
+          </ul>
+          <div class="rationale">
+            <div class="rationale-title">Por qué este precio — respaldo del scouting</div>
+            <p>Los Portales incluye DJ, batucada y descorche a precio no publicado para 160 personas. El Plus responde: damos la capacidad máxima (250p) con bar y coordinación por un precio fijo accesible. Ideal para el cliente que tiene DJ propio y catering externo pero quiere servicio básico incluido. Ningún competidor ofrece esto en nuestro radio.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="paquete-card">
+        <div class="paquete-num">08</div>
+        <div class="paquete-header">
+          <div class="paquete-badge nuevo">NUEVO</div>
+          <div class="paquete-nombre">Micro-Boda</div>
+          <div class="paquete-subtitulo">Íntimo, elegante, memorable</div>
+          <div class="paquete-precio-wrap">
+            <div class="paquete-precio">$17,500</div>
+            <div class="paquete-precio-nota">precio fijo · hasta 50 personas</div>
+          </div>
+        </div>
+        <div class="paquete-body">
+          <ul class="paquete-includes">
+            <li>Área campestre o salón íntimo</li>
+            <li>Montaje minimalista-elegante</li>
+            <li>Comida 3 tiempos para 50 personas</li>
+            <li>Bar básico</li>
+            <li>Coordinador</li>
+            <li>Hospedaje para los novios (1 noche)</li>
+          </ul>
+          <div class="rationale">
+            <div class="rationale-title">Por qué este precio — respaldo del scouting</div>
+            <p>Ningún competidor en el radio tiene un paquete específico para micro-bodas (menos de 50 personas). El scouting mostró que todos los paquetes por persona tienen mínimo de 80+ invitados. A $17,500 para 50 personas = $350/pp, está por debajo del precio mínimo de mercado ($280 HAUZ) con un diferenciador que nadie ofrece: hospedaje incluido para los novios esa noche.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="paquete-card">
+        <div class="paquete-num">09</div>
+        <div class="paquete-header">
+          <div class="paquete-badge nuevo">NUEVO</div>
+          <div class="paquete-nombre">Estrella XV</div>
+          <div class="paquete-subtitulo">Tu quinceaños sin límites</div>
+          <div class="paquete-precio-wrap">
+            <div class="paquete-precio">$550</div>
+            <div class="paquete-precio-nota">/persona · mínimo 60 invitados</div>
+          </div>
+        </div>
+        <div class="paquete-body">
+          <ul class="paquete-includes">
+            <li>Salón completo con decoración temática</li>
+            <li>3 tiempos + pastel de XV</li>
+            <li>Open bar (no alcohólico + licores para adultos)</li>
+            <li>DJ + pista LED galaxia</li>
+            <li>2 horas extra de salón para sesión de fotos matutina</li>
+            <li>Invitación digital + countdown personalizado</li>
+          </ul>
+          <div class="rationale">
+            <div class="rationale-title">Por qué este precio — respaldo del scouting</div>
+            <p>Celebrarte Pachuca cobra $410/persona pero con tope de 144 invitados y sin diferenciador específico para XV. El Estrella XV entra a $550 como paquete especializado — entre el Herradura ($400) y el Premium ($700) — con un diferenciador claro: 2 horas de sesión de fotos antes del evento. Ningún competidor lo ofrece. Genera contenido de video/foto que alimenta redes sociales del salón.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="paquete-card">
+        <div class="paquete-num">10</div>
+        <div class="paquete-header">
+          <div class="paquete-badge nuevo">NUEVO</div>
+          <div class="paquete-nombre">Graduación</div>
+          <div class="paquete-subtitulo">El logro que merece celebrarse grande</div>
+          <div class="paquete-precio-wrap">
+            <div class="paquete-precio">$320</div>
+            <div class="paquete-precio-nota">/persona · mínimo 50 invitados</div>
+          </div>
+        </div>
+        <div class="paquete-body">
+          <ul class="paquete-includes">
+            <li>Salón con arreglo formal</li>
+            <li>Cena 3 tiempos</li>
+            <li>Bar: refrescos + brindis de champaña</li>
+            <li>DJ set 3 horas</li>
+            <li>Pantalla para foto-video de recuerdos</li>
+          </ul>
+          <div class="rationale">
+            <div class="rationale-title">Por qué este precio — respaldo del scouting</div>
+            <p>El scouting no identificó ningún paquete específico para graduaciones en el radio. Temporada mayo–julio genera demanda real de grupos de egresados con presupuesto colectivo limitado. A $320/persona para 50 = $16,000 total, es accesible para una colecta grupal de preparatoria o universidad. Precio por debajo de HAUZ ($280–$390) pero con nuestra capacidad completa y más servicios incluidos.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECCIÓN 5: TABLA RESUMEN -->
+  <div class="seccion">
+    <div class="seccion-header">
+      <div class="seccion-num">5</div>
+      <h2>Tabla Resumen — Los 10 Paquetes</h2>
+    </div>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Paquete</th>
+            <th>Precio</th>
+            <th>Capacidad</th>
+            <th>Comida</th>
+            <th>Bar</th>
+            <th>DJ</th>
+            <th>Coordinador</th>
+            <th>Hospedaje</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>01</td>
+            <td><strong>Solo Salón</strong></td>
+            <td>$13,900 fijo</td>
+            <td>hasta 250</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td>02</td>
+            <td><strong>Campestre</strong></td>
+            <td>$15,900 fijo</td>
+            <td>hasta 100</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td>06</td>
+            <td><strong>Essential</strong> <em style="font-size:11px;color:#888;font-weight:normal;">nuevo</em></td>
+            <td>$18,900 fijo</td>
+            <td>hasta 200</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td>07</td>
+            <td><strong>Plus</strong> <em style="font-size:11px;color:#888;font-weight:normal;">nuevo</em></td>
+            <td>$19,900 fijo</td>
+            <td>hasta 250</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓</span> Básico</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td>08</td>
+            <td><strong>Micro-Boda</strong> <em style="font-size:11px;color:#888;font-weight:normal;">nuevo</em></td>
+            <td>$17,500 fijo</td>
+            <td>hasta 50</td>
+            <td><span class="check">✓</span> 3 tiempos</td>
+            <td><span class="check">✓</span> Básico</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span> 1 noche novios</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td><strong>Graduación</strong> <em style="font-size:11px;color:#888;font-weight:normal;">nuevo</em></td>
+            <td>$320/pp (mín. 50)</td>
+            <td>hasta 250</td>
+            <td><span class="check">✓</span> 3 tiempos</td>
+            <td><span class="check">✓</span> Refresco+brindis</td>
+            <td><span class="check">✓</span> 3 hrs</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr class="yo">
+            <td>03</td>
+            <td><strong>Herradura ⭐</strong></td>
+            <td>$400/pp (mín. 80)</td>
+            <td>hasta 250</td>
+            <td><span class="check">✓</span> 3 tiempos</td>
+            <td><span class="check">✓</span> Open bar</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td>09</td>
+            <td><strong>Estrella XV</strong> <em style="font-size:11px;color:#888;font-weight:normal;">nuevo</em></td>
+            <td>$550/pp (mín. 60)</td>
+            <td>hasta 250</td>
+            <td><span class="check">✓</span> 3t + pastel</td>
+            <td><span class="check">✓</span> Open bar</td>
+            <td><span class="check">✓</span> + LED</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td>04</td>
+            <td><strong>Mayoral</strong></td>
+            <td>$500/pp (mín. 100)</td>
+            <td>hasta 250</td>
+            <td><span class="check">✓</span> 4 tiempos</td>
+            <td><span class="check">✓</span> Premium</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr class="yo">
+            <td>05</td>
+            <td><strong>La Cabaña Premium ⭐</strong></td>
+            <td>$700/pp (mín. 120)</td>
+            <td>hasta 250</td>
+            <td><span class="check">✓</span> 5 tiempos</td>
+            <td><span class="check">✓</span> Premium</td>
+            <td><span class="check">✓</span> + LED</td>
+            <td><span class="check">✓</span> Completo</td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    La Cabaña Eventos · San Pedro Huaquilpan, Zapotlán de Juárez, Hidalgo · Mayo 2026<br>
+    Los precios son propuestas sujetas a revisión y confirmación. Scouting realizado en radio de 20 km.
+  </div>
+
+</div>
+</body>
+</html>

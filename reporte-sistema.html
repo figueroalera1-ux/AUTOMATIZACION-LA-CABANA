@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte del Sistema — La Cabaña Eventos</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; background: #f0f4f0; color: #333; }
+
+  .header { background: #2d5a27; padding: 30px 40px; color: white; }
+  .header h1 { font-size: 26px; margin-bottom: 6px; }
+  .header p { color: #a8d5a2; font-size: 14px; }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
+
+  .card { background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,.08); margin-bottom: 24px; overflow: hidden; }
+  .card-header { background: #2d5a27; color: white; padding: 14px 22px; font-size: 15px; font-weight: bold; display: flex; align-items: center; gap: 10px; }
+  .card-body { padding: 22px; }
+
+  .status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .status-item { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 8px; font-size: 14px; }
+  .status-item.ok { background: #e8f5e9; border-left: 4px solid #2d5a27; }
+  .status-item.pending { background: #fff8e1; border-left: 4px solid #f9a825; }
+  .status-item .icon { font-size: 20px; }
+  .status-item .label { font-weight: bold; display: block; margin-bottom: 2px; }
+  .status-item .detail { font-size: 12px; color: #666; }
+
+  .flow { display: flex; align-items: flex-start; gap: 0; flex-wrap: wrap; margin: 10px 0; }
+  .step { display: flex; flex-direction: column; align-items: center; text-align: center; width: 130px; }
+  .step-icon { width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 8px; }
+  .step-icon.green { background: #e8f5e9; border: 2px solid #2d5a27; }
+  .step-icon.blue { background: #e3f2fd; border: 2px solid #1976d2; }
+  .step-icon.orange { background: #fff3e0; border: 2px solid #f57c00; }
+  .step-icon.purple { background: #f3e5f5; border: 2px solid #7b1fa2; }
+  .step-label { font-size: 12px; font-weight: bold; color: #333; line-height: 1.3; }
+  .step-detail { font-size: 11px; color: #888; margin-top: 3px; }
+  .arrow { font-size: 20px; color: #aaa; margin: 18px 4px 0; }
+
+  .url-box { background: #1e1e1e; color: #a8d5a2; padding: 14px 18px; border-radius: 8px; font-family: monospace; font-size: 13px; margin: 10px 0; word-break: break-all; }
+  .url-box .label { color: #666; font-size: 11px; margin-bottom: 4px; }
+
+  .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .tech-item { padding: 14px; border-radius: 8px; background: #f9f9f9; border: 1px solid #eee; }
+  .tech-item .name { font-weight: bold; font-size: 13px; color: #2d5a27; margin-bottom: 4px; }
+  .tech-item .desc { font-size: 12px; color: #666; line-height: 1.4; }
+
+  .fixes { list-style: none; }
+  .fixes li { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
+  .fixes li:last-child { border-bottom: none; }
+  .fixes li .fix-icon { font-size: 18px; flex-shrink: 0; }
+  .fixes li .fix-text strong { display: block; margin-bottom: 2px; }
+  .fixes li .fix-text span { font-size: 12px; color: #888; }
+
+  .pending-box { background: #fff8e1; border: 2px solid #f9a825; border-radius: 10px; padding: 18px 20px; }
+  .pending-box h3 { color: #e65100; margin-bottom: 12px; font-size: 15px; }
+  .pending-box ul { list-style: none; }
+  .pending-box ul li { padding: 6px 0; font-size: 14px; display: flex; gap: 8px; }
+
+  .cname-box { background: #e8f5e9; border: 2px solid #2d5a27; border-radius: 8px; padding: 16px 20px; margin: 10px 0; }
+  .cname-box table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .cname-box td { padding: 5px 10px; }
+  .cname-box td:first-child { font-weight: bold; color: #2d5a27; width: 80px; }
+  .cname-box td:last-child { font-family: monospace; background: white; border-radius: 4px; padding: 5px 8px; }
+
+  .footer { text-align: center; padding: 20px; color: #999; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🌿 La Cabaña Eventos — Reporte del Sistema</h1>
+  <p>Sistema de Selección de Menú para Clientes · Generado el 8 de Mayo 2026</p>
+</div>
+
+<div class="container">
+
+  <!-- STATUS GENERAL -->
+  <div class="card">
+    <div class="card-header">📊 Estado General del Sistema</div>
+    <div class="card-body">
+      <div class="status-grid">
+        <div class="status-item ok">
+          <div class="icon">✅</div>
+          <div>
+            <span class="label">n8n corriendo</span>
+            <span class="detail">localhost:5678 · v2.19.4</span>
+          </div>
+        </div>
+        <div class="status-item ok">
+          <div class="icon">✅</div>
+          <div>
+            <span class="label">Túnel Cloudflare activo</span>
+            <span class="detail">la-cabana · 17 conexiones</span>
+          </div>
+        </div>
+        <div class="status-item ok">
+          <div class="icon">✅</div>
+          <div>
+            <span class="label">Flujo 5 — Formulario</span>
+            <span class="detail">GET /webhook/seleccion · Activo</span>
+          </div>
+        </div>
+        <div class="status-item ok">
+          <div class="icon">✅</div>
+          <div>
+            <span class="label">Flujo 6 — Guardar Selección</span>
+            <span class="detail">POST /webhook/seleccion-guardar · Activo</span>
+          </div>
+        </div>
+        <div class="status-item ok">
+          <div class="icon">✅</div>
+          <div>
+            <span class="label">DNS configurado</span>
+            <span class="detail">CNAME agregado en HostGator</span>
+          </div>
+        </div>
+        <div class="status-item ok">
+          <div class="icon">✅</div>
+          <div>
+            <span class="label">URL pública lista</span>
+            <span class="detail">n8n.lacabanaeventos.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMO FUNCIONA -->
+  <div class="card">
+    <div class="card-header">🔄 ¿Cómo Funciona el Sistema?</div>
+    <div class="card-body">
+      <p style="font-size:14px;color:#555;margin-bottom:20px;">Flujo completo desde que Angel genera el link hasta que recibe la confirmación:</p>
+
+      <div class="flow">
+        <div class="step">
+          <div class="step-icon green">👤</div>
+          <div class="step-label">Angel genera el link</div>
+          <div class="step-detail">Con token único por cliente</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="step">
+          <div class="step-icon blue">📱</div>
+          <div class="step-label">Cliente abre el link</div>
+          <div class="step-detail">Desde su teléfono o PC</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="step">
+          <div class="step-icon orange">📋</div>
+          <div class="step-label">Ve el formulario</div>
+          <div class="step-detail">Con sus datos pre-cargados</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="step">
+          <div class="step-icon green">✅</div>
+          <div class="step-label">Elige su menú</div>
+          <div class="step-detail">Menú, invitados, extras</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="step">
+          <div class="step-icon purple">🔔</div>
+          <div class="step-label">Angel recibe alerta</div>
+          <div class="step-detail">Telegram inmediato</div>
+        </div>
+      </div>
+
+      <div style="margin-top:20px;padding:14px;background:#f9f9f9;border-radius:8px;font-size:13px;color:#555;">
+        <strong>Seguridad:</strong> Cada token es de un solo uso. Una vez que el cliente envía el formulario, el link queda bloqueado permanentemente — no puede volver a acceder.
+      </div>
+    </div>
+  </div>
+
+  <!-- URLS -->
+  <div class="card">
+    <div class="card-header">🔗 URLs del Sistema</div>
+    <div class="card-body">
+      <div class="url-box">
+        <div class="label">Formulario del cliente (GET)</div>
+        https://n8n.lacabanaeventos.com/webhook/seleccion?token=TOKEN_CLIENTE
+      </div>
+      <div class="url-box">
+        <div class="label">Guardar selección (POST automático)</div>
+        https://n8n.lacabanaeventos.com/webhook/seleccion-guardar
+      </div>
+      <div class="url-box">
+        <div class="label">Link de prueba (TEST-ANGEL-001)</div>
+        https://n8n.lacabanaeventos.com/webhook/seleccion?token=TEST-ANGEL-001
+      </div>
+    </div>
+  </div>
+
+  <!-- QUE SE HIZO -->
+  <div class="card">
+    <div class="card-header">🔧 Problemas Resueltos en Esta Sesión</div>
+    <div class="card-body">
+      <ul class="fixes">
+        <li>
+          <div class="fix-icon">🐛</div>
+          <div class="fix-text">
+            <strong>Error "invalid syntax" en Flujo 6</strong>
+            <span>Las comillas escapadas en el HTML del Responder Éxito causaban fallo. Se movió la generación del HTML al nodo Code y se simplificó la expresión.</span>
+          </div>
+        </li>
+        <li>
+          <div class="fix-icon">🔑</div>
+          <div class="fix-text">
+            <strong>Credencial de Google Sheets perdida</strong>
+            <span>Se recreó la credencial dummy para que el flujo no crashe al arrancar. Funciona con el bypass TEST-ANGEL-001.</span>
+          </div>
+        </li>
+        <li>
+          <div class="fix-icon">⚙️</div>
+          <div class="fix-text">
+            <strong>Flujos no activaban al reiniciar n8n</strong>
+            <span>activeVersionId = NULL en la base de datos. Se corrigió vía script de SQLite y activación por API REST.</span>
+          </div>
+        </li>
+        <li>
+          <div class="fix-icon">📝</div>
+          <div class="fix-text">
+            <strong>Bug "Could not find property option"</strong>
+            <span>El parámetro responseHeaders usaba "values" en lugar de "entries". Corregido en Flujo 5 y Flujo 6.</span>
+          </div>
+        </li>
+        <li>
+          <div class="fix-icon">🌐</div>
+          <div class="fix-text">
+            <strong>DNS faltante para n8n.lacabanaeventos.com</strong>
+            <span>Se agregó el registro CNAME en HostGator apuntando al túnel de Cloudflare.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ARQUITECTURA TECNICA -->
+  <div class="card">
+    <div class="card-header">🏗️ Arquitectura Técnica</div>
+    <div class="card-body">
+      <div class="tech-grid">
+        <div class="tech-item">
+          <div class="name">n8n v2.19.4</div>
+          <div class="desc">Motor de automatización. Corre en localhost:5678. Maneja los webhooks, lógica del token, Sheets, email y Telegram.</div>
+        </div>
+        <div class="tech-item">
+          <div class="name">Cloudflare Tunnel</div>
+          <div class="desc">Expone localhost:5678 al mundo via n8n.lacabanaeventos.com sin abrir puertos en el router.</div>
+        </div>
+        <div class="tech-item">
+          <div class="name">Google Sheets</div>
+          <div class="desc">Base de datos de clientes y selecciones. Cada fila = un cliente con su token, datos del evento y selección de menú.</div>
+        </div>
+        <div class="tech-item">
+          <div class="name">Telegram Bot</div>
+          <div class="desc">Alerta inmediata a Angel cuando un cliente completa su selección. Chat ID: 7790296286.</div>
+        </div>
+        <div class="tech-item">
+          <div class="name">Email SMTP</div>
+          <div class="desc">Confirmación automática al cliente con resumen de su selección desde evento.social.lacabana@gmail.com.</div>
+        </div>
+        <div class="tech-item">
+          <div class="name">SQLite</div>
+          <div class="desc">Base de datos interna de n8n. Guarda workflows, ejecuciones y credenciales en C:\Users\studi\.n8n\database.sqlite.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CNAME RECORD -->
+  <div class="card">
+    <div class="card-header">🌐 Registro DNS Agregado en HostGator</div>
+    <div class="card-body">
+      <p style="font-size:13px;color:#555;margin-bottom:12px;">Este registro conecta el dominio público con el túnel de Cloudflare:</p>
+      <div class="cname-box">
+        <table>
+          <tr><td>Tipo</td><td>CNAME</td></tr>
+          <tr><td>Nombre</td><td>n8n</td></tr>
+          <tr><td>Valor</td><td>db040760-01b9-47f4-87be-ea1081de5332.cfargotunnel.com</td></tr>
+          <tr><td>TTL</td><td>300 (5 minutos)</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- PENDIENTES -->
+  <div class="card">
+    <div class="card-header">⏳ Pendientes para Quedar al 100%</div>
+    <div class="card-body">
+      <div class="pending-box">
+        <h3>Requieren acción manual:</h3>
+        <ul>
+          <li>🔑 <strong>Reconectar Google Sheets real</strong> — Ir a n8n → Credentials → "Google Sheets account" → autenticar con OAuth2 real para que guarde en Sheets de verdad.</li>
+          <li>📋 <strong>Crear tokens reales para clientes</strong> — Agregar filas en Google Sheets con token único por cliente (ej: TOKEN-GARCIA-001).</li>
+          <li>🔄 <strong>Script de arranque automático</strong> — Al reiniciar la PC, correr iniciar-sistema.ps1 para levantar n8n y el túnel.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  La Cabaña Eventos · Sistema generado con Claude Code · Mayo 2026
+</div>
+
+</body>
+</html>

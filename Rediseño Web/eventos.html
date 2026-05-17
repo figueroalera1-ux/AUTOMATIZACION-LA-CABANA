@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salón de Eventos en Hidalgo | La Cabaña — Bodas, XV Años y Más</title>
+    <meta name="description" content="Bodas, XV años, graduaciones, bautizos y corporativos cerca de Pachuca, Hidalgo. La Cabaña: pista LED, DJ, menú gourmet, 250 personas. A 30 min de Pachuca y Mineral de la Reforma. Cotiza ya.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="eventos.css">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="La Cabaña Eventos" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:url" content="https://lacabanaeventos.com/eventos.html" />
+    <meta property="og:title" content="Salón de Eventos en Hidalgo | La Cabaña — Bodas, XV Años y Más" />
+    <meta property="og:description" content="Bodas, XV años, graduaciones, bautizos y corporativos cerca de Pachuca, Hidalgo. La Cabaña: pista LED, DJ, menú gourmet, 250 personas. A 30 min de Pachuca. Cotiza ya." />
+    <meta property="og:image" content="https://lacabanaeventos.com/fotos%20ok/galaxia-1.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Salón de Eventos en Hidalgo | La Cabaña — Bodas, XV Años y Más" />
+    <meta name="twitter:description" content="Bodas, XV años, graduaciones, bautizos y corporativos cerca de Pachuca, Hidalgo. La Cabaña: pista LED, DJ, menú gourmet, 250 personas. A 30 min de Pachuca. Cotiza ya." />
+    <meta name="twitter:image" content="https://lacabanaeventos.com/fotos%20ok/galaxia-2.jpg" />
+    <link rel="canonical" href="https://lacabanaeventos.com/eventos.html" />
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://lacabanaeventos.com"},{"@type":"ListItem","position":2,"name":"Eventos","item":"https://lacabanaeventos.com/eventos.html"}]}
+    </script>
+    <!-- Meta Pixel -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src='https://connect.facebook.net/en_US/fbevents.js';
+    s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window,document,'script');
+    fbq('init', '4510279802585543'); fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=4510279802585543&ev=PageView&noscript=1"/></noscript>
+
+    <style>
+    /* ── ANIMACIONES ──────────────────────────────────────────── */
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollBounce {
+        0%, 100% { transform: translateY(0); }
+        50%       { transform: translateY(8px); }
+    }
+    .hero-animate { animation: fadeInUp 0.8s ease both; }
+    .hero-animate:nth-child(1) { animation-delay: 0.1s; }
+    .hero-animate:nth-child(2) { animation-delay: 0.3s; }
+    .hero-animate:nth-child(3) { animation-delay: 0.5s; }
+    .hero-animate:nth-child(4) { animation-delay: 0.7s; }
+
+    /* ── SCROLL INDICATOR ────────────────────────────────────── */
+    .scroll-indicator {
+        position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+        color: rgba(255,255,255,0.6); font-size: 22px; z-index: 3;
+        animation: scrollBounce 2s ease-in-out infinite;
+        cursor: pointer;
+    }
+    .scroll-indicator:hover { color: var(--gold); }
+
+    /* ── HERO mejorado ───────────────────────────────────────── */
+    .ev-hub-hero {
+        min-height: 92vh;
+    }
+    .ev-hub-hero-overlay {
+        background: linear-gradient(135deg, rgba(61,0,21,0.82) 0%, rgba(0,0,0,0.5) 100%) !important;
+    }
+
+    /* ── EXPERIENCIA COMPLETA ────────────────────────────────── */
+    .ev-experiencia {
+        padding: 100px 0;
+        background: var(--white);
+    }
+    .exp-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        margin-top: 56px;
+    }
+    .exp-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 36px 24px 32px;
+        text-align: center;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+    }
+    .exp-card::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 4px;
+        background: var(--gold);
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+        transform-origin: center;
+    }
+    .exp-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .exp-card:hover::after { transform: scaleX(1); }
+    .exp-icon {
+        width: 68px; height: 68px; border-radius: 50%;
+        background: rgba(95,0,32,0.08);
+        border: 2px solid rgba(95,0,32,0.12);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 26px; color: var(--vino);
+        margin: 0 auto 20px;
+        transition: var(--transition);
+    }
+    .exp-card:hover .exp-icon {
+        background: var(--vino);
+        color: var(--white);
+        border-color: var(--vino);
+    }
+    .exp-card h3 {
+        font-family: var(--serif);
+        font-size: 18px;
+        color: var(--text-dark);
+        margin-bottom: 10px;
+        line-height: 1.3;
+    }
+    .exp-card p {
+        font-size: 13.5px;
+        color: var(--text-mid);
+        line-height: 1.7;
+    }
+
+    /* ── PROCESO 3 PASOS ─────────────────────────────────────── */
+    .ev-proceso {
+        padding: 100px 0;
+        background: var(--off-white);
+    }
+    .proceso-steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+        margin-top: 60px;
+        position: relative;
+    }
+    .proceso-steps::before {
+        content: '';
+        position: absolute;
+        top: 52px;
+        left: calc(16.666% + 16px);
+        right: calc(16.666% + 16px);
+        height: 2px;
+        background: repeating-linear-gradient(
+            to right,
+            var(--gold) 0px, var(--gold) 8px,
+            transparent 8px, transparent 16px
+        );
+        z-index: 0;
+    }
+    .proceso-step {
+        text-align: center;
+        padding: 0 28px;
+        position: relative;
+        z-index: 1;
+    }
+    .proceso-num {
+        width: 104px; height: 104px; border-radius: 50%;
+        background: var(--white);
+        border: 3px solid var(--gold);
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        margin: 0 auto 24px;
+        box-shadow: 0 8px 30px rgba(218,165,32,0.2);
+        transition: var(--transition);
+    }
+    .proceso-step:hover .proceso-num {
+        background: var(--gold);
+        box-shadow: 0 12px 40px rgba(218,165,32,0.4);
+    }
+    .proceso-num span {
+        font-family: var(--serif);
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--gold);
+        line-height: 1;
+        transition: var(--transition);
+    }
+    .proceso-step:hover .proceso-num span { color: #000; }
+    .proceso-num i {
+        font-size: 14px;
+        color: var(--text-light);
+        margin-top: 4px;
+        transition: var(--transition);
+    }
+    .proceso-step:hover .proceso-num i { color: rgba(0,0,0,0.6); }
+    .proceso-step h3 {
+        font-family: var(--serif);
+        font-size: 20px;
+        color: var(--text-dark);
+        margin-bottom: 12px;
+    }
+    .proceso-step p {
+        font-size: 14px;
+        color: var(--text-mid);
+        line-height: 1.75;
+    }
+    .proceso-cta {
+        text-align: center;
+        margin-top: 56px;
+    }
+
+    /* ── MOBILE ──────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+        .exp-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+        .exp-grid { grid-template-columns: 1fr; gap: 16px; }
+        .proceso-steps { grid-template-columns: 1fr; gap: 40px; }
+        .proceso-steps::before { display: none; }
+        .ev-hub-hero { min-height: 80vh; }
+    }
+    </style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="main-header" id="main-header">
+    <div class="logo-container">
+        <a href="index.html">
+            <img src="../../fotos%20ok/claro.png" alt="La Cabaña — Tu Evento, Tu Momento">
+        </a>
+    </div>
+    <button class="mobile-toggle" aria-label="Abrir menú"><i class="fas fa-bars"></i></button>
+    <nav class="nav-menu">
+        <ul class="nav-list">
+            <li><a href="index.html" class="nav-link">Inicio</a></li>
+            <li><a href="eventos.html" class="nav-link active-page">Eventos</a></li>
+            <li><a href="index.html#paquetes" class="nav-link">Paquetes</a></li>
+            <li><a href="index.html#galeria" class="nav-link">Galería</a></li>
+            <li><a href="comunidad.html" class="nav-link">Comunidad</a></li>
+            <li><a href="blog.html" class="nav-link">Blog</a></li>
+            <li><a href="contacto.html" class="nav-link">Contacto</a></li>
+        </ul>
+    </nav>
+    <div class="header-cta">
+        <a href="https://wa.me/527711341559?text=Hola%2C%20quiero%20cotizar%20mi%20evento%20en%20La%20Caba%C3%B1a" class="cta-button" target="_blank">
+            <i class="fas fa-calendar-check"></i><span> Cotiza tu Evento</span>
+        </a>
+    </div>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="ev-hub-hero" style="background-image:url('../../fotos%20ok/galaxIa-2.jpg')">
+    <div class="ev-hub-hero-overlay"></div>
+    <div class="ev-hub-hero-content">
+        <span class="ev-category hero-animate"><i class="fas fa-star"></i> Salón de Eventos y Espectáculos</span>
+        <h1 class="hero-animate">Hagamos Realidad<br><span class="gold">Tu Celebración</span></h1>
+        <p class="hero-animate">Bodas, XV años, graduaciones y más.<br>En La Cabaña, cada evento se convierte en un recuerdo irrepetible.</p>
+        <div class="ev-hero-btns hero-animate">
+            <a href="#todos-eventos" class="btn-primary"><i class="fas fa-calendar-alt"></i> Ver Todos los Eventos</a>
+            <a href="https://wa.me/527711341559?text=Hola%2C%20quiero%20cotizar%20mi%20evento%20en%20La%20Caba%C3%B1a" class="btn-wapp" target="_blank"><i class="fab fa-whatsapp"></i> Cotizar Ahora</a>
+        </div>
+    </div>
+    <div class="scroll-indicator" onclick="document.getElementById('stats-sec').scrollIntoView({behavior:'smooth'})">
+        <i class="fas fa-chevron-down"></i>
+    </div>
+</section>
+
+<!-- ========== STATS ========== -->
+<section class="stats-bar" id="stats-sec">
+    <div class="stats-grid">
+        <div class="stat-item"><span class="stat-num">250</span><span class="stat-label">Personas de Capacidad</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat-item"><span class="stat-num">8+</span><span class="stat-label">Tipos de Eventos</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat-item"><span class="stat-num">LED</span><span class="stat-label">Pista Iluminada Incluida</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat-item"><span class="stat-num">5★</span><span class="stat-label">Atención Garantizada</span></div>
+    </div>
+</section>
+
+<!-- ========== TODOS LOS EVENTOS ========== -->
+<section id="todos-eventos" class="ev-hub-section">
+    <div class="container">
+        <span class="section-tag center">Celebraciones</span>
+        <h2 class="section-title center">¿Qué <span class="gold">celebramos</span> contigo hoy?</h2>
+        <p class="section-subtitle">Elige tu evento y descubre todo lo que tenemos preparado para hacer de tu celebración algo verdaderamente memorable.</p>
+
+        <div class="ev-hub-grid">
+
+            <!-- BODAS -->
+            <a href="bodas.html" class="ev-hub-card" style="background-image:url('../../CAMBIOS/SECCION%204%20(6).png')">
+                <div class="ev-hub-overlay"></div>
+                <div class="ev-hub-card-content">
+                    <div class="ev-hub-icon"><i class="fas fa-ring"></i></div>
+                    <h3>Bodas</h3>
+                    <p>El día más especial de tu vida merece el escenario perfecto con cada detalle cuidado</p>
+                    <span class="ev-hub-cta-btn">Descubrir más <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+            <!-- XV AÑOS -->
+            <a href="xv-anos.html" class="ev-hub-card" style="background-image:url('../../CAMBIOS/SECCION%203%20XV%20A%C3%91OS.png')">
+                <div class="ev-hub-overlay"></div>
+                <div class="ev-hub-card-content">
+                    <div class="ev-hub-icon"><i class="fas fa-crown"></i></div>
+                    <h3>XV Años</h3>
+                    <p>Tu quince merece ser mágico, único e inolvidable. Diseñamos la fiesta de tus sueños</p>
+                    <span class="ev-hub-cta-btn">Descubrir más <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+            <!-- GRADUACIONES -->
+            <a href="graduaciones.html" class="ev-hub-card" style="background-image:url('../../CAMBIOS/SECCION%203%20GRADUACIONES.png')">
+                <div class="ev-hub-overlay"></div>
+                <div class="ev-hub-card-content">
+                    <div class="ev-hub-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>Graduaciones</h3>
+                    <p>Celebra tu logro académico con el estilo y la elegancia que mereces</p>
+                    <span class="ev-hub-cta-btn">Descubrir más <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+            <!-- CUMPLEAÑOS -->
+            <a href="otros-eventos.html#cumpleanos" class="ev-hub-card" style="background-image:url('../../CAMBIOS/SECCION%203%20FIESTAS%20INFANTILES.png')">
+                <div class="ev-hub-overlay"></div>
+                <div class="ev-hub-card-content">
+                    <div class="ev-hub-icon"><i class="fas fa-birthday-cake"></i></div>
+                    <h3>Cumpleaños</h3>
+                    <p>Desde fiestas infantiles mágicas hasta grandes celebraciones de adultos</p>
+                    <span class="ev-hub-cta-btn">Descubrir más <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+            <!-- BAUTIZOS -->
+            <a href="otros-eventos.html#bautizos" class="ev-hub-card" style="background-image:url('../../fotos%20ok/galaxoa-1.jpg')">
+                <div class="ev-hub-overlay"></div>
+                <div class="ev-hub-card-content">
+                    <div class="ev-hub-icon"><i class="fas fa-cross"></i></div>
+                    <h3>Bautizos</h3>
+                    <p>Un momento sagrado que merece una celebración cálida, familiar y especial</p>
+                    <span class="ev-hub-cta-btn">Descubrir más <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+            <!-- CORPORATIVOS -->
+            <a href="otros-eventos.html#corporativos" class="ev-hub-card ev-hub-card--wide" style="background-image:url('../../fotos%20ok/0%20seccion%203%20conferencias.png')">
+                <div class="ev-hub-overlay"></div>
+                <div class="ev-hub-card-content">
+                    <div class="ev-hub-icon"><i class="fas fa-briefcase"></i></div>
+                    <h3>Corporativos &amp; Reuniones</h3>
+                    <p>Cenas empresariales, juntas, convenciones y presentaciones con infraestructura completa y servicio profesional</p>
+                    <span class="ev-hub-cta-btn">Descubrir más <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+<!-- ========== UNA EXPERIENCIA COMPLETA ========== -->
+<section class="ev-experiencia">
+    <div class="container">
+        <span class="section-tag center">Todo incluido</span>
+        <h2 class="section-title center">Una experiencia <span class="gold">verdaderamente completa</span></h2>
+        <p class="section-subtitle">Cada detalle está pensado para que tú solo te preocupes por disfrutar el momento más especial de tu vida.</p>
+        <div class="exp-grid">
+
+            <div class="exp-card">
+                <div class="exp-icon"><i class="fas fa-compact-disc"></i></div>
+                <h3>DJ &amp; Sonido Profesional</h3>
+                <p>Equipo de última generación sincronizado con la pista LED para crear la atmósfera perfecta en cada momento del evento.</p>
+            </div>
+
+            <div class="exp-card">
+                <div class="exp-icon"><i class="fas fa-utensils"></i></div>
+                <h3>Menú Gourmet</h3>
+                <p>De 3 a 5 tiempos con ingredientes seleccionados. Opciones para todos los gustos: clásico, gourmet o premium con mesa de postres.</p>
+            </div>
+
+            <div class="exp-card">
+                <div class="exp-icon"><i class="fas fa-home"></i></div>
+                <h3>Hospedaje en el Predio</h3>
+                <p>Cabañas disponibles dentro del mismo espacio para invitados que vienen de fuera. Sin traslados, sin preocupaciones.</p>
+            </div>
+
+            <div class="exp-card">
+                <div class="exp-icon"><i class="fas fa-mobile-alt"></i></div>
+                <h3>Invitación Digital</h3>
+                <p>Diseño personalizado con los colores y tema de tu evento. Incluida en paquetes Premium, la forma moderna de invitar.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ========== PISTA ILUMINADA & GALAXIA ========== -->
+<section class="pista-galaxia" id="pista-galaxia">
+
+    <div class="pista-header">
+        <span class="pista-badge"><i class="fas fa-star"></i> Incluida en todos los eventos</span>
+        <h2>Pista Iluminada<br><span class="pista-gold">&amp; Galaxia</span></h2>
+        <p>La experiencia más espectacular que ofrecemos. Nuestra pista LED de última generación con efecto galaxia transforma cualquier evento en algo verdaderamente mágico e irrepetible.</p>
+    </div>
+
+    <div class="pista-showcase">
+        <div class="pista-main">
+            <img src="../../fotos%20ok/galaxia-2.jpg" alt="galaxia-2">
+            <div class="pista-main-badge">
+                <i class="fas fa-magic"></i>
+                <span>Efecto Galaxia</span>
+            </div>
+        </div>
+        <div class="pista-side-gallery">
+            <div class="pista-gal-item" style="background-image:url('../../fotos%20ok/galaxia-2.jpg')"></div>
+            <div class="pista-gal-item" style="background-image:url('../../fotos%20ok/galaxia-2.jpg')"></div>
+            <div class="pista-gal-item" style="background-image:url('../../fotos%20ok/galaxia-2.jpg')"></div>
+            <div class="pista-gal-item" style="background-image:url('../../fotos%20ok/galaxia-2.jpg')"></div>
+            <div class="pista-gal-item" style="background-image:url('../../fotos%20ok/galaxia-2.jpg')"></div>
+            <div class="pista-gal-item" style="background-image:url('../../fotos%20ok/galaxia-2.jpg')"></div>
+        </div>
+    </div>
+
+    <div class="pista-features-bar">
+        <div class="pista-features-grid">
+            <div class="pista-feature">
+                <div class="pista-feature-icon"><i class="fas fa-lightbulb"></i></div>
+                <h4>Pista LED de Última Generación</h4>
+                <p>Iluminación dinámica que cambia de color según el ritmo de la música y el ambiente</p>
+            </div>
+            <div class="pista-feature">
+                <div class="pista-feature-icon"><i class="fas fa-star"></i></div>
+                <h4>Efecto Galaxia Espectacular</h4>
+                <p>Proyección de estrellas y galaxias que envuelven el salón en un ambiente mágico único</p>
+            </div>
+            <div class="pista-feature">
+                <div class="pista-feature-icon"><i class="fas fa-music"></i></div>
+                <h4>Sincronizada con tu Música</h4>
+                <p>Los colores y efectos se sincronizan con el DJ para crear el mayor impacto visual</p>
+            </div>
+            <div class="pista-feature">
+                <div class="pista-feature-icon"><i class="fas fa-gift"></i></div>
+                <h4>Incluida en Todos los Eventos</h4>
+                <p>La pista iluminada y galaxia viene incluida en cualquier evento sin costo adicional</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="pista-full-gallery">
+        <div class="pista-full-grid">
+            <div class="pista-full-item pista-full-item--large" style="background-image:url('../../fotos%20ok/galaxia-2.jpg')"></div>
+            <div class="pista-full-item" style="background-image:url('../../fotos%20ok/galaxia-2.jpg')"></div>
+            <div class="pista-full-item" style="background-image:url('../../fotos%20ok/galaxia-2.jpg')"></div>
+            <div class="pista-full-item" style="background-image:url('../../fotos%20ok/galaxia-2.jpg')"></div>
+            <div class="pista-full-item" style="background-image:url('../../fotos%20ok/galaxia-2.jpg')"></div>
+            <div class="pista-full-item pista-full-item--large" style="background-image:url('../../fotos%20ok/galaxia-2.jpg')"></div>
+            <div class="pista-full-item" style="background-image:url('../../fotos%20ok/galaxia-2.jpg')"></div>
+            <div class="pista-full-item" style="background-image:url('../../fotos%20ok/galaxia-2.jpg')"></div>
+        </div>
+    </div>
+
+</section>
+
+<!-- ========== ASÍ DE FÁCIL — 3 PASOS ========== -->
+<section class="ev-proceso">
+    <div class="container">
+        <span class="section-tag center">Nuestro proceso</span>
+        <h2 class="section-title center">Organizar tu evento es <span class="gold">más fácil de lo que crees</span></h2>
+        <p class="section-subtitle">Tres pasos simples para el evento de tus sueños. Nosotros nos encargamos del resto.</p>
+
+        <div class="proceso-steps">
+
+            <div class="proceso-step">
+                <div class="proceso-num">
+                    <span>01</span>
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3>Solicita tu cotización</h3>
+                <p>Cuéntanos el tipo de evento, la fecha y el número de invitados. Te respondemos en menos de 24 horas con una propuesta personalizada y sin compromiso.</p>
+            </div>
+
+            <div class="proceso-step">
+                <div class="proceso-num">
+                    <span>02</span>
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h3>Visita y diseña</h3>
+                <p>Agenda una visita al salón sin costo. Conoce el espacio, elige tu paquete, el menú y personaliza cada detalle para que sea exactamente como lo imaginaste.</p>
+            </div>
+
+            <div class="proceso-step">
+                <div class="proceso-num">
+                    <span>03</span>
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3>Celebra y disfruta</h3>
+                <p>Nosotros nos encargamos de todo — decoración, logística, coordinación y servicio. Tú solo tienes que llegar y vivir el momento más especial de tu vida.</p>
+            </div>
+
+        </div>
+
+        <div class="proceso-cta">
+            <a href="https://wa.me/527711341559?text=Hola%2C%20quiero%20cotizar%20mi%20evento%20en%20La%20Caba%C3%B1a" class="btn-primary" target="_blank">
+                <i class="fab fa-whatsapp"></i> Empezar a planear mi evento
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== CTA FINAL ========== -->
+<section class="ev-cta">
+    <div class="ev-cta-overlay"></div>
+    <div class="ev-cta-content">
+        <span class="section-tag center" style="color:#fff; opacity:0.85;">¿Listo para celebrar?</span>
+        <h2>Hagamos Realidad<br>Tu Evento Soñado</h2>
+        <p>Contáctanos hoy y recibe una cotización personalizada sin compromiso. Nuestro equipo está listo para hacer de tu celebración algo verdaderamente memorable.</p>
+        <div class="ev-cta-btns">
+            <a href="https://wa.me/527711341559?text=Hola%2C%20quiero%20cotizar%20mi%20evento%20en%20La%20Caba%C3%B1a" class="btn-wapp" target="_blank"><i class="fab fa-whatsapp"></i> Cotizar por WhatsApp</a>
+            <a href="tel:+527711341559" class="btn-primary"><i class="fas fa-phone"></i> 771 134 1559</a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="main-footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <img src="../../fotos%20ok/claro%20png.png" alt="La Cabaña" class="footer-logo">
+            <div class="footer-info">
+                <p><i class="fas fa-map-marker-alt"></i><span>Nicolás Bravo No. 72, Col. Niños Héroes,<br>San Pedro Huaquilpan, Zapotlán de Juárez, Hgo.</span></p>
+                <p><i class="fas fa-phone"></i><span>771 134 1559</span></p>
+            </div>
+            <div class="footer-social">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="https://wa.me/527711341559" aria-label="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h4>Eventos</h4>
+            <ul class="footer-links">
+                <li><a href="bodas.html">Bodas</a></li>
+                <li><a href="xv-anos.html">XV Años</a></li>
+                <li><a href="graduaciones.html">Graduaciones</a></li>
+                <li><a href="otros-eventos.html#cumpleanos">Cumpleaños</a></li>
+                <li><a href="otros-eventos.html#bautizos">Bautizos</a></li>
+                <li><a href="otros-eventos.html#corporativos">Corporativos</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>La Cabaña</h4>
+            <ul class="footer-links">
+                <li><a href="index.html#paquetes">Paquetes y Precios</a></li>
+                <li><a href="menu.html">Menú Gourmet</a></li>
+                <li><a href="cotizar.html">Cotizar Evento</a></li>
+                <li><a href="eventos.html#pista-galaxia">Pista Iluminada</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Zonas de Servicio</h4>
+            <ul class="footer-links">
+                <li><a href="salon-de-eventos-pachuca.html">Salón cerca de Pachuca</a></li>
+                <li><a href="salon-de-eventos-mineral-de-la-reforma.html">Salón cerca de Mineral de la Reforma</a></li>
+                <li><a href="salon-de-eventos-tizayuca.html">Salón cerca de Tizayuca</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Salón de Eventos Sociales y Espectáculos La Cabaña — Todos los derechos reservados</p>
+    </div>
+</footer>
+
+<!-- WhatsApp flotante -->
+<a href="https://wa.me/527711341559?text=Hola%2C%20me%20interesa%20La%20Caba%C3%B1a" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<script src="script.js"></script>
+<script>
+    // Header scroll
+    const header = document.getElementById('main-header');
+    window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Mobile menu
+    const toggle = document.querySelector('.mobile-toggle');
+    const nav = document.querySelector('.nav-menu');
+    if (toggle && nav) {
+        toggle.addEventListener('click', () => nav.classList.toggle('open'));
+    }
+
+    // Smooth scroll en anclas internas
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            const target = document.querySelector(a.getAttribute('href'));
+            if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+        });
+    });
+</script>
+</body>
+</html>

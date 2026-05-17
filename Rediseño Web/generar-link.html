@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generar Link de Menú — La Cabaña (Uso Interno)</title>
+  <meta name="robots" content="noindex,nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;color:#1a1a1a;background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+a{text-decoration:none;color:inherit;}
+
+:root{
+  --guinda:#6B1223;
+  --guinda-dark:#4d0c19;
+  --guinda-light:#8f1a2f;
+  --gold:#C8960C;
+  --gold-light:#f0b429;
+  --gold-pale:#fdf3d0;
+  --gray-light:#f8f7f4;
+  --gray-mid:#f0ede8;
+  --gray-border:#e8e5e0;
+  --radius:14px;
+  --radius-sm:8px;
+  --shadow:0 4px 24px rgba(0,0,0,.08);
+  --shadow-md:0 8px 40px rgba(0,0,0,.12);
+  --transition:all .25s ease;
+}
+
+/* ===== NAV ===== */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  height:68px;padding:0 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:#fff;box-shadow:0 1px 16px rgba(0,0,0,.06);
+  transition:var(--transition);
+}
+.nav__logo{display:flex;align-items:center;gap:10px;}
+.nav__logo-text{font-family:'Playfair Display',Georgia,serif;font-size:1.3rem;color:var(--guinda);letter-spacing:.5px;}
+.nav__logo-text em{color:var(--gold);font-style:normal;}
+.nav__admin-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--gold-pale);color:var(--guinda);
+  border:1px solid rgba(200,150,12,.3);border-radius:50px;
+  font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 14px;
+}
+
+/* ===== PAGE HERO ===== */
+.ph{
+  padding:110px 24px 56px;
+  background:linear-gradient(160deg, #4d0c19 0%, var(--guinda) 50%, #8f1a2f 100%);
+  text-align:center;color:#fff;
+  position:relative;overflow:hidden;
+}
+.ph::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.ph__badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
+  border-radius:50px;padding:6px 16px;
+  font-size:.76rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:18px;position:relative;
+}
+.ph h1{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:clamp(1.9rem,4.5vw,3rem);font-weight:700;
+  margin-bottom:12px;position:relative;line-height:1.15;
+}
+.ph p{font-size:.98rem;color:rgba(255,255,255,.78);max-width:520px;margin:0 auto;position:relative;line-height:1.7;}
+
+/* ===== STEPPER ===== */
+.stepper-wrap{
+  background:#fff;border-bottom:1px solid var(--gray-border);
+  padding:18px 24px;position:sticky;top:68px;z-index:98;
+  box-shadow:0 2px 12px rgba(0,0,0,.04);
+}
+.stepper-inner{max-width:600px;margin:0 auto;position:relative;}
+.stepper-track{display:flex;align-items:flex-start;justify-content:space-between;position:relative;}
+.stepper-track::before{content:'';position:absolute;top:16px;left:20px;right:20px;height:2px;background:var(--gray-mid);z-index:0;}
+.stepper-fill{position:absolute;top:16px;left:20px;height:2px;background:var(--guinda);z-index:1;transition:width .45s cubic-bezier(.4,0,.2,1);width:0%;}
+.step-item{display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:2;flex:1;}
+.step-circle{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.74rem;font-weight:700;background:var(--gray-mid);color:#999;border:2px solid var(--gray-border);transition:var(--transition);}
+.step-item.active .step-circle{background:var(--guinda);color:#fff;border-color:var(--guinda);box-shadow:0 2px 12px rgba(107,18,35,.3);}
+.step-item.done .step-circle{background:#fff;color:var(--guinda);border-color:var(--guinda);}
+.step-label{font-size:.6rem;color:#999;font-weight:500;text-align:center;white-space:nowrap;}
+.step-item.active .step-label,.step-item.done .step-label{color:var(--guinda);font-weight:700;}
+@media(max-width:400px){.step-label{display:none;}}
+
+/* ===== SECTIONS ===== */
+section{padding:64px 0;}
+.container{max-width:1200px;margin:0 auto;padding:0 24px;}
+.section-header{text-align:center;margin-bottom:44px;}
+.section-label{font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:10px;}
+.section-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:700;color:#1a1a1a;margin-bottom:12px;}
+.section-sub{font-size:.95rem;color:#666;max-width:500px;margin:0 auto;}
+
+/* ===== PAQUETES GRID ===== */
+.pkg-selector{background:#fff;}
+.pkg-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  max-width:1220px;margin:0 auto;
+}
+@media(max-width:1100px){.pkg-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:520px){.pkg-grid{grid-template-columns:1fr;}}
+
+.pkg-card{
+  border:2px solid var(--gray-border);border-radius:var(--radius);
+  overflow:hidden;cursor:pointer;transition:var(--transition);
+  background:#fff;position:relative;
+}
+.pkg-card:hover{border-color:var(--guinda);box-shadow:0 8px 32px rgba(107,18,35,.12);transform:translateY(-3px);}
+.pkg-card.selected{border-color:var(--guinda);box-shadow:0 8px 32px rgba(107,18,35,.2);transform:translateY(-3px);}
+.pkg-card.selected::after{
+  content:'✓ Seleccionado';position:absolute;top:10px;right:10px;
+  background:var(--guinda);color:#fff;font-size:.65rem;font-weight:700;letter-spacing:.05em;
+  padding:3px 10px;border-radius:50px;text-transform:uppercase;
+}
+
+.pkg-card__top{padding:20px 20px 16px;color:#fff;}
+.pkg-card__top.c-intimo     {background:linear-gradient(135deg,#5d4037,#8d6e63);}
+.pkg-card__top.c-intermedio {background:linear-gradient(135deg,#4e342e,#bf360c);}
+.pkg-card__top.c-entresemana{background:linear-gradient(135deg,#1565c0,#42a5f5);}
+.pkg-card__top.c-herradura  {background:linear-gradient(135deg,#2d5a27,#4caf50);}
+.pkg-card__top.c-mayoral    {background:linear-gradient(135deg,#6a1520,#c62828);}
+.pkg-card__top.c-lacabana   {background:linear-gradient(135deg,#4a148c,#7b1fa2);}
+.pkg-card__top.c-boda       {background:linear-gradient(135deg,#880e4f,#e91e63);}
+.pkg-card__top.c-empresarial{background:linear-gradient(135deg,#263238,#546e7a);}
+.pkg-card__num{font-size:.67rem;opacity:.72;text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;}
+.pkg-card__name{font-family:'Playfair Display',Georgia,serif;font-size:1.2rem;font-weight:700;margin-bottom:8px;}
+.pkg-card__menu-tag{
+  display:inline-block;background:rgba(255,255,255,.2);
+  font-size:.68rem;padding:2px 10px;border-radius:20px;font-weight:500;
+}
+
+.pkg-card__body{padding:16px 20px 18px;}
+.pkg-card__tiempos{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:1.4rem;font-weight:700;color:#1a1a1a;line-height:1;margin-bottom:3px;
+}
+.pkg-card__unit{font-size:.74rem;color:#888;margin-bottom:12px;}
+.pkg-card__highlights{list-style:none;}
+.pkg-card__highlights li{
+  display:flex;align-items:flex-start;gap:7px;
+  font-size:.79rem;color:#444;padding:4px 0;
+  border-bottom:1px solid var(--gray-border);
+}
+.pkg-card__highlights li:last-child{border-bottom:none;}
+.pkg-card__highlights .hi{color:var(--guinda);font-size:.85rem;flex-shrink:0;margin-top:2px;}
+
+.pkg-select-btn{
+  display:block;width:calc(100% - 40px);margin:0 20px 16px;
+  padding:9px;border-radius:50px;border:2px solid var(--guinda);
+  background:transparent;color:var(--guinda);
+  font-family:'Inter',sans-serif;font-weight:600;font-size:.8rem;
+  cursor:pointer;transition:var(--transition);text-align:center;
+}
+.pkg-select-btn:hover,.pkg-card.selected .pkg-select-btn{background:var(--guinda);color:#fff;}
+
+.pkg-hint{text-align:center;font-size:.83rem;color:#888;margin-top:20px;}
+.pkg-hint strong{color:var(--guinda);}
+
+/* ===== FORM SECTION ===== */
+.form-sec{
+  padding:56px 24px 96px;
+  background:var(--gray-light);
+  border-top:1px solid var(--gray-border);
+}
+.form-inner{max-width:1160px;margin:0 auto;}
+.form-layout{
+  display:grid;
+  grid-template-columns:1fr 320px;
+  gap:40px;
+  align-items:start;
+}
+@media(max-width:900px){.form-layout{grid-template-columns:1fr;}}
+
+/* Selected preview */
+.selected-preview{
+  display:none;align-items:center;gap:12px;
+  background:#fff;border:2px solid var(--guinda);
+  border-radius:var(--radius-sm);padding:14px 18px;margin-bottom:24px;
+}
+.selected-preview.show{display:flex;}
+.sp-dot{width:44px;height:44px;border-radius:var(--radius-sm);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+.sp-info{flex:1;}
+.sp-label{font-size:.7rem;font-weight:600;color:var(--guinda);text-transform:uppercase;letter-spacing:.06em;}
+.sp-name{font-family:'Playfair Display',Georgia,serif;font-size:1.05rem;font-weight:600;}
+.sp-sub{font-size:.78rem;color:#777;}
+.sp-change{font-size:.74rem;color:var(--guinda);cursor:pointer;text-decoration:underline;white-space:nowrap;}
+
+/* Form card */
+.form-card{
+  background:#fff;border-radius:var(--radius);
+  padding:40px;box-shadow:var(--shadow);border:1px solid var(--gray-border);
+}
+@media(max-width:580px){.form-card{padding:24px 20px;}}
+.form-section-title{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:1.1rem;color:#1a1a1a;
+  margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--gray-border);
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
+@media(max-width:560px){.form-row{grid-template-columns:1fr;}}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:18px;}
+.form-group.no-mb{margin-bottom:0;}
+.form-sep{border:none;border-top:1px solid var(--gray-border);margin:22px 0;}
+
+label{font-size:.75rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#555;}
+input,select{
+  width:100%;padding:11px 14px;
+  border:1.5px solid var(--gray-border);border-radius:var(--radius-sm);
+  font-family:'Inter',sans-serif;font-size:.94rem;color:#1a1a1a;
+  background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;
+}
+input:focus,select:focus{border-color:var(--guinda);box-shadow:0 0 0 3px rgba(107,18,35,.08);}
+input::placeholder{color:#bbb;}
+select{
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;padding-right:36px;cursor:pointer;
+}
+
+.submit-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:15px 24px;border:none;border-radius:50px;cursor:pointer;
+  background:var(--guinda);color:#fff;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:.96rem;letter-spacing:.02em;
+  margin-top:24px;transition:background .2s,transform .15s;
+  box-shadow:0 4px 18px rgba(107,18,35,.28);
+}
+.submit-btn:hover{background:var(--guinda-dark);transform:translateY(-1px);}
+.submit-btn:disabled{opacity:.55;cursor:not-allowed;transform:none;}
+.submit-btn .spin{
+  display:none;width:18px;height:18px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.3);border-top-color:#fff;
+  animation:spin .7s linear infinite;flex-shrink:0;
+}
+.submit-btn.loading .btn-txt{display:none;}
+.submit-btn.loading .spin{display:block;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.form-note{text-align:center;font-size:.75rem;color:#999;margin-top:12px;line-height:1.6;}
+
+/* SUCCESS */
+.success-state{display:none;text-align:center;padding:48px 28px;}
+.success-state.show{display:block;}
+.success-ico{
+  width:80px;height:80px;border-radius:50%;
+  background:rgba(107,18,35,.08);border:2px solid var(--guinda);
+  display:flex;align-items:center;justify-content:center;
+  font-size:2.2rem;margin:0 auto 22px;
+}
+.success-state h2{font-family:'Playfair Display',Georgia,serif;font-size:1.9rem;margin-bottom:12px;}
+.success-state > p{font-size:.93rem;color:#555;max-width:400px;margin:0 auto 26px;line-height:1.7;}
+
+.link-box{
+  background:var(--gray-light);border:1.5px solid var(--gray-border);
+  border-radius:var(--radius-sm);padding:16px 18px;
+  text-align:left;margin-bottom:20px;
+}
+.link-box .lb-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--guinda);margin-bottom:6px;}
+.link-box .lb-val{font-size:.83rem;color:#333;line-height:1.6;word-break:break-all;}
+.link-box .lb-val.mono{font-family:monospace;}
+.link-box .lb-val strong{color:#1a1a1a;font-size:.9rem;}
+
+.actions-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:22px;}
+.btn-copy{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--guinda);color:#fff;border:none;border-radius:50px;
+  padding:11px 26px;font-family:'Inter',sans-serif;font-weight:600;font-size:.88rem;
+  cursor:pointer;transition:var(--transition);
+}
+.btn-copy:hover{background:var(--guinda-dark);}
+.btn-copy.copied{background:#2d6e3e;}
+.btn-wa{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#25D366;color:#fff;border:none;border-radius:50px;
+  padding:11px 26px;font-family:'Inter',sans-serif;font-weight:600;font-size:.88rem;
+  cursor:pointer;transition:var(--transition);text-decoration:none;
+}
+.btn-wa:hover{background:#20bc5a;}
+.btn-new{
+  background:none;border:1.5px solid var(--guinda);color:var(--guinda);
+  border-radius:50px;padding:9px 24px;
+  font-family:'Inter',sans-serif;font-weight:600;font-size:.83rem;
+  cursor:pointer;transition:var(--transition);
+}
+.btn-new:hover{background:var(--guinda);color:#fff;}
+
+/* ===== SIDEBAR ===== */
+.side-info{display:flex;flex-direction:column;gap:16px;position:sticky;top:88px;}
+.side-card{background:#fff;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);border:1px solid var(--gray-border);}
+.side-card__title{font-family:'Playfair Display',Georgia,serif;font-size:1rem;font-weight:600;color:#1a1a1a;margin-bottom:8px;}
+.side-card__text{font-size:.82rem;color:#666;line-height:1.6;}
+
+.flow-steps{display:flex;flex-direction:column;gap:12px;margin-top:10px;}
+.fstep{display:flex;align-items:flex-start;gap:11px;}
+.fstep-num{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;
+  background:var(--guinda);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;font-weight:700;margin-top:1px;
+}
+.fstep-txt strong{display:block;font-size:.82rem;font-weight:600;color:#1a1a1a;margin-bottom:2px;}
+.fstep-txt span{font-size:.76rem;color:#777;line-height:1.5;}
+
+.warning-card{
+  background:var(--gold-pale);border:1px solid rgba(200,150,12,.28);
+  border-radius:var(--radius-sm);padding:14px 16px;
+}
+.warning-card p{font-size:.8rem;color:#6b4d00;line-height:1.6;}
+.warning-card strong{color:#4d3600;}
+
+/* ===== FADE ANIMATION ===== */
+.fade-up{opacity:0;transform:translateY(22px);transition:opacity .5s ease,transform .5s ease;}
+.fade-up.visible{opacity:1;transform:none;}
+
+/* ===== ERROR TOAST ===== */
+.toast{
+  display:none;position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  background:#b91c2c;color:#fff;border-radius:50px;
+  padding:12px 28px;font-size:.87rem;font-weight:600;
+  box-shadow:0 4px 20px rgba(0,0,0,.2);z-index:9999;
+  white-space:nowrap;max-width:90vw;text-align:center;
+}
+.toast.show{display:block;animation:toastIn .3s ease;}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(12px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <div class="nav__logo">
+    <div class="nav__logo-text">La <em>Cabaña</em></div>
+  </div>
+  <div class="nav__admin-badge">🔒 Uso interno</div>
+</nav>
+
+<!-- HERO -->
+<section class="ph">
+  <div class="ph__badge">🔗 Herramienta de administración</div>
+  <h1>Generar link de selección<br>de menú</h1>
+  <p>Llena los datos del cliente con contrato firmado. El sistema genera un link único y lo envía a tu Telegram.</p>
+</section>
+
+<!-- STEPPER -->
+<div class="stepper-wrap">
+  <div class="stepper-inner">
+    <div class="stepper-track">
+      <div class="stepper-fill" id="stepperFill"></div>
+      <div class="step-item active" id="step1">
+        <div class="step-circle">1</div>
+        <div class="step-label">Paquete</div>
+      </div>
+      <div class="step-item" id="step2">
+        <div class="step-circle">2</div>
+        <div class="step-label">Datos del cliente</div>
+      </div>
+      <div class="step-item" id="step3">
+        <div class="step-circle">✓</div>
+        <div class="step-label">Link generado</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PASO 1: PAQUETE ===== -->
+<section class="pkg-selector" id="secPaquete">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-label">Paso 1 de 2</span>
+      <h2 class="section-title">Selecciona el paquete contratado</h2>
+      <p class="section-sub">Elige el paquete que el cliente tiene en su contrato para asignarle el menú correcto.</p>
+    </div>
+
+    <div class="pkg-grid fade-up">
+
+      <!-- 1 ÍNTIMO -->
+      <div class="pkg-card"
+           data-pkg="Íntimo — Menú 2 tiempos"
+           data-label="Íntimo"
+           data-emoji="🕯️"
+           data-color="linear-gradient(135deg,#5d4037,#8d6e63)"
+           data-sub="Menú 2 tiempos · hasta 50 personas"
+           onclick="seleccionarPaquete(this)">
+        <div class="pkg-card__top c-intimo">
+          <div class="pkg-card__num">Paquete 01</div>
+          <div class="pkg-card__name">🕯️ Íntimo</div>
+          <div class="pkg-card__menu-tag">Menú 2 tiempos</div>
+        </div>
+        <div class="pkg-card__body">
+          <div class="pkg-card__tiempos">2 tiempos</div>
+          <div class="pkg-card__unit">Precio fijo · hasta 50 personas</div>
+          <ul class="pkg-card__highlights">
+            <li><span class="hi">🥗</span> Entrada a elegir</li>
+            <li><span class="hi">🍽️</span> Plato fuerte a elegir</li>
+            <li><span class="hi">🎂</span> Pastel de celebración</li>
+          </ul>
+          <button class="pkg-select-btn" type="button">Seleccionar paquete</button>
+        </div>
+      </div>
+
+      <!-- 2 INTERMEDIO -->
+      <div class="pkg-card"
+           data-pkg="Intermedio — Menú Banquete"
+           data-label="Intermedio"
+           data-emoji="🏡"
+           data-color="linear-gradient(135deg,#4e342e,#bf360c)"
+           data-sub="Menú Banquete · hasta 80 personas"
+           onclick="seleccionarPaquete(this)">
+        <div class="pkg-card__top c-intermedio">
+          <div class="pkg-card__num">Paquete 02</div>
+          <div class="pkg-card__name">🏡 Intermedio</div>
+          <div class="pkg-card__menu-tag">Menú Banquete</div>
+        </div>
+        <div class="pkg-card__body">
+          <div class="pkg-card__tiempos">2 tiempos</div>
+          <div class="pkg-card__unit">Precio fijo · hasta 80 personas</div>
+          <ul class="pkg-card__highlights">
+            <li><span class="hi">🥗</span> Entrada a elegir</li>
+            <li><span class="hi">🍽️</span> Plato fuerte a elegir</li>
+            <li><span class="hi">🎂</span> Pastel de celebración</li>
+          </ul>
+          <button class="pkg-select-btn" type="button">Seleccionar paquete</button>
+        </div>
+      </div>
+
+      <!-- 3 ENTRE SEMANA -->
+      <div class="pkg-card"
+           data-pkg="Entre Semana — Menú 2 tiempos"
+           data-label="Entre Semana"
+           data-emoji="📅"
+           data-color="linear-gradient(135deg,#1565c0,#42a5f5)"
+           data-sub="Menú 2 tiempos · hasta 60 personas"
+           onclick="seleccionarPaquete(this)">
+        <div class="pkg-card__top c-entresemana">
+          <div class="pkg-card__num">Paquete 03</div>
+          <div class="pkg-card__name">📅 Entre Semana</div>
+          <div class="pkg-card__menu-tag">Menú 2 tiempos</div>
+        </div>
+        <div class="pkg-card__body">
+          <div class="pkg-card__tiempos">2 tiempos</div>
+          <div class="pkg-card__unit">Precio fijo · hasta 60 personas</div>
+          <ul class="pkg-card__highlights">
+            <li><span class="hi">🥗</span> Entrada a elegir</li>
+            <li><span class="hi">🍽️</span> Plato fuerte a elegir</li>
+            <li><span class="hi">🎂</span> Pastel de celebración</li>
+          </ul>
+          <button class="pkg-select-btn" type="button">Seleccionar paquete</button>
+        </div>
+      </div>
+
+      <!-- 4 HERRADURA -->
+      <div class="pkg-card"
+           data-pkg="Herradura — Menú Clásico (3 tiempos)"
+           data-label="Herradura"
+           data-emoji="🌾"
+           data-color="linear-gradient(135deg,#2d5a27,#4caf50)"
+           data-sub="Menú Clásico · 3 tiempos"
+           onclick="seleccionarPaquete(this)">
+        <div class="pkg-card__top c-herradura">
+          <div class="pkg-card__num">Paquete 04</div>
+          <div class="pkg-card__name">🌾 Herradura</div>
+          <div class="pkg-card__menu-tag">Menú Clásico — 3 tiempos</div>
+        </div>
+        <div class="pkg-card__body">
+          <div class="pkg-card__tiempos">3 tiempos</div>
+          <div class="pkg-card__unit">Menú Clásico · 80–150 personas</div>
+          <ul class="pkg-card__highlights">
+            <li><span class="hi">🥗</span> Entrada a elegir</li>
+            <li><span class="hi">🍽️</span> Plato fuerte a elegir</li>
+            <li><span class="hi">🎂</span> Postre + pastel de celebración</li>
+          </ul>
+          <button class="pkg-select-btn" type="button">Seleccionar paquete</button>
+        </div>
+      </div>
+
+      <!-- 5 MAYORAL -->
+      <div class="pkg-card"
+           data-pkg="Mayoral — Menú Gourmet (4 tiempos)"
+           data-label="Mayoral"
+           data-emoji="🥩"
+           data-color="linear-gradient(135deg,#6a1520,#c62828)"
+           data-sub="Menú Gourmet · 4 tiempos"
+           onclick="seleccionarPaquete(this)">
+        <div class="pkg-card__top c-mayoral">
+          <div class="pkg-card__num">Paquete 05</div>
+          <div class="pkg-card__name">🥩 Mayoral</div>
+          <div class="pkg-card__menu-tag">Menú Gourmet — 4 tiempos</div>
+        </div>
+        <div class="pkg-card__body">
+          <div class="pkg-card__tiempos">4 tiempos</div>
+          <div class="pkg-card__unit">Menú Gourmet · 100–200 personas</div>
+          <ul class="pkg-card__highlights">
+            <li><span class="hi">🥗</span> Entrada elaborada</li>
+            <li><span class="hi">🍲</span> Sopa de temporada</li>
+            <li><span class="hi">🍽️</span> Plato fuerte gourmet</li>
+            <li><span class="hi">🎂</span> Postre + pastel de celebración</li>
+          </ul>
+          <button class="pkg-select-btn" type="button">Seleccionar paquete</button>
+        </div>
+      </div>
+
+      <!-- 6 LA CABAÑA -->
+      <div class="pkg-card"
+           data-pkg="La Cabaña — Menú Premium (5 tiempos)"
+           data-label="La Cabaña"
+           data-emoji="🌿"
+           data-color="linear-gradient(135deg,#4a148c,#7b1fa2)"
+           data-sub="Menú Premium · 5 tiempos"
+           onclick="seleccionarPaquete(this)">
+        <div class="pkg-card__top c-lacabana">
+          <div class="pkg-card__num">Paquete 06</div>
+          <div class="pkg-card__name">🌿 La Cabaña</div>
+          <div class="pkg-card__menu-tag">Menú Premium — 5 tiempos</div>
+        </div>
+        <div class="pkg-card__body">
+          <div class="pkg-card__tiempos">5 tiempos</div>
+          <div class="pkg-card__unit">Menú Premium · 100–250 personas</div>
+          <ul class="pkg-card__highlights">
+            <li><span class="hi">🥗</span> Entrada premium</li>
+            <li><span class="hi">🍲</span> Sopa bisque / crema fina</li>
+            <li><span class="hi">🍧</span> Sorbete limpiador</li>
+            <li><span class="hi">🍽️</span> Plato fuerte de autor</li>
+            <li><span class="hi">🎂</span> Postre + pastel + champaña</li>
+          </ul>
+          <button class="pkg-select-btn" type="button">Seleccionar paquete</button>
+        </div>
+      </div>
+
+      <!-- 7 BODA SOÑADA -->
+      <div class="pkg-card"
+           data-pkg="Boda Soñada — Menú Boda (5 tiempos)"
+           data-label="Boda Soñada"
+           data-emoji="💍"
+           data-color="linear-gradient(135deg,#880e4f,#e91e63)"
+           data-sub="Menú Boda · 5 tiempos"
+           onclick="seleccionarPaquete(this)">
+        <div class="pkg-card__top c-boda">
+          <div class="pkg-card__num">Paquete 07</div>
+          <div class="pkg-card__name">💍 Boda Soñada</div>
+          <div class="pkg-card__menu-tag">Menú Boda — 5 tiempos</div>
+        </div>
+        <div class="pkg-card__body">
+          <div class="pkg-card__tiempos">5 tiempos</div>
+          <div class="pkg-card__unit">Menú Boda · solo bodas</div>
+          <ul class="pkg-card__highlights">
+            <li><span class="hi">🥂</span> Cocktail de bienvenida</li>
+            <li><span class="hi">🥗</span> Entrada gourmet</li>
+            <li><span class="hi">🍲</span> Sopa de temporada</li>
+            <li><span class="hi">🍽️</span> Plato fuerte especial</li>
+            <li><span class="hi">🎂</span> Pastel de bodas + champaña</li>
+          </ul>
+          <button class="pkg-select-btn" type="button">Seleccionar paquete</button>
+        </div>
+      </div>
+
+      <!-- 8 EMPRESARIAL -->
+      <div class="pkg-card"
+           data-pkg="Empresarial — Menú Ejecutivo (3 tiempos)"
+           data-label="Empresarial"
+           data-emoji="💼"
+           data-color="linear-gradient(135deg,#263238,#546e7a)"
+           data-sub="Menú Ejecutivo · 3 tiempos"
+           onclick="seleccionarPaquete(this)">
+        <div class="pkg-card__top c-empresarial">
+          <div class="pkg-card__num">Paquete 08</div>
+          <div class="pkg-card__name">💼 Empresarial</div>
+          <div class="pkg-card__menu-tag">Menú Ejecutivo — 3 tiempos</div>
+        </div>
+        <div class="pkg-card__body">
+          <div class="pkg-card__tiempos">3 tiempos</div>
+          <div class="pkg-card__unit">Menú Ejecutivo · 30–150 personas</div>
+          <ul class="pkg-card__highlights">
+            <li><span class="hi">🥗</span> Entrada ejecutiva</li>
+            <li><span class="hi">🍽️</span> Plato fuerte a elegir</li>
+            <li><span class="hi">☕</span> 2 coffee breaks incluidos</li>
+          </ul>
+          <button class="pkg-select-btn" type="button">Seleccionar paquete</button>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="pkg-hint fade-up">👆 <strong>Elige el paquete</strong> que aparece en el contrato del cliente antes de continuar.</p>
+  </div>
+</section>
+
+<!-- ===== PASO 2: FORM ===== -->
+<section class="form-sec" id="secForm" style="display:none;">
+  <div class="form-inner">
+    <div class="section-header fade-up" style="margin-bottom:32px;">
+      <span class="section-label">Paso 2 de 2</span>
+      <h2 class="section-title">Datos del cliente</h2>
+      <p class="section-sub">Registra la información del cliente para generar su link único de selección de menú.</p>
+    </div>
+
+    <div class="form-layout">
+      <!-- FORM -->
+      <div class="fade-up" id="formWrap">
+
+        <!-- Selected package bar -->
+        <div class="selected-preview show" id="selectedPreview">
+          <div class="sp-dot" id="spDot"></div>
+          <div class="sp-info">
+            <div class="sp-label">Paquete contratado</div>
+            <div class="sp-name" id="spName">—</div>
+            <div class="sp-sub" id="spSub">—</div>
+          </div>
+          <span class="sp-change" onclick="cambiarPaquete()">Cambiar</span>
+        </div>
+
+        <div class="form-card">
+          <!-- Success State -->
+          <div class="success-state" id="successState">
+            <div class="success-ico">✅</div>
+            <h2>¡Link generado!</h2>
+            <p>El link fue enviado a tu Telegram. Cópialo y mándalo al cliente por WhatsApp.</p>
+
+            <div class="link-box">
+              <div class="lb-label">Cliente</div>
+              <div class="lb-val"><strong id="resNombre">—</strong></div>
+            </div>
+            <div class="link-box">
+              <div class="lb-label">Paquete</div>
+              <div class="lb-val" id="resPaquete">—</div>
+            </div>
+            <div class="link-box">
+              <div class="lb-label">Link único de selección de menú</div>
+              <div class="lb-val mono" id="resLink">—</div>
+            </div>
+
+            <div class="actions-row">
+              <button class="btn-copy" id="btnCopy" onclick="copiarLink()" type="button">
+                <i class="fa-regular fa-copy"></i> Copiar link
+              </button>
+              <a class="btn-wa" id="btnWa" href="#" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i> Enviar por WhatsApp
+              </a>
+            </div>
+            <button class="btn-new" onclick="nuevoLink()" type="button">+ Generar otro link</button>
+          </div>
+
+          <!-- Form -->
+          <div id="theForm">
+            <div class="form-section-title">Información de contacto</div>
+            <div class="form-row">
+              <div class="form-group no-mb">
+                <label for="nombre">Nombre completo *</label>
+                <input type="text" id="nombre" placeholder="Nombre y apellido" required>
+              </div>
+              <div class="form-group no-mb">
+                <label for="telefono">Teléfono / WhatsApp *</label>
+                <input type="tel" id="telefono" placeholder="771 134 1559" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Correo electrónico *</label>
+              <input type="email" id="email" placeholder="cliente@correo.com" required>
+            </div>
+
+            <hr class="form-sep">
+            <div class="form-section-title">Detalles del evento</div>
+
+            <div class="form-row">
+              <div class="form-group no-mb">
+                <label for="fecha_evento">Fecha del evento *</label>
+                <input type="date" id="fecha_evento" required>
+              </div>
+              <div class="form-group no-mb">
+                <label for="tipo_evento">Tipo de evento *</label>
+                <select id="tipo_evento" required>
+                  <option value="">Seleccionar…</option>
+                  <option>Boda</option>
+                  <option>XV Años</option>
+                  <option>Graduación</option>
+                  <option>Cumpleaños</option>
+                  <option>Bautizo</option>
+                  <option>Corporativo</option>
+                  <option>Otro</option>
+                </select>
+              </div>
+            </div>
+
+            <button class="submit-btn" id="btnSubmit" onclick="generarLink()" type="button">
+              <span class="btn-txt">✨ Generar link personalizado</span>
+              <span class="spin"></span>
+            </button>
+            <p class="form-note">El link se enviará automáticamente a tu Telegram · Es de un solo uso</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="side-info fade-up">
+        <div class="side-card">
+          <div class="side-card__title">¿Cómo funciona?</div>
+          <div class="flow-steps">
+            <div class="fstep">
+              <div class="fstep-num">1</div>
+              <div class="fstep-txt">
+                <strong>Elige el paquete</strong>
+                <span>El que tiene en su contrato</span>
+              </div>
+            </div>
+            <div class="fstep">
+              <div class="fstep-num">2</div>
+              <div class="fstep-txt">
+                <strong>Llena sus datos</strong>
+                <span>Nombre, email y fecha</span>
+              </div>
+            </div>
+            <div class="fstep">
+              <div class="fstep-num">3</div>
+              <div class="fstep-txt">
+                <strong>Recibe en Telegram</strong>
+                <span>El link llega a tu chat</span>
+              </div>
+            </div>
+            <div class="fstep">
+              <div class="fstep-num">4</div>
+              <div class="fstep-txt">
+                <strong>Envías al cliente</strong>
+                <span>Por WhatsApp o correo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="warning-card">
+          <p>⚠️ El link es de <strong>un solo uso</strong>. Una vez que el cliente confirme su selección de menú, el link queda bloqueado automáticamente.</p>
+        </div>
+
+        <div class="side-card">
+          <div class="side-card__title">¿El cliente ya eligió?</div>
+          <div class="side-card__text">Consulta las selecciones confirmadas directamente en Google Sheets → hoja <strong>Selecciones</strong>.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const WEBHOOK = 'https://n8n.lacabanaeventos.com/webhook/lacabana-generar-link';
+
+let paqueteSeleccionado = '';
+let linkGenerado = '';
+
+function seleccionarPaquete(el) {
+  document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  paqueteSeleccionado = el.dataset.pkg;
+
+  document.getElementById('spDot').textContent  = el.dataset.emoji;
+  document.getElementById('spDot').style.background = el.dataset.color;
+  document.getElementById('spName').textContent = el.dataset.label;
+  document.getElementById('spSub').textContent  = el.dataset.sub;
+
+  // Stepper
+  setStep(2);
+
+  // Scroll suave a formulario
+  document.getElementById('secPaquete').style.display = 'none';
+  document.getElementById('secForm').style.display = 'block';
+  window.scrollTo({ top: document.getElementById('secForm').offsetTop - 80, behavior: 'smooth' });
+
+  // Activar fade-up
+  setTimeout(() => {
+    document.querySelectorAll('#secForm .fade-up').forEach(el => el.classList.add('visible'));
+  }, 50);
+}
+
+function cambiarPaquete() {
+  document.getElementById('secForm').style.display = 'none';
+  document.getElementById('secPaquete').style.display = 'block';
+  window.scrollTo({ top: document.getElementById('secPaquete').offsetTop - 80, behavior: 'smooth' });
+  setStep(1);
+}
+
+function setStep(n) {
+  const fill = document.getElementById('stepperFill');
+  if (n === 1) { fill.style.width = '0%'; }
+  if (n === 2) { fill.style.width = '50%'; }
+  if (n === 3) { fill.style.width = '100%'; }
+
+  ['step1','step2','step3'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.classList.remove('active','done');
+    if (i + 1 < n) el.classList.add('done');
+    if (i + 1 === n) el.classList.add('active');
+  });
+}
+
+async function generarLink() {
+  const nombre       = document.getElementById('nombre').value.trim();
+  const telefono     = document.getElementById('telefono').value.trim();
+  const email        = document.getElementById('email').value.trim();
+  const fecha_evento = document.getElementById('fecha_evento').value;
+  const tipo_evento  = document.getElementById('tipo_evento').value;
+
+  if (!nombre || !telefono || !email || !fecha_evento || !tipo_evento) {
+    mostrarToast('Completa todos los campos marcados con *');
+    return;
+  }
+  if (!paqueteSeleccionado) {
+    mostrarToast('Regresa al paso 1 y selecciona un paquete');
+    return;
+  }
+
+  const btn = document.getElementById('btnSubmit');
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  try {
+    const res = await fetch(WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre, telefono, email, fecha_evento, tipo_evento, paquete_asignado: paqueteSeleccionado })
+    });
+
+    if (!res.ok) {
+      const txt = await res.text().catch(() => '');
+      throw new Error('HTTP ' + res.status + (txt ? ': ' + txt.substring(0,120) : ''));
+    }
+
+    const data = await res.json();
+    if (!data.ok || !data.link) throw new Error('El flujo no devolvió un link válido');
+
+    linkGenerado = data.link;
+
+    document.getElementById('resNombre').textContent  = data.nombre || nombre;
+    document.getElementById('resPaquete').textContent = paqueteSeleccionado;
+    document.getElementById('resLink').textContent    = data.link;
+
+    const msg = encodeURIComponent(
+      'Hola ' + (data.nombre || nombre).split(' ')[0] + ' 🎉\n\n' +
+      'Te comparto tu link para elegir el menú de tu evento en La Cabaña:\n\n' +
+      data.link + '\n\n' +
+      '¡Recuerda que es de un solo uso! Selecciona con calma. 🍽️'
+    );
+    document.getElementById('btnWa').href = 'https://wa.me/?text=' + msg;
+
+    document.getElementById('theForm').style.display    = 'none';
+    document.getElementById('successState').classList.add('show');
+    setStep(3);
+    window.scrollTo({ top: document.getElementById('secForm').offsetTop - 80, behavior: 'smooth' });
+
+  } catch (err) {
+    console.error(err);
+    mostrarToast('Error: ' + (err.message || 'No se pudo conectar con n8n'));
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+}
+
+function copiarLink() {
+  if (!linkGenerado) return;
+  navigator.clipboard.writeText(linkGenerado).then(() => {
+    const b = document.getElementById('btnCopy');
+    b.innerHTML = '<i class="fa-solid fa-check"></i> Copiado';
+    b.classList.add('copied');
+    setTimeout(() => {
+      b.innerHTML = '<i class="fa-regular fa-copy"></i> Copiar link';
+      b.classList.remove('copied');
+    }, 2400);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = linkGenerado;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    mostrarToast('Link copiado');
+  });
+}
+
+function nuevoLink() {
+  linkGenerado = '';
+  paqueteSeleccionado = '';
+  document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('theForm').style.display = 'block';
+  document.getElementById('successState').classList.remove('show');
+  document.getElementById('btnSubmit').classList.remove('loading');
+  document.getElementById('btnSubmit').disabled = false;
+  ['nombre','telefono','email','fecha_evento'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('tipo_evento').value = '';
+  document.getElementById('secForm').style.display = 'none';
+  document.getElementById('secPaquete').style.display = 'block';
+  setStep(1);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function mostrarToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4000);
+}
+
+// Fade-up on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

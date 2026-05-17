@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Cabaña Eventos — Estrategia de Marketing</title>
+<style>
+  :root {
+    --guinda: #6B1223;
+    --guinda-dark: #4d0d1a;
+    --ocre: #C8960C;
+    --ocre-light: #fef7e0;
+    --verde: #1a7a35;
+    --verde-light: #e6f4ea;
+    --azul: #1a73e8;
+    --azul-light: #e8f0fe;
+    --gris-claro: #f7f4f0;
+    --gris-medio: #e8e0d8;
+    --texto: #1a1a1a;
+    --texto-suave: #555;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--gris-claro); color: var(--texto); line-height: 1.65; }
+
+  /* HEADER */
+  .header { background: var(--guinda); color: white; padding: 44px 48px 36px; position: relative; overflow: hidden; }
+  .header::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; border-radius: 50%; background: rgba(200,150,12,0.10); }
+  .header-tag { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ocre); margin-bottom: 10px; }
+  .header h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+  .header-sub { font-size: 14px; opacity: 0.80; max-width: 700px; }
+  .header-chips { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+  .chip { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 4px 14px; font-size: 12px; color: rgba(255,255,255,0.9); }
+  .chip strong { color: var(--ocre); }
+
+  /* EJES STRIP */
+  .ejes-strip { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--guinda-dark); }
+  .eje-strip-item { padding: 16px 22px; border-right: 1px solid rgba(255,255,255,0.08); color: white; }
+  .eje-strip-item:last-child { border-right: none; }
+  .eje-strip-num { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--ocre); margin-bottom: 3px; }
+  .eje-strip-name { font-size: 13px; font-weight: 700; }
+  .eje-strip-desc { font-size: 11px; opacity: 0.65; margin-top: 2px; }
+
+  /* LAYOUT */
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 24px 80px; }
+
+  /* SECCIÓN */
+  .seccion { margin-top: 48px; }
+  .seccion-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 22px; padding-bottom: 14px; border-bottom: 2px solid var(--gris-medio); }
+  .seccion-icon { background: var(--guinda); color: white; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+  .seccion-icon.ocre { background: var(--ocre); }
+  .seccion-icon.verde { background: var(--verde); }
+  .seccion-icon.azul { background: var(--azul); }
+  .seccion-icon.gris { background: #555; }
+  .seccion-icon.morado { background: #7b1fa2; }
+  .seccion-titles h2 { font-size: 19px; font-weight: 700; color: var(--guinda); }
+  .seccion-titles p { font-size: 13px; color: var(--texto-suave); margin-top: 2px; }
+
+  /* BOXES BASE */
+  .box { background: white; border-radius: 8px; padding: 20px 22px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 14px; }
+  .box-title { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+  .box-body { font-size: 13px; color: var(--texto-suave); }
+
+  /* GRIDS */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+
+  /* CALLOUTS */
+  .callout { background: var(--azul-light); border-left: 4px solid var(--azul); border-radius: 0 6px 6px 0; padding: 13px 18px; font-size: 13px; color: #174ea6; margin-top: 14px; }
+  .callout-verde { background: var(--verde-light); border-left: 4px solid var(--verde); border-radius: 0 6px 6px 0; padding: 13px 18px; font-size: 13px; color: #0d4d1f; margin-top: 14px; }
+  .callout-ocre { background: var(--ocre-light); border-left: 4px solid var(--ocre); border-radius: 0 6px 6px 0; padding: 13px 18px; font-size: 13px; color: #7a5200; margin-top: 14px; }
+
+  /* STAT CARDS */
+  .stat-card { background: white; border-radius: 8px; padding: 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .stat-num { font-size: 28px; font-weight: 900; line-height: 1; color: var(--guinda); }
+  .stat-label { font-size: 11px; color: var(--texto-suave); margin-top: 3px; }
+  .stat-desc { font-size: 12.5px; margin-top: 7px; }
+
+  /* EJE 1 — ADS */
+  .funnel { display: flex; flex-direction: column; gap: 0; }
+  .funnel-step { display: flex; align-items: center; gap: 12px; background: white; border-radius: 6px; padding: 13px 16px; margin-bottom: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .funnel-step-num { background: var(--guinda); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .funnel-step-body { flex: 1; }
+  .funnel-step-title { font-size: 13px; font-weight: 700; }
+  .funnel-step-desc { font-size: 12px; color: var(--texto-suave); }
+  .funnel-step-tool { font-size: 11px; background: var(--gris-claro); border-radius: 4px; padding: 2px 8px; color: var(--guinda); font-weight: 600; white-space: nowrap; }
+  .funnel-arrow { text-align: center; color: var(--gris-medio); font-size: 18px; line-height: 1; margin: 2px 0; }
+
+  /* ADS PLAN */
+  .ads-budget-bar { background: var(--gris-medio); border-radius: 6px; height: 16px; overflow: hidden; margin: 8px 0 4px; }
+  .ads-budget-fill { height: 100%; border-radius: 6px; }
+  .ad-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .ad-card-header { padding: 14px 16px; color: white; }
+  .ad-card-body { padding: 14px 16px; font-size: 13px; }
+  .ad-card-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid var(--gris-claro); font-size: 12.5px; }
+  .ad-card-row:last-child { border-bottom: none; }
+  .ad-label { color: var(--texto-suave); }
+  .ad-val { font-weight: 600; }
+
+  /* OFERTA BANDERA */
+  .promo-hero { background: linear-gradient(135deg, var(--guinda) 0%, #9c1a2e 100%); border-radius: 12px; padding: 32px 36px; color: white; position: relative; overflow: hidden; }
+  .promo-hero::after { content: ''; position: absolute; top: -40px; right: -40px; width: 200px; height: 200px; border-radius: 50%; background: rgba(200,150,12,0.12); }
+  .promo-hero h3 { font-size: 24px; font-weight: 900; margin-bottom: 6px; }
+  .promo-hero .promo-subtitle { font-size: 14px; opacity: 0.85; margin-bottom: 20px; }
+  .promo-benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
+  .promo-benefit { background: rgba(255,255,255,0.12); border-radius: 8px; padding: 14px 16px; }
+  .promo-benefit-num { font-size: 22px; font-weight: 900; color: var(--ocre); line-height: 1; margin-bottom: 4px; }
+  .promo-benefit-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+  .promo-benefit-desc { font-size: 12px; opacity: 0.8; }
+  .promo-conditions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .promo-cond { background: rgba(255,255,255,0.08); border-radius: 6px; padding: 10px 12px; font-size: 12.5px; }
+  .promo-cond-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: 0.65; margin-bottom: 4px; }
+
+  /* AIRBNB */
+  .airbnb-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .airbnb-header { background: #FF5A5F; padding: 18px 22px; color: white; }
+  .airbnb-header h3 { font-size: 17px; font-weight: 800; }
+  .airbnb-body { padding: 20px 22px; }
+  .airbnb-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--gris-claro); font-size: 13px; gap: 12px; }
+  .airbnb-row:last-child { border-bottom: none; }
+  .airbnb-label { color: var(--texto-suave); font-size: 12px; flex-shrink: 0; min-width: 140px; }
+  .airbnb-val { font-weight: 600; text-align: right; }
+  .airbnb-steps { list-style: none; }
+  .airbnb-step { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--gris-claro); font-size: 13px; }
+  .airbnb-step:last-child { border-bottom: none; }
+  .airbnb-step-num { background: #FF5A5F; color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+  /* FOTOS QR */
+  .foto-flow { display: flex; flex-direction: column; gap: 0; }
+  .foto-step { display: grid; grid-template-columns: 32px 1fr auto; gap: 12px; align-items: center; background: white; border-radius: 6px; padding: 12px 16px; margin-bottom: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .foto-step-num { background: var(--azul); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+  .foto-step-title { font-size: 13px; font-weight: 700; }
+  .foto-step-desc { font-size: 12px; color: var(--texto-suave); }
+  .foto-step-tool { font-size: 11px; background: var(--azul-light); border-radius: 4px; padding: 2px 8px; color: var(--azul); font-weight: 600; white-space: nowrap; }
+
+  /* DIRECTORIOS */
+  .directorio-card { background: white; border-radius: 8px; padding: 16px 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); border-left: 4px solid var(--verde); }
+  .directorio-nombre { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .directorio-fila { display: flex; justify-content: space-between; font-size: 12px; padding: 2px 0; }
+  .directorio-label { color: var(--texto-suave); }
+  .directorio-val { font-weight: 600; }
+  .badge-gratis { display: inline-block; background: var(--verde-light); color: var(--verde); font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 2px; margin-left: 6px; }
+  .badge-pago { display: inline-block; background: #fce8e6; color: #d93025; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 2px; margin-left: 6px; }
+
+  /* VIDEO */
+  .equipo-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .equipo-header { background: var(--guinda-dark); color: white; padding: 12px 16px; }
+  .equipo-header h4 { font-size: 14px; font-weight: 700; }
+  .equipo-body { padding: 14px 16px; }
+  .equipo-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 6px 0; border-bottom: 1px solid var(--gris-claro); font-size: 12.5px; gap: 10px; }
+  .equipo-row:last-child { border-bottom: none; }
+  .equipo-item { flex: 1; }
+  .equipo-precio { font-weight: 700; color: var(--guinda); white-space: nowrap; }
+  .equipo-nota { font-size: 11px; color: var(--texto-suave); }
+  .lente-rec { background: linear-gradient(135deg, var(--guinda-dark) 0%, #6B1223 100%); color: white; border-radius: 8px; padding: 20px 22px; }
+  .lente-rec h4 { font-size: 15px; font-weight: 800; margin-bottom: 4px; }
+  .lente-rec p { font-size: 13px; opacity: 0.85; margin-bottom: 14px; }
+  .lente-specs { display: flex; gap: 10px; flex-wrap: wrap; }
+  .lente-spec { background: rgba(255,255,255,0.12); border-radius: 4px; padding: 4px 10px; font-size: 12px; }
+
+  /* COSTOS TABLA */
+  .costos-table { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--guinda); color: white; padding: 10px 16px; text-align: left; font-size: 11px; letter-spacing: 0.5px; font-weight: 600; }
+  td { padding: 10px 16px; border-bottom: 1px solid var(--gris-claro); }
+  tr:last-child td { border-bottom: none; }
+  tr.total td { background: var(--gris-claro); font-weight: 700; }
+  tr.total td:last-child { color: var(--guinda); font-size: 15px; }
+  .cost-cat { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--texto-suave); }
+  .cost-item { font-weight: 600; }
+  .cost-detail { font-size: 11.5px; color: var(--texto-suave); margin-top: 2px; }
+  .cost-monto { font-weight: 700; color: var(--texto); white-space: nowrap; }
+  .cost-gratis { font-weight: 700; color: var(--verde); }
+
+  /* SECCIÓN CLIENTE */
+  .cliente-section { background: var(--guinda-dark); border-radius: 12px; padding: 32px; color: white; margin-top: 48px; }
+  .cliente-section h2 { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+  .cliente-section .cliente-sub { font-size: 14px; opacity: 0.75; margin-bottom: 24px; }
+  .cliente-items { display: flex; flex-direction: column; gap: 0; }
+  .cliente-item { display: grid; grid-template-columns: 28px 1fr 1fr 1fr; gap: 14px; align-items: start; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .cliente-item:last-child { border-bottom: none; }
+  .cliente-item-num { background: var(--ocre); color: var(--guinda-dark); width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex-shrink: 0; margin-top: 2px; }
+  .cliente-item-qué { font-size: 13px; }
+  .cliente-item-qué strong { display: block; margin-bottom: 3px; }
+  .cliente-item-por { font-size: 12.5px; opacity: 0.80; }
+  .cliente-item-impacto { font-size: 12px; }
+  .cliente-item-impacto .impacto-badge { display: inline-block; background: rgba(200,150,12,0.25); color: var(--ocre); font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 2px; margin-bottom: 4px; }
+  .cliente-header-row { display: grid; grid-template-columns: 28px 1fr 1fr 1fr; gap: 14px; padding: 8px 0 10px; border-bottom: 1px solid rgba(255,255,255,0.15); margin-bottom: 4px; }
+  .cliente-header-row span { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: 0.5; }
+
+  .footer-note { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--gris-medio); font-size: 12px; color: var(--texto-suave); text-align: center; }
+
+  @media (max-width: 768px) {
+    .ejes-strip { grid-template-columns: 1fr; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .promo-benefits { grid-template-columns: 1fr; }
+    .promo-conditions { grid-template-columns: 1fr; }
+    .cliente-item { grid-template-columns: 28px 1fr; }
+    .cliente-header-row { display: none; }
+    .header { padding: 28px 20px; }
+    .container { padding: 0 16px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-tag">Estrategia de Marketing · Mayo 2026</div>
+  <h1>La Cabaña Eventos — Plan de Marketing Completo</h1>
+  <div class="header-sub">Tres ejes estratégicos · Pauta publicitaria · Airbnb · Activos digitales · Costos del sistema · Sección cliente</div>
+  <div class="header-chips">
+    <span class="chip"><strong>$2,000</strong> MXN/mes en Meta Ads</span>
+    <span class="chip"><strong>3 ejes</strong> estratégicos</span>
+    <span class="chip">Hospedaje en <strong>Airbnb</strong></span>
+    <span class="chip">Sistema de fotos <strong>QR + NFC</strong></span>
+    <span class="chip">Total sistema: <strong>~$14,200</strong> MXN/mes</span>
+  </div>
+</div>
+
+<!-- EJES STRIP -->
+<div class="ejes-strip">
+  <div class="eje-strip-item">
+    <div class="eje-strip-num">Eje 1 — Prioridad máxima</div>
+    <div class="eje-strip-name">Captación de leads + Agendado</div>
+    <div class="eje-strip-desc">Meta Ads → WhatsApp → CRM → Contrato</div>
+  </div>
+  <div class="eje-strip-item">
+    <div class="eje-strip-num">Eje 2 — Ancla de campaña</div>
+    <div class="eje-strip-name">La Triple Corona</div>
+    <div class="eje-strip-desc">Precio congelado + Hospedaje + Galería digital</div>
+  </div>
+  <div class="eje-strip-item">
+    <div class="eje-strip-num">Eje 3 — Orgánico</div>
+    <div class="eje-strip-name">La Comunidad + Alcance Orgánico</div>
+    <div class="eje-strip-desc">Eventos propios · Styled shoots · Colaboraciones · Blog · Giveaway</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ===== EJE 1: CAPTACIÓN DE LEADS ===== -->
+  <div class="seccion">
+    <div class="seccion-header">
+      <div class="seccion-icon">📡</div>
+      <div class="seccion-titles">
+        <h2>Eje 1 — Captación de Leads + Agendado</h2>
+        <p>El eje principal. Todo lo demás le sirve a este objetivo.</p>
+      </div>
+    </div>
+
+    <!-- FUNNEL -->
+    <h3 style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--texto-suave);margin-bottom:12px;">Embudo de conversión completo</h3>
+    <div class="funnel" style="margin-bottom:24px;">
+      <div class="funnel-step">
+        <div class="funnel-step-num">1</div>
+        <div class="funnel-step-body">
+          <div class="funnel-step-title">Anuncio en Meta (Facebook / Instagram)</div>
+          <div class="funnel-step-desc">Video de pista LED + copy "¿Cuántos invitados tienes?" — dirige a formulario de Lead Ad o WhatsApp directo</div>
+        </div>
+        <div class="funnel-step-tool">Meta Ads</div>
+      </div>
+      <div class="funnel-arrow">↓</div>
+      <div class="funnel-step">
+        <div class="funnel-step-num">2</div>
+        <div class="funnel-step-body">
+          <div class="funnel-step-title">Captura del lead</div>
+          <div class="funnel-step-desc">Formulario nativo de Meta (nombre, teléfono, tipo de evento, fecha tentativa) o conversación iniciada por WhatsApp</div>
+        </div>
+        <div class="funnel-step-tool">Meta Forms / WhatsApp</div>
+      </div>
+      <div class="funnel-arrow">↓</div>
+      <div class="funnel-step">
+        <div class="funnel-step-num">3</div>
+        <div class="funnel-step-body">
+          <div class="funnel-step-title">Ingreso automático al CRM</div>
+          <div class="funnel-step-desc">n8n captura el lead y lo registra en Google Sheets (pestaña Leads) con status "nuevo"</div>
+        </div>
+        <div class="funnel-step-tool">n8n + Google Sheets</div>
+      </div>
+      <div class="funnel-arrow">↓</div>
+      <div class="funnel-step">
+        <div class="funnel-step-num">4</div>
+        <div class="funnel-step-body">
+          <div class="funnel-step-title">Primer contacto en menos de 1 hora</div>
+          <div class="funnel-step-desc">WhatsApp manual o semi-automatizado: saludo personalizado + link al menú de paquetes + "¿cuándo quieres venir a conocer el salón?"</div>
+        </div>
+        <div class="funnel-step-tool">WhatsApp Business</div>
+      </div>
+      <div class="funnel-arrow">↓</div>
+      <div class="funnel-step">
+        <div class="funnel-step-num">5</div>
+        <div class="funnel-step-body">
+          <div class="funnel-step-title">Cotización y visita al salón</div>
+          <div class="funnel-step-desc">Se envía cotización PDF personalizada. Se agenda visita. Status cambia a "cotizacion" en CRM</div>
+        </div>
+        <div class="funnel-step-tool">CRM → cotizacion</div>
+      </div>
+      <div class="funnel-arrow">↓</div>
+      <div class="funnel-step">
+        <div class="funnel-step-num">6</div>
+        <div class="funnel-step-body">
+          <div class="funnel-step-title">Anticipo = fecha confirmada</div>
+          <div class="funnel-step-desc">30% de anticipo aparta la fecha. Status cambia a "anticipo" → "confirmado". Se activa la La Triple Corona si aplica.</div>
+        </div>
+        <div class="funnel-step-tool">CRM → confirmado</div>
+      </div>
+    </div>
+
+    <!-- PLAN DE PAUTA -->
+    <h3 style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--texto-suave);margin-bottom:12px;">Plan de pauta — $2,000 MXN/mes en Meta Ads</h3>
+    <div class="grid-2" style="margin-bottom:16px;">
+
+      <div class="ad-card">
+        <div class="ad-card-header" style="background:var(--guinda);">
+          <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:0.7;margin-bottom:4px;">Campaña 1 — 60% del presupuesto</div>
+          <div style="font-size:15px;font-weight:800;">Generación de Leads</div>
+          <div style="font-size:12px;opacity:0.8;margin-top:2px;">$1,200 MXN/mes · $40/día</div>
+        </div>
+        <div class="ad-card-body">
+          <div class="ad-card-row"><span class="ad-label">Objetivo Meta</span><span class="ad-val">Lead Generation</span></div>
+          <div class="ad-card-row"><span class="ad-label">Formato</span><span class="ad-val">Video 15–30s + formulario nativo</span></div>
+          <div class="ad-card-row"><span class="ad-label">Audiencia</span><span class="ad-val">Mujeres 22–42, Hidalgo + CDMX borde</span></div>
+          <div class="ad-card-row"><span class="ad-label">Intereses</span><span class="ad-val">Bodas, quinceañeras, decoración, eventos</span></div>
+          <div class="ad-card-row"><span class="ad-label">Días activos</span><span class="ad-val">Lun–Dom (refuerzo Jue–Sáb)</span></div>
+          <div class="ad-card-row"><span class="ad-label">Copy ancla</span><span class="ad-val">"La boda de hacienda sin pagar hacienda"</span></div>
+          <div class="ad-card-row"><span class="ad-label">CTA</span><span class="ad-val">Solicitar información / WhatsApp</span></div>
+          <div class="ad-card-row"><span class="ad-label">Meta leads/mes</span><span class="ad-val">10–15 leads (CPL ~$80–120 MXN)</span></div>
+        </div>
+      </div>
+
+      <div class="ad-card">
+        <div class="ad-card-header" style="background:var(--ocre);">
+          <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:0.8;margin-bottom:4px;color:var(--guinda-dark);">Campaña 2 — 40% del presupuesto</div>
+          <div style="font-size:15px;font-weight:800;color:var(--guinda-dark);">Reconocimiento + Retargeting</div>
+          <div style="font-size:12px;opacity:0.7;color:var(--guinda-dark);margin-top:2px;">$800 MXN/mes · $26/día</div>
+        </div>
+        <div class="ad-card-body">
+          <div class="ad-card-row"><span class="ad-label">Objetivo Meta</span><span class="ad-val">Engagement / Tráfico</span></div>
+          <div class="ad-card-row"><span class="ad-label">Formato</span><span class="ad-val">Carrusel de paquetes + foto pista LED</span></div>
+          <div class="ad-card-row"><span class="ad-label">Audiencia principal</span><span class="ad-val">Retargeting: visitantes web + quienes vieron video</span></div>
+          <div class="ad-card-row"><span class="ad-label">Audiencia lookalike</span><span class="ad-val">Similar a quienes han interactuado con el perfil</span></div>
+          <div class="ad-card-row"><span class="ad-label">Días activos</span><span class="ad-val">Jue–Dom (mayor intención de búsqueda)</span></div>
+          <div class="ad-card-row"><span class="ad-label">Copy ancla</span><span class="ad-val">"250 invitados. Pista LED galaxia. $400/persona."</span></div>
+          <div class="ad-card-row"><span class="ad-label">CTA</span><span class="ad-val">Ver paquetes / Mensaje</span></div>
+          <div class="ad-card-row"><span class="ad-label">Escalar cuando</span><span class="ad-val">CPL baja de $100 MXN → duplicar C1</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CALENDARIO ADS -->
+    <div class="box">
+      <div class="box-title">Calendario de pauta — Mayo a Julio 2026</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px;">
+        <div style="background:var(--gris-claro);border-radius:6px;padding:12px;font-size:12.5px;">
+          <strong style="display:block;margin-bottom:6px;color:var(--guinda);">Mayo 12–31</strong>
+          Arranque ambas campañas. Presupuesto completo. Objetivo: primeros 15 leads. Contenido: video pista LED + salón vacío de noche.
+        </div>
+        <div style="background:var(--gris-claro);border-radius:6px;padding:12px;font-size:12.5px;">
+          <strong style="display:block;margin-bottom:6px;color:var(--guinda);">Junio — Análisis semana 1</strong>
+          Pausar el ad con menor CPL. Duplicar presupuesto del ganador. Agregar video de primer evento real si ya ocurrió. Activar audiencia lookalike.
+        </div>
+        <div style="background:var(--gris-claro);border-radius:6px;padding:12px;font-size:12.5px;">
+          <strong style="display:block;margin-bottom:6px;color:var(--guinda);">Julio–Agosto</strong>
+          Temporada baja (lluvias). Promo específica para julio–agosto: Herradura + hospedaje gratis la noche del evento. Enfoque en XV años que buscan fecha en diciembre.
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Regla de escalamiento:</strong> Con $2,000 MXN/mes arrancar es correcto. Cuando el primer anticipo llegue, reinvertir el 20% del valor del anticipo en ads del siguiente mes. Si Herradura (80p × $400 = $32,000), reinvertir $6,400 MXN en el siguiente mes de pauta.
+    </div>
+  </div>
+
+  <!-- ===== EJE 2: OFERTA BANDERA ===== -->
+  <div class="seccion">
+    <div class="seccion-header">
+      <div class="seccion-icon ocre">🏆</div>
+      <div class="seccion-titles">
+        <h2>Eje 2 — La Oferta Bandera: La Triple Corona</h2>
+        <p>El argumento central de todos los anuncios, publicaciones y conversaciones de venta</p>
+      </div>
+    </div>
+
+    <div class="promo-hero">
+      <h3>La Triple Corona</h3>
+      <div class="promo-subtitle">Agenda antes del 30 de junio 2026 y activa los tres beneficios automáticamente</div>
+
+      <div class="promo-benefits">
+        <div class="promo-benefit">
+          <div class="promo-benefit-num">1</div>
+          <div class="promo-benefit-title">Precio Congelado</div>
+          <div class="promo-benefit-desc">El precio que cotizamos hoy queda fijo en contrato. Si en 2027 subimos tarifas, el tuyo ya está garantizado desde hoy.</div>
+        </div>
+        <div class="promo-benefit">
+          <div class="promo-benefit-num">2</div>
+          <div class="promo-benefit-title">Hospedaje de Noche</div>
+          <div class="promo-benefit-desc">La noche del evento, el hospedaje de La Cabaña para hasta 10 personas queda incluido sin costo adicional. Solo novios + familia cercana.</div>
+        </div>
+        <div class="promo-benefit">
+          <div class="promo-benefit-num">3</div>
+          <div class="promo-benefit-title">Galería Digital Premium</div>
+          <div class="promo-benefit-desc">Acceso QR/NFC personalizado para que todos tus invitados descarguen las fotos del evento. Link activo por 12 meses.</div>
+        </div>
+      </div>
+
+      <div class="promo-conditions">
+        <div class="promo-cond">
+          <div class="promo-cond-label">¿Cuándo aplica?</div>
+          Contratos firmados antes del 30 de junio 2026 para eventos en cualquier fecha de 2026 o 2027.
+        </div>
+        <div class="promo-cond">
+          <div class="promo-cond-label">¿Qué paquetes incluye?</div>
+          Herradura, Mayoral, La Cabaña Premium y Estrella XV. Mínimos de invitados según paquete.
+        </div>
+        <div class="promo-cond">
+          <div class="promo-cond-label">Anticipo para activarla</div>
+          30% del valor total del paquete. El saldo restante 30 días antes del evento.
+        </div>
+        <div class="promo-cond">
+          <div class="promo-cond-label">Argumento de venta</div>
+          "Hoy apartas tu fecha, congelas tu precio y aseguras que la familia se quede. Todo con el 30%."
+        </div>
+      </div>
+    </div>
+
+    <div class="callout-ocre" style="margin-top:16px;">
+      <strong>Por qué esta oferta funciona:</strong> Cada uno de los tres beneficios ataca una objeción real del cliente. (1) El precio congelado elimina el "lo pienso después." (2) El hospedaje es un diferenciador que ningún competidor en el rango de precio puede igualar. (3) La galería digital es percibida como un regalo de alto valor con costo real de $0 para el salón.
+    </div>
+  </div>
+
+  <!-- ===== EJE 3: LA COMUNIDAD ===== -->
+  <div class="seccion">
+    <div class="seccion-header">
+      <div class="seccion-icon verde">🌱</div>
+      <div class="seccion-titles">
+        <h2>Eje 3 — La Comunidad + Alcance Orgánico</h2>
+        <p>Hacer que el público que ya planea eventos venga a ver el salón. Todo camino lleva al mismo lugar: agendar.</p>
+      </div>
+    </div>
+
+    <div class="box" style="border-left:4px solid var(--verde);margin-bottom:20px;">
+      <div class="box-title" style="color:var(--verde);font-size:14px;">El principio: que vengan a ver el salón sin que sea una cotización</div>
+      <div class="box-body">Cuando alguien asiste a un evento en el salón — sea un taller, una feria o un concierto — ve el espacio, la pista LED y el hospedaje con sus propios ojos. Eso vale más que cualquier foto. La Comunidad convierte el salón en destino. La captura de WhatsApp al entrar convierte cada asistente en lead. La prioridad sigue siendo la misma: <strong>que agenden una visita para cotizar su evento.</strong></div>
+    </div>
+
+    <h3 style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--texto-suave);margin-bottom:12px;">Actividades propias — ordenadas por potencial de conversión a cotización</h3>
+    <div class="grid-3" style="margin-bottom:22px;">
+
+      <div class="box" style="border-top:3px solid var(--guinda);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+          <div class="box-title" style="margin:0;">📸 Styled Shoot / Sesión Estilizada</div>
+          <span style="background:#fce8e6;color:#b71c1c;font-size:9px;font-weight:800;padding:2px 7px;border-radius:2px;white-space:nowrap;flex-shrink:0;margin-left:6px;">CONVERSIÓN ALTA</span>
+        </div>
+        <div class="box-body">Invitar: fotógrafo, florista, pastelero y modelos para montar el salón como boda real. Cada proveedor obtiene fotos profesionales para su portafolio sin costo.<br><br>
+        <strong>Por qué funciona:</strong> 4–5 proveedores × sus seguidores = 3,000–10,000 personas que ven el salón sin pagar un peso en pauta. Cada uno comparte el contenido taggendo el salón.<br><br>
+        <strong>Resultado adicional:</strong> 30–60 fotos profesionales del salón listo para bodas reales. Alimentan los ads de Meta por meses.<br><br>
+        <strong>Costo: $0.</strong> Los proveedores lo hacen porque les conviene. Solo hay que coordinar.<br><br>
+        <strong>Frecuencia:</strong> 1 vez cada 3 meses. Al tener eventos reales, sustituir por fotos de eventos.</div>
+      </div>
+
+      <div class="box" style="border-top:3px solid var(--guinda);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+          <div class="box-title" style="margin:0;">💍 Mini Feria de Proveedores de Boda</div>
+          <span style="background:#fce8e6;color:#b71c1c;font-size:9px;font-weight:800;padding:2px 7px;border-radius:2px;white-space:nowrap;flex-shrink:0;margin-left:6px;">CONVERSIÓN ALTA</span>
+        </div>
+        <div class="box-body">6–8 proveedores (fotógrafo, pastel, flores, DJ, vestidos) montan stand en el salón una tarde. Entrada libre o $50 MXN. La gente que asiste YA está planificando su evento → son leads calientes que vienen solos.<br><br>
+        <strong>Ingreso:</strong> Cuota $500 MXN × 6 stands = $3,000 MXN que cubren la operación del evento.<br><br>
+        <strong>Captura:</strong> Al registrarse dejan nombre + WhatsApp + tipo de evento. Entra directo al CRM vía n8n con etiqueta "feria".<br><br>
+        <strong>Frecuencia:</strong> 1 vez cada 2 meses. Domingo 12–6pm.</div>
+      </div>
+
+      <div class="box" style="border-top:3px solid var(--ocre);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+          <div class="box-title" style="margin:0;">💐 Taller Bridal / Despedida de Novia</div>
+          <span style="background:var(--ocre-light);color:#7a5200;font-size:9px;font-weight:800;padding:2px 7px;border-radius:2px;white-space:nowrap;flex-shrink:0;margin-left:6px;">DEMANDA MUY ALTA</span>
+        </div>
+        <div class="box-body">Taller de 2hrs: corona de flores, arreglo floral o mesa de dulces. La novia paga $350–500 MXN. Grupos de 8–20 mujeres en el salón.<br><br>
+        <strong>Por qué funciona:</strong> La novia ya tiene boda confirmada. Su grupo (mamás, hermanas, amigas) ve el salón → varias quedan con pendiente de evento propio.<br><br>
+        <strong>Ingreso real:</strong> 15 personas × $400 MXN = $6,000 MXN. Insumos ~$1,500. Margen: $4,500 MXN por taller.<br><br>
+        <strong>Viralidad:</strong> La novia sube todo a sus stories — el salón sale de fondo en cada foto.<br><br>
+        <strong>Frecuencia:</strong> Cada 2–3 semanas según demanda. Tendencia #1 de bodas 2026.</div>
+      </div>
+
+      <div class="box" style="border-top:3px solid var(--azul);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+          <div class="box-title" style="margin:0;">🎸 Noche de Bandas / Concierto Íntimo</div>
+          <span style="background:var(--azul-light);color:var(--azul);font-size:9px;font-weight:800;padding:2px 7px;border-radius:2px;white-space:nowrap;flex-shrink:0;margin-left:6px;">ALCANCE ALTO</span>
+        </div>
+        <div class="box-body">2–3 artistas o bandas locales de Hidalgo. Entrada $80–100 MXN — el ingreso va a los artistas.<br><br>
+        <strong>Requisito:</strong> Mínimo 300 seguidores. Publicación obligatoria: 1 post + 3 stories etiquetando @lacabanaeventos antes y después del evento.<br><br>
+        <strong>Alcance estimado:</strong> 3 artistas × 400 seguidores × 30% alcance = ~360 personas que ven el salón sin pagar pauta.<br><br>
+        <strong>Captura:</strong> WiFi QR al entrar → WhatsApp → CRM.<br><br>
+        <strong>Frecuencia:</strong> 1 por mes, viernes o sábado sin evento agendado.</div>
+      </div>
+
+      <div class="box" style="border-top:3px solid var(--azul);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+          <div class="box-title" style="margin:0;">🍽️ Feria Gastronómica Hidalguense</div>
+          <span style="background:var(--azul-light);color:var(--azul);font-size:9px;font-weight:800;padding:2px 7px;border-radius:2px;white-space:nowrap;flex-shrink:0;margin-left:6px;">ALCANCE ALTO</span>
+        </div>
+        <div class="box-body">8–12 vendedores: barbacoa, mole, gorditas, pulque, artesanías. Cuota simbólica $250 MXN por lugar. Entrada libre.<br><br>
+        <strong>Por qué funciona:</strong> Alta asistencia familiar. Padres de quinceañeras, parejas comprometidas. El salón queda en la memoria como "el lugar de la feria".<br><br>
+        <strong>Ingreso:</strong> 10 vendedores × $250 = $2,500 MXN. No es negocio — es inversión en visibilidad local.<br><br>
+        <strong>Los vendedores también promueven</strong> en sus propias redes → alcance gratuito adicional.<br><br>
+        <strong>Frecuencia:</strong> 1 por mes, domingo.</div>
+      </div>
+
+      <div class="box" style="border-top:3px solid #777;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+          <div class="box-title" style="margin:0;">📚 Presentación Cultural / Arte</div>
+          <span style="background:var(--gris-claro);color:#555;font-size:9px;font-weight:800;padding:2px 7px;border-radius:2px;white-space:nowrap;flex-shrink:0;margin-left:6px;">REPUTACIÓN</span>
+        </div>
+        <div class="box-body">Libros, exposiciones de fotografía, arte local. Sin costo para el artista o colectivo.<br><br>
+        <strong>A cambio:</strong> 2 posts + 5 stories antes del evento etiquetando el salón. Permiso de fotografiar el evento para el banco de contenido.<br><br>
+        <strong>Por qué incluirla:</strong> Posiciona el salón como espacio cultural — no solo comercial. Atrae audiencia con poder adquisitivo diferente a la pauta de Meta.<br><br>
+        <strong>Conversión directa:</strong> Baja. Conversión en imagen de marca: alta.<br><br>
+        <strong>Frecuencia:</strong> 1 por mes, entre semana.</div>
+      </div>
+
+    </div>
+
+    <div class="grid-2" style="margin-bottom:22px;">
+      <div class="box" style="border-left:4px solid var(--verde);">
+        <div class="box-title">📶 Captura de leads en cada evento comunitario</div>
+        <div class="box-body">En todos los eventos, sin excepción, el acceso al WiFi del salón requiere pasar por un QR. La página que abre dice:<br><br>
+        <em style="color:var(--guinda);">"Gracias por estar aquí. ¿Planeas una boda, XV años o graduación? Déjanos tu WhatsApp y recibe nuestros paquetes — más entra a un sorteo de $1,000 MXN de descuento en tu evento."</em><br><br>
+        El número entra automáticamente al CRM vía n8n con etiqueta "comunidad". El seguimiento es más cálido y menos urgente que un lead de pauta, pero el destino es el mismo: invitar a visitar el salón y cotizar.</div>
+      </div>
+      <div class="box" style="border-left:4px solid var(--guinda);">
+        <div class="box-title">🎯 Flujo comunidad → agendado</div>
+        <div class="funnel" style="margin-top:10px;">
+          <div class="funnel-step" style="padding:8px 12px;">
+            <div class="funnel-step-num" style="width:22px;height:22px;font-size:10px;">1</div>
+            <div class="funnel-step-body"><div class="funnel-step-title" style="font-size:12px;">Persona asiste al evento — ve el salón en vivo</div></div>
+          </div>
+          <div class="funnel-arrow">↓</div>
+          <div class="funnel-step" style="padding:8px 12px;">
+            <div class="funnel-step-num" style="width:22px;height:22px;font-size:10px;">2</div>
+            <div class="funnel-step-body"><div class="funnel-step-title" style="font-size:12px;">WiFi QR → deja WhatsApp → entra al CRM</div></div>
+          </div>
+          <div class="funnel-arrow">↓</div>
+          <div class="funnel-step" style="padding:8px 12px;">
+            <div class="funnel-step-num" style="width:22px;height:22px;font-size:10px;">3</div>
+            <div class="funnel-step-body"><div class="funnel-step-title" style="font-size:12px;">Follow-up en 48hrs: "¿Tienes un evento en mente?"</div></div>
+          </div>
+          <div class="funnel-arrow">↓</div>
+          <div class="funnel-step" style="padding:8px 12px;background:var(--verde-light);">
+            <div class="funnel-step-num" style="width:22px;height:22px;font-size:10px;background:var(--verde);">4</div>
+            <div class="funnel-step-body"><div class="funnel-step-title" style="font-size:12px;color:var(--verde);">Visita al salón → cotización → anticipo</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--texto-suave);margin-bottom:12px;">Alcance orgánico complementario — sin evento propio, sin pagar pauta</h3>
+    <div class="grid-3" style="margin-bottom:16px;">
+
+      <div class="stat-card" style="border-top:3px solid var(--guinda);">
+        <div style="font-size:22px;">🤝</div>
+        <div class="box-title" style="margin-top:8px;">Colaboraciones con proveedores</div>
+        <div class="stat-desc" style="margin-top:6px;">Armar red con fotógrafo, florista, DJ, pastelero, maquillista. Etiquetarse mutuamente en posts. 5 proveedores × 600 seguidores = 3,000 personas por post sin pagar. Cada uno que trabaja en el salón lo muestra a su audiencia automáticamente.</div>
+      </div>
+
+      <div class="stat-card" style="border-top:3px solid var(--ocre);">
+        <div style="font-size:22px;">🎁</div>
+        <div class="box-title" style="margin-top:8px;">Giveaway trimestral</div>
+        <div class="stat-desc" style="margin-top:6px;">Sorteo de 1 noche de hospedaje para 10 personas (valor percibido: $2,000 MXN, costo real: $0). Mecánica: seguir la cuenta + etiquetar a 2 personas que planeen un evento. Crecimiento de seguidores exponencial. El que gana visita el salón — ve el espacio en persona.</div>
+      </div>
+
+      <div class="stat-card" style="border-top:3px solid var(--azul);">
+        <div style="font-size:22px;">📡</div>
+        <div class="box-title" style="margin-top:8px;">Instagram Live mensual</div>
+        <div class="stat-desc" style="margin-top:6px;">Recorrido virtual en vivo de 15–20 min: salón, pista LED, hospedaje, decoración. Responder preguntas en tiempo real. El algoritmo de Instagram premia los Lives con mayor alcance orgánico que cualquier otro formato. CTA al final: "Escríbenos por WhatsApp para cotizar tu fecha."</div>
+      </div>
+
+      <div class="stat-card" style="border-top:3px solid var(--verde);">
+        <div style="font-size:22px;">📲</div>
+        <div class="box-title" style="margin-top:8px;">UGC — contenido de los clientes</div>
+        <div class="stat-desc" style="margin-top:6px;">Pedir a cada cliente que etiquete @lacabanaeventos en sus fotos del evento. Ofrecer: "Comparte tus fotos etiquetándonos y las reposteamos." El contenido generado por usuarios es el más creíble para leads fríos — es prueba social real que no se puede fabricar.</div>
+      </div>
+
+      <div class="stat-card" style="border-top:3px solid #7b1fa2;">
+        <div style="font-size:22px;">🔍</div>
+        <div class="box-title" style="margin-top:8px;">Hashtag propio + bio optimizada</div>
+        <div class="stat-desc" style="margin-top:6px;">Usar en todas las publicaciones: <strong>#LaCabañaEventos #LaCabañaBodas #SalónHidalgo</strong>. Bio de IG/FB: "Salón de eventos · Zapotlán de Juárez, Hgo · 30 min de Pachuca · Pista LED · Hospedaje incluido." Aparece en búsquedas dentro de la app sin pagar.</div>
+      </div>
+
+      <div class="stat-card" style="border-top:3px solid #555;">
+        <div style="font-size:22px;">📝</div>
+        <div class="box-title" style="margin-top:8px;">Blog en el sitio web</div>
+        <div class="stat-desc" style="margin-top:6px;">1 artículo mensual de 600–800 palabras: "¿Cuánto cuesta una boda en Hidalgo?", "15 cosas que pedir en el contrato de tu salón", "Los mejores salones cerca de Pachuca 2026". Atrae de Google a personas que ya están buscando salón — el lead más caliente que existe. Costo: solo tiempo.</div>
+      </div>
+
+    </div>
+
+    <div class="callout-verde">
+      <strong>La prioridad nunca cambia:</strong> Todo lo que hace La Comunidad — los eventos, el Live, el giveaway, los artículos del blog — tiene un solo destino: que la persona agende una visita al salón para cotizar su evento. El contenido orgánico construye confianza; la visita cierra el contrato. Embudo siempre activo: alcance → lead → visita → anticipo.
+    </div>
+  </div>
+
+  <!-- ===== AIRBNB ===== -->
+  <div class="seccion">
+    <div class="seccion-header">
+      <div class="seccion-icon" style="background:#FF5A5F;">🏠</div>
+      <div class="seccion-titles">
+        <h2>Airbnb — Inscripción del Hospedaje</h2>
+        <p>El hospedaje está listo. Airbnb es viable de inmediato.</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="airbnb-card">
+        <div class="airbnb-header">
+          <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:0.8;margin-bottom:4px;">Cuotas y condiciones · Airbnb México 2026</div>
+          <h3>Lo que Airbnb cobra al anfitrión</h3>
+        </div>
+        <div class="airbnb-body">
+          <div class="airbnb-row">
+            <span class="airbnb-label">Cuota del anfitrión</span>
+            <span class="airbnb-val">3% del subtotal por reserva</span>
+          </div>
+          <div class="airbnb-row">
+            <span class="airbnb-label">Cuota del huésped</span>
+            <span class="airbnb-val">14–16% añadido al precio (lo paga el huésped)</span>
+          </div>
+          <div class="airbnb-row">
+            <span class="airbnb-label">Ejemplo práctico</span>
+            <span class="airbnb-val">Si cobras $2,500/noche → recibes $2,425 (3% de fee)</span>
+          </div>
+          <div class="airbnb-row">
+            <span class="airbnb-label">Forma de pago al anfitrión</span>
+            <span class="airbnb-val">Transferencia SPEI o tarjeta (24hrs tras check-in)</span>
+          </div>
+          <div class="airbnb-row">
+            <span class="airbnb-label">Seguro de protección</span>
+            <span class="airbnb-val">AirCover para anfitriones incluido (daños hasta $1M USD)</span>
+          </div>
+          <div class="airbnb-row">
+            <span class="airbnb-label">Inscripción</span>
+            <span class="airbnb-val">Gratuita — solo pagas cuando hay reserva</span>
+          </div>
+          <div class="airbnb-row">
+            <span class="airbnb-label">Obligaciones fiscales MX</span>
+            <span class="airbnb-val">Airbnb retiene y reporta al SAT. Declarar como ingreso por arrendamiento.</span>
+          </div>
+          <div class="airbnb-row">
+            <span class="airbnb-label">Precio de referencia sugerido</span>
+            <span class="airbnb-val">$1,500–$2,500 MXN/noche (hasta 20 personas)</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="airbnb-card">
+          <div class="airbnb-header" style="background:#484848;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:0.7;margin-bottom:4px;">Pasos para registrarse</div>
+            <h3>Alta en Airbnb — Fase inmediata</h3>
+          </div>
+          <div class="airbnb-body">
+            <ul class="airbnb-steps">
+              <li class="airbnb-step">
+                <span class="airbnb-step-num">1</span>
+                <span>Ir a <strong>airbnb.com.mx → "Conviértete en anfitrión"</strong>. Crear cuenta con el email del negocio.</span>
+              </li>
+              <li class="airbnb-step">
+                <span class="airbnb-step-num">2</span>
+                <span>Tipo de alojamiento: <strong>"Lugar completo"</strong> → Otras opciones → Casa de campo / Rancho. Capacidad: 20 personas.</span>
+              </li>
+              <li class="airbnb-step">
+                <span class="airbnb-step-num">3</span>
+                <span>Fotos: mínimo 10 fotos de alta calidad. Usar luz natural. Incluir: exteriores, habitaciones, baños, sala, cocina si hay.</span>
+              </li>
+              <li class="airbnb-step">
+                <span class="airbnb-step-num">4</span>
+                <span>Descripción: mencionar la pista LED, el salón de eventos adyacente y la posibilidad de combinar hospedaje + salón para bodas íntimas.</span>
+              </li>
+              <li class="airbnb-step">
+                <span class="airbnb-step-num">5</span>
+                <span>Configurar: mínimo 1 noche, precio por noche, reglas de la casa. Activar "<strong>Reserva instantánea</strong>" para mayor visibilidad.</span>
+              </li>
+              <li class="airbnb-step">
+                <span class="airbnb-step-num">6</span>
+                <span>Verificar identidad (INE/pasaporte) y cuenta bancaria para recibir pagos. Proceso tarda 24–48 hrs.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="callout" style="margin-top:10px;">
+          <strong>Sinergia con paquetes:</strong> Una vez en Airbnb, añadir en la descripción: "También disponemos del Salón de Eventos La Cabaña para bodas y XV años. Consulta nuestros paquetes en lacabanaeventos.com." Es un canal de descubrimiento adicional sin costo de pauta.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ACTIVOS DIGITALES ===== -->
+  <div class="seccion">
+    <div class="seccion-header">
+      <div class="seccion-icon azul">📲</div>
+      <div class="seccion-titles">
+        <h2>Activos Digitales Diferenciadores</h2>
+        <p>Invitación digital + Sistema de fotos compartidas. Incluidos en todos los paquetes.</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+
+      <!-- INVITACIÓN DIGITAL -->
+      <div class="box" style="border-top:3px solid var(--guinda);">
+        <div class="box-title" style="font-size:15px;margin-bottom:12px;">🎟️ Invitación Digital — Incluida en todos los paquetes</div>
+        <div style="font-size:13px;color:var(--texto-suave);margin-bottom:14px;">
+          Diferenciador real: la mayoría de los competidores no incluyen invitación digital. La Cabaña la regala en <strong>todos</strong> los paquetes, incluyendo Solo Salón y Campestre.
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;">
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <span style="color:var(--verde);font-weight:700;flex-shrink:0;">✓</span>
+            <span><strong>Diseño personalizado</strong> con nombre de los festejados, fecha, lugar y foto</span>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <span style="color:var(--verde);font-weight:700;flex-shrink:0;">✓</span>
+            <span><strong>Animada o estática</strong> según preferencia del cliente</span>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <span style="color:var(--verde);font-weight:700;flex-shrink:0;">✓</span>
+            <span><strong>Link de confirmación de asistencia</strong> (RSVP) conectado al CRM del cliente si se desea</span>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <span style="color:var(--verde);font-weight:700;flex-shrink:0;">✓</span>
+            <span><strong>Formato compartible</strong> por WhatsApp y redes sociales — incluye ubicación del salón</span>
+          </div>
+        </div>
+        <div class="callout-verde" style="margin-top:14px;">
+          <strong>Cómo comunicarlo en ads:</strong> "Tu boda con nosotros incluye invitación digital sin costo adicional — diseñada para ti." Valor percibido: $500–$1,500 MXN. Costo real: tiempo de diseño. Canva Pro ya lo permite.
+        </div>
+      </div>
+
+      <!-- SISTEMA DE FOTOS -->
+      <div class="box" style="border-top:3px solid var(--azul);">
+        <div class="box-title" style="font-size:15px;margin-bottom:12px;">📸 Galería Digital Compartida — QR + NFC</div>
+        <div style="font-size:13px;color:var(--texto-suave);margin-bottom:14px;">
+          Sistema donde todos los invitados y la festejada descargan fotos del evento accediendo vía QR impreso o NFC sticker. Construido con herramientas que ya tienes: n8n + Google Drive.
+        </div>
+
+        <div class="foto-flow" style="margin-bottom:14px;">
+          <div class="foto-step">
+            <div class="foto-step-num">1</div>
+            <div>
+              <div class="foto-step-title">Fotógrafo sube fotos</div>
+              <div class="foto-step-desc">A una carpeta de Google Drive compartida con el salón. Puede ser en tiempo real o al finalizar el evento.</div>
+            </div>
+            <div class="foto-step-tool">Google Drive</div>
+          </div>
+          <div class="foto-step">
+            <div class="foto-step-num">2</div>
+            <div>
+              <div class="foto-step-title">n8n genera el visor automáticamente</div>
+              <div class="foto-step-desc">Una página HTML sencilla con la galería de fotos, botón de descarga y branding de La Cabaña. URL: fotos.lacabanaeventos.com/GARCIA2026</div>
+            </div>
+            <div class="foto-step-tool">n8n + HTML</div>
+          </div>
+          <div class="foto-step">
+            <div class="foto-step-num">3</div>
+            <div>
+              <div class="foto-step-title">QR y NFC stickers impresos para el evento</div>
+              <div class="foto-step-desc">QR en centros de mesa + sticker NFC en la entrada. El invitado acerca su celular o escanea y accede al instante.</div>
+            </div>
+            <div class="foto-step-tool">NFC ~$8 MXN/sticker</div>
+          </div>
+          <div class="foto-step">
+            <div class="foto-step-num">4</div>
+            <div>
+              <div class="foto-step-title">Al final del evento: envío por WhatsApp</div>
+              <div class="foto-step-desc">n8n manda el link de la galería por WhatsApp a todos los invitados que dejaron su número. Opcional: recordatorio 7 días después.</div>
+            </div>
+            <div class="foto-step-tool">n8n + WhatsApp API</div>
+          </div>
+        </div>
+
+        <div class="callout" style="margin-top:0;">
+          <strong>Lo más novedoso: NFC sticker.</strong> No necesitas escanear el QR con la cámara. Solo acercas el teléfono al sticker de la mesa y la galería abre sola. Funciona en todos los iPhones desde 2018 y en todos los Android modernos. Costo: ~$8–12 MXN por sticker. Para 20 mesas = $240 MXN por evento. Impresión del QR adicional: $0 (Canva).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DIRECTORIOS ===== -->
+  <div class="seccion">
+    <div class="seccion-header">
+      <div class="seccion-icon verde">📋</div>
+      <div class="seccion-titles">
+        <h2>Directorios de Bodas y Eventos — Registro Gratuito</h2>
+        <p>Presencia en los buscadores especializados sin costo mensual inicial</p>
+      </div>
+    </div>
+
+    <div class="grid-auto">
+
+      <div class="directorio-card">
+        <div class="directorio-nombre">bodas.com.mx <span class="badge-gratis">GRATIS</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Perfil básico</span><span class="directorio-val">Gratuito</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Perfil premium</span><span class="directorio-val">~$1,200 MXN/mes</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Tráfico</span><span class="directorio-val">Alto — referente nacional</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Acción</span><span class="directorio-val">Registrar de inmediato</span></div>
+      </div>
+
+      <div class="directorio-card">
+        <div class="directorio-nombre">matrimonio.com.mx <span class="badge-gratis">GRATIS</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Perfil básico</span><span class="directorio-val">Gratuito</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Red internacional</span><span class="directorio-val">Matrimonio.com (global)</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Tráfico</span><span class="directorio-val">Medio-alto</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Acción</span><span class="directorio-val">Registrar esta semana</span></div>
+      </div>
+
+      <div class="directorio-card">
+        <div class="directorio-nombre">zankyou.com.mx <span class="badge-gratis">GRATIS</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Perfil básico</span><span class="directorio-val">Gratuito</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Origen</span><span class="directorio-val">España — fuerte en LATAM</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Tráfico</span><span class="directorio-val">Medio</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Acción</span><span class="directorio-val">Registrar esta semana</span></div>
+      </div>
+
+      <div class="directorio-card">
+        <div class="directorio-nombre">quinceañeras.com <span class="badge-gratis">GRATIS</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Perfil básico</span><span class="directorio-val">Gratuito</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Enfoque</span><span class="directorio-val">XV años — segmento clave</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Tráfico</span><span class="directorio-val">Medio</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Acción</span><span class="directorio-val">Registrar mes 1</span></div>
+      </div>
+
+      <div class="directorio-card">
+        <div class="directorio-nombre">Google Business Profile <span class="badge-gratis">GRATIS</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Costo</span><span class="directorio-val">Gratuito siempre</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Impacto</span><span class="directorio-val">Aparece en Google Maps + búsquedas locales</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Prioridad</span><span class="directorio-val">MÁXIMA — hacerlo hoy</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Acción</span><span class="directorio-val">business.google.com</span></div>
+      </div>
+
+      <div class="directorio-card">
+        <div class="directorio-nombre">WeddingWire México <span class="badge-gratis">GRATIS</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Perfil básico</span><span class="directorio-val">Gratuito</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Red</span><span class="directorio-val">Internacional (EEUU fuerte)</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Tráfico</span><span class="directorio-val">Medio</span></div>
+        <div class="directorio-fila"><span class="directorio-label">Acción</span><span class="directorio-val">Registrar mes 1</span></div>
+      </div>
+
+    </div>
+
+    <div class="callout-verde" style="margin-top:16px;">
+      <strong>Prioridad de registro:</strong> (1) Google Business Profile — HOY. (2) bodas.com.mx esta semana. (3) matrimonio.com.mx y zankyou en los primeros 15 días. Los demás en el primer mes. Todos piden fotos del salón + descripción de servicios + teléfono y WhatsApp.
+    </div>
+  </div>
+
+
+</div><!-- fin container -->
+
+<!-- ===== SECCIÓN CLIENTE (APARTE) ===== -->
+<div style="background:var(--gris-claro);padding:0 24px;">
+  <div style="max-width:1080px;margin:0 auto;padding-bottom:80px;">
+    <div class="cliente-section">
+      <h2>Sección Cliente — Qué se necesita de La Cabaña para que el sistema funcione</h2>
+      <div class="cliente-sub">Este apartado define las responsabilidades del negocio. Sin estos elementos, el sistema no puede operar correctamente.</div>
+
+      <div class="cliente-header-row">
+        <span></span>
+        <span>Qué se necesita</span>
+        <span>Por qué se necesita</span>
+        <span>Impacto si no está</span>
+      </div>
+
+      <div class="cliente-items">
+
+        <div class="cliente-item">
+          <div class="cliente-item-num">1</div>
+          <div class="cliente-item-qué">
+            <strong>WhatsApp Business activo y con respuesta rápida</strong>
+            Con catálogo de paquetes configurado, horario de atención y respuesta en máximo 1 hora en días hábiles.
+          </div>
+          <div class="cliente-item-por">
+            El 80% de los leads de Meta Ads van a WhatsApp. Si no hay respuesta rápida, el lead se enfría y busca otro salón. El primer contacto en menos de 1 hora es el factor más crítico de conversión.
+          </div>
+          <div class="cliente-item-impacto">
+            <div class="impacto-badge">CRÍTICO</div>
+            Sin respuesta rápida, los $2,000 MXN de pauta se desperdician. El lead se va con el que contestó primero.
+          </div>
+        </div>
+
+        <div class="cliente-item">
+          <div class="cliente-item-num">2</div>
+          <div class="cliente-item-qué">
+            <strong>Fotos profesionales del salón</strong>
+            Mínimo 20 fotos: pista LED encendida, salón de noche, montaje de bodas, exterior, hospedaje.
+          </div>
+          <div class="cliente-item-por">
+            Los ads de Meta y los directorios de bodas viven o mueren por las fotos. Una foto mal iluminada o con el salón vacío de día reduce el CTR a la mitad. Las fotos son el activo más importante de la campaña.
+          </div>
+          <div class="cliente-item-impacto">
+            <div class="impacto-badge">CRÍTICO</div>
+            Sin buenas fotos, el costo por lead sube 2–3x. Los directorios no generan consultas.
+          </div>
+        </div>
+
+        <div class="cliente-item">
+          <div class="cliente-item-num">3</div>
+          <div class="cliente-item-qué">
+            <strong>Google Business Profile verificado</strong>
+            Con nombre, dirección exacta, horarios, teléfono, fotos y categoría "Salón de Eventos."
+          </div>
+          <div class="cliente-item-por">
+            El 63% de las búsquedas de salones de eventos en México incluyen "cerca de mí" o el nombre de la ciudad. Sin GBP verificado, La Cabaña no aparece en Google Maps y pierde este tráfico gratuito.
+          </div>
+          <div class="cliente-item-impacto">
+            <div class="impacto-badge">ALTO</div>
+            Invisibilidad local en Google. Las búsquedas orgánicas de la zona no llegan al salón.
+          </div>
+        </div>
+
+        <div class="cliente-item">
+          <div class="cliente-item-num">4</div>
+          <div class="cliente-item-qué">
+            <strong>Acceso al Meta Business Manager</strong>
+            Página de Facebook y cuenta de Instagram del salón conectadas al Business Manager para poder publicar y pautar ads.
+          </div>
+          <div class="cliente-item-por">
+            Sin acceso al Business Manager no se puede crear ni gestionar la pauta de los $2,000 MXN/mes. Las campañas de Lead Generation requieren permisos de administrador sobre la página.
+          </div>
+          <div class="cliente-item-impacto">
+            <div class="impacto-badge">CRÍTICO</div>
+            Sin esto, los ads no se pueden publicar. El Eje 1 completo queda bloqueado.
+          </div>
+        </div>
+
+        <div class="cliente-item">
+          <div class="cliente-item-num">5</div>
+          <div class="cliente-item-qué">
+            <strong>Cuenta de Google Drive activa</strong>
+            Con al menos 15GB libres (o Google One 100GB a $30 MXN/mes) para el CRM y las galerías de fotos de eventos.
+          </div>
+          <div class="cliente-item-por">
+            El CRM (Google Sheets) y el sistema de galerías de fotos de eventos usan Google Drive como almacenamiento central. n8n escribe y lee de ahí automáticamente.
+          </div>
+          <div class="cliente-item-impacto">
+            <div class="impacto-badge">MEDIO</div>
+            Sin espacio, el sistema de fotos y el CRM dejan de funcionar. Costo de solución: $30 MXN/mes.
+          </div>
+        </div>
+
+        <div class="cliente-item">
+          <div class="cliente-item-num">6</div>
+          <div class="cliente-item-qué">
+            <strong>El n8n corriendo de forma estable</strong>
+            La PC donde corre n8n debe estar encendida durante el horario de atención. O migrar a un VPS (~$150 MXN/mes en Hostinger).
+          </div>
+          <div class="cliente-item-por">
+            n8n es el cerebro de la automatización. Si la PC se apaga, los flujos se detienen: leads no entran al CRM, follow-ups no se envían, galerías no se generan.
+          </div>
+          <div class="cliente-item-impacto">
+            <div class="impacto-badge">ALTO</div>
+            Automatizaciones interrumpidas. Leads perdidos. Recomendación: VPS para garantizar 24/7.
+          </div>
+        </div>
+
+        <div class="cliente-item">
+          <div class="cliente-item-num">7</div>
+          <div class="cliente-item-qué">
+            <strong>Registro en Airbnb con fotos del hospedaje</strong>
+            Mínimo 10 fotos del hospedaje (habitaciones, baños, sala, exterior) para que el listing sea competitivo.
+          </div>
+          <div class="cliente-item-por">
+            Airbnb ordena los resultados por calidad del listing. Un perfil con pocas fotos o descripción incompleta aparece en las últimas páginas y no recibe reservas.
+          </div>
+          <div class="cliente-item-impacto">
+            <div class="impacto-badge">MEDIO</div>
+            Sin fotos adecuadas, el hospedaje en Airbnb no genera reservas y el canal se desperdicia.
+          </div>
+        </div>
+
+        <div class="cliente-item">
+          <div class="cliente-item-num">8</div>
+          <div class="cliente-item-qué">
+            <strong>Contenido mínimo semanal</strong>
+            3 publicaciones/semana en FB + IG: 1 reel, 1 foto del salón, 1 story de detrás de cámaras o preparativos.
+          </div>
+          <div class="cliente-item-por">
+            El retargeting de Meta Ads funciona mejor cuando la audiencia ha interactuado con contenido orgánico antes de ver el ad. Una cuenta activa mejora el CPL de las campañas. Los directorios también valoran la actividad en redes.
+          </div>
+          <div class="cliente-item-impacto">
+            <div class="impacto-badge">ALTO</div>
+            Sin contenido orgánico, el retargeting pierde efectividad y el CPL sube. La reputación digital se estanca.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer-note">
+      La Cabaña Eventos · San Pedro Huaquilpan, Zapotlán de Juárez, Hidalgo · Estrategia mayo 2026<br>
+      Documento de trabajo interno. Sujeto a revisión y ajuste semanal según métricas reales.
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
